@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="7.9375mm"
+   height="5.2918472mm"
+   viewBox="0 0 7.9375 5.2918472"
+   version="1.1"
+   id="svg5"
+   xml:space="preserve"
+   inkscape:version="1.2.2 (b0a8486, 2022-12-01)"
+   sodipodi:docname="icon-header.svg"
+   inkscape:export-filename="Icons/flag-reflect.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.3495992"
+     inkscape:cx="201.54132"
+     inkscape:cy="319.72456"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" /><defs
+     id="defs2" /><g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-63.907404,-64.206038)"><path
+       id="path636"
+       style="opacity:0.342424;fill:#000000;stroke-width:0.224215"
+       d="m 63.907405,68.550654 v 0.61805 c 0,0.182235 0.146428,0.329179 0.328662,0.329179 h 7.279659 c 0.182235,0 0.329179,-0.146944 0.329179,-0.329179 v -0.61805 z" /><path
+       id="rect566"
+       style="opacity:0.181818;fill:#ffffff;stroke-width:0.032375"
+       d="m 64.351305,64.206216 6.733439,4.344438 h 0.760161 v -1.734777 l -7.430038,-2.60966 z" /><path
+       id="path638"
+       style="opacity:0.460606;fill:#000000;stroke-width:0.0175206"
+       d="m 64.414836,64.206038 7.430037,2.609659 V 64.5347 c 0,-0.182235 -0.146944,-0.328662 -0.329179,-0.328662 z" /></g></svg>

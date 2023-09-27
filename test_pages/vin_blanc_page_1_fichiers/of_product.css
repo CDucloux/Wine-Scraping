@@ -1,0 +1,128 @@
+.bg-pdt-of {
+    background-image: url('/img/boutiques/livraison-24/bg-encart.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bandeau-product-of {
+    background-image: url('/img/boutiques/livraison-24/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+}
+
+.bandeau-product-of img {
+    max-height:60px;
+}
+
+.right-product-of {
+    clear: both;
+    display: block;
+    background-image: url('/img/boutiques/livraison-24/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.border-product-of {
+    border: solid #FFF 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-product-of img {
+    max-height:60px;
+}
+
+.right-product-of span {
+    line-height: 16px;
+}
+
+.bandeau-cart-of, .bandeau-addcart-of {
+    background-image: url('/img/boutiques/livraison-24/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    padding: 5px 0 5px 30px;
+    margin-bottom: 10px;
+}
+
+.show_of_conditions:hover, addcart-of-link:hover {
+    cursor: pointer;
+}
+
+.cart-line-of {
+    margin-top: 10px;
+    border:solid 1px #26B48D;
+    padding: 5px;
+}
+
+/**** POP UP CONDITIONS ****/
+#modal_of_conditions .modal-dialog {
+    width: 60%;
+}
+
+#modal_of_conditions .modal-header {
+    padding: 0;
+}
+
+#modal_of_conditions button.close {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    border-radius: 20px;
+    padding: 0px;
+    height: 22px;
+    width: 22px;
+}
+
+#modal_of_conditions button.close:hover {
+    background-color: #FFF;
+}
+
+#modal_of_conditions button.close:hover span {
+    color: #999;
+}
+
+/** MOBILE **/
+@media only screen and (max-width: 767px) {
+    .bandeau-product-of span.taille-xxl {
+        font-size:20px !important;
+        margin: 10px 0 0;
+    }
+
+    .bandeau-product-of span {
+        line-height: 10px;
+    }
+
+    .bandeau-product-of span {
+        display: block;
+    }
+
+    .bandeau-product-of .show_of_conditions {
+        font-size:14px;
+        margin: 0;
+    }
+
+    #modal_of_conditions .modal-dialog {
+        width: 100%;
+    }
+
+    #modal_of_conditions .modal-header .table-cell-css {
+        display: inherit;
+    }
+
+    #modal_of_conditions h2 {
+        padding: 10px;
+    }
+
+    .bandeau-cart-of span.taille-xl {
+        font-size: 16px!important;
+    }
+}

@@ -1,0 +1,153 @@
+/* Top Small Buttons */
+.hisc-s-btn{
+    float:right;
+    display:block;
+    cursor:pointer;
+    margin-left:5px;
+}
+.hisc-s-btn:hover{
+    opacity:0.9;
+}
+.hisc-s-btn > span{
+    -moz-background-size:1px 100%;
+    background-size:1px 100%;
+    background-position:0 0, 100% 0;
+    background-repeat:no-repeat;
+    display: block;
+}
+.hisc-s-btn > span > span{
+    display: block;
+    width:36px;
+    height:34px;
+}
+.hisc-s-btn.hisc-fb-s-btn{
+    background: linear-gradient(#5a7bc0, #4663a1);
+    background: -webkit-linear-gradient(#5a7bc0, #4663a1);
+    background: -o-linear-gradient(#5a7bc0, #4663a1);
+    background: -moz-linear-gradient(#5a7bc0, #4663a1);
+    border:1px solid #4363a5;
+}
+.hisc-s-btn.hisc-fb-s-btn > span{
+    border-top:1px solid #6b88c6;
+    border-bottom:1px solid #5872aa;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6b88c6), to(#5872aa));
+    background-image: -webkit-linear-gradient(#6b88c6, #5872aa);
+    background-image:
+        -moz-linear-gradient(#6b88c6, #5872aa),
+        -moz-linear-gradient(#6b88c6, #5872aa);
+    background-image:
+        -o-linear-gradient(#6b88c6, #5872aa),
+        -o-linear-gradient(#6b88c6, #5872aa);
+    background-image: 
+        linear-gradient(#6b88c6, #5872aa),
+        linear-gradient(#6b88c6, #5872aa);
+}
+.hisc-s-btn.hisc-fb-s-btn > span > span{
+    background: url('../../views/img/icons/facebook.png') no-repeat center;
+}
+
+
+/* End of Top Small Buttons styles*/
+
+/* Custom Buttons With text Sing in */
+.hisc-button {
+    clear: both;
+    display: block;
+    cursor: pointer;
+    width: 208px;
+    height: 38px;
+    margin-top:10px;
+}
+.hisc-button:hover{
+    opacity: 0.9;
+}
+.hisc-button-text{
+    -moz-background-size:1px 100%;
+    background-size:1px 100%;
+    background-position:0 0, 100% 0;
+    background-repeat:no-repeat;
+    display: block;
+    float: left;
+    padding:0px 1px;
+    color:#ffffff;
+    font-size:12px;
+}
+.hisc-button-text > span{
+    display:block;
+    border-top: 1px solid #8da8e1;
+    line-height: 35px;
+    width: 160px;
+    text-align: center;
+}
+.hisc-button-icon{
+    -moz-background-size:1px 100%;
+    background-size:1px 100%;
+    background-position:0 0, 100% 0;
+    background-repeat:no-repeat;
+    display: block;
+    float: left;
+    padding:0px 1px;
+}
+.hisc-button-icon > span{
+    border-top:1px solid #8da8e1;
+    display:block;
+    width: 44px;
+    height: 36px;
+}
+.hisc-fb-button.hisc-button{
+    background: linear-gradient(#7495da, #5575be);
+    background: -webkit-linear-gradient(#7495da, #5575be);
+    background: -o-linear-gradient(#7495da, #5575be);
+    background: -moz-linear-gradient(#7495da, #5575be);
+    border-top:1px solid #587ec7;
+    border-bottom:1px solid #324b7c;
+}
+.hisc-fb-button .hisc-button-text{
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#587ec7), to(#324b7c));
+    background-image: -webkit-linear-gradient(#587ec7, #324b7c);
+    background-image:
+        -moz-linear-gradient(#587ec7, #324b7c),
+        -moz-linear-gradient(#587ec7, #324b7c);
+    background-image:
+        -o-linear-gradient(#587ec7, #324b7c),
+        -o-linear-gradient(#587ec7, #324b7c);
+    background-image: 
+        linear-gradient(#587ec7, #324b7c),
+        linear-gradient(#587ec7, #324b7c);
+}
+
+.hisc-fb-button .hisc-button-icon{
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#8da8e1), to(#5e77bf));
+    background-image: -webkit-linear-gradient(#8da8e1, #5e77bf);
+    background-image:
+        -moz-linear-gradient(#8da8e1, #5e77bf),
+        -moz-linear-gradient(#587ec7, #324b7c);
+    background-image:
+        -o-linear-gradient(#8da8e1, #5e77bf),
+        -o-linear-gradient(#587ec7, #324b7c);
+    background-image: 
+        linear-gradient(#8da8e1, #5e77bf),
+        linear-gradient(#587ec7, #324b7c);
+}
+.hisc-fb-button .hisc-button-icon > span {  
+    background: url('../../views/img/icons/facebook.png') no-repeat center;
+}
+.hi_spinner{
+    width:100%;
+    height:100%;
+    background:rgba(255, 255, 255, 0.8);
+    z-index:99999;
+    position:absolute;
+    top:0px;
+    left:0px;
+}
+.hi_spinner img{
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-top:-55px;
+    margin-left:-55px;
+}
+.hi_overflow{
+    overflow:hidden;
+}
