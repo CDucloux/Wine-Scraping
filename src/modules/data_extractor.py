@@ -86,11 +86,15 @@ def extract_type(text: str) -> str:
     type = text.split(":")[0].strip()[text.split(":")[0].find("VIN") :]
     return type
 
+def extract_link(result_title_notxt : BS):
+    lien = result_title_notxt.find('a').get('href')
+    return "https://www.vinatis.com" + lien
+
 
 # TODO : resulset_i pas vraiment explicite dans la fonction extract_vin. Pas ouf.
 
 
-def extract_vin(resultset_1, resultset_2, resultset_3, resultset_4) -> Vin:
+def extract_vin(resultset_1, resultset_2, resultset_3, resultset_4,resultset_5) -> Vin:
     name = extract_name(resultset_1)
     capacity = extract_capacity(resultset_1)
     year = extract_year(resultset_1)
@@ -100,6 +104,10 @@ def extract_vin(resultset_1, resultset_2, resultset_3, resultset_4) -> Vin:
     note = extract_note(resultset_3)
     nb_avis = extract_nb_avis(resultset_3)
     type = extract_type(resultset_4)
+    lien = extract_link(resultset_5)
+    vol = None
+    adjective = None
+    cepage = None
 
     return Vin(
         name=name,
@@ -111,6 +119,10 @@ def extract_vin(resultset_1, resultset_2, resultset_3, resultset_4) -> Vin:
         note=note,
         nb_avis=nb_avis,
         type=type,
+        lien=lien,
+        vol=vol,
+        adjective=adjective,
+        cepage=cepage
     )
 
 
@@ -120,6 +132,7 @@ def extract_vin(resultset_1, resultset_2, resultset_3, resultset_4) -> Vin:
 def extract_result(soupe: BS) -> dict:
     result_find_title = soupe.find_all(name="div", attrs={"class": "vue-product-name"})
     result_title = [x.text for x in result_find_title]
+    result_title_notxt = [x for x in result_find_title]
     result_find_avis = soupe.find_all(name="div", attrs={"class": "vue-avis-block"})
     result_avis = [x.text for x in result_find_avis]
     result_find_price = soupe.find_all(
@@ -134,4 +147,6 @@ def extract_result(soupe: BS) -> dict:
         "result_price": result_price,
         "result_avis": result_avis,
         "result_type": result_type,
+        "result_title_notxt" : result_title_notxt
     }
+    

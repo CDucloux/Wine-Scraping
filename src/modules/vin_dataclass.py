@@ -16,3 +16,8 @@ class Vin:
     note: float
     nb_avis: int
     type: str
+    lien : str
+    vol : int
+    adjective : str
+    cepage: str 
+
