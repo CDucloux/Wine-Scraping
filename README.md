@@ -19,8 +19,8 @@ Récupération de tous les href
 - ...
 
 Récupération des données brut
--scraping.py
--scraping_class.py
+- scraping.py
+- scraping_class.py
 
 Nettoyage données brut
 - ...
