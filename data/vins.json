@@ -1,31 +1,32 @@
 {
-    "name": "ELEMENTS LUNA - COTES DU RHÔNE VILLAGES LAUDUN 2019 - MAISON SINNAE",
+    "name": "VACQUEYRAS VIEILLES VIGNES 2020 - DOMAINE SANDILAURE",
     "capacity": " 0,75 L ",
     "prices": [
-        "  8,50 €   7,40 €    -12%   ",
-        null,
+        "  15,50 €    ",
+        " 11,90 € ",
         null
     ],
-    "characteristic": "Vin Rouge / Rhône / Côtes du Rhône Villages Laudun AOC / 14 % vol",
-    "note": "",
+    "characteristic": "Vin Rouge / Rhône / Vacqueyras AOC / 14 % vol",
+    "note": " 16.9/20  noté par 13 clients ",
     "keyword": [
-        "Aromatique",
-        "Souple",
-        "Équilibré"
+        "Epicé",
+        "Charpenté",
+        "Maison incontournable"
     ],
-    "informations": [
-        " 2019",
-        " Grenache noir, Syrah, Carignan, Mourvèdre",
-        " Rouge Elégant et racé",
-        " Fruité",
-        " Robe rouge rubis profond",
-        " Aromatique, notes de fruits noirs mûrs, touche épicée et poivrée",
-        " Moyennement corsé, tanins souples, acidité équilibrée , saveurs fruitées et épicées, notes de réglisse et de poivre noir",
-        " 15-17°C",
-        " En bouteille",
-        " A boire et à garder",
-        " 2026",
-        " Charcuterie, Viande rouge, Viande blanche, Champignon, Barbecue, Cuisine du monde, Fromage"
-    ],
-    "picture": "https://www.vinatis.com/79931-detail_default/elements-luna-cotes-du-rhone-villages-laudun-2019-maison-sinnae.png"
+    "informations": {
+        "   Millésime": " 2020",
+        "   Cépage": null,
+        "   Goûts": " Rouge Puissant et généreux",
+        "   Par Goûts": " Puissant",
+        "   A l'oeil": " Belle robe grenat.",
+        "   Au nez": " Complexe et très gourmand sur les fruits mûrs et compotés complété par des nuances épicées.",
+        "   En bouche": " Une bouche intense et structurée, aux saveurs de fruits (fruits rouges, pruneaux, figue), et jolies notes épicées en finale.",
+        "   Température de service": " 16-18°C",
+        "   Service": " Ouvrir 1h avant le service",
+        "   Conservation": " A boire et à garder",
+        "   Jusqu'à": " 2032",
+        "   Accords mets-vin": " Charcuterie, Viande rouge, Viande blanche, Barbecue, Cuisine du monde, Fromage",
+        "   Accords recommandés": " Grillades, entrecôte, sauté de canard, poivrons farcis, risotto au chorizo"
+    },
+    "picture": "https://www.vinatis.com/65936-detail_default/vacqueyras-vieilles-vignes-2020-domaine-sandilaure.png"
 }
