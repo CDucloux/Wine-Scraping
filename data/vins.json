@@ -1,1 +1,101 @@
-{"name":"RESERVE BLANC 2022 - PERRIN ET FILS","capacity":" 0,75 L ","prices":["  9,99 €    "," 7,90 € ","None"],"characteristic":"Vin Blanc / Rhône / Côtes du Rhône AOC / 13 % vol","note":" 17.0/20  noté par 10 clients ","keyword":["Valeur sûre","Accessible","Structuré"],"informations":{"   Millésime":" 2022","   Cépage":" Grenache blanc, Marsanne, Roussanne, Viognier","   Goûts":" Blanc Sec léger et nerveux","   Par Goûts":" Fruité","   A l'oeil":" Jolie robe jaune pâle aux reflets verts brillants.","   Au nez":" Fraîcheur, avec des notes florales (aubépine, fleur de vigne) et des arômes fruités et gourmands d’agrumes (citron vert), de pêche et d’épices douces.","   En bouche":" Riche avec une belle tension et une longue finale savoureuse et fruitée.","   Température de service":" 16°C","   Service":" En bouteille","   Conservation":"None","   Jusqu'à":" 2026","   Accords mets-vin":" Poisson, Volaille, Barbecue, Cuisine du monde, Fromage, Dessert fruité","   Accords recommandés":" Avec plats délicats ou relevés (safran), poissons grillés, bouillabaisse"},"picture":"https://www.vinatis.com/78638-detail_default/reserve-blanc-2022-perrin-et-fils.png"}
+[
+    {
+        "name": "AMIRAL DE BEYCHEVELLE 2020 - SECOND VIN DU CHATEAU BEYCHEVELLE",
+        "capacity": " 0,75 L ",
+        "prices": [
+            "  48,00 €    ",
+            " 43,20 € ",
+            "None"
+        ],
+        "characteristic": "Vin Rouge / Bordeaux / Saint-Julien AOC / 13,5 % vol",
+        "note": "",
+        "keyword": [
+            "Riche",
+            "Velouté",
+            "Texturé"
+        ],
+        "informations": {
+            "   Classification vin": " Seconds vins",
+            "   Millésime": " 2020",
+            "   Cépage": " 54% Cabernet-Sauvignon, 42% Merlot, 3% Cabernet-Franc",
+            "   Goûts": " Rouge Complexe, tannique et racé",
+            "   Par Goûts": " Boisé",
+            "   A l'oeil": " Grenat sombre",
+            "   Au nez": " Nez riche et juteux de fruits rouges et bleus mûrs, de fleurs printanières, d'épices de Noël et de tabac",
+            "   En bouche": " Puissant, tannique, agréablement texturé, doté de tanins veloutés, d'une bonne profondeur.",
+            "   Température de service": " 16-18°C",
+            "   Service": " Ouvrir 1h avant le service",
+            "   Conservation": " A boire et à garder",
+            "   Jusqu'à": " 2037",
+            "   Accords mets-vin": " Charcuterie, Viande rouge, Viande blanche, Volaille, Gibier, Champignon, Fromage",
+            "   Accords recommandés": "None"
+        },
+        "picture": "https://www.vinatis.com/84341-detail_default/amiral-de-beychevelle-2020-second-vin-du-chateau-beychevelle.png"
+    },
+    {
+        "name": "CHÂTEAU MONTLABERT 2019",
+        "capacity": " 0,75 L ",
+        "prices": [
+            "  39,90 €    ",
+            " 34,90 € ",
+            "None"
+        ],
+        "characteristic": "Vin Rouge / Bordeaux / Saint-Emilion Grand Cru AOC / 14 % vol",
+        "note": " 18.5/20  noté par 8 clients ",
+        "keyword": [
+            "Caractère",
+            "Élégance",
+            "Notes grillées"
+        ],
+        "informations": {
+            "   Classification vin": "None",
+            "   Millésime": " 2019",
+            "   Cépage": " 77% Merlot, 23% Cabernet-Franc",
+            "   Goûts": " Rouge Complexe, tannique et racé",
+            "   Par Goûts": " Fruité",
+            "   A l'oeil": " Robe rubis aux reflets carmins",
+            "   Au nez": " Parfums puissants de fruits noirs et de vanille, notes grillées",
+            "   En bouche": " Dense, pleine de caractère, parfait équilibre, tanins de belle constitution, finale persistante",
+            "   Température de service": " 16-18°C",
+            "   Service": " Ouvrir 2h avant le service",
+            "   Conservation": " A boire et à garder",
+            "   Jusqu'à": " 2040",
+            "   Accords mets-vin": " Charcuterie, Viande rouge, Viande blanche, Volaille, Gibier, Barbecue, Fromage, Dessert chocolaté",
+            "   Accords recommandés": " Terrine de lièvre au foie gras et aux figues, les belles volailles rôties, carré d’agneau dans son jus, entrecôte Bordelaise, fromages affinés"
+        },
+        "picture": "https://www.vinatis.com/80872-detail_default/chateau-montlabert-2019.png"
+    },
+    {
+        "name": "CHATEAU LATOUR-MARTILLAC 2020",
+        "capacity": " 0,75 L ",
+        "prices": [
+            "  34,90 €    ",
+            "None",
+            "None"
+        ],
+        "characteristic": "Vin Rouge / Bordeaux / Pessac-Léognan AOC / 14 % vol",
+        "note": "",
+        "keyword": [
+            "Gourmand",
+            "Intense",
+            "Tanins enrobés"
+        ],
+        "informations": {
+            "   Classification vin": "None",
+            "   Millésime": " 2020",
+            "   Cépage": " 55% Cabernet-Sauvignon, 40% Merlot, 5% Petit-verdot",
+            "   Goûts": " Rouge Puissant et généreux",
+            "   Par Goûts": " Puissant",
+            "   A l'oeil": " Robe très foncée, profonde, pourpre, violacée",
+            "   Au nez": " Nez intense, notes de cassis, de cerise noire, de fruits frais, touche de réglisse et d’épices",
+            "   En bouche": " Gourmande, puissante, juteuse et charnue, tannins enrobés, veloutés, finale fraîche, fruitée, persistante",
+            "   Température de service": " 16-18°C",
+            "   Service": " Passer en carafe 1h avant le service",
+            "   Conservation": " A boire et à garder",
+            "   Jusqu'à": " 2045",
+            "   Accords mets-vin": " Charcuterie, Viande rouge, Viande blanche, Gibier, Barbecue, Fromage",
+            "   Accords recommandés": " Avec un rôti d'agneau ou de magret de canard grillé"
+        },
+        "picture": "https://www.vinatis.com/79100-detail_default/chateau-latour-martillac-2020.png"
+    }
+]

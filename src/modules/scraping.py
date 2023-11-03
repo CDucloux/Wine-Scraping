@@ -76,6 +76,7 @@ def _scrap_informations(soupe: BS) -> str:
     class_value = "table-cell-css vertical-align-top padding-vertical-5 taille-xs color-gray-darker text-bold"
 
     details = [
+        " \xa0\xa0Classification vin",
         " \xa0\xa0Millésime",
         " \xa0\xa0Cépage",
         " \xa0\xa0Goûts",
@@ -92,6 +93,7 @@ def _scrap_informations(soupe: BS) -> str:
     ]
 
     dictionnaire_vin = {
+        " \xa0\xa0Classification vin": [],
         " \xa0\xa0Millésime": [],
         " \xa0\xa0Cépage": [],
         " \xa0\xa0Goûts": [],
@@ -113,7 +115,7 @@ def _scrap_informations(soupe: BS) -> str:
     value_page = [value_element[i].text for i in range(len(value_element))]
 
     j = 0
-    for i, detail in zip(range(13), details):
+    for i, detail in zip(range(14), details):
         try:
             details_page.index(details[i])
             dictionnaire_vin[detail] = value_page[j]
