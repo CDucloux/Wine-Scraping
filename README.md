@@ -11,4 +11,6 @@ from sklearn.metrics import mean_squared_error
 
 - [ ] En utilisant `cross_val_scores` on fait de la cross validation $\Rightarrow$ voir tp 6 pour l'implémentation
 - [ ] Voir tests unitaires dans des docstrings `doctest`
-- [ ] Si try/except blocks, utiliser try/except/else
+- [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage
+- [ ] Faire `poetry`
+- [ ] Si try/except blocks, utiliser try/except/else/finally
