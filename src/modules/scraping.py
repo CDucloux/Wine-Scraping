@@ -32,15 +32,15 @@ def _scrap_price(soupe: BS) -> str:
         price_discount_1 = soupe.find_all(
             name="span", attrs={"id": "quantity_discount_pretaxe"}
         )[0].text
-    except ImportError:
-        price_discount_1 = None
+    except:
+        price_discount_1 = "None"
 
     try:
         price_discount_2 = soupe.find_all(
             name="span", attrs={"id": "quantity_discount_pretaxe"}
         )[1].text
-    except ImportError:
-        price_discount_2 = None
+    except:
+        price_discount_2 = "None"
     return price, price_discount_1, price_discount_2
 
 
@@ -118,8 +118,8 @@ def _scrap_informations(soupe: BS) -> str:
             details_page.index(details[i])
             dictionnaire_vin[detail] = value_page[j]
             j = j + 1
-        except ImportError:
-            dictionnaire_vin[detail] = None
+        except:
+            dictionnaire_vin[detail] = "None"
 
     return dictionnaire_vin
 
