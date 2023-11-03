@@ -9,17 +9,63 @@ from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 from itertools import chain
 from http.client import RemoteDisconnected
-import re
-import time
+from typing import Callable
+import re, secrets, time
 from rich import print as rprint
 
 URL_INIT = URL.build(scheme="https", host="vinatis.com")
 WHITE = "achat-vin-blanc"
 RED = "achat-vin-rouge"
 ROSE = "achat-vin-rose"
+secretsGenerator = secrets.SystemRandom()
 
 
-def timer(func):
+def random_waiter(min_wait: float, max_wait: float) -> Callable:
+    """`random_waiter`: @decorator -> Renvoie un temps d'attente aléatoire.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        min_wait (float): # Temps minimum
+        max_wait (float): # Temps maximum
+
+    `Returns`
+    --------- ::
+
+        Callable
+
+    `Example(s)`
+    ---------
+
+    >>> @random_waiter
+    >>> def func(a:int)-> None:
+    >>>     return None
+    >>> func(2)
+    ... --------------------------------
+    ... Random Timer:
+    ... 0.509 seconds.
+    """
+
+    def decorator(func) -> Callable:
+        def wrapper(*args, **kwargs):
+            wait_time = secretsGenerator.uniform(min_wait, max_wait)
+            time.sleep(wait_time)
+            rprint(
+                f"""
+--------------------------------\n
+[italic]Random Timer[/italic]: 
+{round(wait_time, 3)} seconds.
+"""
+            )
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
+
+
+def timer(func) -> Callable:
     """`timer`: This function  allows to be passed as a @decorator and gives the elapsed time of a function afterwards.
 
     ---------
@@ -46,12 +92,16 @@ def timer(func):
             f"""
 --------------------------------\n
 [italic]Elapsed time[/italic] for [bold red]{func.__name__}[/bold red] function: 
-{round(elapsed_time,3)} seconds.
+{round(elapsed_time, 3)} seconds.
 """
         )
         return result
 
     return wrapper
+
+
+# TODO: Voir pour obtenir un User-Agent valide différent de manière random
+# TODO: Voir pour les proxys pour changer l'adresse IP
 
 
 def create_session() -> HTMLSession:
@@ -72,7 +122,9 @@ def create_session() -> HTMLSession:
     session = HTMLSession()
     session.headers.update(
         {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0"
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Language": "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0",
         }
     )
     return session
@@ -118,6 +170,7 @@ def create_urls_browse_list(URL_INIT=URL_INIT) -> list[URL]:
     return url_browse_list
 
 
+@random_waiter(0.25, 0.75)
 @timer
 def _catch_url(
     session: HTMLSession, url: URL, page_number: int, render: bool
@@ -136,13 +189,13 @@ def _catch_url(
                 page = r.html.html
             else:
                 page = r.html.html
-            return page
         else:
             print(f"Page {page_number+1} -> Unsuccessfull Extraction.")
-            pass
+            page = None
     except RemoteDisconnected:
         print(f"Page {page_number+1} -> Server Connection Error.")
-        pass
+        page = None
+    return page
 
 
 def _href_finder(page: str, URL_INIT=URL_INIT) -> list[str]:
