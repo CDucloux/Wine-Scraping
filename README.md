@@ -14,3 +14,16 @@ from sklearn.metrics import mean_squared_error
 - [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage
 - [ ] Faire `poetry`
 - [ ] Si try/except blocks, utiliser try/except/else/finally
+- [ ] Si try/except blocks, utiliser try/except/else
+
+Plan :
+
+Récupération de tous les href
+- ...
+
+Récupération des données brut
+- scraping.py
+- scraping_class.py
+
+Nettoyage données brut
+- ...
