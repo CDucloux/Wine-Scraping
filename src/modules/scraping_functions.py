@@ -8,16 +8,18 @@ from yarl import URL
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 from itertools import chain
+from fp.fp import FreeProxy
 from http.client import RemoteDisconnected
 from typing import Callable
-import re, secrets, time
+from pathlib import Path
+import re, time, random
 from rich import print as rprint
 
 URL_INIT = URL.build(scheme="https", host="vinatis.com")
 WHITE = "achat-vin-blanc"
 RED = "achat-vin-rouge"
 ROSE = "achat-vin-rose"
-secretsGenerator = secrets.SystemRandom()
+# secretsGenerator = secrets.SystemRandom()
 
 
 def random_waiter(min_wait: float, max_wait: float) -> Callable:
@@ -49,7 +51,7 @@ def random_waiter(min_wait: float, max_wait: float) -> Callable:
 
     def decorator(func) -> Callable:
         def wrapper(*args, **kwargs):
-            wait_time = secretsGenerator.uniform(min_wait, max_wait)
+            wait_time = random.uniform(min_wait, max_wait)
             time.sleep(wait_time)
             rprint(
                 f"""
@@ -66,13 +68,13 @@ def random_waiter(min_wait: float, max_wait: float) -> Callable:
 
 
 def timer(func) -> Callable:
-    """`timer`: This function  allows to be passed as a @decorator and gives the elapsed time of a function afterwards.
+    """`timer`: @decorator -> Renvoie le temps d'éxécution d'une fonction.
 
     ---------
     `Parameters`
     --------- ::
 
-        func (function): # Any function basically
+        func (function): # N'importe quelle fonction
 
     `Example(s)`
     ---------
@@ -81,7 +83,7 @@ def timer(func) -> Callable:
     >>> def func(a:int)-> list[int]:
     >>>     return [a for a in range(1000000)]
     >>> func(2)
-    ... #Elapsed time for func function: 0.041 seconds."""
+    ... Elapsed time for func function: 0.041 seconds."""
 
     def wrapper(*args, **kwargs):
         start_time = time.time()
@@ -100,14 +102,58 @@ def timer(func) -> Callable:
     return wrapper
 
 
-# TODO: Voir pour obtenir un User-Agent valide différent de manière random
-# TODO: Voir pour les proxys pour changer l'adresse IP
+def get_random_proxy() -> str:
+    """`get_random_proxy`: Génère un proxy aléatoire.
+
+    `Returns`
+    --------- ::
+
+        str
+
+    `Example(s)`
+    ---------
+
+    >>> get_random_proxy()
+    ... "http://178.128.160.79:80"
+    """
+    proxy = FreeProxy(country_id=["GB"], rand=True).get()
+    return proxy
+
+
+def get_random_user_agent() -> str:
+    """`get_random_user_agent`: Renvoie un User-Agent aléatoire.
+
+    `Returns`
+    --------- ::
+
+        str
+
+    `Example(s)`
+    ---------
+
+    >>> get_random_user_agent()
+    ... "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0"
+    """
+    valid_user_agents = [
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9",
+        "Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36",
+    ]
+    user_agent = random.choice(valid_user_agents)
+    return user_agent
+
+
+def random_true_false(prob_false=0.85):
+    weights = [1 - prob_false, prob_false]
+    return random.choices([True, False], weights=weights)[0]
 
 
 def create_session() -> HTMLSession:
-    """`create_session`: Crée une session HTML avec un user-agent spécifique.
+    """`create_session`: Crée une session HTML avec un proxy et un user-agent spécifique aléatoire.
 
     - Fait croire au navigateur qu'un utilisateur envoie une requête, et non un robot.
+    - Cache l'adresse IP du client grâce à un proxy.
 
     `Returns`
     --------- ::
@@ -124,9 +170,40 @@ def create_session() -> HTMLSession:
         {
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
             "Accept-Language": "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0",
+            "User-Agent": get_random_user_agent(),
         }
     )
+    session.proxies.update({"http": get_random_proxy()})
+    return session
+
+
+def update_session(session: HTMLSession) -> HTMLSession:
+    """`update_session`:
+
+    - Met à jour la session dans 15% des cas avec un nouveau proxy et un User-Agent aléatoire.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        session (HTMLSession): # session HTML
+
+    `Returns`
+    --------- ::
+
+        HTMLSession
+
+    `Example(s)`
+    ---------
+
+    >>> update_session()
+    ... #TODO"""
+    update = random_true_false()
+    print(f"Session updated = {update}")
+    if update == True:
+        session = create_session()
+    else:
+        session = session
     return session
 
 
@@ -160,13 +237,14 @@ def create_urls_browse_list(URL_INIT=URL_INIT) -> list[URL]:
     url_browse_list = list()
     for suffix in {WHITE, RED, ROSE}:
         if suffix is WHITE:
-            page_range = range(1, 5)  # (1,50)
+            page_range = range(1, 50)  # (1,50)
         elif suffix is RED:
-            page_range = range(1, 5)  # (1,97)
+            page_range = range(1, 97)  # (1,97)
         elif suffix is ROSE:
-            page_range = range(1, 5)  # (1,9)
+            page_range = range(1, 9)  # (1,9)
         for page in page_range:
             url_browse_list.append(URL_INIT / suffix % {"page": page, "tri": 7})
+    random.shuffle(url_browse_list)
     return url_browse_list
 
 
@@ -185,7 +263,7 @@ def _catch_url(
         if r.status_code == 200:
             print(f"Page {page_number+1} -> Successfull Extraction.")
             if render:
-                r.html.render()
+                r.html.render(timeout=25)
                 page = r.html.html
             else:
                 page = r.html.html
@@ -234,11 +312,40 @@ def create_all_wine_urls(session: HTMLSession, url_browse_list: list[URL]) -> li
     ... #TODO"""
     all_wine_links = list()
     for page_number, url in enumerate(url_browse_list):
+        session = update_session(session)
         page = _catch_url(session, url, page_number, render=True)
         valid_hrefs = _href_finder(page)
         all_wine_links.append(valid_hrefs)
     all_wine_links = list(chain.from_iterable(all_wine_links))
     return all_wine_links
+
+
+def export_wine_links(folder_path: Path, all_wine_links: list[str]) -> None:
+    """`export_wine_links`:
+
+    - Exporte les liens de l'ensemble des pages de vins vers un fichier csv.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        path_folder (Path): # Chemin du dossier où enregistrer le csv
+        all_wine_links (list[str]): # liste des liens des vins
+
+    `Returns`
+    --------- ::
+
+        None
+
+    `Example(s)`
+    ---------
+
+    >>> export_wine_links()
+    ... Export réalisé dans D:\Cours Mecen (M2)\Machine Learning\Wine Scraping\data\wine_links.csv.
+    """
+    with open(folder_path / "wine_links.csv", "w") as file_path:
+        file_path.write(";\n".join(all_wine_links))
+    return print(f"Export réalisé dans {folder_path}.")
 
 
 @timer
