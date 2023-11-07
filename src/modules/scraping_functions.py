@@ -292,6 +292,7 @@ def create_all_wine_urls(session: HTMLSession, url_browse_list: list[URL]) -> li
     """`create_all_wine_urls`:
 
     - Grâce à la liste d'URL des pages de recherche, cette fonction va chercher les href et les complète.
+    - Elle retire aussi les doublons potentiels grâce à la transformation `list -> set -> list`
 
     ---------
     `Parameters`
@@ -317,7 +318,7 @@ def create_all_wine_urls(session: HTMLSession, url_browse_list: list[URL]) -> li
         valid_hrefs = _href_finder(page)
         all_wine_links.append(valid_hrefs)
     all_wine_links = list(chain.from_iterable(all_wine_links))
-    return all_wine_links
+    return list(set(all_wine_links))
 
 
 def export_wine_links(folder_path: Path, all_wine_links: list[str]) -> None:
@@ -341,7 +342,7 @@ def export_wine_links(folder_path: Path, all_wine_links: list[str]) -> None:
     ---------
 
     >>> export_wine_links()
-    ... Export réalisé dans D:\Cours Mecen (M2)\Machine Learning\Wine Scraping\data\wine_links.csv.
+    ... Export réalisé dans D:\Cours Mecen (M2)\Machine Learning\Wine Scraping\data.
     """
     with open(folder_path / "wine_links.csv", "w") as file_path:
         file_path.write(";\n".join(all_wine_links))
@@ -353,6 +354,7 @@ def extract_all_pages(session: HTMLSession, all_wine_links: list[str]) -> list[s
     """`extract_all_pages`:
 
     - Extrait le contenu brut de toutes les pages web de vin sans rendu javascript.
+    - Retire les pages dont la requête n'a rien renvoyé.
 
     ---------
     `Parameters`
@@ -375,4 +377,4 @@ def extract_all_pages(session: HTMLSession, all_wine_links: list[str]) -> list[s
     for page_number, url in enumerate(all_wine_links):
         content_page = _catch_url(session, url, page_number, render=False)
         wine_pages.append(content_page)
-    return wine_pages
+    return list(filter(None, wine_pages))

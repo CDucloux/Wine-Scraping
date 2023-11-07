@@ -15,15 +15,24 @@ from sklearn.metrics import mean_squared_error
 - [ ] Faire `poetry`
 - [ ] Si try/except blocks, utiliser try/except/else/finally
 - [ ] Si try/except blocks, utiliser try/except/else
+- [ ] Regarder du coté de `MLFLOW` pour les métriques de Machine Learning
 
 Plan :
 
-Récupération de tous les href
-- ...
+- **Scraping**
+    - `scraping_functions` $\Rightarrow$ module finalisé
+    - `scraper` $\Rightarrow$ module finalisé (récupère les hrefs des vins et les écrit dans un fichier csv)
 
-Récupération des données brut
-- scraping.py
-- scraping_class.py
+- **Soup & JSON**
+    - `mystical_soup` $\Rightarrow$ module finalisé (Transforme en les résultats trouvés dans les pages html à l'aide de *BeautifulSoup*)
 
-Nettoyage données brut
-- ...
+- **Polars & Restructuration tabulaire**
+    - `cleaning` $\Rightarrow$ Refactorisation à faire suite aux modifs de `mystical_soup`
+
+- **Machine Learning** : Pipeline à faire avec SKLEARN 
+
+- **Base de données** : Alimentation d'une DB in memory suite au cleaning avec polars
+
+- **Application** : Création d'une appli avec Dash ou Streamlit
+
+- **Phase de tests unitaires, environnements virtuels, poetry, re-documentation & éventuellement Docker**
