@@ -11,10 +11,11 @@ From tangled web to structured code, in truth.
 """
 
 # TODO: expliciter plus ce module.
+# mypy-backlog : 1 erreur liée à l'import de la dataclass, ignore l'erreur f/now
 
-from bs4 import BeautifulSoup as BS
+from bs4 import BeautifulSoup as BS, Tag
 from serde.json import to_json
-from src.modules.vin_dataclass import Vin
+from src.modules.vin_dataclass import Vin  # type: ignore
 from pathlib import Path
 
 
@@ -24,10 +25,14 @@ def _soupifier(page: str) -> BS:
     return soup
 
 
-def _scrap_name(soup: BS) -> str:
+def _scrap_name(soup: BS) -> str | None:
     """Recupère le nom du vin."""
-    name = soup.find("h1", id="produit-titre").text.strip()
-    return name
+    name = soup.find("h1", id="produit-titre")
+
+    if isinstance(name, Tag):
+        return name.text.strip()
+    else:
+        return None
 
 
 def _scrap_capacity(soup: BS) -> str | None:
@@ -51,44 +56,52 @@ def _scrap_capacity(soup: BS) -> str | None:
 
 def _scrap_price(soup: BS) -> str | None:
     """Récupère le prix de la bouteille à l'unité + les promos si il y en a."""
-    try:
-        price = soup.find("span", id="our_price_display").text.strip()
-    except:
-        price = None
-    return price
+    price = soup.find("span", id="our_price_display")
+
+    if isinstance(price, Tag):
+        return price.text.strip()
+    else:
+        return None
 
 
 def _scrap_price_bundle(soup: BS) -> str | None:
     """Récupère le prix des bouteilles par achat groupé."""
-    try:
-        price_bundle = soup.find(
-            name="span", attrs={"id": "quantity_discount_pretaxe"}
-        ).text.strip()
-        eligible_qty = soup.find("meta", itemprop="eligibleQuantity").get("content")
+    price_bundle_matches = soup.find(
+        name="span", attrs={"id": "quantity_discount_pretaxe"}
+    )
 
+    eligible_qty_matches = soup.find("meta", itemprop="eligibleQuantity")
+
+    if isinstance(price_bundle_matches, Tag):
+        price_bundle = price_bundle_matches.text.strip()
+
+    if isinstance(eligible_qty_matches, Tag):
+        eligible_qty = eligible_qty_matches.get("content")
         discount_per_qty = f"{price_bundle} par {eligible_qty}"
-    except:
-        discount_per_qty = None
-    return discount_per_qty
+        return discount_per_qty
+    else:
+        return None
 
 
 def _scrap_characteristics(soup: BS) -> str | None:
     """Recupère les caractéristiques principales du vin."""
-    characteristics = soup.find(
-        name="span", attrs={"class": "no-padding-horizontal"}
-    ).text
-    return characteristics
+    characteristics = soup.find(name="span", attrs={"class": "no-padding-horizontal"})
+
+    if isinstance(characteristics, Tag):
+        return characteristics.text
+    else:
+        return None
 
 
 def _scrap_notes(soup: BS) -> str | None:
     """Recupère la note et le nombre d'avis."""
-    notes = soup.find(
-        name="div", attrs={"class": "col-xs-12 padding-bottom-10"}
-    ).text.strip()
+    notes = soup.find(name="div", attrs={"class": "col-xs-12 padding-bottom-10"})
 
-    if not notes:
-        return None
-    return notes
+    if isinstance(notes, Tag):
+        if notes:
+            return notes.text.strip()
+
+    return None
 
 
 def _scrap_keywords(soup: BS) -> list[str]:
@@ -101,28 +114,29 @@ def _scrap_keywords(soup: BS) -> list[str]:
 
 def _scrap_other(soup: BS) -> str | None:
     """Récupère d'autres attributs : bio, nouveauté, vigneron indépendant, etc."""
-    other_characs = soup.find_all(
+    matches = soup.find_all(
         "div",
         attrs={"class": "margin-top-3 display-inline"},
     )
-    if not other_characs:
+    if not matches:
         return None
 
-    other_characs = "/".join(
-        [other_charac.text.strip() for other_charac in other_characs]
-    )
+    other_characs = "/".join([other_charac.text.strip() for other_charac in matches])
     return other_characs
 
 
-def _scrap_img(soup: BS) -> str:
+def _scrap_img(soup: BS) -> str | list[str] | None:
     """Récupère le lien de l'image de la bouteille"""
     picture = soup.find(
         name="img", attrs={"class": "img-full-width img-max-450 center-block"}
-    ).get("src")
-    return picture
+    )
+    if isinstance(picture, Tag):
+        return picture.get("src")
+    else:
+        return None
 
 
-def _scrap_details(soup: BS) -> dict:
+def _scrap_details(soup: BS) -> dict[str, str]:
     """Crée un dictionnaire clé-valeur pour extraire des caractéristiques complémentaires."""
     key_class = "table-cell-css vertical-align-top padding-vertical-5 nowrap padding-right-10 taille-xs color-gray-darker"
     value_class = "table-cell-css vertical-align-top padding-vertical-5 taille-xs color-gray-darker text-bold"
