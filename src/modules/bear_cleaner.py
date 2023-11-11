@@ -3,8 +3,12 @@
 """
 import polars as pl
 
+# TODO: implémentation LazyFrame
+# TODO: Voir pour récupérer la région dans les caractéristiques
+
 
 def get_avg_temp(df: pl.DataFrame) -> pl.DataFrame:
+    """Obtient la température moyenne du vin à partir d'une valeur au format <10-12°C>."""
     df = (
         df.with_columns(
             pl.col("temperature")
@@ -81,12 +85,16 @@ def get_unit_and_offer_price(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def get_keywords(df: pl.DataFrame) -> pl.DataFrame:
-    """Obtient les mots-clés associés au vin."""
-    df = df.with_columns(
-        pl.col("keywords")
-        .list.to_struct()
-        .struct.rename_fields(["keyword_1", "keyword_2", "keyword_3"])
-    ).unnest("keywords")
+    """Obtient les mots-clés associés au vin et conserve la colonne initiale de keywords."""
+    df = (
+        df.with_columns(pl.col("keywords").alias("keywords_2"))
+        .with_columns(
+            pl.col("keywords_2")
+            .list.to_struct()
+            .struct.rename_fields(["keyword_1", "keyword_2", "keyword_3"])
+        )
+        .unnest("keywords_2")
+    )
     return df
 
 
@@ -236,6 +244,63 @@ def get_country(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
+def get_iso_country_code(df: pl.DataFrame) -> pl.DataFrame:
+    """Permet de récupérer un code ISO à partir du nom d'un pays.
+    TODO: Chine','Arménie','Roumanie','Uruguay', 'Turquie','Anglettere','Maroc' A FAIRE
+    """
+    df = df.with_columns(
+        pl.when(pl.col("country") == "France")
+        .then(pl.lit("FRA"))
+        .when(pl.col("country") == "Italie")
+        .then(pl.lit("ITA"))
+        .when(pl.col("country") == "Espagne")
+        .then(pl.lit("ESP"))
+        .when(pl.col("country") == "Argentine")
+        .then(pl.lit("ARG"))
+        .when(pl.col("country") == "Etats-Unis")
+        .then(pl.lit("USA"))
+        .when(pl.col("country") == "Australie")
+        .then(pl.lit("AUS"))
+        .when(pl.col("country") == "Chili")
+        .then(pl.lit("CHL"))
+        .when(pl.col("country") == "Allemagne")
+        .then(pl.lit("DEU"))
+        .when(pl.col("country") == "Afrique du Sud")
+        .then(pl.lit("ZAF"))
+        .when(pl.col("country") == "Portugal")
+        .then(pl.lit("PRT"))
+        .when(pl.col("country") == "Nouvelle-Zélande")
+        .then(pl.lit("NZL"))
+        .when(pl.col("country") == "Suisse")
+        .then(pl.lit("CHE"))
+        .when(pl.col("country") == "Autriche")
+        .then(pl.lit("AUT"))
+        .when(pl.col("country") == "Hongrie")
+        .then(pl.lit("HUN"))
+        .when(pl.col("country") == "Liban")
+        .then(pl.lit("LBN"))
+        .when(pl.col("country") == "Géorgie")
+        .then(pl.lit("GEO"))
+        .when(pl.col("country") == "Israël")
+        .then(pl.lit("ISR"))
+        .when(pl.col("country") == "Pérou")
+        .then(pl.lit("PER"))
+        .when(pl.col("country") == "Croatie")
+        .then(pl.lit("HRV"))
+        .when(pl.col("country") == "Grèce")
+        .then(pl.lit("GRC"))
+        .when(pl.col("country") == "Bulgarie")
+        .then(pl.lit("BGR"))
+        .when(pl.col("country") == "Slovénie")
+        .then(pl.lit("SVN"))
+        .when(pl.col("country") == "Syrie")
+        .then(pl.lit("SYR"))
+        .otherwise(None)
+        .alias("iso_code")
+    )
+    return df
+
+
 def get_bubbles(df: pl.DataFrame) -> pl.DataFrame:
     """Permet de déterminer si un vin est effervescent ou non."""
     df = df.with_columns(
@@ -278,9 +343,9 @@ def get_cepage(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def get_wine_note(df: pl.DataFrame) -> pl.DataFrame:
-    """Extrait la note /20 associée au vin."""
+    """Extrait la note /20 associée au vin et la transforme en une note /5 ⭐."""
     df = df.with_columns(
-        pl.col("note").str.slice(0, 4).cast(pl.Float64).alias("wine_note")
+        pl.col("note").str.slice(0, 4).cast(pl.Float64).truediv(4).alias("wine_note")
     )
     return df
 
@@ -311,6 +376,19 @@ def get_service(df: pl.DataFrame) -> pl.DataFrame:
         .alias("service")
         .fill_null("Non Renseigné")
     )
+    return df
+
+
+def get_conservation_time(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(
+        pl.col("conservation_date").sub(pl.col("millesime")).alias("conservation_time")
+    )
+    return df
+
+
+def drop_price(df: pl.DataFrame) -> pl.DataFrame:
+    """Retire les prix non renseignés."""
+    df = df.drop_nulls("unit_price")
     return df
 
 
@@ -350,10 +428,13 @@ def super_pipe(df: pl.DataFrame) -> pl.DataFrame:
         .pipe(get_cepage)
         .pipe(get_type)
         .pipe(get_country)
+        .pipe(get_iso_country_code)
         .pipe(get_bubbles)
         .pipe(get_new_type)
         .pipe(get_wine_note)
         .pipe(get_reviews)
         .pipe(get_service)
+        .pipe(get_conservation_time)
+        .pipe(drop_price)
     )
     return df
