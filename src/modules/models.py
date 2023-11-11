@@ -51,6 +51,7 @@ def model_rf(x_train, y_train):
     model = Pipeline(
         [
             ("imputation", SimpleImputer()),
+            ("echelle", MinMaxScaler()),
             ("entrainement", RandomForestRegressor()),
         ]
     )
@@ -75,6 +76,7 @@ def model_knn(x_train, y_train):
     model = Pipeline(
         [
             ("imputation", SimpleImputer()),
+            ("echelle", MinMaxScaler()),
             ("entrainement", KNeighborsRegressor()),
         ]
     )
@@ -99,6 +101,7 @@ def model_boost(x_train, y_train):
     model = Pipeline(
         [
             ("imputation", SimpleImputer()),
+            ("echelle", MinMaxScaler()),
             ("entrainement", GradientBoostingRegressor()),
         ]
     )
@@ -108,13 +111,6 @@ def model_boost(x_train, y_train):
             "imputation__strategy": ["mean", "median", "most_frequent"],
             "entrainement__learning_rate": (0.005, 0.01, 0.1, 0.5),
             "entrainement__n_estimators": (50, 100, 150, 200, 400),
-            "entrainement__loss": (
-                "squared_error",
-                "absolute_error",
-                "huber",
-                "quantile",
-            ),
-            "entrainement__alpha": np.linspace(0.0, 1.0, 9),
         },
         n_jobs=-1,
     )
@@ -126,10 +122,14 @@ def model_ridge(x_train, y_train):
     """
     paramètres optimisés :
     -alpha
+    
+    /!\ La régression Ridge ajoute une pénalité (régularisation) à la 
+    régression linéaire standard en modifiant la fonction objectif.
     """
     model = Pipeline(
         [
             ("imputation", SimpleImputer()),
+            ("echelle", MinMaxScaler()),
             ("entrainement", Ridge()),
         ]
     )
@@ -154,6 +154,7 @@ def model_svm(x_train, y_train):
     model = Pipeline(
         [
             ("imputation", SimpleImputer()),
+            ("echelle", MinMaxScaler()),
             ("entrainement", SVR()),
         ]
     )
@@ -175,6 +176,8 @@ def model_mlp(x_train, y_train):
     paramètres optimisés :
     -hidden_layer_sizes
     -max_iter
+    
+    A CONSULTER : https://playground.tensorflow.org/#activation=relu&batchSize=1&dataset=spiral&regDataset=reg-plane&learningRate=0.01&regularizationRate=0&noise=0&networkShape=4,1&seed=0.70523&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false
     """
     model = Pipeline(
         [
@@ -189,6 +192,7 @@ def model_mlp(x_train, y_train):
             "imputation__strategy": ["mean", "median", "most_frequent"],
             "entrainement__hidden_layer_sizes": [(100,), (50,50), (60,60)],
             "entrainement__solver": ["adam"],
+            "entrainement__max_iter": [1000],
         },
         n_jobs=-1,
     )
