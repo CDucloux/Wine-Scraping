@@ -211,7 +211,7 @@ def train_model(x_train, y_train):
         "model_mlp": model_mlp(x_train, y_train),
     }
 
-#Résultats
+#Résultats notebook
 def model_result(**kwargs):
     """Permet de faire un résumer de(s) résultat(s) de(s) modèle(s)
     >> model_result(nom_du_mode = model_entrainé)"""
@@ -235,3 +235,37 @@ def model_param(modele, *args):
     for key in args:
         table2.add_row([key, modele.cv_results_["params"][indice_meilleur][key]])
     return print(table2)
+
+#Résultats
+def score(model):
+    """Retourne le score"""
+    indice_meilleur =model.cv_results_["rank_test_score"].argmin()
+    return round(model.cv_results_["mean_test_score"][indice_meilleur], 3)
+
+def ecart_type(model):
+    """Retourne l'ecart-type"""
+    indice_meilleur =model.cv_results_["rank_test_score"].argmin()
+    return round(model.cv_results_["std_test_score"][indice_meilleur], 3)
+
+def parametre(model) :
+    """Retourne les meilleurs paramètres"""
+    indice_meilleur = model.cv_results_["rank_test_score"].argmin()
+    return str(model.cv_results_["params"][indice_meilleur])
+
+def stockage_result_csv(model):
+    """Stock les résultats dans un CSV"""
+    ml = {"Modèle": ["Random Forest", "K Neighbors",
+                    "Réseaux de neurones", "Boosting",
+                    "Ridge", "Support Vector"],
+        "Score": [score(model["model_rf"]), score(model["model_knn"]),
+                    score(model["model_mlp"]), score(model["model_boost"]),
+                    score(model["model_ridge"]), score(model["model_svm"])],
+        "Ecart-Type" : [ecart_type(model["model_rf"]), ecart_type(model["model_knn"]),
+                    ecart_type(model["model_mlp"]), ecart_type(model["model_boost"]),
+                    ecart_type(model["model_ridge"]), ecart_type(model["model_svm"])],
+        "Paramètres" : [parametre(model["model_rf"]), parametre(model["model_knn"]),
+                    parametre(model["model_mlp"]), parametre(model["model_boost"]),
+                    parametre(model["model_ridge"]), parametre(model["model_svm"])]}
+    ml = pl.DataFrame(ml)
+    ml.write_csv("./data/result_ml.csv", separator=",")
+    return print("C'est bon ça a marché")
