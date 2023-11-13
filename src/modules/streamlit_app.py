@@ -42,15 +42,6 @@ def main():
             )
             st.markdown(f">**{len(main_df)}** :red[vins] trouvés !")
 
-            if selected_wines == ["Vin Rouge"]:
-                color = "#ff4b4b"
-            elif selected_wines == ["Vin Blanc"]:
-                color = "#f3b442"
-            elif selected_wines == ["Vin Rosé"]:
-                color = "#ff8fa3"
-            else:
-                color = "white"
-
     # Metrics vins
     col1, col2, col3 = st.columns(3)
     with col1:
