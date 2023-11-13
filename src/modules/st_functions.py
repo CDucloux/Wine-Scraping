@@ -2,14 +2,15 @@
 Module gérant les fonctions Streamlit de l'application.
 """
 import streamlit as st
+from annotated_text import annotated_text, annotation
 import polars as pl
+import plotly.express as px
 from pathlib import Path
 from bear_cleaner import *
 from streamlit.delta_generator import DeltaGenerator
 
 # TODO: Faire une fonction load_data avec le décorateur @st.cache_data pour éviter de recharger le df tt le temps
 # TODO: -- Impossible actuellement...Regarder comment changer la couleur dans un DataFrame, notamment pour prix & Type de vin
-# TODO: Faire une carte de la provenance des vins
 
 
 @st.cache_data
@@ -20,6 +21,34 @@ def load_df() -> pl.DataFrame:
     df = pl.read_json(data_folder / "vins.json")
     df = super_pipe(df)
     return df
+
+
+# TODO: expliciter les variables d'input pour mypy.
+
+
+@st.cache_data
+def load_main_df(
+    _df: pl.DataFrame,
+    selected_wines: list[str],
+    prices,
+    filter_bio,
+    filter_new,
+    filter_fav,
+    user_input,
+    years: list[int],
+) -> pl.DataFrame:
+    """Charge le dataframe filtré"""
+    main_df = (
+        _df.filter(pl.col("type").is_in(selected_wines))
+        .filter(pl.col("unit_price") > prices[0])
+        .filter(pl.col("unit_price") < prices[1])
+        .filter(pl.col("bio").is_in(filter_bio))
+        .filter(pl.col("is_new").is_in(filter_new))
+        .filter(pl.col("customer_fav").is_in(filter_fav))
+        .filter(pl.col("name").str.contains(user_input))
+        .filter(pl.col("millesime").is_in(years))
+    )
+    return main_df
 
 
 def page_config() -> None:
@@ -38,8 +67,8 @@ def remove_white_space() -> DeltaGenerator:
                     padding-left: 0rem;
                     padding-right: 0rem;
                 }
-                .css-1544g2n.eczjsme4 {
-                    padding-top: 0.75rem;
+                .st-emotion-cache-16txtl3{
+                    padding-top: 0.5rem;
                     padding-right: 1rem;
                     padding-bottom: 1rem;
                     padding-left: 1rem;
@@ -245,3 +274,151 @@ def write_table(df: pl.DataFrame) -> DeltaGenerator:
             ),
         },
     )
+
+
+def color_selector(selected_wines: list[str]) -> list[str]:
+    """Permet de choisir une couleur selon le vin sélectionné."""
+    red, white, pink = "#ff4b4b", "#f3b442", "#ff8fa3"
+    if selected_wines == ["Vin Rouge"]:
+        colors = [red]
+    elif selected_wines == ["Vin Blanc"]:
+        colors = [white]
+    elif selected_wines == ["Vin Rosé"]:
+        colors = [pink]
+    elif selected_wines == ["Vin Rouge", "Vin Blanc"]:
+        colors = [red, white]
+    elif selected_wines == ["Vin Rouge", "Vin Rosé"]:
+        colors = [red, pink]
+    elif selected_wines == ["Vin Blanc", "Vin Rouge"]:
+        colors = [red, white]
+    elif selected_wines == ["Vin Blanc", "Vin Rosé"]:
+        colors = [white, pink]
+    elif selected_wines == ["Vin Rosé", "Vin Rouge"]:
+        colors = [red, pink]
+    elif selected_wines == ["Vin Rosé", "Vin Blanc"]:
+        colors = [white, pink]
+    elif selected_wines == ["Vin Rouge", "Vin Blanc", "Vin Rosé"]:
+        colors = [red, white, pink]
+    else:
+        colors = [red, white, pink]
+    return colors
+
+
+def scale_selector():
+    """Crée un radio button pour sélectionner l'échelle."""
+    return st.radio(
+        "Sélectionner une *échelle*",
+        ["$y$", "$\log(y)$"],
+    )
+
+
+def custom_radio_css() -> None:
+    """Repositionne les boutons radio (colonne --> ligne)."""
+    return st.write(
+        "<style>div.row-widget.stRadio > div{flex-direction:row;}</style>",
+        unsafe_allow_html=True,
+    )
+
+
+def warnings(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | None:
+    """Renvoie des messages d'avertissement spécifiques quand le dataframe modifié à cause de la sidebar ne génère pas de données."""
+    if not selected_wines:
+        return st.warning(
+            "Attention, aucun type de vin n'a été selectionné !", icon="🚨"
+        )
+    elif len(df) == 0:
+        return st.warning(
+            "Aucun vin avec l'ensemble des critères renseignés n'a pu être trouvé.",
+            icon="😵",
+        )
+    else:
+        return None
+
+
+def display_scatter(
+    df: pl.DataFrame, selected_wines: list[str], colors: list[str], scale: str
+) -> DeltaGenerator:
+    """Génère un scatter du plot du prix des vins avec plusieurs configurations."""
+    if scale == "$\log(y)$":
+        log = True
+        title_y = "log(Prix unitaire)"
+    elif scale == "$y$":
+        log = False
+        title_y = "Prix unitaire"
+    warning = warnings(df, selected_wines)
+    if not warning:
+        scatter = px.scatter(
+            df,
+            x="conservation_time",
+            y="unit_price",
+            trendline="lowess",
+            color="type",
+            symbol="type",
+            size="capacity",
+            title=f"Prix d'un {' / '.join(selected_wines).lower()} en fonction de sa durée de conservation",
+            hover_name="name",
+            log_y=log,
+            trendline_color_override="white",
+            color_discrete_sequence=colors,
+        )
+        scatter.update_xaxes(title_text="Temps de conservation (en années)")
+        scatter.update_yaxes(title_text=title_y, ticksuffix=" €", showgrid=True)
+        st.plotly_chart(scatter)
+
+
+def create_aggregate_df(df: pl.DataFrame) -> pl.DataFrame:
+    """Crée un Dataframe groupé par pays et code ISO avec le nombre de vins."""
+    grouped_df = (
+        df.group_by("country", "iso_code")
+        .count()
+        .sort("count", descending=True)
+        .filter(pl.col("country") != "12,5 % vol")
+    )
+    return grouped_df
+
+
+def create_map(df: pl.DataFrame) -> DeltaGenerator:
+    """Crée la carte de provenance des vins."""
+    map = px.choropleth(
+        df,
+        locations="iso_code",
+        hover_name="country",
+        hover_data="count",
+        color="country",
+    )
+    map.update_layout(
+        geo_bgcolor="#0e1117",
+        showlegend=False,
+        margin=dict(l=20, r=20, t=0, b=0),
+    )
+    return st.plotly_chart(map)
+
+
+def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
+    """Crée un diagramme en barres du nombre de vins commercialisés par pays."""
+    bar = px.bar(
+        grouped_df,
+        x="country",
+        y="count",
+        color_discrete_sequence=["white"],
+        title="Nombre de vins commercialisés par pays",
+        text="count",
+        # pattern_shape_sequence=["\\"],
+    )
+    bar.update_layout(margin=dict(l=20, r=20, t=25, b=0))
+    bar.update_yaxes(visible=False)
+    return st.plotly_chart(bar)
+
+
+def authors() -> DeltaGenerator:
+    """Crée la page 6 qui inclue la licence et nos noms 😎."""
+    st.balloons()
+    st.info("Licence CC-by-sa", icon="ℹ️")
+    with st.expander("Découvrir les `auteurs` de l'application"):
+        st.markdown(
+            """
+- *Corentin DUCLOUX* : https://github.com/CDucloux
+- *Guillaume DEVANT* : https://github.com/devgui37
+"""
+        )
+    return DeltaGenerator

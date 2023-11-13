@@ -1,7 +1,5 @@
 # Wine-Scraping
 
-J'ai continué un peu le webscrapping, tu peux pour le moment le voir dans ma branche "guillaume".
-
 - Faire un module qui permet de mesurer l'erreur empirique et l'erreur contrôle pour détecter éventuellement un surapprentissage du modèle et éviter qu'il prédise n'importe quoi.
 - Récupérer `EQM` $\Rightarrow$ Erreur Quadratique Moyenne : 
 
@@ -11,13 +9,11 @@ from sklearn.metrics import mean_squared_error
 
 - [ ] En utilisant `cross_val_scores` on fait de la cross validation $\Rightarrow$ voir tp 6 pour l'implémentation
 - [ ] Voir tests unitaires dans des docstrings `doctest`
-- [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage
-- [ ] Faire `poetry`
-- [ ] Si try/except blocks, utiliser try/except/else/finally
-- [ ] Si try/except blocks, utiliser try/except/else
+- [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage + doctest pour les tests dans les docstrings.
+- [ ] Faire `poetry` et venv, voire `Docker`
 - [ ] Regarder du coté de `MLFLOW` pour les métriques de Machine Learning
 
-Plan :
+> Plan :
 
 - **Scraping**
     - `scraping_functions` $\Rightarrow$ module finalisé
@@ -35,4 +31,6 @@ Plan :
 
 - **Application** : Création d'une appli avec Dash ou Streamlit
 
-- **Phase de tests unitaires, environnements virtuels, poetry, re-documentation & éventuellement Docker**
+- Partie Clustering (k-means) intéressante à faire en conjonction avec une ACM. (sur les types de vin ?) 
+
+- **Phase de tests unitaires, check MYPY, environnements virtuels, poetry, re-documentation & éventuellement Docker**

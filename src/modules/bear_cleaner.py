@@ -4,7 +4,7 @@
 import polars as pl
 
 # TODO: implémentation LazyFrame
-# TODO: Voir pour récupérer la région dans les caractéristiques
+# TODO: Voir pour récupérer l'info "premier cru, second cru, etc."
 
 
 def get_avg_temp(df: pl.DataFrame) -> pl.DataFrame:
@@ -30,6 +30,7 @@ def get_avg_temp(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def get_valid_millesime(df: pl.DataFrame) -> pl.DataFrame:
+    """Transforme les valeurs aberrantes de la colonne millésime."""
     df = df.with_columns(
         pl.when(pl.col("millesime") == "non millésimé")
         .then(None)
@@ -40,6 +41,7 @@ def get_valid_millesime(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def get_conservation_date(df: pl.DataFrame) -> pl.DataFrame:
+    """Obtient la date de conservation du vin."""
     df = (
         df.with_columns(
             pl.when(pl.col("conservation_2") == "A boire dans les 2 ans")
@@ -245,9 +247,7 @@ def get_country(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def get_iso_country_code(df: pl.DataFrame) -> pl.DataFrame:
-    """Permet de récupérer un code ISO à partir du nom d'un pays.
-    TODO: Chine','Arménie','Roumanie','Uruguay', 'Turquie','Anglettere','Maroc' A FAIRE
-    """
+    """Permet de récupérer un code ISO à partir du nom d'un pays."""
     df = df.with_columns(
         pl.when(pl.col("country") == "France")
         .then(pl.lit("FRA"))
@@ -295,6 +295,22 @@ def get_iso_country_code(df: pl.DataFrame) -> pl.DataFrame:
         .then(pl.lit("SVN"))
         .when(pl.col("country") == "Syrie")
         .then(pl.lit("SYR"))
+        .when(pl.col("country") == "Chine")
+        .then(pl.lit("CHN"))
+        .when(pl.col("country") == "Arménie")
+        .then(pl.lit("ARM"))
+        .when(pl.col("country") == "Roumanie")
+        .then(pl.lit("ROU"))
+        .when(pl.col("country") == "Uruguay")
+        .then(pl.lit("URY"))
+        .when(pl.col("country") == "Turquie")
+        .then(pl.lit("TUR"))
+        .when(pl.col("country") == "Angleterre")
+        .then(pl.lit("GBR"))
+        .when(pl.col("country") == "Maroc")
+        .then(pl.lit("MAR"))
+        .when(pl.col("country") == "Mexique")
+        .then(pl.lit("MEX"))
         .otherwise(None)
         .alias("iso_code")
     )
