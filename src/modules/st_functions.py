@@ -10,7 +10,6 @@ from pathlib import Path
 from bear_cleaner import *
 from streamlit.delta_generator import DeltaGenerator
 
-# TODO: Faire une fonction load_data avec le décorateur @st.cache_data pour éviter de recharger le df tt le temps
 # TODO: -- Impossible actuellement...Regarder comment changer la couleur dans un DataFrame, notamment pour prix & Type de vin
 
 
@@ -424,23 +423,28 @@ def authors() -> DeltaGenerator:
         )
     return DeltaGenerator
 
+
 def write_table_ml(chemin_csv):
     """Retourne un tableau avec les résultats des modèles"""
     df = pl.read_csv(chemin_csv)
     st.dataframe(
-        data = df,
+        data=df,
         hide_index=True,
-        column_order=["Modèle","Score", "Ecart-Type"],
+        column_order=["Modèle", "Score", "Ecart-Type"],
         column_config={
             "Modèle": "Modèle 🧰",
-            "Score" : st.column_config.ProgressColumn(
-                "Score 🎰", min_value = -1, max_value=1,  format="%.2f",
-                help = "score ∈ [-1,1]"
+            "Score": st.column_config.ProgressColumn(
+                "Score 🎰",
+                min_value=-1,
+                max_value=1,
+                format="%.2f",
+                help="score ∈ [-1,1]",
             ),
-            "Ecart-Type" : "Ecart-Type ↔"
-        }
+            "Ecart-Type": "Ecart-Type ↔",
+        },
     )
-    
+
+
 def parametres(df, j):
     """Construction du tableau des paramètres"""
     parametres = ast.literal_eval(df["Paramètres"][j])
@@ -449,9 +453,10 @@ def parametres(df, j):
     for key in list(parametres.keys()):
         param.append(key)
         value.append(str(parametres[key]))
-    tab = pl.DataFrame({'Paramètres': param, 'Valeur': value})
-    return st.dataframe(tab,hide_index=True)
-    
+    tab = pl.DataFrame({"Paramètres": param, "Valeur": value})
+    return st.dataframe(tab, hide_index=True)
+
+
 def write_parameter(chemin_csv):
     """Retourne un tableau avec les paramètres d'un modèle"""
     df = pl.read_csv(chemin_csv)
@@ -469,13 +474,25 @@ def write_parameter(chemin_csv):
         parametres(df, 4)
     elif selected_model == "Support Vector":
         parametres(df, 5)
-        
+
+
 def corr_plot():
     """Retourne un plot de corrélation"""
     df = load_df()
-    variables = ["capacity", "unit_price","millesime", "avg_temp",
-                "conservation_date", "bio","customer_fav", "is_new",
-                "top_100","destock","sulphite_free", "alcohol_volume",
-                "bubbles"]
+    variables = [
+        "capacity",
+        "unit_price",
+        "millesime",
+        "avg_temp",
+        "conservation_date",
+        "bio",
+        "customer_fav",
+        "is_new",
+        "top_100",
+        "destock",
+        "sulphite_free",
+        "alcohol_volume",
+        "bubbles",
+    ]
     df_drop_nulls = df[variables].drop_nulls()
     return variables, df_drop_nulls
