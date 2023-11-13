@@ -2,6 +2,8 @@
 `bear_cleaner` : L'ours polaire qui nettoie la donnée🐻
 """
 import polars as pl
+import plotly.figure_factory as ff
+import numpy as np
 
 # TODO: implémentation LazyFrame
 # TODO: Voir pour récupérer l'info "premier cru, second cru, etc."

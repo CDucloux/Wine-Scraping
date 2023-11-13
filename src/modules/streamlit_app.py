@@ -5,6 +5,9 @@ import plotly.express as px
 from bear_cleaner import *
 from st_functions import *
 from annotated_text import annotated_text, annotation
+import plotly.figure_factory as ff
+import plotly.express as px
+import numpy as np
 
 
 def main():
@@ -71,9 +74,28 @@ def main():
             "L'ensemble de cet onglet est statique, la barre de paramètres n'influera pas sur les données.",
             icon="ℹ️",
         )
-        st.write(
-            "**TODO** : Etudier écarts types, corrélations, tests de Student, Inclure du latex, etc."
+        choix = st.selectbox(
+            "Que voulez-vous consulter ?", ("Matrice de corrélation", "Type de vin")
         )
+
+        if choix == "Matrice de corrélation":
+            variables, df_drop_nulls = corr_plot()
+            fig_corr = ff.create_annotated_heatmap(
+                z=np.array(df_drop_nulls.corr()),
+                x=variables,
+                y=variables,
+                annotation_text=np.around(np.array(df_drop_nulls.corr()), decimals=2),
+                colorscale="Cividis",
+            )
+            fig_corr.update_layout(title_text="Matrice de corrélation")
+            st.plotly_chart(fig_corr)
+        if choix == "Type de vin":
+            df_2 = load_df()
+            fig_tv = px.histogram(df_2, x="type")
+            fig_tv.update_layout(title_text="Effectifs par type de vin")
+            fig_tv.update_xaxes(categoryorder="total descending")
+            st.plotly_chart(fig_tv)
+        # "**TODO** : Etudier écarts types, corrélations, tests de Student, Inclure du latex, etc."
 
     with tab3:
         colors = color_selector(selected_wines)
@@ -103,7 +125,12 @@ def main():
             create_bar(grouped_df)
 
     with tab5:
-        ...
+        st.subheader("Régression - Prédiction du prix")
+        col1, col2 = st.columns([2, 1.5])
+        with col1:
+            write_table_ml("./data/result_ml.csv")
+        with col2:
+            write_parameter("./data/result_ml.csv")
 
     with tab6:
         authors()

@@ -1,6 +1,7 @@
 """
 Module gérant les fonctions Streamlit de l'application.
 """
+import ast
 import streamlit as st
 from annotated_text import annotated_text, annotation
 import polars as pl
@@ -422,3 +423,59 @@ def authors() -> DeltaGenerator:
 """
         )
     return DeltaGenerator
+
+def write_table_ml(chemin_csv):
+    """Retourne un tableau avec les résultats des modèles"""
+    df = pl.read_csv(chemin_csv)
+    st.dataframe(
+        data = df,
+        hide_index=True,
+        column_order=["Modèle","Score", "Ecart-Type"],
+        column_config={
+            "Modèle": "Modèle 🧰",
+            "Score" : st.column_config.ProgressColumn(
+                "Score 🎰", min_value = -1, max_value=1,  format="%.2f",
+                help = "score ∈ [-1,1]"
+            ),
+            "Ecart-Type" : "Ecart-Type ↔"
+        }
+    )
+    
+def parametres(df, j):
+    """Construction du tableau des paramètres"""
+    parametres = ast.literal_eval(df["Paramètres"][j])
+    param = []
+    value = []
+    for key in list(parametres.keys()):
+        param.append(key)
+        value.append(str(parametres[key]))
+    tab = pl.DataFrame({'Paramètres': param, 'Valeur': value})
+    return st.dataframe(tab,hide_index=True)
+    
+def write_parameter(chemin_csv):
+    """Retourne un tableau avec les paramètres d'un modèle"""
+    df = pl.read_csv(chemin_csv)
+    selected_model = st.selectbox("Consultez les paramètres :", df["Modèle"])
+
+    if selected_model == "Random Forest":
+        parametres(df, 0)
+    elif selected_model == "K Neighbors":
+        parametres(df, 1)
+    elif selected_model == "Réseaux de neurones":
+        parametres(df, 2)
+    elif selected_model == "Boosting":
+        parametres(df, 3)
+    elif selected_model == "Ridge":
+        parametres(df, 4)
+    elif selected_model == "Support Vector":
+        parametres(df, 5)
+        
+def corr_plot():
+    """Retourne un plot de corrélation"""
+    df = load_df()
+    variables = ["capacity", "unit_price","millesime", "avg_temp",
+                "conservation_date", "bio","customer_fav", "is_new",
+                "top_100","destock","sulphite_free", "alcohol_volume",
+                "bubbles"]
+    df_drop_nulls = df[variables].drop_nulls()
+    return variables, df_drop_nulls
