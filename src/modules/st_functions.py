@@ -424,9 +424,10 @@ def authors() -> DeltaGenerator:
     return DeltaGenerator
 
 
-def write_table_ml(chemin_csv):
+def write_table_ml(chemin_csv, mode):
     """Retourne un tableau avec les résultats des modèles"""
     df = pl.read_csv(chemin_csv)
+    df = df.filter(df['Mode'] == mode)
     st.dataframe(
         data=df,
         hide_index=True,
@@ -457,10 +458,12 @@ def parametres(df, j):
     return st.dataframe(tab, hide_index=True)
 
 
-def write_parameter(chemin_csv):
+def write_parameter(chemin_csv, mode):
     """Retourne un tableau avec les paramètres d'un modèle"""
     df = pl.read_csv(chemin_csv)
-    selected_model = st.selectbox("Consultez les paramètres :", df["Modèle"])
+    df = df.filter(df['Mode'] == mode)
+    
+    selected_model = st.selectbox("Consultez les paramètres:", df["Modèle"])
 
     if selected_model == "Random Forest":
         parametres(df, 0)
@@ -474,7 +477,6 @@ def write_parameter(chemin_csv):
         parametres(df, 4)
     elif selected_model == "Support Vector":
         parametres(df, 5)
-
 
 def corr_plot():
     """Retourne un plot de corrélation"""

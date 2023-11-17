@@ -1,0 +1,13 @@
+Modèle,Score,Ecart-Type,Paramètres,Mode
+Random Forest,0.94,0.008,"{'entrainement__max_depth': 9, 'entrainement__n_estimators': 40, 'imputation__strategy': 'most_frequent'}",classification
+K Neighbors,0.962,0.01,"{'entrainement__n_neighbors': 4, 'imputation__strategy': 'mean'}",classification
+Réseaux de neurones,0.979,0.004,"{'entrainement__hidden_layer_sizes': (50, 50), 'entrainement__max_iter': 1000, 'entrainement__solver': 'adam', 'imputation__strategy': 'median'}",classification
+Boosting,0.978,0.006,"{'entrainement__learning_rate': 0.5, 'entrainement__n_estimators': 400, 'imputation__strategy': 'mean'}",classification
+Ridge,0.981,0.002,"{'entrainement__alpha': 1, 'imputation__strategy': 'mean'}",classification
+Support Vector,0.982,0.006,"{'entrainement__C': 3.281341424030552, 'imputation__strategy': 'most_frequent'}",classification
+Random Forest,0.418,0.037,"{'entrainement__max_depth': 9, 'entrainement__n_estimators': 30, 'imputation__strategy': 'most_frequent'}",regression
+K Neighbors,0.309,0.051,"{'entrainement__n_neighbors': 8, 'imputation__strategy': 'median'}",regression
+Réseaux de neurones,0.39,0.053,"{'entrainement__hidden_layer_sizes': (100,), 'entrainement__max_iter': 1000, 'entrainement__solver': 'adam', 'imputation__strategy': 'median'}",regression
+Boosting,0.447,0.031,"{'entrainement__learning_rate': 0.1, 'entrainement__n_estimators': 150, 'imputation__strategy': 'most_frequent'}",regression
+Ridge,0.367,0.05,"{'entrainement__alpha': 4, 'imputation__strategy': 'most_frequent'}",regression
+Support Vector,0.408,0.053,"{'entrainement__C': 1248.2699819053835, 'imputation__strategy': 'most_frequent'}",regression
