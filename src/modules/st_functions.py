@@ -9,6 +9,7 @@ import plotly.express as px
 from pathlib import Path
 from bear_cleaner import *
 from streamlit.delta_generator import DeltaGenerator
+from prediction import *
 
 # TODO: -- Impossible actuellement...Regarder comment changer la couleur dans un DataFrame, notamment pour prix & Type de vin
 
@@ -427,21 +428,37 @@ def authors() -> DeltaGenerator:
 def write_table_ml(chemin_csv, mode):
     """Retourne un tableau avec les résultats des modèles"""
     df = pl.read_csv(chemin_csv)
-    df = df.filter(df['Mode'] == mode)
+    df = df.filter(df["Mode"] == mode)
     st.dataframe(
         data=df,
         hide_index=True,
-        column_order=["Modèle", "Score", "Ecart-Type"],
+        column_order=[
+            "Modèle",
+            "Score Entrainement",
+            "Ecart-Type Train",
+            "Score Test",
+            "Ecart-Type Test",
+            "Score Test data",
+        ],
         column_config={
             "Modèle": "Modèle 🧰",
-            "Score": st.column_config.ProgressColumn(
-                "Score 🎰",
+            "Score Entrainement": st.column_config.ProgressColumn(
+                "Score Train 🏋🏻‍♂️",
                 min_value=-1,
                 max_value=1,
                 format="%.2f",
                 help="score ∈ [-1,1]",
             ),
-            "Ecart-Type": "Ecart-Type ↔",
+            "Ecart-Type Train": "SD Train",
+            "Score Test": st.column_config.ProgressColumn(
+                "Score Test 👨🏻‍🔬",
+                min_value=-1,
+                max_value=1,
+                format="%.2f",
+                help="score ∈ [-1,1]",
+            ),
+            "Ecart-Type Test": "SD Test",
+            "Score Test data": "Métrique 🏭",
         },
     )
 
@@ -461,22 +478,35 @@ def parametres(df, j):
 def write_parameter(chemin_csv, mode):
     """Retourne un tableau avec les paramètres d'un modèle"""
     df = pl.read_csv(chemin_csv)
-    df = df.filter(df['Mode'] == mode)
-    
-    selected_model = st.selectbox("Consultez les paramètres:", df["Modèle"])
+    df = df.filter(df["Mode"] == mode)
 
-    if selected_model == "Random Forest":
-        parametres(df, 0)
-    elif selected_model == "K Neighbors":
-        parametres(df, 1)
-    elif selected_model == "Réseaux de neurones":
-        parametres(df, 2)
-    elif selected_model == "Boosting":
-        parametres(df, 3)
-    elif selected_model == "Ridge":
-        parametres(df, 4)
-    elif selected_model == "Support Vector":
-        parametres(df, 5)
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        selected_model = st.radio(
+            "Consultez les paramètres optimaux",
+            [
+                "Boosting",
+                "Random Forest",
+                "K Neighbors",
+                "Support Vector",
+                "Réseaux de neurones",
+                "Ridge",
+            ],
+        )
+    with col2:
+        if selected_model == "Random Forest":
+            parametres(df, 0)
+        elif selected_model == "K Neighbors":
+            parametres(df, 1)
+        elif selected_model == "Réseaux de neurones":
+            parametres(df, 2)
+        elif selected_model == "Boosting":
+            parametres(df, 3)
+        elif selected_model == "Ridge":
+            parametres(df, 4)
+        elif selected_model == "Support Vector":
+            parametres(df, 5)
+
 
 def corr_plot():
     """Retourne un plot de corrélation"""

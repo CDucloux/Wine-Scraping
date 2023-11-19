@@ -90,6 +90,7 @@ def model_rf(x_train, y_train, mode: str):
             "entrainement__max_depth": range(1, 10, 1),
         },
         n_jobs=-1,
+        return_train_score=True,
     )
     cv.fit(x_train, y_train)
     return cv
@@ -125,6 +126,7 @@ def model_knn(x_train, y_train, mode: str):
             "entrainement__n_neighbors": range(2, 15),
         },
         n_jobs=-1,
+        return_train_score=True,
     )
     cv.fit(x_train, y_train)
     return cv
@@ -154,7 +156,7 @@ def model_boost(x_train, y_train, mode: str):
         )
     else:
         raise ValueError("Erreur. Utilisez 'classification' ou 'regression'.")
-    
+
     cv = GridSearchCV(
         estimator=model,
         param_grid={
@@ -163,6 +165,7 @@ def model_boost(x_train, y_train, mode: str):
             "entrainement__n_estimators": (50, 100, 150, 200, 400),
         },
         n_jobs=-1,
+        return_train_score=True,
     )
     cv.fit(x_train, y_train)
     return cv
@@ -201,6 +204,7 @@ def model_mlp(x_train, y_train, mode: str):
             "entrainement__max_iter": [1000],
         },
         n_jobs=-1,
+        return_train_score=True,
     )
     cv.fit(x_train, y_train)
     return cv
@@ -238,6 +242,7 @@ def model_ridge(x_train, y_train, mode):
             "entrainement__alpha": [2**p for p in range(-6, 7)],
         },
         n_jobs=-1,
+        return_train_score=True,
     )
     cv.fit(x_train, y_train)
     return cv
@@ -271,9 +276,10 @@ def model_svm(x_train, y_train, mode):
         estimator=model,
         param_grid={
             "imputation__strategy": ["mean", "median", "most_frequent"],
-            "entrainement__C": np.logspace(-4, 16, 15, base=2)
+            "entrainement__C": np.logspace(-4, 16, 15, base=2),
         },
         n_jobs=-1,
+        return_train_score=True,
     )
     cv.fit(x_train, y_train)
     return cv
@@ -319,68 +325,31 @@ def model_param(modele, *args):
 
 
 # Résultats
-def score(model):
-    """Retourne le score"""
+def score_test(model):
+    """Retourne le score de test"""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return round(model.cv_results_["mean_test_score"][indice_meilleur], 3)
 
 
-def ecart_type(model):
+def score_entrainement(model):
+    """Retourne le score d'entrainement"""
+    indice_meilleur = model.cv_results_["rank_test_score"].argmin()
+    return round(model.cv_results_["mean_train_score"][indice_meilleur], 3)
+
+
+def ecart_type_test(model):
     """Retourne l'ecart-type"""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return round(model.cv_results_["std_test_score"][indice_meilleur], 3)
+
+
+def ecart_type_train(model):
+    """Retourne l'ecart-type"""
+    indice_meilleur = model.cv_results_["rank_test_score"].argmin()
+    return round(model.cv_results_["std_train_score"][indice_meilleur], 3)
 
 
 def parametre(model):
     """Retourne les meilleurs paramètres"""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return str(model.cv_results_["params"][indice_meilleur])
-
-
-def stockage_result_csv(model, mode):
-    """Stock les résultats dans un CSV"""
-    ml = {
-        "Modèle": [
-            "Random Forest",
-            "K Neighbors",
-            "Réseaux de neurones",
-            "Boosting",
-            "Ridge",
-            "Support Vector",
-        ],
-        "Score": [
-            score(model["model_rf"]),
-            score(model["model_knn"]),
-            score(model["model_mlp"]),
-            score(model["model_boost"]),
-            score(model["model_ridge"]),
-            score(model["model_svm"]),
-        ],
-        "Ecart-Type": [
-            ecart_type(model["model_rf"]),
-            ecart_type(model["model_knn"]),
-            ecart_type(model["model_mlp"]),
-            ecart_type(model["model_boost"]),
-            ecart_type(model["model_ridge"]),
-            ecart_type(model["model_svm"]),
-        ],
-        "Paramètres": [
-            parametre(model["model_rf"]),
-            parametre(model["model_knn"]),
-            parametre(model["model_mlp"]),
-            parametre(model["model_boost"]),
-            parametre(model["model_ridge"]),
-            parametre(model["model_svm"]),
-        ],
-        "Mode" :[
-            mode,
-            mode,
-            mode,
-            mode,
-            mode,
-            mode
-        ]
-    }
-    ml = pl.DataFrame(ml)
-    ml.write_csv("./data/result_ml.csv", separator=",")
-    return print("C'est bon ça a marché")

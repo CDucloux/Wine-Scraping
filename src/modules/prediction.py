@@ -16,6 +16,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 from models import *
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 import ast
 import polars as pl
 
@@ -78,6 +80,7 @@ def recup_param(choix, variable):
     csv = csv.filter(csv["Mode"] == mode)
     return ast.literal_eval(csv.filter(csv["Modèle"] == choix)["Paramètres"][0])
 
+
 def prediction(model, index, X_train, y_train, X_test, y_test):
     """Réalise une prédiction sur une des données de tests"""
     model.fit(X_train, y_train)
@@ -86,7 +89,7 @@ def prediction(model, index, X_train, y_train, X_test, y_test):
     return pred, real
 
 
-def random_forest(variable, choix, index):
+def random_forest(variable, choix, index=None):
     """Modèle Random Forest"""
     X_train, X_test, y_train, y_test, _ = init(variable)
 
@@ -126,11 +129,15 @@ def random_forest(variable, choix, index):
                 ),
             ]
         )
-    pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    return pred, real
+    if index is not None:
+        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
+    else:
+        pred = None
+        real = None
+    return pred, real, model
 
 
-def boosting(variable, choix, index):
+def boosting(variable, choix, index=None):
     """Modèle Boosting"""
     X_train, X_test, y_train, y_test, _ = init(variable)
     if variable == "unit_price":
@@ -169,12 +176,16 @@ def boosting(variable, choix, index):
                 ),
             ]
         )
-    pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    return pred, real
+    if index is not None:
+        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
+    else:
+        pred = None
+        real = None
+    return pred, real, model
 
 
-def ridge(variable, choix, index):
-    """"Modèle Ridge"""
+def ridge(variable, choix, index=None):
+    """ "Modèle Ridge"""
     X_train, X_test, y_train, y_test, _ = init(variable)
     if variable == "unit_price":
         model = Pipeline(
@@ -200,12 +211,15 @@ def ridge(variable, choix, index):
                 ),
             ]
         )
+    if index is not None:
+        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
+    else:
+        pred = None
+        real = None
+    return pred, real, model
 
-    pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    return pred, real
 
-
-def mlp(variable, choix, index):
+def mlp(variable, choix, index=None):
     """Modèle MLP"""
     X_train, X_test, y_train, y_test, _ = init(variable)
     if variable == "unit_price":
@@ -242,11 +256,15 @@ def mlp(variable, choix, index):
                 ),
             ]
         )
-    pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    return pred, real
+    if index is not None:
+        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
+    else:
+        pred = None
+        real = None
+    return pred, real, model
 
 
-def knn(variable, choix, index):
+def knn(variable, choix, index=None):
     """Modèle KNN"""
     X_train, X_test, y_train, y_test, _ = init(variable)
     if variable == "unit_price":
@@ -279,12 +297,15 @@ def knn(variable, choix, index):
                 ),
             ]
         )
+    if index is not None:
+        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
+    else:
+        pred = None
+        real = None
+    return pred, real, model
 
-    pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    return pred, real
 
-
-def support_vector(variable, choix, index):
+def support_vector(variable, choix, index=None):
     """Modèle SVM"""
     X_train, X_test, y_train, y_test, _ = init(variable)
     if variable == "unit_price":
@@ -309,8 +330,12 @@ def support_vector(variable, choix, index):
                 ),
             ]
         )
-    pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    return pred, real
+    if index is not None:
+        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
+    else:
+        pred = None
+        real = None
+    return pred, real, model
 
 
 def choix_utilisateur(choix_type: str, choix_selection: str, choix_vin):
@@ -335,3 +360,100 @@ def choix_utilisateur(choix_type: str, choix_selection: str, choix_vin):
         return knn(variable, choix_selection, index)
     elif choix_selection == "Réseaux de neurones":
         return mlp(variable, choix_selection, index)
+
+
+def performance(variable):
+    erreur_test = []
+    X_train, X_test, y_train, y_test, _ = init(variable)
+
+    models = []
+    model_functions = [
+        ("Random Forest", random_forest),
+        ("K Neighbors", knn),
+        ("Réseaux de neurones", mlp),
+        ("Boosting", boosting),
+        ("Ridge", ridge),
+        ("Support Vector", support_vector),
+    ]
+    for model_name, model_function in model_functions:
+        _, _, model = model_function(variable, model_name)
+        model = model.fit(X_train, y_train)
+        models.append(model)
+
+    for model in models:
+        y_pred = model.predict(X_test)
+        if variable == "type":
+            erreur_test.append(accuracy_score(y_test, y_pred))
+        elif variable == "unit_price":
+            erreur_test.append(mean_absolute_error(y_test, y_pred))
+    return erreur_test
+
+
+def stockage_result_csv(model, mode):
+    """Stock les résultats dans un CSV"""
+    if mode == "regression":
+        variable = "unit_price"
+    elif mode == "classification":
+        variable = "type"
+    ml = {
+        "Modèle": [
+            "Random Forest",
+            "K Neighbors",
+            "Réseaux de neurones",
+            "Boosting",
+            "Ridge",
+            "Support Vector",
+        ],
+        "Score Test": [
+            score_test(model["model_rf"]),
+            score_test(model["model_knn"]),
+            score_test(model["model_mlp"]),
+            score_test(model["model_boost"]),
+            score_test(model["model_ridge"]),
+            score_test(model["model_svm"]),
+        ],
+        "Score Entrainement": [
+            score_entrainement(model["model_rf"]),
+            score_entrainement(model["model_knn"]),
+            score_entrainement(model["model_mlp"]),
+            score_entrainement(model["model_boost"]),
+            score_entrainement(model["model_ridge"]),
+            score_entrainement(model["model_svm"]),
+        ],
+        "Ecart-Type Test": [
+            ecart_type_test(model["model_rf"]),
+            ecart_type_test(model["model_knn"]),
+            ecart_type_test(model["model_mlp"]),
+            ecart_type_test(model["model_boost"]),
+            ecart_type_test(model["model_ridge"]),
+            ecart_type_test(model["model_svm"]),
+        ],
+        "Ecart-Type Train": [
+            ecart_type_train(model["model_rf"]),
+            ecart_type_train(model["model_knn"]),
+            ecart_type_train(model["model_mlp"]),
+            ecart_type_train(model["model_boost"]),
+            ecart_type_train(model["model_ridge"]),
+            ecart_type_train(model["model_svm"]),
+        ],
+        "Paramètres": [
+            parametre(model["model_rf"]),
+            parametre(model["model_knn"]),
+            parametre(model["model_mlp"]),
+            parametre(model["model_boost"]),
+            parametre(model["model_ridge"]),
+            parametre(model["model_svm"]),
+        ],
+        "Score Test data": [
+            performance(variable)[0],
+            performance(variable)[1],
+            performance(variable)[2],
+            performance(variable)[3],
+            performance(variable)[4],
+            performance(variable)[5],
+        ],
+        "Mode": [mode, mode, mode, mode, mode, mode],
+    }
+    ml = pl.DataFrame(ml)
+    ml.write_csv(f"./data/result_ml_{mode}.csv", separator=",")
+    return print("C'est bon ça a marché")

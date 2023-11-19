@@ -130,42 +130,58 @@ def main():
     with tab5:
         st.subheader("Exploration")
         choix = st.selectbox(
-            "Choix des modèles de machine learning: ", ("Régression - Prédiction du prix", "Classification - Prédiction type de vin")
+            "Choix des modèles de machine learning: ",
+            (
+                "Régression - Prédiction du prix",
+                "Classification - Prédiction type de vin",
+            ),
         )
         if choix == "Régression - Prédiction du prix":
-            col1, col2 = st.columns([2, 1.5])
-            with col1:
-                write_table_ml("./data/result_ml_save.csv", "regression")
-            with col2:
-                write_parameter("./data/result_ml_save.csv", "regression")
+            write_table_ml("./data/result_ml_save.csv", "regression")
+            st.divider()
+            write_parameter("./data/result_ml_save.csv", "regression")
         elif choix == "Classification - Prédiction type de vin":
-            col1, col2 = st.columns([2, 1.5])
-            with col1:
-                write_table_ml("./data/result_ml_save.csv", "classification")
-            with col2:
-                write_parameter("./data/result_ml_save.csv", "classification")
+            write_table_ml("./data/result_ml_save.csv", "classification")
+            st.divider()
+            write_parameter("./data/result_ml_save.csv", "classification")
         st.divider()
         st.subheader("Prédiction")
-        _,_,_,_, name = init("unit_price")
-        choix_vin = st.selectbox(
-            "Vin : ", (name)
-        )
-        col1, col2 = st.columns([2,2])
+        _, _, _, _, name = init("unit_price")
+        choix_vin = st.selectbox("Vin : ", (name))
+        col1, col2 = st.columns([2, 2])
         with col1:
-            choix_type = st.selectbox(
-                "Type: ",
-                ("Regression", "Classification")
-            )
+            choix_type = st.selectbox("Type: ", ("Regression", "Classification"))
         with col2:
             choix_selection = st.selectbox(
                 "Modèle: ",
-                ("Random Forest", "Boosting", "Ridge","Réseaux de neurones","K Neighbors", "Support Vector")
+                (
+                    "Random Forest",
+                    "Boosting",
+                    "Ridge",
+                    "Réseaux de neurones",
+                    "K Neighbors",
+                    "Support Vector",
+                ),
             )
-        col1, col2 = st.columns([2,2])
+        col1, col2 = st.columns([2, 2])
         with col1:
-            st.metric(label="Prédiction", value=choix_utilisateur(choix_type,choix_selection, choix_vin)[0])
+            if choix_type == "Regression":
+                st.metric(
+                    label="Prédiction",
+                    value=round(
+                        choix_utilisateur(choix_type, choix_selection, choix_vin)[0], 1
+                    ),
+                )
+            else:
+                st.metric(
+                    label="Prédiction",
+                    value=choix_utilisateur(choix_type, choix_selection, choix_vin)[0],
+                )
         with col2:
-            st.metric(label="Réalité", value=choix_utilisateur(choix_type,choix_selection, choix_vin)[1])
+            st.metric(
+                label="Réalité",
+                value=choix_utilisateur(choix_type, choix_selection, choix_vin)[1],
+            )
         st.divider()
     with tab6:
         authors()
