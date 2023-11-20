@@ -77,26 +77,19 @@ def main():
             icon="ℹ️",
         )
         choix = st.selectbox(
-            "Que voulez-vous consulter ?", ("Matrice de corrélation", "Type de vin")
+            "Que voulez-vous consulter ?", ("Histogramme des prix", "Matrice de corrélation","Cépage majoritaire")
         )
 
         if choix == "Matrice de corrélation":
-            variables, df_drop_nulls = corr_plot()
-            fig_corr = ff.create_annotated_heatmap(
-                z=np.array(df_drop_nulls.corr()),
-                x=variables,
-                y=variables,
-                annotation_text=np.around(np.array(df_drop_nulls.corr()), decimals=2),
-                colorscale="Cividis",
+            display_corr()
+        if choix == "Histogramme des prix":
+            display_density()
+        if choix == "Cépage majoritaire":
+            display_bar()
+            st.info(
+                "Seuls les cépages ayant une fréquence supérieure à dix sont affichés",
+                icon="🚨"
             )
-            fig_corr.update_layout(title_text="Matrice de corrélation")
-            st.plotly_chart(fig_corr)
-        if choix == "Type de vin":
-            df_2 = load_df()
-            fig_tv = px.histogram(df_2, x="type")
-            fig_tv.update_layout(title_text="Effectifs par type de vin")
-            fig_tv.update_xaxes(categoryorder="total descending")
-            st.plotly_chart(fig_tv)
 
         # "**TODO** : Etudier écarts types, corrélations, tests de Student, Inclure du latex, etc."
 

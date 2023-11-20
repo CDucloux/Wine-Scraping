@@ -10,6 +10,7 @@ from pathlib import Path
 from bear_cleaner import *
 from streamlit.delta_generator import DeltaGenerator
 from prediction import *
+import plotly.graph_objects as go
 
 # TODO: -- Impossible actuellement...Regarder comment changer la couleur dans un DataFrame, notamment pour prix & Type de vin
 
@@ -471,7 +472,7 @@ def parametres(df, j):
     for key in list(parametres.keys()):
         param.append(key)
         value.append(str(parametres[key]))
-    tab = pl.DataFrame({"Paramètres": param, "Valeur": value})
+    tab = pl.DataFrame({"Paramètres ⚒️": param, "Valeur optimale ⭐": value})
     return st.dataframe(tab, hide_index=True)
 
 
@@ -508,7 +509,7 @@ def write_parameter(chemin_csv, mode):
             parametres(df, 5)
 
 
-def corr_plot():
+def display_corr():
     """Retourne un plot de corrélation"""
     df = load_df()
     variables = [
@@ -527,4 +528,28 @@ def corr_plot():
         "bubbles",
     ]
     df_drop_nulls = df[variables].drop_nulls()
-    return variables, df_drop_nulls
+    fig_corr = ff.create_annotated_heatmap(
+                z=np.array(df_drop_nulls.corr()),
+                x=variables,
+                y=variables,
+                annotation_text=np.around(np.array(df_drop_nulls.corr()), decimals=2),
+                colorscale="Cividis",
+            )
+    return st.plotly_chart(fig_corr)
+
+def display_density():
+    """Retourne un plot de densité"""
+    df_2 = load_df()
+    fig_tv = px.histogram(df_2, x="unit_price", marginal='box',
+                          nbins=4000, log_x=True, color = "type")
+    return st.plotly_chart(fig_tv)
+
+def display_bar():
+    """Retourne un plot en bar"""
+    df = load_df()
+    cepage_counts = df.groupby("cepage").agg(pl.col("cepage").count().alias("count"))
+    cepage_filtre = cepage_counts.filter(cepage_counts["count"] >= 10)
+    df_filtre = df.join(cepage_filtre, on="cepage")
+    fig_bar = px.bar(df_filtre, x = 'cepage', color = "type")
+    return st.plotly_chart(fig_bar)
+    
