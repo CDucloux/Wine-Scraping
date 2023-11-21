@@ -96,7 +96,7 @@ def random_forest(variable, choix, index=None):
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -114,7 +114,7 @@ def random_forest(variable, choix, index=None):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -143,7 +143,7 @@ def boosting(variable, choix, index=None):
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -161,7 +161,7 @@ def boosting(variable, choix, index=None):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -190,7 +190,7 @@ def ridge(variable, choix, index=None):
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -201,7 +201,7 @@ def ridge(variable, choix, index=None):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -225,7 +225,7 @@ def mlp(variable, choix, index=None):
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -242,7 +242,7 @@ def mlp(variable, choix, index=None):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -270,7 +270,7 @@ def knn(variable, choix, index=None):
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -285,7 +285,7 @@ def knn(variable, choix, index=None):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -311,7 +311,7 @@ def support_vector(variable, choix, index=None):
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -322,7 +322,7 @@ def support_vector(variable, choix, index=None):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer()),
+                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
