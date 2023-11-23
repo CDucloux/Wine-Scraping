@@ -33,6 +33,7 @@ def init(variable):
     df_dm = data_model(chemin="./data/vins.json", variable_a_predire=EXPLIQUEE)
 
     df = df_dm.select(
+        "name",
         "capacity",
         "unit_price",
         "millesime",
@@ -54,19 +55,17 @@ def init(variable):
         "nb_reviews",
         "conservation_time",
         "type",
+        "cru",
     )
 
     df = prep_str(df, categorical_cols=CATEGORICALS)
 
-    X = df.drop(columns=[EXPLIQUEE])
+    X = df.drop(columns=[EXPLIQUEE, "name"])
     y = df[EXPLIQUEE]
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=69
     )
-
-    df_name = df_dm.to_pandas()
-    name = df_name.iloc[X_test.index]["name"]
-    return X_train, X_test, y_train, y_test, name
+    return X_train, X_test, y_train, y_test, df
 
 
 def recup_param(choix, variable):
@@ -80,19 +79,8 @@ def recup_param(choix, variable):
     csv = csv.filter(csv["Mode"] == mode)
     return ast.literal_eval(csv.filter(csv["Modèle"] == choix)["Paramètres"][0])
 
-
-def prediction(model, index, X_train, y_train, X_test, y_test):
-    """Réalise une prédiction sur une des données de tests"""
-    model.fit(X_train, y_train)
-    pred = model.predict([X_test.loc[index]])[0]
-    real = y_test.loc[index]
-    return pred, real
-
-
-def random_forest(variable, choix, index=None):
+def random_forest(variable, choix):
     """Modèle Random Forest"""
-    X_train, X_test, y_train, y_test, _ = init(variable)
-
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -129,17 +117,11 @@ def random_forest(variable, choix, index=None):
                 ),
             ]
         )
-    if index is not None:
-        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    else:
-        pred = None
-        real = None
-    return pred, real, model
+    return model
 
 
-def boosting(variable, choix, index=None):
+def boosting(variable, choix):
     """Modèle Boosting"""
-    X_train, X_test, y_train, y_test, _ = init(variable)
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -176,17 +158,11 @@ def boosting(variable, choix, index=None):
                 ),
             ]
         )
-    if index is not None:
-        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    else:
-        pred = None
-        real = None
-    return pred, real, model
+    return model
 
 
-def ridge(variable, choix, index=None):
+def ridge(variable, choix):
     """ "Modèle Ridge"""
-    X_train, X_test, y_train, y_test, _ = init(variable)
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -211,17 +187,11 @@ def ridge(variable, choix, index=None):
                 ),
             ]
         )
-    if index is not None:
-        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    else:
-        pred = None
-        real = None
-    return pred, real, model
+    return model
 
 
-def mlp(variable, choix, index=None):
+def mlp(variable, choix):
     """Modèle MLP"""
-    X_train, X_test, y_train, y_test, _ = init(variable)
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -256,17 +226,11 @@ def mlp(variable, choix, index=None):
                 ),
             ]
         )
-    if index is not None:
-        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    else:
-        pred = None
-        real = None
-    return pred, real, model
+    return model
 
 
-def knn(variable, choix, index=None):
+def knn(variable, choix):
     """Modèle KNN"""
-    X_train, X_test, y_train, y_test, _ = init(variable)
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -297,17 +261,11 @@ def knn(variable, choix, index=None):
                 ),
             ]
         )
-    if index is not None:
-        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    else:
-        pred = None
-        real = None
-    return pred, real, model
+    return model
 
 
 def support_vector(variable, choix, index=None):
     """Modèle SVM"""
-    X_train, X_test, y_train, y_test, _ = init(variable)
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -330,12 +288,7 @@ def support_vector(variable, choix, index=None):
                 ),
             ]
         )
-    if index is not None:
-        pred, real = prediction(model, index, X_train, y_train, X_test, y_test)
-    else:
-        pred = None
-        real = None
-    return pred, real, model
+    return model
 
 
 def choix_utilisateur(choix_type: str, choix_selection: str, choix_vin):
@@ -349,17 +302,17 @@ def choix_utilisateur(choix_type: str, choix_selection: str, choix_vin):
         variable = "type"
 
     if choix_selection == "Random Forest":
-        return random_forest(variable, choix_selection, index)
+        return random_forest(variable, choix_selection)
     elif choix_selection == "Boosting":
-        return boosting(variable, choix_selection, index)
+        return boosting(variable, choix_selection)
     elif choix_selection == "Support Vector":
-        return support_vector(variable, choix_selection, index)
+        return support_vector(variable, choix_selection)
     elif choix_selection == "Ridge":
-        return ridge(variable, choix_selection, index)
+        return ridge(variable, choix_selection)
     elif choix_selection == "K Neighbors":
-        return knn(variable, choix_selection, index)
+        return knn(variable, choix_selection)
     elif choix_selection == "Réseaux de neurones":
-        return mlp(variable, choix_selection, index)
+        return mlp(variable, choix_selection)
 
 
 def performance(variable):
@@ -376,7 +329,7 @@ def performance(variable):
         ("Support Vector", support_vector),
     ]
     for model_name, model_function in model_functions:
-        _, _, model = model_function(variable, model_name)
+        model = model_function(variable, model_name)
         model = model.fit(X_train, y_train)
         models.append(model)
 

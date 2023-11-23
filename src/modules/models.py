@@ -22,7 +22,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import OneHotEncoder
-from prettytable import PrettyTable
 import numpy as np
 import polars as pl
 import pandas as pd
@@ -295,34 +294,6 @@ def train_model(x_train, y_train, mode):
         "model_svm": model_svm(x_train, y_train, mode),
         "model_mlp": model_mlp(x_train, y_train, mode),
     }
-
-
-# Résultats notebook
-def model_result(**kwargs):
-    """Permet de faire un résumer de(s) résultat(s) de(s) modèle(s)
-    >> model_result(nom_du_mode = model_entrainé)"""
-    table = PrettyTable(["Modèle", "Score", "SD"])
-    for nom, model in kwargs.items():
-        indice_meilleur = model.cv_results_["rank_test_score"].argmin()
-        table.add_row(
-            [
-                nom,
-                round(model.cv_results_["mean_test_score"][indice_meilleur], 3),
-                round(model.cv_results_["std_test_score"][indice_meilleur], 3),
-            ]
-        )
-    return print(table)
-
-
-def model_param(modele, *args):
-    """Permet de connaître les meilleurs paramètres pour un modèle
-    >> model_param(model_entrainé, "entrainement__nom_du_parametre")"""
-    indice_meilleur = modele.cv_results_["rank_test_score"].argmin()
-    table2 = PrettyTable(["Parameter", "Value"])
-    for key in args:
-        table2.add_row([key, modele.cv_results_["params"][indice_meilleur][key]])
-    return print(table2)
-
 
 # Résultats
 def score_test(model):

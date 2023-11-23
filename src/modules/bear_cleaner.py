@@ -403,6 +403,16 @@ def get_conservation_time(df: pl.DataFrame) -> pl.DataFrame:
     )
     return df
 
+def is_cru(df: pl.DataFrame) -> pl.DataFrame:
+    """Détermine si un vin est un grand cru ou non."""
+    df = df.with_columns(
+        pl.when(pl.col("name").str.contains("CRU"))
+        .then(pl.lit(1))
+        .otherwise(pl.lit(0))
+        .alias("cru")
+    )
+    return df
+
 
 def drop_price(df: pl.DataFrame) -> pl.DataFrame:
     """Retire les prix non renseignés."""
@@ -453,6 +463,7 @@ def super_pipe(df: pl.DataFrame) -> pl.DataFrame:
         .pipe(get_reviews)
         .pipe(get_service)
         .pipe(get_conservation_time)
+        .pipe(is_cru)
         .pipe(drop_price)
     )
     return df
