@@ -2,17 +2,28 @@
 Module gérant les fonctions Streamlit de l'application.
 """
 import ast
+import duckdb
 import streamlit as st
 from annotated_text import annotated_text, annotation
 import polars as pl
 import plotly.express as px
+import plotly.figure_factory as ff
 from pathlib import Path
 from bear_cleaner import *
 from streamlit.delta_generator import DeltaGenerator
 from prediction import *
 from PIL import Image
+from duckdb import DuckDBPyConnection
 
-# TODO: -- Impossible actuellement...Regarder comment changer la couleur dans un DataFrame, notamment pour prix & Type de vin
+
+@st.cache_resource
+def db_connector() -> DuckDBPyConnection:
+    """Se connecte à la base de données."""
+    root = Path(".").resolve()
+    data_folder = root / "data"
+    wine_db_path = str(data_folder / "DB" / "dt.db")
+    connection = duckdb.connect(wine_db_path)
+    return connection
 
 
 @st.cache_data
@@ -413,9 +424,8 @@ def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
 
 
 def authors() -> DeltaGenerator:
-    """Crée la page 6 qui inclue la licence et nos noms 😎."""
+    """Crée la page 6 qui inclue nos noms 😎."""
     st.balloons()
-    st.info("Licence CC-by-sa", icon="ℹ️")
     with st.expander("Découvrir les `auteurs` de l'application"):
         st.markdown(
             """
@@ -423,6 +433,8 @@ def authors() -> DeltaGenerator:
 - *Guillaume DEVANT* : https://github.com/devgui37
 """
         )
+    image = Image.open("./img/img_vins.jpg")
+    st.image(image)
     return DeltaGenerator
 
 
@@ -467,8 +479,8 @@ def write_table_ml(chemin_csv, mode):
 def parametres(df, place_model):
     """Construction du tableau des paramètres"""
     parametres = ast.literal_eval(df["Paramètres"][place_model])
-    param = []
-    value = []
+    param = list()
+    value = list()
     for key in list(parametres.keys()):
         param.append(key)
         value.append(str(parametres[key]))
@@ -526,38 +538,61 @@ def display_corr(df: pl.DataFrame):
         "alcohol_volume",
         "bubbles",
     ]
-    df_drop_nulls = df[variables].drop_nulls()
+    df_drop_nulls = df.select(variables).drop_nulls()
     cor_matrice = np.array(df_drop_nulls.corr())
     fig_corr = ff.create_annotated_heatmap(
-                z=cor_matrice,
-                x=variables,
-                y=variables,
-                annotation_text=np.around(np.array(df_drop_nulls.corr()), decimals=2),
-                colorscale="Inferno",
-            )
+        z=cor_matrice,
+        x=variables,
+        y=variables,
+        annotation_text=np.around(np.array(df_drop_nulls.corr()), decimals=2),
+        colorscale="Inferno",
+    )
     masque = np.ma.masked_where(cor_matrice >= 0.99, cor_matrice)
-    cor_min = round(np.min(masque),2)
-    cor_max = round(np.max(masque),2)
-    
-    cor_min_txt = f"La corrélation minimal est de {cor_min} entre le millésime et le prix"
-    cor_max_txt = f"La corrélation maximum est de {cor_max} entre la date de conservation et le prix"
-    return st.plotly_chart(fig_corr), st.success(cor_max_txt, icon = "➕"), st.error(cor_min_txt, icon = "➖")
+    cor_min = round(np.min(masque), 2)
+    cor_max = round(np.max(masque), 2)
+
+    cor_min_txt = (
+        f"➖ La corrélation minimale est de {cor_min} entre le millésime et le prix."
+    )
+    cor_max_txt = f"➕ La corrélation maximale est de {cor_max} entre la date de conservation et le prix."
+    return (
+        st.plotly_chart(fig_corr),
+        st.success(cor_max_txt),
+        st.error(cor_min_txt),
+    )
+
 
 def display_density(df: pl.DataFrame):
     """Retourne un plot de densité"""
-    fig_tv = px.histogram(df, x="unit_price", marginal='box',
-                          nbins=4000, log_x=True, 
-                          color = "type",
-                          color_discrete_map = {'Vin Rouge': '#ff4b4b', 'Vin Blanc': '#f3b442', 'Vin Rosé': '#ff8fa3'})
+    fig_tv = px.histogram(
+        df,
+        x="unit_price",
+        marginal="box",
+        nbins=4000,
+        log_x=True,
+        color="type",
+        color_discrete_map={
+            "Vin Rouge": "#ff4b4b",
+            "Vin Blanc": "#f3b442",
+            "Vin Rosé": "#ff8fa3",
+        },
+    )
     return st.plotly_chart(fig_tv)
+
 
 def display_bar(df: pl.DataFrame):
     """Retourne un plot en bar"""
     cepage_counts = df.groupby("cepage").agg(pl.col("cepage").count().alias("count"))
     cepage_filtre = cepage_counts.filter(cepage_counts["count"] >= 10)
     df_filtre = df.join(cepage_filtre, on="cepage")
-    fig_bar = px.bar(df_filtre, x = 'cepage', 
-                     color = "type", 
-                     color_discrete_map = {'Vin Rouge': '#ff4b4b', 'Vin Blanc': '#f3b442', 'Vin Rosé': '#ff8fa3'})
+    fig_bar = px.bar(
+        df_filtre,
+        x="cepage",
+        color="type",
+        color_discrete_map={
+            "Vin Rouge": "#ff4b4b",
+            "Vin Blanc": "#f3b442",
+            "Vin Rosé": "#ff8fa3",
+        },
+    )
     return st.plotly_chart(fig_bar)
-    

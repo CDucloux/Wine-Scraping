@@ -1,8 +1,10 @@
 """Et concrétement, ça donne quoi ton modèle ?"""
 import polars as pl
-from prediction import * 
+from prediction import *
 
-EXPLIQUEE = "unit_price" #type or unit_price
+# TODO: utiliser pathlib c'est mieux quand même...
+
+EXPLIQUEE = "unit_price"  # type or unit_price
 
 if EXPLIQUEE == "type":
     MODE = "classification"
@@ -24,7 +26,7 @@ models = [model_rf, model_boost, model_ridge, model_knn, model_mlp, model_sv]
 
 for model in models:
     model.fit(X_train, y_train)
-    
+
 preds_rf = model_rf.predict(X_test).astype(str)
 preds_boost = model_boost.predict(X_test).astype(str)
 preds_ridge = model_ridge.predict(X_test).astype(str)
@@ -36,12 +38,12 @@ df = pl.DataFrame(data[masque])
 df = df.select(
     pl.col("name"),
     pl.col(EXPLIQUEE),
-    random_forest = pl.lit(preds_rf),
-    boosting = pl.lit(preds_boost),
-    ridge = pl.lit(preds_ridge),
-    knn = pl.lit(preds_knn),
-    mlp = pl.lit(preds_mlp),
-    support_vector = pl.lit(preds_sv)
+    random_forest=pl.lit(preds_rf),
+    boosting=pl.lit(preds_boost),
+    ridge=pl.lit(preds_ridge),
+    knn=pl.lit(preds_knn),
+    mlp=pl.lit(preds_mlp),
+    support_vector=pl.lit(preds_sv),
 )
 
-df.write_csv(f"./data/pred_{MODE}.csv", separator=",")
+df.write_csv(f"./data/tables/pred_{MODE}.csv", separator=",")

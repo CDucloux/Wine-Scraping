@@ -79,12 +79,18 @@ def recup_param(choix, variable):
     csv = csv.filter(csv["Mode"] == mode)
     return ast.literal_eval(csv.filter(csv["Modèle"] == choix)["Paramètres"][0])
 
+
 def random_forest(variable, choix):
     """Modèle Random Forest"""
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -102,7 +108,12 @@ def random_forest(variable, choix):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -125,7 +136,12 @@ def boosting(variable, choix):
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -143,7 +159,12 @@ def boosting(variable, choix):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -166,7 +187,12 @@ def ridge(variable, choix):
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -177,7 +203,12 @@ def ridge(variable, choix):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -195,7 +226,12 @@ def mlp(variable, choix):
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -212,7 +248,12 @@ def mlp(variable, choix):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -234,7 +275,12 @@ def knn(variable, choix):
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -249,7 +295,12 @@ def knn(variable, choix):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -264,12 +315,17 @@ def knn(variable, choix):
     return model
 
 
-def support_vector(variable, choix, index=None):
+def support_vector(variable, choix):
     """Modèle SVM"""
     if variable == "unit_price":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -280,7 +336,12 @@ def support_vector(variable, choix, index=None):
     elif variable == "type":
         model = Pipeline(
             [
-                ("imputation", SimpleImputer(strategy=recup_param(choix, variable)["imputation__strategy"])),
+                (
+                    "imputation",
+                    SimpleImputer(
+                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                    ),
+                ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
@@ -289,30 +350,6 @@ def support_vector(variable, choix, index=None):
             ]
         )
     return model
-
-
-def choix_utilisateur(choix_type: str, choix_selection: str, choix_vin):
-    df2 = data_model(chemin="./data/vins.json", variable_a_predire="type")
-    df2 = df2.to_pandas()
-    index = df2[df2["name"] == choix_vin].index[0]
-
-    if choix_type == "Regression":
-        variable = "unit_price"
-    elif choix_type == "Classification":
-        variable = "type"
-
-    if choix_selection == "Random Forest":
-        return random_forest(variable, choix_selection)
-    elif choix_selection == "Boosting":
-        return boosting(variable, choix_selection)
-    elif choix_selection == "Support Vector":
-        return support_vector(variable, choix_selection)
-    elif choix_selection == "Ridge":
-        return ridge(variable, choix_selection)
-    elif choix_selection == "K Neighbors":
-        return knn(variable, choix_selection)
-    elif choix_selection == "Réseaux de neurones":
-        return mlp(variable, choix_selection)
 
 
 def performance(variable):
@@ -342,8 +379,8 @@ def performance(variable):
     return erreur_test
 
 
-def stockage_result_csv(model, mode):
-    """Stock les résultats dans un CSV"""
+def stockage_result_csv(model, mode: str):
+    """Stocke les résultats dans un CSV"""
     if mode == "regression":
         variable = "unit_price"
     elif mode == "classification":
