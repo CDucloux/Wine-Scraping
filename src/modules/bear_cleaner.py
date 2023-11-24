@@ -2,11 +2,8 @@
 `bear_cleaner` : L'ours polaire qui nettoie la donnée🐻
 """
 import polars as pl
-import plotly.figure_factory as ff
-import numpy as np
 
 # TODO: implémentation LazyFrame
-# TODO: Voir pour récupérer l'info "premier cru, second cru, etc."
 
 
 def get_avg_temp(df: pl.DataFrame) -> pl.DataFrame:
@@ -404,6 +401,17 @@ def get_conservation_time(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
+def is_cru(df: pl.DataFrame) -> pl.DataFrame:
+    """Détermine si un vin est un grand cru ou non."""
+    df = df.with_columns(
+        pl.when(pl.col("name").str.contains("CRU"))
+        .then(pl.lit(1))
+        .otherwise(pl.lit(0))
+        .alias("cru")
+    )
+    return df
+
+
 def drop_price(df: pl.DataFrame) -> pl.DataFrame:
     """Retire les prix non renseignés."""
     df = df.drop_nulls("unit_price")
@@ -453,6 +461,7 @@ def super_pipe(df: pl.DataFrame) -> pl.DataFrame:
         .pipe(get_reviews)
         .pipe(get_service)
         .pipe(get_conservation_time)
+        .pipe(is_cru)
         .pipe(drop_price)
     )
     return df

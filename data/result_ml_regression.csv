@@ -1,0 +1,7 @@
+Modèle,Score Test,Score Entrainement,Ecart-Type Test,Ecart-Type Train,Paramètres,Score Test data,Mode
+Random Forest,0.398,0.82,0.024,0.008,"{'entrainement__max_depth': 9, 'entrainement__n_estimators': 40, 'imputation__strategy': 'mean'}",22.90101428067748,regression
+K Neighbors,0.286,0.398,0.06,0.017,"{'entrainement__n_neighbors': 12, 'imputation__strategy': 'median'}",25.694850374064835,regression
+Réseaux de neurones,0.348,0.619,0.082,0.016,"{'entrainement__hidden_layer_sizes': (100,), 'entrainement__max_iter': 1000, 'entrainement__solver': 'adam', 'imputation__strategy': 'median'}",28.747161535967635,regression
+Boosting,0.427,0.781,0.041,0.011,"{'entrainement__learning_rate': 0.1, 'entrainement__n_estimators': 150, 'imputation__strategy': 'most_frequent'}",23.480290616184774,regression
+Ridge,0.368,0.423,0.035,0.006,"{'entrainement__alpha': 4, 'imputation__strategy': 'most_frequent'}",29.16187297971352,regression
+Support Vector,0.38,0.63,0.049,0.021,"{'entrainement__C': 1248.2699819053835, 'imputation__strategy': 'mean'}",21.508112149479622,regression

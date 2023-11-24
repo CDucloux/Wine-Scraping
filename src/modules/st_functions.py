@@ -2,15 +2,28 @@
 Module gérant les fonctions Streamlit de l'application.
 """
 import ast
+import duckdb
 import streamlit as st
 from annotated_text import annotated_text, annotation
 import polars as pl
 import plotly.express as px
+import plotly.figure_factory as ff
 from pathlib import Path
 from bear_cleaner import *
 from streamlit.delta_generator import DeltaGenerator
+from prediction import *
+from PIL import Image
+from duckdb import DuckDBPyConnection
 
-# TODO: -- Impossible actuellement...Regarder comment changer la couleur dans un DataFrame, notamment pour prix & Type de vin
+
+@st.cache_resource
+def db_connector() -> DuckDBPyConnection:
+    """Se connecte à la base de données."""
+    root = Path(".").resolve()
+    data_folder = root / "data"
+    wine_db_path = str(data_folder / "DB" / "dt.db")
+    connection = duckdb.connect(wine_db_path)
+    return connection
 
 
 @st.cache_data
@@ -411,74 +424,105 @@ def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
 
 
 def authors() -> DeltaGenerator:
-    """Crée la page 6 qui inclue la licence et nos noms 😎."""
+    """Crée la page 6 qui inclue nos noms 😎."""
     st.balloons()
-    st.info("Licence CC-by-sa", icon="ℹ️")
     with st.expander("Découvrir les `auteurs` de l'application"):
         st.markdown(
             """
-- *Corentin DUCLOUX* : https://github.com/CDucloux
+- *Corentin DUCLOUX* : https://github.com/CDucloux 
 - *Guillaume DEVANT* : https://github.com/devgui37
 """
         )
+    image = Image.open("./img/img_vins.jpg")
+    st.image(image)
     return DeltaGenerator
 
 
-def write_table_ml(chemin_csv):
+def write_table_ml(chemin_csv, mode):
     """Retourne un tableau avec les résultats des modèles"""
     df = pl.read_csv(chemin_csv)
+    df = df.filter(df["Mode"] == mode)
     st.dataframe(
         data=df,
         hide_index=True,
-        column_order=["Modèle", "Score", "Ecart-Type"],
+        column_order=[
+            "Modèle",
+            "Score Entrainement",
+            "Ecart-Type Train",
+            "Score Test",
+            "Ecart-Type Test",
+            "Score Test data",
+        ],
         column_config={
             "Modèle": "Modèle 🧰",
-            "Score": st.column_config.ProgressColumn(
-                "Score 🎰",
+            "Score Entrainement": st.column_config.ProgressColumn(
+                "Score Train 🏋🏻‍♂️",
                 min_value=-1,
                 max_value=1,
                 format="%.2f",
                 help="score ∈ [-1,1]",
             ),
-            "Ecart-Type": "Ecart-Type ↔",
+            "Ecart-Type Train": "SD Train",
+            "Score Test": st.column_config.ProgressColumn(
+                "Score Test 👨🏻‍🔬",
+                min_value=-1,
+                max_value=1,
+                format="%.2f",
+                help="score ∈ [-1,1]",
+            ),
+            "Ecart-Type Test": "SD Test",
+            "Score Test data": "Métrique 🏭",
         },
     )
 
 
-def parametres(df, j):
+def parametres(df, place_model):
     """Construction du tableau des paramètres"""
-    parametres = ast.literal_eval(df["Paramètres"][j])
-    param = []
-    value = []
+    parametres = ast.literal_eval(df["Paramètres"][place_model])
+    param = list()
+    value = list()
     for key in list(parametres.keys()):
         param.append(key)
         value.append(str(parametres[key]))
-    tab = pl.DataFrame({"Paramètres": param, "Valeur": value})
+    tab = pl.DataFrame({"Paramètres ⚒️": param, "Valeur optimale ⭐": value})
     return st.dataframe(tab, hide_index=True)
 
 
-def write_parameter(chemin_csv):
+def write_parameter(chemin_csv, mode):
     """Retourne un tableau avec les paramètres d'un modèle"""
     df = pl.read_csv(chemin_csv)
-    selected_model = st.selectbox("Consultez les paramètres :", df["Modèle"])
+    df = df.filter(df["Mode"] == mode)
 
-    if selected_model == "Random Forest":
-        parametres(df, 0)
-    elif selected_model == "K Neighbors":
-        parametres(df, 1)
-    elif selected_model == "Réseaux de neurones":
-        parametres(df, 2)
-    elif selected_model == "Boosting":
-        parametres(df, 3)
-    elif selected_model == "Ridge":
-        parametres(df, 4)
-    elif selected_model == "Support Vector":
-        parametres(df, 5)
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        selected_model = st.radio(
+            "Consultez les paramètres optimaux",
+            [
+                "Boosting",
+                "Random Forest",
+                "K Neighbors",
+                "Support Vector",
+                "Réseaux de neurones",
+                "Ridge",
+            ],
+        )
+    with col2:
+        if selected_model == "Random Forest":
+            parametres(df, 0)
+        elif selected_model == "K Neighbors":
+            parametres(df, 1)
+        elif selected_model == "Réseaux de neurones":
+            parametres(df, 2)
+        elif selected_model == "Boosting":
+            parametres(df, 3)
+        elif selected_model == "Ridge":
+            parametres(df, 4)
+        elif selected_model == "Support Vector":
+            parametres(df, 5)
 
 
-def corr_plot():
+def display_corr(df: pl.DataFrame):
     """Retourne un plot de corrélation"""
-    df = load_df()
     variables = [
         "capacity",
         "unit_price",
@@ -494,5 +538,61 @@ def corr_plot():
         "alcohol_volume",
         "bubbles",
     ]
-    df_drop_nulls = df[variables].drop_nulls()
-    return variables, df_drop_nulls
+    df_drop_nulls = df.select(variables).drop_nulls()
+    cor_matrice = np.array(df_drop_nulls.corr())
+    fig_corr = ff.create_annotated_heatmap(
+        z=cor_matrice,
+        x=variables,
+        y=variables,
+        annotation_text=np.around(np.array(df_drop_nulls.corr()), decimals=2),
+        colorscale="Inferno",
+    )
+    masque = np.ma.masked_where(cor_matrice >= 0.99, cor_matrice)
+    cor_min = round(np.min(masque), 2)
+    cor_max = round(np.max(masque), 2)
+
+    cor_min_txt = (
+        f"➖ La corrélation minimale est de {cor_min} entre le millésime et le prix."
+    )
+    cor_max_txt = f"➕ La corrélation maximale est de {cor_max} entre la date de conservation et le prix."
+    return (
+        st.plotly_chart(fig_corr),
+        st.success(cor_max_txt),
+        st.error(cor_min_txt),
+    )
+
+
+def display_density(df: pl.DataFrame):
+    """Retourne un plot de densité"""
+    fig_tv = px.histogram(
+        df,
+        x="unit_price",
+        marginal="box",
+        nbins=4000,
+        log_x=True,
+        color="type",
+        color_discrete_map={
+            "Vin Rouge": "#ff4b4b",
+            "Vin Blanc": "#f3b442",
+            "Vin Rosé": "#ff8fa3",
+        },
+    )
+    return st.plotly_chart(fig_tv)
+
+
+def display_bar(df: pl.DataFrame):
+    """Retourne un plot en bar"""
+    cepage_counts = df.groupby("cepage").agg(pl.col("cepage").count().alias("count"))
+    cepage_filtre = cepage_counts.filter(cepage_counts["count"] >= 10)
+    df_filtre = df.join(cepage_filtre, on="cepage")
+    fig_bar = px.bar(
+        df_filtre,
+        x="cepage",
+        color="type",
+        color_discrete_map={
+            "Vin Rouge": "#ff4b4b",
+            "Vin Blanc": "#f3b442",
+            "Vin Rosé": "#ff8fa3",
+        },
+    )
+    return st.plotly_chart(fig_bar)
