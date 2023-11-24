@@ -10,6 +10,7 @@ from prediction import *
 import plotly.figure_factory as ff
 import plotly.express as px
 import numpy as np
+from PIL import Image
 
 
 def main():
@@ -81,11 +82,11 @@ def main():
         )
 
         if choix == "Matrice de corrélation":
-            display_corr()
+            display_corr(df)
         if choix == "Histogramme des prix":
-            display_density()
+            display_density(df)
         if choix == "Cépage majoritaire":
-            display_bar()
+            display_bar(df)
             st.info(
                 "Seuls les cépages ayant une fréquence supérieure à dix sont affichés",
                 icon="🚨"
@@ -130,20 +131,26 @@ def main():
             ),
         )
         if choix == "Régression - Prédiction du prix":
-            write_table_ml("./data/result_ml_save.csv", "regression")
+            write_table_ml("./data/result_ml_regression.csv", "regression")
             st.divider()
-            write_parameter("./data/result_ml_save.csv", "regression")
+            write_parameter("./data/result_ml_regression.csv", "regression")
         elif choix == "Classification - Prédiction type de vin":
-            write_table_ml("./data/result_ml_save.csv", "classification")
+            write_table_ml("./data/result_ml_classification.csv", "classification")
             st.divider()
-            write_parameter("./data/result_ml_save.csv", "classification")
+            write_parameter("./data/result_ml_classification.csv", "classification")
         st.divider()
         st.subheader("Prédiction")
         _, _, _, _, name = init("unit_price")
         choix_vin = st.selectbox("Vin : ", (name))
         col1, col2 = st.columns([2, 2])
         with col1:
-            choix_type = st.selectbox("Type: ", ("Regression", "Classification"))
+            choix_type = st.selectbox(
+                "Type: ",
+                (
+                    "Regression", 
+                    "Classification"
+                )
+            )
         with col2:
             choix_selection = st.selectbox(
                 "Modèle: ",
@@ -156,30 +163,33 @@ def main():
                     "Support Vector",
                 ),
             )
-        col1, col2 = st.columns([2, 2])
-        with col1:
-            if choix_type == "Regression":
-                st.metric(
-                    label="Prédiction",
-                    value=round(
-                        choix_utilisateur(choix_type, choix_selection, choix_vin)[0], 1
-                    ),
-                )
-            else:
-                st.metric(
-                    label="Prédiction",
-                    value=choix_utilisateur(choix_type, choix_selection, choix_vin)[0],
-                )
-        with col2:
-            st.metric(
-                label="Réalité",
-                value=choix_utilisateur(choix_type, choix_selection, choix_vin)[1],
-            )
+        #col1, col2 = st.columns([2, 2])
+        #with col1:
+        #    if choix_type == "Regression":
+        #        st.metric(
+        #            label="Prédiction",
+        #            value=round(
+        #                choix_utilisateur(choix_type, choix_selection, choix_vin)[0], 1
+        #            ),
+        #        )
+        #    else:
+        #        st.metric(
+        #            label="Prédiction",
+        #            value=choix_utilisateur(choix_type, choix_selection, choix_vin)[0],
+        #        )
+        #with col2:
+        #    st.metric(
+        #        label="Réalité",
+        #        value=choix_utilisateur(choix_type, choix_selection, choix_vin)[1],
+        #    )
         st.divider()
     with tab6:
         authors()
         # ajouter images + gradients
         # ajouter des images d'une cagette de vin because c'est sympa
+
+        image = Image.open('./img/img_vins.jpg')
+        st.image(image)
 
 
 if __name__ == "__main__":

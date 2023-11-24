@@ -10,7 +10,7 @@ from pathlib import Path
 from bear_cleaner import *
 from streamlit.delta_generator import DeltaGenerator
 from prediction import *
-import plotly.graph_objects as go
+from PIL import Image
 
 # TODO: -- Impossible actuellement...Regarder comment changer la couleur dans un DataFrame, notamment pour prix & Type de vin
 
@@ -419,7 +419,7 @@ def authors() -> DeltaGenerator:
     with st.expander("Découvrir les `auteurs` de l'application"):
         st.markdown(
             """
-- *Corentin DUCLOUX* : https://github.com/CDucloux
+- *Corentin DUCLOUX* : https://github.com/CDucloux 
 - *Guillaume DEVANT* : https://github.com/devgui37
 """
         )
@@ -464,9 +464,9 @@ def write_table_ml(chemin_csv, mode):
     )
 
 
-def parametres(df, j):
+def parametres(df, place_model):
     """Construction du tableau des paramètres"""
-    parametres = ast.literal_eval(df["Paramètres"][j])
+    parametres = ast.literal_eval(df["Paramètres"][place_model])
     param = []
     value = []
     for key in list(parametres.keys()):
@@ -509,9 +509,8 @@ def write_parameter(chemin_csv, mode):
             parametres(df, 5)
 
 
-def display_corr():
+def display_corr(df: pl.DataFrame):
     """Retourne un plot de corrélation"""
-    df = load_df()
     variables = [
         "capacity",
         "unit_price",
@@ -528,28 +527,37 @@ def display_corr():
         "bubbles",
     ]
     df_drop_nulls = df[variables].drop_nulls()
+    cor_matrice = np.array(df_drop_nulls.corr())
     fig_corr = ff.create_annotated_heatmap(
-                z=np.array(df_drop_nulls.corr()),
+                z=cor_matrice,
                 x=variables,
                 y=variables,
                 annotation_text=np.around(np.array(df_drop_nulls.corr()), decimals=2),
-                colorscale="Cividis",
+                colorscale="Inferno",
             )
-    return st.plotly_chart(fig_corr)
+    masque = np.ma.masked_where(cor_matrice >= 0.99, cor_matrice)
+    cor_min = round(np.min(masque),2)
+    cor_max = round(np.max(masque),2)
+    
+    cor_min_txt = f"La corrélation minimal est de {cor_min} entre le millésime et le prix"
+    cor_max_txt = f"La corrélation maximum est de {cor_max} entre la date de conservation et le prix"
+    return st.plotly_chart(fig_corr), st.success(cor_max_txt, icon = "➕"), st.error(cor_min_txt, icon = "➖")
 
-def display_density():
+def display_density(df: pl.DataFrame):
     """Retourne un plot de densité"""
-    df_2 = load_df()
-    fig_tv = px.histogram(df_2, x="unit_price", marginal='box',
-                          nbins=4000, log_x=True, color = "type")
+    fig_tv = px.histogram(df, x="unit_price", marginal='box',
+                          nbins=4000, log_x=True, 
+                          color = "type",
+                          color_discrete_map = {'Vin Rouge': '#ff4b4b', 'Vin Blanc': '#f3b442', 'Vin Rosé': '#ff8fa3'})
     return st.plotly_chart(fig_tv)
 
-def display_bar():
+def display_bar(df: pl.DataFrame):
     """Retourne un plot en bar"""
-    df = load_df()
     cepage_counts = df.groupby("cepage").agg(pl.col("cepage").count().alias("count"))
     cepage_filtre = cepage_counts.filter(cepage_counts["count"] >= 10)
     df_filtre = df.join(cepage_filtre, on="cepage")
-    fig_bar = px.bar(df_filtre, x = 'cepage', color = "type")
+    fig_bar = px.bar(df_filtre, x = 'cepage', 
+                     color = "type", 
+                     color_discrete_map = {'Vin Rouge': '#ff4b4b', 'Vin Blanc': '#f3b442', 'Vin Rosé': '#ff8fa3'})
     return st.plotly_chart(fig_bar)
     
