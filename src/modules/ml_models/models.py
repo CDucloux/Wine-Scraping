@@ -1,5 +1,5 @@
 """
-Module préparait le df et l'applique aux modèles
+Module préparant le df et l'appliquant aux modèles
 
 Structure :
 - Préparation : Convertit les variables qualitatives en variable binaire
@@ -25,7 +25,8 @@ from sklearn.preprocessing import OneHotEncoder
 import numpy as np
 import polars as pl
 import pandas as pd
-from bear_cleaner import super_pipe
+from src.modules.bear_cleaner import super_pipe
+
 
 # Preparation
 def data_model(chemin: str, variable_a_predire: str):
@@ -294,6 +295,7 @@ def train_model(x_train, y_train, mode):
         "model_svm": model_svm(x_train, y_train, mode),
         "model_mlp": model_mlp(x_train, y_train, mode),
     }
+
 
 # Résultats
 def score_test(model):

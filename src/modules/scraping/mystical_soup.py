@@ -15,7 +15,7 @@ From tangled web to structured code, in truth.
 
 from bs4 import BeautifulSoup as BS, Tag
 from serde.json import to_json
-from src.modules.vin_dataclass import Vin  # type: ignore
+from vin_dataclass import Vin  # type: ignore
 from pathlib import Path
 
 

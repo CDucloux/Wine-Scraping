@@ -9,9 +9,9 @@ import polars as pl
 import plotly.express as px
 import plotly.figure_factory as ff
 from pathlib import Path
-from bear_cleaner import *
+from src.modules.bear_cleaner import *
 from streamlit.delta_generator import DeltaGenerator
-from prediction import *
+from src.modules.ml_models.prediction import *
 from PIL import Image
 from duckdb import DuckDBPyConnection
 
@@ -92,7 +92,7 @@ def remove_white_space() -> DeltaGenerator:
     )
 
 
-def sidebar_wine_selector():
+def sidebar_wine_selector() -> list[str]:
     """Permet de sélectionner un type de vin."""
     wine_types = ["Vin Blanc", "Vin Rouge", "Vin Rosé"]
     return st.multiselect(
@@ -351,7 +351,7 @@ def warnings(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | No
 def display_scatter(
     df: pl.DataFrame, selected_wines: list[str], colors: list[str], scale: str
 ) -> DeltaGenerator:
-    """Génère un scatter du plot du prix des vins avec plusieurs configurations."""
+    """Génère un scatter plot du prix des vins avec plusieurs configurations."""
     if scale == "$\log(y)$":
         log = True
         title_y = "log(Prix unitaire)"
@@ -416,7 +416,6 @@ def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
         color_discrete_sequence=["white"],
         title="Nombre de vins commercialisés par pays",
         text="count",
-        # pattern_shape_sequence=["\\"],
     )
     bar.update_layout(margin=dict(l=20, r=20, t=25, b=0))
     bar.update_yaxes(visible=False)
@@ -433,6 +432,7 @@ def authors() -> DeltaGenerator:
 - *Guillaume DEVANT* : https://github.com/devgui37
 """
         )
+    # TODO: utiliser pathlib ici, pas de string relatif.
     image = Image.open("./img/img_vins.jpg")
     st.image(image)
     return DeltaGenerator
@@ -596,3 +596,52 @@ def display_bar(df: pl.DataFrame):
         },
     )
     return st.plotly_chart(fig_bar)
+
+
+def model_mapper(model_name: str) -> str:
+    """Mappe le nom des modèles à ceux contenus dans la base de données."""
+    model_names_mapping = {
+        "Random Forest": "random_forest",
+        "Boosting": "boosting",
+        "Ridge": "ridge",
+        "Réseaux de neurones": "mlp",
+        "K Neighbors": "knn",
+        "Support Vector": "support_vector",
+    }
+    return model_names_mapping.get(model_name, "Le modèle n'existe pas")
+
+
+def display_wine_img(df: pl.DataFrame, wine_name: str) -> DeltaGenerator:
+    """Permet d'afficher l'image d'un vin prédit à partir de son nom."""
+    link = (
+        df.select("name", "picture")
+        .filter(pl.col("name") == wine_name)
+        .select("picture")
+        .item()
+    )
+    return st.image(link, width=200)
+
+
+def model_selector() -> str:
+    """Permet de sélectionner un modèle de Machine learning."""
+    return st.selectbox(
+        "Modèle :",
+        (
+            "Random Forest",
+            "Boosting",
+            "Ridge",
+            "Réseaux de neurones",
+            "K Neighbors",
+            "Support Vector",
+        ),
+    )
+
+
+##### Fonctions à bouger vers db_requests
+
+
+def get_names(conn: DuckDBPyConnection) -> list[str]:
+    """Récupère les noms des vins qui ont été prédits par le modèle."""
+    result = conn.sql("SELECT name FROM pred_regression")
+    names = [row[0] for row in result.fetchall()]
+    return names

@@ -17,3 +17,5 @@ conn.sql(
 )
 
 print(conn.execute("DESCRIBE ALL TABLES").pl())
+
+print(conn.sql("SELECT name FROM pred_regression").fetchnumpy())

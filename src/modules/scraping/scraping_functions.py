@@ -21,7 +21,6 @@ URL_INIT = URL.build(scheme="https", host="vinatis.com")
 WHITE = "achat-vin-blanc"
 RED = "achat-vin-rouge"
 ROSE = "achat-vin-rose"
-# secretsGenerator = secrets.SystemRandom()
 
 
 def random_waiter(min_wait: float, max_wait: float) -> Callable:

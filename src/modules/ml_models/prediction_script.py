@@ -3,6 +3,7 @@ import polars as pl
 from prediction import *
 
 # TODO: utiliser pathlib c'est mieux quand même...
+# TODO: éviter la syntaxe de pandas [] mais plutot utiliser la syntaxe de polars !
 
 EXPLIQUEE = "unit_price"  # type or unit_price
 

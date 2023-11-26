@@ -1,10 +1,10 @@
 import streamlit as st
-import polars as pl
 import time
 from pathlib import Path
-from bear_cleaner import *
+
+# from bear_cleaner import *
 from st_functions import *
-from prediction import *
+from src.modules.ml_models.prediction import *
 import plotly.express as px
 
 
@@ -92,7 +92,6 @@ def main():
 
     with tab3:
         colors = color_selector(selected_wines)
-        # TODO: customiser les hover traces de plotly pour les rendre + sexy
         col4, col5 = st.columns([0.3, 0.7])
         with col4:
             scale = scale_selector()
@@ -118,44 +117,32 @@ def main():
 
     with tab5:
         st.subheader("Exploration")
-        choix = st.selectbox(
+        choice = st.selectbox(
             "Choix des modèles de machine learning: ",
             (
                 "Régression - Prédiction du prix",
                 "Classification - Prédiction type de vin",
             ),
         )
-        if choix == "Régression - Prédiction du prix":
+        if choice == "Régression - Prédiction du prix":
             write_table_ml("./data/result_ml_regression.csv", "regression")
             st.divider()
             write_parameter("./data/result_ml_regression.csv", "regression")
-        elif choix == "Classification - Prédiction type de vin":
+        elif choice == "Classification - Prédiction type de vin":
             write_table_ml("./data/result_ml_classification.csv", "classification")
             st.divider()
             write_parameter("./data/result_ml_classification.csv", "classification")
         st.divider()
         st.subheader("Prédiction")
-        ## Encapsuler le result de la requete dans une fonction car là c'est dégueulasse...
-        result = conn.sql("SELECT name FROM pred_regression")
-        names = [row[0] for row in result.fetchall()]
-        ##
+        names = get_names(conn)
         wine_name = st.selectbox("Vin : ", names)
         col1, col2 = st.columns([2, 2])
         with col1:
-            choix_type = st.selectbox("Type: ", ("Regression", "Classification"))
-            # mapper à faire pour les modèles
+            display_wine_img(df, wine_name)
         with col2:
-            choix_selection = st.selectbox(
-                "Modèle: ",
-                (
-                    "Random Forest",
-                    "Boosting",
-                    "Ridge",
-                    "Réseaux de neurones",
-                    "K Neighbors",
-                    "Support Vector",
-                ),
-            )
+            choix_type = st.selectbox("Type :", ("Regression", "Classification"))
+            model_choice = model_selector()
+            model = model_mapper(model_choice)
         col1, col2 = st.columns([2, 2])
         with col1:
             if choix_type == "Regression":
@@ -163,16 +150,23 @@ def main():
                     f"SELECT unit_price FROM pred_regression WHERE name = '{wine_name}'"
                 ).fetchone()[0]
                 pred = conn.sql(
-                    f"SELECT random_forest FROM pred_regression WHERE name = '{wine_name}'"
+                    f"SELECT {model} FROM pred_regression WHERE name = '{wine_name}'"
                 ).fetchone()[0]
-                st.metric(label="Réalité", value=f"{truth} €")
+                st.metric(label="*Prix réel*", value=f"{truth} €".replace(".", ","))
             else:
-                st.metric(label="Réalité", value=20)
+                st.metric(label="*Type de vin réel*", value=20)
         with col2:
             if choix_type == "Regression":
-                st.metric(label="Prédiction", value=f"{round(pred,2)} €")
+                st.metric(
+                    label="*Prix prédit* $^*$",
+                    value=f"{round(pred,2)} €",
+                    delta=f"{round(pred - truth, 2)} €",
+                )
             else:
-                st.metric(label="Prédiction", value=20)
+                st.metric(label="*Type de vin prédit*", value=20)
+        st.caption(
+            "$^*$ Il est possible que le prix prédit soit **très loin de la réalité**, voire même **négatif**, en dépit de nos efforts."
+        )
         st.divider()
     with tab6:
         authors()

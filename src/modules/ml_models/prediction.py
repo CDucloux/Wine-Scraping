@@ -14,7 +14,7 @@ from sklearn.svm import SVR, SVC
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
-from models import *
+from src.modules.ml_models.models import *
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix

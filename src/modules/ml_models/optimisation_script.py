@@ -1,4 +1,4 @@
-"""Script pour optimiser les paramètres des modèles"""
+"""Script pour optimiser les paramètres des modèles."""
 from models import *
 from prediction import *
 from sklearn.model_selection import train_test_split
