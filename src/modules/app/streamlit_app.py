@@ -1,11 +1,10 @@
 import streamlit as st
 import time
 from pathlib import Path
-
-# from bear_cleaner import *
 from st_functions import *
+from st_tables import *
+from st_plots import *
 from src.modules.ml_models.prediction import *
-import plotly.express as px
 
 
 def main():
@@ -25,8 +24,9 @@ def main():
             filter_bio = sidebar_checkbox_bio()
             filter_new = sidebar_checkbox_new()
             filter_fav = sidebar_checkbox_fav()
+            # TODO: mettre un filter pour les grands crus
+            st.divider()
             user_input = sidebar_input_wine()
-            years = sidebar_year_selector(df)
 
             main_df = load_main_df(
                 df,
@@ -36,7 +36,6 @@ def main():
                 filter_new,
                 filter_fav,
                 user_input,
-                years,
             )
             st.markdown(f">**{len(main_df)}** :red[vins] trouvés !")
 
@@ -69,10 +68,7 @@ def main():
         st.divider()
 
     with tab2:
-        st.info(
-            "L'ensemble de cet onglet est statique, la barre de paramètres n'influera pas sur les données.",
-            icon="ℹ️",
-        )
+        info()
         choix = st.selectbox(
             "Que voulez-vous consulter ?",
             ("Histogramme des prix", "Matrice de corrélation", "Cépage majoritaire"),
@@ -117,6 +113,7 @@ def main():
 
     with tab5:
         st.subheader("Exploration")
+        info()
         choice = st.selectbox(
             "Choix des modèles de machine learning: ",
             (
@@ -146,27 +143,25 @@ def main():
         col1, col2 = st.columns([2, 2])
         with col1:
             if choix_type == "Regression":
-                truth = conn.sql(
-                    f"SELECT unit_price FROM pred_regression WHERE name = '{wine_name}'"
-                ).fetchone()[0]
-                pred = conn.sql(
-                    f"SELECT {model} FROM pred_regression WHERE name = '{wine_name}'"
-                ).fetchone()[0]
+                truth = get_value(conn, "unit_price", "pred_regression", wine_name)
+                pred = get_value(conn, model, "pred_regression", wine_name)
                 st.metric(label="*Prix réel*", value=f"{truth} €".replace(".", ","))
             else:
-                st.metric(label="*Type de vin réel*", value=20)
+                truth = get_value(conn, "type", "pred_classification", wine_name)
+                pred = get_value(conn, model, "pred_classification", wine_name)
+                st.metric(label="*Type de vin réel*", value=truth)
         with col2:
             if choix_type == "Regression":
                 st.metric(
                     label="*Prix prédit* $^*$",
-                    value=f"{round(pred,2)} €",
-                    delta=f"{round(pred - truth, 2)} €",
+                    value=format_prediction(pred, truth),
                 )
             else:
-                st.metric(label="*Type de vin prédit*", value=20)
-        st.caption(
-            "$^*$ Il est possible que le prix prédit soit **très loin de la réalité**, voire même **négatif**, en dépit de nos efforts."
-        )
+                st.metric(
+                    label="*Type de vin prédit*", value=format_prediction(pred, truth)
+                )
+        if choix_type == "Regression":
+            popover_prediction(pred, truth)
         st.divider()
     with tab6:
         authors()

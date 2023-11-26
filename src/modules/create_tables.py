@@ -3,7 +3,7 @@ from pathlib import Path
 
 root = Path(".").resolve()
 data_folder = root / "data"
-wine_db_path = str(data_folder / "DB" / "dt.db")
+wine_db_path = str(data_folder / "DB" / "models_db.db")
 tables_folder = str(data_folder / "tables")
 
 conn = duckdb.connect(wine_db_path)
@@ -17,5 +17,3 @@ conn.sql(
 )
 
 print(conn.execute("DESCRIBE ALL TABLES").pl())
-
-print(conn.sql("SELECT name FROM pred_regression").fetchnumpy())

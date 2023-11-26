@@ -1,5 +1,5 @@
 """
-`bear_cleaner` : L'ours polaire qui nettoie la donnée🐻
+`bear_cleaner` : L'ours polaire qui nettoie la donnée 🐻
 """
 import polars as pl
 
