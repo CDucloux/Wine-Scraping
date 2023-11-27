@@ -1,5 +1,6 @@
 """
-Module préparant le df et l'appliquant aux modèles
+Module de préparation des modèles
+=================================
 
 Structure :
 - Préparation : Convertit les variables qualitatives en variable binaire

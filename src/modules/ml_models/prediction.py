@@ -18,6 +18,9 @@ from src.modules.ml_models.models import *
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+## Attention, ici tu importes des objets que tu n'utilises pas.
+
 import ast
 import polars as pl
 
