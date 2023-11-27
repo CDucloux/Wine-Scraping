@@ -1,5 +1,32 @@
 # Wine-Scraping
 
+Pour lancer un script sans avoir l'erreur **src : Module not Found** :
+
+```powershell
+py -m src.modules.ml_models.models
+```
+
+Pour lancer le shell poetry :
+
+```powershell
+py -m poetry shell
+```
+
+Pour installer les dépendances dans l'environnement virtuel :
+
+```powershell
+py -m poetry install
+```
+
+Pour lister les packages installés dans le venv
+
+```powershell
+py -m poetry pip list/freeze
+```
+
++ Faire un quarto 
+
+
 - Faire un module qui permet de mesurer l'erreur empirique et l'erreur contrôle pour détecter éventuellement un surapprentissage du modèle et éviter qu'il prédise n'importe quoi.
 - Récupérer `EQM` $\Rightarrow$ Erreur Quadratique Moyenne : 
 

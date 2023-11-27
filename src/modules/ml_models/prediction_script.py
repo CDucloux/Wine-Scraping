@@ -1,6 +1,6 @@
 """Et concrétement, ça donne quoi ton modèle ?"""
 import polars as pl
-from prediction import *
+from src.modules.ml_models.prediction import *
 
 # TODO: utiliser pathlib c'est mieux quand même...
 # TODO: éviter la syntaxe de pandas [] mais plutot utiliser la syntaxe de polars !
