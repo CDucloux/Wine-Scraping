@@ -91,10 +91,9 @@ def write_table(df: pl.DataFrame) -> DeltaGenerator:
     )
 
 
-def write_table_ml(chemin_csv, mode) -> DeltaGenerator:
+def write_table_ml(chemin_csv) -> DeltaGenerator:
     """Retourne un tableau avec les résultats des modèles"""
     df = pl.read_csv(chemin_csv)
-    df = df.filter(df["Mode"] == mode)
     return st.dataframe(
         data=df,
         hide_index=True,
@@ -129,7 +128,7 @@ def write_table_ml(chemin_csv, mode) -> DeltaGenerator:
     )
 
 
-def parametres(df, place_model):
+def parametres(df, place_model) -> DeltaGenerator:
     """Construction du tableau des paramètres"""
     parametres = ast.literal_eval(df["Paramètres"][place_model])
     param = list()

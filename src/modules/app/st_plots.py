@@ -26,15 +26,14 @@ def warnings(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | No
         return None
 
 
-
 def display_scatter(
     df: pl.DataFrame, selected_wines: list[str], colors: list[str], scale: str
 ) -> DeltaGenerator:
     """Génère un scatter plot du prix des vins avec plusieurs configurations."""
-    if scale == "$\log(y)$":
+    if scale == "$\\log(y)$":
         log = True
         title_y = "log(Prix unitaire)"
-    elif scale == "$y$":
+    else:
         log = False
         title_y = "Prix unitaire"
     warning = warnings(df, selected_wines)
@@ -145,7 +144,7 @@ def display_corr(
 
 
 def display_density(df: pl.DataFrame) -> DeltaGenerator:
-    """Retourne un plot de densité"""
+    """Retourne l'histogramme de densité des prix."""
     fig_tv = px.histogram(
         df,
         x="unit_price",
@@ -159,11 +158,13 @@ def display_density(df: pl.DataFrame) -> DeltaGenerator:
             "Vin Rosé": "#ff8fa3",
         },
     )
+    fig_tv.update_xaxes(title_text="Prix unitaire", ticksuffix=" €")
+    fig_tv.update_yaxes(title_text="", showgrid=True)
     return st.plotly_chart(fig_tv)
 
 
 def display_bar(df: pl.DataFrame) -> DeltaGenerator:
-    """Retourne un plot en bar"""
+    """Retourne un barplot des cepages."""
     cepage_counts = df.groupby("cepage").agg(pl.col("cepage").count().alias("count"))
     cepage_filtre = cepage_counts.filter(cepage_counts["count"] >= 10)
     df_filtre = df.join(cepage_filtre, on="cepage")
@@ -177,6 +178,7 @@ def display_bar(df: pl.DataFrame) -> DeltaGenerator:
             "Vin Rosé": "#ff8fa3",
         },
     )
+    fig_bar.update_yaxes(title_text="")
     return st.plotly_chart(fig_bar)
 
 

@@ -27,7 +27,7 @@ def main():
             # TODO: mettre un filter pour les grands crus
             st.divider()
             user_input = sidebar_input_wine()
-
+            # main_df => a mutable dataframe
             main_df = load_main_df(
                 df,
                 selected_wines,
@@ -93,44 +93,47 @@ def main():
             scale = scale_selector()
             custom_radio_css()
         with col5:
-            annotated_text(
-                "This ",
-                ("is", "Verb"),
-                " some ",
-                ("annotated", "Adj"),
-                ("text", "Noun"),
-                "And here's a ",
-                ("word", ""),
-                " with a fancy background but no label.",
-            )
+            st.write("")
+            # annotated_text(
+            # "This ",
+            # ("is", "Verb"),
+            # " some ",
+            # ("annotated", "Adj"),
+            # ("text", "Noun"),
+            # "And here's a ",
+            # ("word", ""),
+            # " with a fancy background but no label.",
+            # )
         display_scatter(main_df, selected_wines, colors, scale)
 
     with tab4:
         with st.container():
-            grouped_df = create_aggregate_df(main_df)
-            create_map(grouped_df)
-            create_bar(grouped_df)
+            warning = warnings(main_df, selected_wines)
+            if not warning:
+                grouped_df = create_aggregate_df(main_df)
+                create_map(grouped_df)
+                create_bar(grouped_df)
 
     with tab5:
         st.subheader("Exploration")
         info()
         choice = st.selectbox(
-            "Choix des modèles de machine learning: ",
+            "Choix des modèles de Machine Learning",
             (
                 "Régression - Prédiction du prix",
                 "Classification - Prédiction type de vin",
             ),
         )
         if choice == "Régression - Prédiction du prix":
-            write_table_ml("./data/result_ml_regression.csv", "regression")
+            write_table_ml("./data/result_ml_regression.csv")
             st.divider()
             write_parameter("./data/result_ml_regression.csv", "regression")
         elif choice == "Classification - Prédiction type de vin":
-            write_table_ml("./data/result_ml_classification.csv", "classification")
+            write_table_ml("./data/result_ml_classification.csv")
             st.divider()
             write_parameter("./data/result_ml_classification.csv", "classification")
         st.divider()
-        st.subheader("Prédiction")
+        st.subheader(":red[Prédiction]")
         names = get_names(conn)
         wine_name = st.selectbox("Vin : ", names)
         col1, col2 = st.columns([2, 2])

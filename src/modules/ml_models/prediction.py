@@ -353,10 +353,10 @@ def support_vector(variable, choix):
 
 
 def performance(variable):
-    erreur_test = []
+    erreur_test = list()
     X_train, X_test, y_train, y_test, _ = init(variable)
 
-    models = []
+    models = list()
     model_functions = [
         ("Random Forest", random_forest),
         ("K Neighbors", knn),

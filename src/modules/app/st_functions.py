@@ -4,7 +4,8 @@ Module gérant les fonctions Streamlit de l'application.
 
 import duckdb
 import streamlit as st
-from annotated_text import annotated_text, annotation
+
+# from annotated_text import annotated_text, annotation
 import polars as pl
 from pathlib import Path
 from src.modules.bear_cleaner import *
@@ -12,6 +13,8 @@ from streamlit.delta_generator import DeltaGenerator
 from src.modules.ml_models.prediction import *
 from PIL import Image
 from duckdb import DuckDBPyConnection
+
+# mypy & pylance backlog : 0 errors
 
 
 @st.cache_resource
@@ -180,7 +183,7 @@ def main_wine_metric(df: pl.DataFrame, wine_type: str) -> DeltaGenerator:
 
 
 def write_price(df: pl.DataFrame, selected_wines: list[str]) -> None:
-    """Retourne le prix moyen d'un vin de la sélection."""
+    """Retourne le prix moyen d'un vin de la sélection ou indique l'impossibilité de le calculer."""
     mean_price = df.select(pl.col("unit_price")).mean().item()
     if mean_price == None:
         return st.write("Le prix moyen d'un vin de la sélection est *incalculable*.")
@@ -197,7 +200,7 @@ def scale_selector():
     """Crée un radio button pour sélectionner l'échelle."""
     return st.radio(
         "Sélectionner une *échelle*",
-        ["$y$", "$\log(y)$"],
+        ["$y$", "$\\log(y)$"],
     )
 
 
@@ -247,20 +250,20 @@ def info() -> DeltaGenerator:
     )
 
 
-def authors() -> DeltaGenerator:
+def authors() -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
     """Crée la page 6 qui inclue nos noms 😎."""
-    st.balloons()
-    with st.expander("Découvrir les `auteurs` de l'application"):
-        st.markdown(
+    # TODO: utiliser pathlib ici, pas de string relatif.
+    image = Image.open("./img/img_vins.jpg")
+    return (
+        st.balloons(),
+        st.expander("Découvrir les `auteurs` de l'application").markdown(
             """
 - *Corentin DUCLOUX* : https://github.com/CDucloux 
 - *Guillaume DEVANT* : https://github.com/devgui37
 """
-        )
-    # TODO: utiliser pathlib ici, pas de string relatif.
-    image = Image.open("./img/img_vins.jpg")
-    st.image(image)
-    return DeltaGenerator
+        ),
+        st.image(image),
+    )
 
 
 def model_mapper(model_name: str) -> str:
@@ -276,18 +279,19 @@ def model_mapper(model_name: str) -> str:
     return model_names_mapping.get(model_name, "Le modèle n'existe pas")
 
 
-def model_selector() -> str:
+def model_selector() -> str | None:
     """Permet de sélectionner un modèle de Machine learning."""
+    models = [
+        "Random Forest",
+        "Boosting",
+        "Ridge",
+        "Réseaux de neurones",
+        "K Neighbors",
+        "Support Vector",
+    ]
     return st.selectbox(
         "Modèle :",
-        (
-            "Random Forest",
-            "Boosting",
-            "Ridge",
-            "Réseaux de neurones",
-            "K Neighbors",
-            "Support Vector",
-        ),
+        (models),
     )
 
 
@@ -314,6 +318,8 @@ def popover_prediction(
         text = f"🚨 Le prix prédit est {abs(round(prediction-truth,2))} € **inférieur** au prix réel !"
     elif prediction - truth > 0:
         text = f"🚨 Le prix prédit est {abs(round(prediction-truth,2))} € **supérieur** au prix réel !"
+    else:
+        text = "Le prix prédit est strictement égal au prix réel !"
     return st.error(text.replace(".", ",")), st.caption(
         "$^*$ Il est possible que le prix prédit soit **très loin de la réalité**, voire même **négatif**, en dépit de nos efforts."
     )
@@ -326,7 +332,9 @@ def get_names(conn: DuckDBPyConnection) -> list[str]:
     return names
 
 
-def get_value(conn: DuckDBPyConnection, column: str, table_name: str, wine_name: str):
+def get_value(
+    conn: DuckDBPyConnection, column: str, table_name: str, wine_name: str
+) -> float | str:
     """Récupère la colonne d'une table filtrée selon le nom d'un vin, c'est à dire une valeur.
 
     La colonne peut être :
@@ -336,6 +344,6 @@ def get_value(conn: DuckDBPyConnection, column: str, table_name: str, wine_name:
     - un des 6 modèles de Machine Learning
 
     """
-    return conn.sql(
-        f"SELECT {column} FROM {table_name} WHERE name = '{wine_name}'"
-    ).fetchone()[0]
+    query = conn.sql(f"SELECT {column} FROM {table_name} WHERE name = '{wine_name}'")
+    value = query.fetchall()[0][0]
+    return value
