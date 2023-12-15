@@ -33,37 +33,18 @@ def init(variable):
     elif EXPLIQUEE == "unit_price":
         CATEGORICALS = ["cepage", "par_gouts", "service", "country", "type"]
 
-    df_dm = data_model(chemin="./data/vins.json", variable_a_predire=EXPLIQUEE)
+    df_dm = data_model(chemin="./data/vins.json",
+                       variable_a_predire=EXPLIQUEE)
 
-    df = df_dm.select(
-        "name",
-        "capacity",
-        "unit_price",
-        "millesime",
-        "cepage",
-        "par_gouts",
-        "service",
-        "avg_temp",
-        "conservation_date",
-        "bio",
-        "customer_fav",
-        "is_new",
-        "top_100",
-        "destock",
-        "sulphite_free",
-        "alcohol_volume",
-        "country",
-        "bubbles",
-        "wine_note",
-        "nb_reviews",
-        "conservation_time",
-        "type",
-        "cru",
-    )
+    df = df_dm.select("name","capacity", "unit_price","millesime", "cepage", "par_gouts",
+          "service", "avg_temp", "conservation_date", "bio", "customer_fav", 
+          "is_new", "top_100", "destock", "sulphite_free", "alcohol_volume",
+          "country", "bubbles", "wine_note", "nb_reviews", "conservation_time", "cru",
+          "type")
 
     df = prep_str(df, categorical_cols=CATEGORICALS)
 
-    X = df.drop(columns=[EXPLIQUEE, "name"])
+    X = df.drop(columns=[EXPLIQUEE])
     y = df[EXPLIQUEE]
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=69
@@ -75,10 +56,11 @@ def recup_param(choix, variable):
     """Permet de récupérer les paramètres optimaux"""
     if variable == "unit_price":
         mode = "regression"
+        csv = pl.read_csv("./data/result_ml_regression.csv")
     elif variable == "type":
         mode = "classification"
+        csv = pl.read_csv("./data/result_ml_classification.csv")
 
-    csv = pl.read_csv("./data/result_ml_save.csv")
     csv = csv.filter(csv["Mode"] == mode)
     return ast.literal_eval(csv.filter(csv["Modèle"] == choix)["Paramètres"][0])
 

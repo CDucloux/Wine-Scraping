@@ -9,6 +9,7 @@ import numpy as np
 from streamlit.delta_generator import DeltaGenerator
 import plotly.express as px
 import plotly.figure_factory as ff
+from sklearn.metrics import confusion_matrix
 
 
 def warnings(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | None:
@@ -191,3 +192,19 @@ def display_wine_img(df: pl.DataFrame, wine_name: str) -> DeltaGenerator:
         .item()
     )
     return st.image(link, width=200)
+
+def display_confusion_matrix(model):
+    df = pl.read_csv("./data/tables/pred_classification.csv")
+    y_true = df.select("type")
+    y_pred = df.select(model)
+    conf_matrix = confusion_matrix(y_true, y_pred)
+
+    fig_mc = px.imshow(conf_matrix,
+                    labels=dict(x="Prédictions", y="Réalité", color="Nombre"),
+                    x=['Vin Blanc', 'Vin Rosé','Vin Rouge'],
+                    y=['Vin Blanc', 'Vin Rosé','Vin Rouge'],
+                    color_continuous_scale='Blues')
+
+    fig_mc.update_layout(title='Matrice de Confusion')
+
+    return st.plotly_chart(fig_mc)

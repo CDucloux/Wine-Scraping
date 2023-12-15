@@ -7,7 +7,7 @@ import streamlit as st
 import ast
 import polars as pl
 from streamlit.delta_generator import DeltaGenerator
-
+from st_plots import *
 
 def write_table(df: pl.DataFrame) -> DeltaGenerator:
     """Retourne une table de données avec des colonnes configurées."""
@@ -127,6 +127,29 @@ def write_table_ml(chemin_csv) -> DeltaGenerator:
         },
     )
 
+def clean_param(key):
+    """Renomme les valeurs des paramètres"""
+    if key == "entrainement__alpha":
+        key = "Alpha"
+    elif key == "imputation__strategy":
+        key = "Stratégie d'imputation"
+    elif key == "entrainement__hidden_layer_sizes":
+        key = "Hidden layer sizez"
+    elif key == "entrainement__max_iter":
+        key = "Max iter"
+    elif key == "entrainement__solver":
+        key = "Solver"
+    elif key == "entrainement__C":
+        key = "C"
+    elif key == "entrainement__n_neighbors":
+        key = "N neighbors"
+    elif key == "entrainement__max_depth":
+        key = "Max depth"
+    elif key == "entrainement__n_estimators":
+        key = "N estimators"
+    elif key == "entrainement__learning_rate":
+        key = "Learning rate"
+    return key
 
 def parametres(df, place_model) -> DeltaGenerator:
     """Construction du tableau des paramètres"""
@@ -134,7 +157,7 @@ def parametres(df, place_model) -> DeltaGenerator:
     param = list()
     value = list()
     for key in list(parametres.keys()):
-        param.append(key)
+        param.append(clean_param(key))
         value.append(str(parametres[key]))
     tab = pl.DataFrame({"Paramètres ⚒️": param, "Valeur optimale ⭐": value})
     return st.dataframe(tab, hide_index=True)
@@ -161,13 +184,22 @@ def write_parameter(chemin_csv, mode):
     with col2:
         if selected_model == "Random Forest":
             parametres(df, 0)
+            model = "random_forest"
         elif selected_model == "K Neighbors":
             parametres(df, 1)
+            model = "knn"
         elif selected_model == "Réseaux de neurones":
             parametres(df, 2)
+            model = "mlp"
         elif selected_model == "Boosting":
             parametres(df, 3)
+            model = "boosting"
         elif selected_model == "Ridge":
             parametres(df, 4)
+            model = "ridge"
         elif selected_model == "Support Vector":
             parametres(df, 5)
+            model = "support_vector"
+    if mode == "classification":
+        display_confusion_matrix(model)
+

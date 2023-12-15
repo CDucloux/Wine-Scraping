@@ -1,20 +1,17 @@
-"""Et concrétement, ça donne quoi ton modèle ?"""
-import polars as pl
+from src.modules.ml_models.models import *
 from src.modules.ml_models.prediction import *
 
-# TODO: utiliser pathlib c'est mieux quand même...
-# TODO: éviter la syntaxe de pandas [] mais plutot utiliser la syntaxe de polars !
-
-EXPLIQUEE = "unit_price"  # type or unit_price
+EXPLIQUEE = "type" # unit_price | type
 
 if EXPLIQUEE == "type":
     MODE = "classification"
 elif EXPLIQUEE == "unit_price":
     MODE = "regression"
+    
+X_train_n, X_test_n, y_train, y_test, _ = init(EXPLIQUEE)
 
-X_train, X_test, y_train, y_test, data = init(EXPLIQUEE)
-masque = data.index.isin(y_test.index)
-df = data[masque]
+X_train = X_train_n.drop(columns=["name"])
+X_test = X_test_n.drop(columns=["name"])
 
 model_rf = random_forest(EXPLIQUEE, "Random Forest")
 model_boost = boosting(EXPLIQUEE, "Boosting")
@@ -35,16 +32,14 @@ preds_knn = model_knn.predict(X_test).astype(str)
 preds_mlp = model_mlp.predict(X_test).astype(str)
 preds_sv = model_sv.predict(X_test).astype(str)
 
-df = pl.DataFrame(data[masque])
-df = df.select(
-    pl.col("name"),
-    pl.col(EXPLIQUEE),
-    random_forest=pl.lit(preds_rf),
-    boosting=pl.lit(preds_boost),
-    ridge=pl.lit(preds_ridge),
-    knn=pl.lit(preds_knn),
-    mlp=pl.lit(preds_mlp),
-    support_vector=pl.lit(preds_sv),
-)
+data = {"name": X_test_n["name"],
+        EXPLIQUEE: y_test,
+        "random_forest": preds_rf,
+        "boosting":preds_boost,
+        "ridge":preds_ridge,
+        "knn":preds_knn,
+        "mlp":preds_mlp,
+        "support_vector":preds_sv}
 
+df = pl.DataFrame(data)
 df.write_csv(f"./data/tables/pred_{MODE}.csv", separator=",")
