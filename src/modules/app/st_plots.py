@@ -127,7 +127,7 @@ def display_corr(
         x=variables,
         y=variables,
         annotation_text=np.around(np.array(df_drop_nulls.corr()), decimals=2),
-        colorscale="Inferno",
+        colorscale="amp",
     )
     masque = np.ma.masked_where(cor_matrice >= 0.99, cor_matrice)
     cor_min = round(np.min(masque), 2)
@@ -203,7 +203,7 @@ def display_confusion_matrix(model):
                     labels=dict(x="Prédictions", y="Réalité", color="Nombre"),
                     x=['Vin Blanc', 'Vin Rosé','Vin Rouge'],
                     y=['Vin Blanc', 'Vin Rosé','Vin Rouge'],
-                    color_continuous_scale='Blues')
+                    color_continuous_scale='amp')
 
     fig_mc.update_layout(title='Matrice de Confusion')
 

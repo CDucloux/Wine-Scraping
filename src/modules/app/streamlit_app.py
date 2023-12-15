@@ -115,8 +115,8 @@ def main():
                 create_bar(grouped_df)
 
     with tab5:
-        st.subheader("Exploration")
         info()
+        st.subheader("Exploration")
         choice = st.selectbox(
             "Choix des modèles de Machine Learning",
             (

@@ -8,6 +8,7 @@ import ast
 import polars as pl
 from streamlit.delta_generator import DeltaGenerator
 from st_plots import *
+from sklearn.metrics import r2_score, max_error, mean_absolute_error, mean_squared_error, accuracy_score, precision_score, recall_score,f1_score
 
 def write_table(df: pl.DataFrame) -> DeltaGenerator:
     """Retourne une table de données avec des colonnes configurées."""
@@ -103,7 +104,6 @@ def write_table_ml(chemin_csv) -> DeltaGenerator:
             "Ecart-Type Train",
             "Score Test",
             "Ecart-Type Test",
-            "Score Test data",
         ],
         column_config={
             "Modèle": "Modèle 🧰",
@@ -123,7 +123,6 @@ def write_table_ml(chemin_csv) -> DeltaGenerator:
                 help="score ∈ [-1,1]",
             ),
             "Ecart-Type Test": "SD Test",
-            "Score Test data": "Métrique 🏭",
         },
     )
 
@@ -162,16 +161,45 @@ def parametres(df, place_model) -> DeltaGenerator:
     tab = pl.DataFrame({"Paramètres ⚒️": param, "Valeur optimale ⭐": value})
     return st.dataframe(tab, hide_index=True)
 
+def write_metrics(type):
+    """Metrics principals"""
+    if type == "regression":
+        df = pl.read_csv("./data/tables/pred_regression.csv")
+        expliquee = "unit_price"
+    elif type == "classification":
+        df = pl.read_csv("./data/tables/pred_classification.csv")
+        expliquee = "type"
+
+    models = ["random_forest", "boosting", "ridge", "knn", "mlp", "support_vector"]
+    name = ["Random Forest", "Boosting", "Ridge", "K Neighbors", "Réseaux de neurones", "Support Vector"]
+    
+    metrics_table = {"Modèle 🧰": name}
+    
+    y_true = df[expliquee]
+    if type == "regression":
+        metrics_table["Mean Absolute Error ❗"] = [round(mean_absolute_error(y_true, df[model]), 1) for model in models]
+        metrics_table["Mean Squared Error ❗❗"] = [round(mean_squared_error(y_true, df[model]), 0) for model in models]
+        metrics_table["R2 Score 🔀"] = [round(r2_score(y_true, df[model]), 2) for model in models]
+        metrics_table["Max Error 💣"] = [round(max_error(y_true, df[model]), 0) for model in models]
+    elif type == "classification":
+        metrics_table["Accuracy Score 🏹"] = [round(accuracy_score(y_true, df[model]), 3) for model in models]
+        metrics_table["Precision 🔨"] = [round(precision_score(y_true,df[model], average='weighted'), 3) for model in models]
+        metrics_table["Recall 🔧"] = [round(recall_score(y_true,df[model], average='weighted'), 3) for model in models]
+        metrics_table["F1-Score 🛠️"] = [round(f1_score(y_true,df[model], average='weighted'), 3) for model in models]
+    table = pl.DataFrame(metrics_table)
+    return st.dataframe(table, hide_index=True)
+
 
 def write_parameter(chemin_csv, mode):
     """Retourne un tableau avec les paramètres d'un modèle"""
     df = pl.read_csv(chemin_csv)
     df = df.filter(df["Mode"] == mode)
-
+    
+    st.subheader("Investigation")
     col1, col2 = st.columns([1, 2])
     with col1:
         selected_model = st.radio(
-            "Consultez les paramètres optimaux",
+            "Choisissez un modèle :",
             [
                 "Boosting",
                 "Random Forest",
@@ -200,6 +228,9 @@ def write_parameter(chemin_csv, mode):
         elif selected_model == "Support Vector":
             parametres(df, 5)
             model = "support_vector"
+            
     if mode == "classification":
         display_confusion_matrix(model)
-
+        write_metrics("classification")
+    else:
+        write_metrics("regression")
