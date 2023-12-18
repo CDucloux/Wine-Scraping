@@ -7,8 +7,22 @@ import streamlit as st
 import ast
 import polars as pl
 from streamlit.delta_generator import DeltaGenerator
+from duckdb import DuckDBPyConnection
 from st_plots import *
-from sklearn.metrics import r2_score, max_error, mean_absolute_error, mean_squared_error, accuracy_score, precision_score, recall_score,f1_score
+from st_functions import *
+from sklearn.metrics import (
+    r2_score,
+    max_error,
+    mean_absolute_error,
+    mean_squared_error,
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    matthews_corrcoef,
+    classification_report,
+)
+
 
 def write_table(df: pl.DataFrame) -> DeltaGenerator:
     """Retourne une table de données avec des colonnes configurées."""
@@ -92,9 +106,9 @@ def write_table(df: pl.DataFrame) -> DeltaGenerator:
     )
 
 
-def write_table_ml(chemin_csv) -> DeltaGenerator:
+def write_table_ml(conn, table_name: str) -> DeltaGenerator:
     """Retourne un tableau avec les résultats des modèles"""
-    df = pl.read_csv(chemin_csv)
+    df = conn.execute(f"SELECT * FROM {table_name}").pl()
     return st.dataframe(
         data=df,
         hide_index=True,
@@ -126,6 +140,10 @@ def write_table_ml(chemin_csv) -> DeltaGenerator:
         },
     )
 
+
+# TODO : changer le clean_param en mapper comme fait dans st_functions.
+
+
 def clean_param(key):
     """Renomme les valeurs des paramètres"""
     if key == "entrainement__alpha":
@@ -133,9 +151,9 @@ def clean_param(key):
     elif key == "imputation__strategy":
         key = "Stratégie d'imputation"
     elif key == "entrainement__hidden_layer_sizes":
-        key = "Hidden layer sizez"
+        key = "Hidden layer size"
     elif key == "entrainement__max_iter":
-        key = "Max iter"
+        key = "Itération maximale"
     elif key == "entrainement__solver":
         key = "Solver"
     elif key == "entrainement__C":
@@ -150,9 +168,10 @@ def clean_param(key):
         key = "Learning rate"
     return key
 
-def parametres(df, place_model) -> DeltaGenerator:
-    """Construction du tableau des paramètres"""
-    parametres = ast.literal_eval(df["Paramètres"][place_model])
+
+def parametres(df: pl.DataFrame, place_model: int) -> DeltaGenerator:
+    """Construction du tableau des paramètres."""
+    parametres = ast.literal_eval(df.select("Paramètres").to_series()[place_model])
     param = list()
     value = list()
     for key in list(parametres.keys()):
@@ -161,76 +180,78 @@ def parametres(df, place_model) -> DeltaGenerator:
     tab = pl.DataFrame({"Paramètres ⚒️": param, "Valeur optimale ⭐": value})
     return st.dataframe(tab, hide_index=True)
 
-def write_metrics(type):
-    """Metrics principals"""
+
+# TODO: ajouter un tableau de classification_report
+
+
+def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
+    """Metrics principales."""
     if type == "regression":
-        df = pl.read_csv("./data/tables/pred_regression.csv")
-        expliquee = "unit_price"
+        df = conn.execute(f"SELECT * FROM pred_regression").pl()
+        predicted = "unit_price"
     elif type == "classification":
-        df = pl.read_csv("./data/tables/pred_classification.csv")
-        expliquee = "type"
+        df = conn.execute(f"SELECT * FROM pred_classification").pl()
+        predicted = "type"
 
     models = ["random_forest", "boosting", "ridge", "knn", "mlp", "support_vector"]
-    name = ["Random Forest", "Boosting", "Ridge", "K Neighbors", "Réseaux de neurones", "Support Vector"]
-    
+    name = [model_mapper_reverse(model) for model in models]
     metrics_table = {"Modèle 🧰": name}
-    
-    y_true = df[expliquee]
+
+    y_true = df.select(predicted)
     if type == "regression":
-        metrics_table["Mean Absolute Error ❗"] = [round(mean_absolute_error(y_true, df[model]), 1) for model in models]
-        metrics_table["Mean Squared Error ❗❗"] = [round(mean_squared_error(y_true, df[model]), 0) for model in models]
-        metrics_table["R2 Score 🔀"] = [round(r2_score(y_true, df[model]), 2) for model in models]
-        metrics_table["Max Error 💣"] = [round(max_error(y_true, df[model]), 0) for model in models]
+        metrics_table["Mean Absolute Error ❗"] = [
+            round(mean_absolute_error(y_true, df.select(model)), 1) for model in models
+        ]
+        metrics_table["Mean Squared Error ❗❗"] = [
+            round(mean_squared_error(y_true, df.select(model)), 0) for model in models
+        ]
+        metrics_table["R2 Score 🔀"] = [
+            round(r2_score(y_true, df.select(model)), 2) for model in models
+        ]
+        metrics_table["Erreur Résiduelle Maximale 💣"] = [
+            round(max_error(y_true, df.select(model)), 0) for model in models
+        ]
     elif type == "classification":
-        metrics_table["Accuracy Score 🏹"] = [round(accuracy_score(y_true, df[model]), 3) for model in models]
-        metrics_table["Precision 🔨"] = [round(precision_score(y_true,df[model], average='weighted'), 3) for model in models]
-        metrics_table["Recall 🔧"] = [round(recall_score(y_true,df[model], average='weighted'), 3) for model in models]
-        metrics_table["F1-Score 🛠️"] = [round(f1_score(y_true,df[model], average='weighted'), 3) for model in models]
+        metrics_table["Accuracy Score 🏹"] = [
+            round(accuracy_score(y_true, df.select(model)), 3) for model in models
+        ]
+        metrics_table["Precision 🔨"] = [
+            round(precision_score(y_true, df.select(model), average="weighted"), 3)
+            for model in models
+        ]
+        metrics_table["Recall 🔧"] = [
+            round(recall_score(y_true, df.select(model), average="weighted"), 3)
+            for model in models
+        ]
+        metrics_table["F1-Score 🛠️"] = [
+            round(f1_score(y_true, df.select(model), average="weighted"), 3)
+            for model in models
+        ]
+        metrics_table["MCC"] = [
+            round(matthews_corrcoef(y_true, df.select(model)), 3) for model in models
+        ]
     table = pl.DataFrame(metrics_table)
     return st.dataframe(table, hide_index=True)
 
 
-def write_parameter(chemin_csv, mode):
+# TODO: changer le table_name en tant qu'Enum
+# TODO pareil pour le mode, qui, par ailleurs, n'est pas 100% nécessaire.
+
+
+def write_parameter(conn: DuckDBPyConnection, table_name: str, selected_model: str):
     """Retourne un tableau avec les paramètres d'un modèle"""
-    df = pl.read_csv(chemin_csv)
-    df = df.filter(df["Mode"] == mode)
-    
-    st.subheader("Investigation")
-    col1, col2 = st.columns([1, 2])
-    with col1:
-        selected_model = st.radio(
-            "Choisissez un modèle :",
-            [
-                "Boosting",
-                "Random Forest",
-                "K Neighbors",
-                "Support Vector",
-                "Réseaux de neurones",
-                "Ridge",
-            ],
-        )
-    with col2:
-        if selected_model == "Random Forest":
-            parametres(df, 0)
-            model = "random_forest"
-        elif selected_model == "K Neighbors":
-            parametres(df, 1)
-            model = "knn"
-        elif selected_model == "Réseaux de neurones":
-            parametres(df, 2)
-            model = "mlp"
-        elif selected_model == "Boosting":
-            parametres(df, 3)
-            model = "boosting"
-        elif selected_model == "Ridge":
-            parametres(df, 4)
-            model = "ridge"
-        elif selected_model == "Support Vector":
-            parametres(df, 5)
-            model = "support_vector"
-            
-    if mode == "classification":
-        display_confusion_matrix(model)
-        write_metrics("classification")
-    else:
-        write_metrics("regression")
+    df = conn.execute(f"SELECT * FROM {table_name}").pl()
+
+    if selected_model == "Random Forest":
+        params_tbl = parametres(df, 0)
+    elif selected_model == "K Neighbors":
+        params_tbl = parametres(df, 1)
+    elif selected_model == "Réseaux de neurones":
+        params_tbl = parametres(df, 2)
+    elif selected_model == "Boosting":
+        params_tbl = parametres(df, 3)
+    elif selected_model == "Ridge":
+        params_tbl = parametres(df, 4)
+    elif selected_model == "Support Vector":
+        params_tbl = parametres(df, 5)
+    return params_tbl

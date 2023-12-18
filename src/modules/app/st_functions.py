@@ -20,11 +20,52 @@ from duckdb import DuckDBPyConnection
 @st.cache_resource
 def db_connector() -> DuckDBPyConnection:
     """Se connecte à la base de données."""
+    connection = duckdb.connect(database=":memory:")
+    return connection
+
+
+def load_tables(connection: DuckDBPyConnection) -> None:
+    """Charge l'ensemble des tables en csv dans la base de données In-memory."""
     root = Path(".").resolve()
     data_folder = root / "data"
-    wine_db_path = str(data_folder / "DB" / "models_db.db")
-    connection = duckdb.connect(wine_db_path)
-    return connection
+    tables_folder = data_folder / "tables"
+    pred_reg = str(tables_folder / "pred_regression.csv")
+    pred_class = str(tables_folder / "pred_classification.csv")
+    ml_reg = str(tables_folder / "result_ml_regression.csv")
+    ml_class = str(tables_folder / "result_ml_classification.csv")
+    """Crée la table des prédictions pour la régression."""
+    connection.execute(
+        """
+    CREATE OR REPLACE TABLE pred_regression AS
+        SELECT * FROM read_csv_auto(?, header = true);
+    """,
+        [pred_reg],
+    )
+    """Crée la table des prédictions pour la classification."""
+    connection.execute(
+        """
+    CREATE OR REPLACE TABLE pred_classification AS
+        SELECT * FROM read_csv_auto(?, header = true);
+    """,
+        [pred_class],
+    )
+    """Crée la table des résultats pour la classification."""
+    connection.execute(
+        """
+    CREATE OR REPLACE TABLE ml_regression AS
+        SELECT * FROM read_csv_auto(?, header = true);
+    """,
+        [ml_reg],
+    )
+    """Crée la table des résultats pour la classification."""
+    connection.execute(
+        """
+    CREATE OR REPLACE TABLE ml_classification AS
+        SELECT * FROM read_csv_auto(?, header = true);
+    """,
+        [ml_class],
+    )
+    return None
 
 
 @st.cache_data
@@ -279,8 +320,36 @@ def model_mapper(model_name: str) -> str:
     return model_names_mapping.get(model_name, "Le modèle n'existe pas")
 
 
+def model_mapper_reverse(model_name: str) -> str:
+    """Mappe les noms de modèles de la base de données à ceux "réels"."""
+    model_names_mapping = {
+        "random_forest": "Random Forest",
+        "boosting": "Boosting",
+        "ridge": "Ridge",
+        "mlp": "Réseaux de neurones",
+        "knn": "K Neighbors",
+        "support_vector": "Support Vector",
+    }
+    return model_names_mapping.get(model_name, "Le modèle n'existe pas")
+
+
+def model_radio_selector() -> str | None:
+    """Permet de sélectionner un modèle de Machine Learning avec des radio buttons."""
+    return st.radio(
+        "Choisissez un modèle :",
+        [
+            "Boosting",
+            "Random Forest",
+            "K Neighbors",
+            "Support Vector",
+            "Réseaux de neurones",
+            "Ridge",
+        ],
+    )
+
+
 def model_selector() -> str | None:
-    """Permet de sélectionner un modèle de Machine learning."""
+    """Permet de sélectionner un modèle de Machine learning avec une liste déroulante."""
     models = [
         "Random Forest",
         "Boosting",
@@ -344,6 +413,8 @@ def get_value(
     - un des 6 modèles de Machine Learning
 
     """
-    query = conn.sql(f"SELECT {column} FROM {table_name} WHERE name = '{wine_name}'")
+    query = conn.execute(
+        f"SELECT {column} FROM {table_name} WHERE name = ?", [wine_name]
+    )
     value = query.fetchall()[0][0]
     return value

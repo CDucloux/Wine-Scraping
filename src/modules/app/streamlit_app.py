@@ -13,6 +13,7 @@ def main():
     st.title("🍷 Vins à la carte")
     df = load_df()
     conn = db_connector()
+    load_tables(conn)
 
     with st.sidebar:
         # Configure l'ensemble de la sidebar de paramètres
@@ -115,6 +116,7 @@ def main():
                 create_bar(grouped_df)
 
     with tab5:
+        ## Machine Learning Tab
         info()
         st.subheader("Exploration")
         choice = st.selectbox(
@@ -125,13 +127,38 @@ def main():
             ),
         )
         if choice == "Régression - Prédiction du prix":
-            write_table_ml("./data/result_ml_regression.csv")
-            st.divider()
-            write_parameter("./data/result_ml_regression.csv", "regression")
+            write_table_ml(conn, table_name="ml_regression")
         elif choice == "Classification - Prédiction type de vin":
-            write_table_ml("./data/result_ml_classification.csv")
-            st.divider()
-            write_parameter("./data/result_ml_classification.csv", "classification")
+            write_table_ml(conn, "ml_classification")
+        st.divider()
+        st.subheader("Investigation")
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            selected_model = st.radio(
+                "Choisissez un modèle :",
+                [
+                    "Boosting",
+                    "Random Forest",
+                    "K Neighbors",
+                    "Support Vector",
+                    "Réseaux de neurones",
+                    "Ridge",
+                ],
+            )
+        with col2:
+            if choice == "Régression - Prédiction du prix":
+                write_parameter(
+                    conn, table_name="ml_regression", selected_model=selected_model
+                )
+                type = "regression"
+            else:
+                write_parameter(
+                    conn, table_name="ml_classification", selected_model=selected_model
+                )
+                type = "classification"
+        write_metrics(conn, type)
+        if choice == "Classification - Prédiction type de vin":
+            display_confusion_matrix(conn, model_mapper(selected_model))
         st.divider()
         st.subheader(":red[Prédiction]")
         names = get_names(conn)

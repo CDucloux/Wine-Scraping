@@ -10,10 +10,11 @@ from streamlit.delta_generator import DeltaGenerator
 import plotly.express as px
 import plotly.figure_factory as ff
 from sklearn.metrics import confusion_matrix
+from duckdb import DuckDBPyConnection
 
 
 def warnings(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | None:
-    """Renvoie des messages d'avertissement spécifiques quand le dataframe modifié à cause de la sidebar ne génère pas de données."""
+    """Renvoie des messages d'avertissements spécifiques quand le dataframe modifié à cause de la sidebar ne génère pas de données."""
     if not selected_wines:
         return st.warning(
             "Attention, aucun type de vin n'a été selectionné !", icon="🚨"
@@ -193,18 +194,34 @@ def display_wine_img(df: pl.DataFrame, wine_name: str) -> DeltaGenerator:
     )
     return st.image(link, width=200)
 
-def display_confusion_matrix(model):
-    df = pl.read_csv("./data/tables/pred_classification.csv")
-    y_true = df.select("type")
-    y_pred = df.select(model)
+
+def display_confusion_matrix(conn: DuckDBPyConnection, model: str) -> DeltaGenerator:
+    """Crée la matrice de confusion."""
+    df = conn.execute(f"SELECT * FROM pred_classification").pl()
+    y_true = df.select(pl.col("type"))
+    y_pred = df.select(pl.col(model))
     conf_matrix = confusion_matrix(y_true, y_pred)
+    labels = ["Vin Blanc", "Vin Rosé", "Vin Rouge"]
 
-    fig_mc = px.imshow(conf_matrix,
-                    labels=dict(x="Prédictions", y="Réalité", color="Nombre"),
-                    x=['Vin Blanc', 'Vin Rosé','Vin Rouge'],
-                    y=['Vin Blanc', 'Vin Rosé','Vin Rouge'],
-                    color_continuous_scale='amp')
+    cm_fig = px.imshow(
+        conf_matrix,
+        labels=dict(x="Prédictions", y="Réalité", color="Nombre"),
+        x=labels,
+        y=labels,
+        color_continuous_scale="amp",
+    )
 
-    fig_mc.update_layout(title='Matrice de Confusion')
+    cm_fig.update_layout(title="Matrice de Confusion")
 
-    return st.plotly_chart(fig_mc)
+    for true_label, _ in enumerate(labels):
+        for pred_label, _ in enumerate(labels):
+            count = conf_matrix[pred_label][true_label]
+            cm_fig.add_annotation(
+                x=true_label,
+                y=pred_label,
+                text=str(count),
+                showarrow=False,
+                font=dict(color="black", size=12),
+            )
+
+    return st.plotly_chart(cm_fig)
