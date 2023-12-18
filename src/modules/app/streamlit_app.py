@@ -1,6 +1,5 @@
 import streamlit as st
 import time
-from pathlib import Path
 from st_functions import *
 from st_tables import *
 from st_plots import *
@@ -10,6 +9,7 @@ from src.modules.ml_models.prediction import *
 def main():
     page_config()
     remove_white_space()
+    custom_radio_css()
     st.title("🍷 Vins à la carte")
     df = load_df()
     conn = db_connector()
@@ -43,11 +43,14 @@ def main():
     # Metrics vins
     col1, col2, col3 = st.columns(3)
     with col1:
-        main_wine_metric(df, "Vin Rouge")
+        with st.container(border=True):
+            main_wine_metric(df, "Vin Rouge")
     with col2:
-        main_wine_metric(df, "Vin Blanc")
+        with st.container(border=True):
+            main_wine_metric(df, "Vin Blanc")
     with col3:
-        main_wine_metric(df, "Vin Rosé")
+        with st.container(border=True):
+            main_wine_metric(df, "Vin Rosé")
     st.write(
         f"**{len(df)}** vins récupérés grâce à un *crawler* sur https://www.vinatis.com/, explorons-les ! "
     )
@@ -64,9 +67,11 @@ def main():
     )
 
     with tab1:
-        write_price(main_df, selected_wines)
-        write_table(main_df)
-        st.divider()
+        warning = warnings(main_df, selected_wines)
+        if not warning:
+            write_price(main_df, selected_wines)
+            write_table(main_df)
+            st.divider()
 
     with tab2:
         info()
@@ -89,27 +94,14 @@ def main():
 
     with tab3:
         colors = color_selector(selected_wines)
-        col4, col5 = st.columns([0.3, 0.7])
-        with col4:
+        warning = warnings(main_df, selected_wines)
+        if not warning:
             scale = scale_selector()
-            custom_radio_css()
-        with col5:
-            st.write("")
-            # annotated_text(
-            # "This ",
-            # ("is", "Verb"),
-            # " some ",
-            # ("annotated", "Adj"),
-            # ("text", "Noun"),
-            # "And here's a ",
-            # ("word", ""),
-            # " with a fancy background but no label.",
-            # )
-        display_scatter(main_df, selected_wines, colors, scale)
+            display_scatter(main_df, selected_wines, colors, scale)
 
     with tab4:
-        with st.container():
-            warning = warnings(main_df, selected_wines)
+        warning = warnings(main_df, selected_wines)
+        with st.container(border=True):
             if not warning:
                 grouped_df = create_aggregate_df(main_df)
                 create_map(grouped_df)

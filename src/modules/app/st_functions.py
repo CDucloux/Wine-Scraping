@@ -4,8 +4,6 @@ Module gérant les fonctions Streamlit de l'application.
 
 import duckdb
 import streamlit as st
-
-# from annotated_text import annotated_text, annotation
 import polars as pl
 from pathlib import Path
 from src.modules.bear_cleaner import *
@@ -384,9 +382,15 @@ def popover_prediction(
 ) -> tuple[DeltaGenerator, DeltaGenerator]:
     """Renvoie un message d'avertissement selon que le prix prédit soit supérieur ou inférieur au prix réel."""
     if prediction - truth < 0:
-        text = f"🚨 Le prix prédit est {abs(round(prediction-truth,2))} € **inférieur** au prix réel !"
+        if (prediction / truth) > 0.8 and (prediction / truth) < 1.2:
+            text = f"✔ Le prix prédit est {abs(round(prediction-truth,2))} € **inférieur** au prix réel, soit une différence acceptable !"
+        else:
+            text = f"🚨 Le prix prédit est {abs(round(prediction-truth,2))} € **inférieur** au prix réel, soit une importante différence !"
     elif prediction - truth > 0:
-        text = f"🚨 Le prix prédit est {abs(round(prediction-truth,2))} € **supérieur** au prix réel !"
+        if (prediction / truth) > 0.8 and (prediction / truth) < 1.2:
+            text = f"✔ Le prix prédit est {abs(round(prediction-truth,2))} € **supérieur** au prix réel, soit une différence acceptable !"
+        else:
+            text = f"🚨 Le prix prédit est {abs(round(prediction-truth,2))} € **supérieur** au prix réel, soit une importante différence !"
     else:
         text = "Le prix prédit est strictement égal au prix réel !"
     return st.error(text.replace(".", ",")), st.caption(
@@ -396,7 +400,7 @@ def popover_prediction(
 
 def get_names(conn: DuckDBPyConnection) -> list[str]:
     """Récupère les noms des vins qui ont été prédits par le modèle."""
-    result = conn.sql("SELECT name FROM pred_regression")
+    result = conn.execute("SELECT name FROM pred_regression")
     names = [row[0] for row in result.fetchall()]
     return names
 

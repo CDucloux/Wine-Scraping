@@ -1,0 +1,3 @@
+préciser la licence du projet
+faire un readme digne de ce nom
+axe d'amélioration => spacy et NLP

@@ -1,5 +1,5 @@
 """
-Module qui réalise des prédictions à partir des optimisations de paramétre faites avec models.py
+Module qui réalise des prédictions à partir des optimisations de paramètres faits avec models.py
 """
 from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier
 from sklearn.ensemble import (
@@ -16,10 +16,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 from src.modules.ml_models.models import *
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, mean_absolute_error
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-
-## Attention, ici tu importes des objets que tu n'utilises pas.
+from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import accuracy_score
 
 import ast
 import polars as pl
@@ -33,14 +31,33 @@ def init(variable):
     elif EXPLIQUEE == "unit_price":
         CATEGORICALS = ["cepage", "par_gouts", "service", "country", "type"]
 
-    df_dm = data_model(chemin="./data/vins.json",
-                       variable_a_predire=EXPLIQUEE)
+    df_dm = data_model(chemin="./data/vins.json", variable_a_predire=EXPLIQUEE)
 
-    df = df_dm.select("name","capacity", "unit_price","millesime", "cepage", "par_gouts",
-          "service", "avg_temp", "conservation_date", "bio", "customer_fav", 
-          "is_new", "top_100", "destock", "sulphite_free", "alcohol_volume",
-          "country", "bubbles", "wine_note", "nb_reviews", "conservation_time", "cru",
-          "type")
+    df = df_dm.select(
+        "name",
+        "capacity",
+        "unit_price",
+        "millesime",
+        "cepage",
+        "par_gouts",
+        "service",
+        "avg_temp",
+        "conservation_date",
+        "bio",
+        "customer_fav",
+        "is_new",
+        "top_100",
+        "destock",
+        "sulphite_free",
+        "alcohol_volume",
+        "country",
+        "bubbles",
+        "wine_note",
+        "nb_reviews",
+        "conservation_time",
+        "cru",
+        "type",
+    )
 
     df = prep_str(df, categorical_cols=CATEGORICALS)
 

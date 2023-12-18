@@ -10,7 +10,7 @@ import polars as pl
 # TODO 2: respecter l'interface privée des fonctions, utiliser doctest et mypy pour documenter.
 
 
-def get_avg_temp(df: pl.DataFrame) -> pl.DataFrame:
+def _get_avg_temp(df: pl.DataFrame) -> pl.DataFrame:
     """Obtient la température moyenne du vin à partir d'une valeur au format <10-12°C>."""
     df = (
         df.with_columns(
@@ -32,7 +32,7 @@ def get_avg_temp(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_valid_millesime(df: pl.DataFrame) -> pl.DataFrame:
+def _get_valid_millesime(df: pl.DataFrame) -> pl.DataFrame:
     """Transforme les valeurs aberrantes de la colonne millésime."""
     df = df.with_columns(
         pl.when(pl.col("millesime") == "non millésimé")
@@ -43,7 +43,7 @@ def get_valid_millesime(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_conservation_date(df: pl.DataFrame) -> pl.DataFrame:
+def _get_conservation_date(df: pl.DataFrame) -> pl.DataFrame:
     """Obtient la date de conservation du vin."""
     df = (
         df.with_columns(
@@ -69,7 +69,7 @@ def get_conservation_date(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_unit_and_offer_price(df: pl.DataFrame) -> pl.DataFrame:
+def _get_unit_and_offer_price(df: pl.DataFrame) -> pl.DataFrame:
     """Extrait le prix unitaire et le prix promotionnel."""
     df = (
         df.with_columns(
@@ -89,7 +89,7 @@ def get_unit_and_offer_price(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_keywords(df: pl.DataFrame) -> pl.DataFrame:
+def _get_keywords(df: pl.DataFrame) -> pl.DataFrame:
     """Obtient les mots-clés associés au vin et conserve la colonne initiale de keywords."""
     df = (
         df.with_columns(pl.col("keywords").alias("keywords_2"))
@@ -103,7 +103,7 @@ def get_keywords(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_capacity(df: pl.DataFrame) -> pl.DataFrame:
+def _get_capacity(df: pl.DataFrame) -> pl.DataFrame:
     """Obtient la capacité en litres du vin."""
     df = df.with_columns(
         pl.col("capacity")
@@ -117,7 +117,7 @@ def get_capacity(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_bio(df: pl.DataFrame) -> pl.DataFrame:
+def _get_bio(df: pl.DataFrame) -> pl.DataFrame:
     """Indique si le vin est bio."""
     df = df.with_columns(
         pl.when(pl.col("others").str.contains("Bio"))
@@ -128,7 +128,7 @@ def get_bio(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_customer_fav(df: pl.DataFrame) -> pl.DataFrame:
+def _get_customer_fav(df: pl.DataFrame) -> pl.DataFrame:
     """Indique si le vin est un coup de coeur client."""
     df = df.with_columns(
         pl.when(pl.col("others").str.contains("Coup de cœur Clients"))
@@ -139,7 +139,7 @@ def get_customer_fav(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_new(df: pl.DataFrame) -> pl.DataFrame:
+def _get_new(df: pl.DataFrame) -> pl.DataFrame:
     """Indique si le vin est une nouveauté sur le site."""
     df = df.with_columns(
         pl.when(pl.col("others").str.contains("Nouveauté"))
@@ -150,7 +150,7 @@ def get_new(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_top_100(df: pl.DataFrame) -> pl.DataFrame:
+def _get_top_100(df: pl.DataFrame) -> pl.DataFrame:
     """Indique si le vin fait partie d'un TOP 100."""
     df = df.with_columns(
         pl.when(pl.col("others").str.to_uppercase().str.contains("TOP 100"))
@@ -161,7 +161,7 @@ def get_top_100(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_destock(df: pl.DataFrame) -> pl.DataFrame:
+def _get_destock(df: pl.DataFrame) -> pl.DataFrame:
     """Indique si le vin fait partie d'une opération de déstockage."""
     df = df.with_columns(
         pl.when(pl.col("others").str.contains("Destockage"))
@@ -172,7 +172,7 @@ def get_destock(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_sulphite_free(df: pl.DataFrame) -> pl.DataFrame:
+def _get_sulphite_free(df: pl.DataFrame) -> pl.DataFrame:
     """Indique si le vin est sans sulfites."""
     df = df.with_columns(
         pl.when(pl.col("others").str.contains("SANS SULFITE"))
@@ -184,7 +184,7 @@ def get_sulphite_free(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_alcohol_volume(df: pl.DataFrame) -> pl.DataFrame:
+def _get_alcohol_volume(df: pl.DataFrame) -> pl.DataFrame:
     """Obtient le degré d'alcool."""
     df = df.with_columns(
         pl.col("characteristics")
@@ -197,7 +197,7 @@ def get_alcohol_volume(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_type(df: pl.DataFrame) -> pl.DataFrame:
+def _get_type(df: pl.DataFrame) -> pl.DataFrame:
     """Obtient le type de vin : blanc/rouge/rosé."""
 
     df = df.with_columns(
@@ -212,7 +212,7 @@ def get_type(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_country(df: pl.DataFrame) -> pl.DataFrame:
+def _get_country(df: pl.DataFrame) -> pl.DataFrame:
     """Permet d'extraire le pays."""
     REGIONS_FRANCE = {
         "Champagne",
@@ -249,7 +249,7 @@ def get_country(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_iso_country_code(df: pl.DataFrame) -> pl.DataFrame:
+def _get_iso_country_code(df: pl.DataFrame) -> pl.DataFrame:
     """Permet de récupérer un code ISO à partir du nom d'un pays."""
     df = df.with_columns(
         pl.when(pl.col("country") == "France")
@@ -320,7 +320,7 @@ def get_iso_country_code(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_bubbles(df: pl.DataFrame) -> pl.DataFrame:
+def _get_bubbles(df: pl.DataFrame) -> pl.DataFrame:
     """Permet de déterminer si un vin est effervescent ou non."""
     df = df.with_columns(
         pl.when(pl.col("type").str.contains("Effervescent"))
@@ -331,7 +331,7 @@ def get_bubbles(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_new_type(df: pl.DataFrame) -> pl.DataFrame:
+def _get_new_type(df: pl.DataFrame) -> pl.DataFrame:
     """Doit etre éxécuté après get_bubbles."""
     df = df.with_columns(
         pl.col("type").str.replace("Effervescent", "Vin").alias("type")
@@ -339,7 +339,7 @@ def get_new_type(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_cepage(df: pl.DataFrame) -> pl.DataFrame:
+def _get_cepage(df: pl.DataFrame) -> pl.DataFrame:
     """Extrait le cépage majoritaire."""
     df = (
         df.with_columns(
@@ -361,7 +361,7 @@ def get_cepage(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_wine_note(df: pl.DataFrame) -> pl.DataFrame:
+def _get_wine_note(df: pl.DataFrame) -> pl.DataFrame:
     """Extrait la note /20 associée au vin et la transforme en une note /5 ⭐."""
     df = df.with_columns(
         pl.col("note").str.slice(0, 4).cast(pl.Float64).truediv(4).alias("wine_note")
@@ -369,7 +369,7 @@ def get_wine_note(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_reviews(df: pl.DataFrame) -> pl.DataFrame:
+def _get_reviews(df: pl.DataFrame) -> pl.DataFrame:
     """Obtient le nombre de critiques des clients."""
     df = df.with_columns(
         pl.col("note")
@@ -384,7 +384,7 @@ def get_reviews(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_service(df: pl.DataFrame) -> pl.DataFrame:
+def _get_service(df: pl.DataFrame) -> pl.DataFrame:
     """Réduit le nombre de modalités de service."""
     df = df.with_columns(
         pl.when(pl.col("service").str.contains("Passer en carafe"))
@@ -398,14 +398,14 @@ def get_service(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def get_conservation_time(df: pl.DataFrame) -> pl.DataFrame:
+def _get_conservation_time(df: pl.DataFrame) -> pl.DataFrame:
     df = df.with_columns(
         pl.col("conservation_date").sub(pl.col("millesime")).alias("conservation_time")
     )
     return df
 
 
-def is_cru(df: pl.DataFrame) -> pl.DataFrame:
+def _is_cru(df: pl.DataFrame) -> pl.DataFrame:
     """Détermine si un vin est un grand cru ou non."""
     df = df.with_columns(
         pl.when(pl.col("name").str.contains("CRU"))
@@ -416,7 +416,7 @@ def is_cru(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def drop_price(df: pl.DataFrame) -> pl.DataFrame:
+def _drop_price(df: pl.DataFrame) -> pl.DataFrame:
     """Retire les prix non renseignés."""
     df = df.drop_nulls("unit_price")
     return df
@@ -442,30 +442,30 @@ def super_pipe(df: pl.DataFrame) -> pl.DataFrame:
     >>> super_pipe(df)
     ... #_test_return_"""
     df = (
-        df.pipe(get_avg_temp)
-        .pipe(get_valid_millesime)
-        .pipe(get_conservation_date)
-        .pipe(get_unit_and_offer_price)
-        .pipe(get_keywords)
-        .pipe(get_capacity)
-        .pipe(get_bio)
-        .pipe(get_customer_fav)
-        .pipe(get_new)
-        .pipe(get_top_100)
-        .pipe(get_destock)
-        .pipe(get_sulphite_free)
-        .pipe(get_alcohol_volume)
-        .pipe(get_cepage)
-        .pipe(get_type)
-        .pipe(get_country)
-        .pipe(get_iso_country_code)
-        .pipe(get_bubbles)
-        .pipe(get_new_type)
-        .pipe(get_wine_note)
-        .pipe(get_reviews)
-        .pipe(get_service)
-        .pipe(get_conservation_time)
-        .pipe(is_cru)
-        .pipe(drop_price)
+        df.pipe(_get_avg_temp)
+        .pipe(_get_valid_millesime)
+        .pipe(_get_conservation_date)
+        .pipe(_get_unit_and_offer_price)
+        .pipe(_get_keywords)
+        .pipe(_get_capacity)
+        .pipe(_get_bio)
+        .pipe(_get_customer_fav)
+        .pipe(_get_new)
+        .pipe(_get_top_100)
+        .pipe(_get_destock)
+        .pipe(_get_sulphite_free)
+        .pipe(_get_alcohol_volume)
+        .pipe(_get_cepage)
+        .pipe(_get_type)
+        .pipe(_get_country)
+        .pipe(_get_iso_country_code)
+        .pipe(_get_bubbles)
+        .pipe(_get_new_type)
+        .pipe(_get_wine_note)
+        .pipe(_get_reviews)
+        .pipe(_get_service)
+        .pipe(_get_conservation_time)
+        .pipe(_is_cru)
+        .pipe(_drop_price)
     )
     return df

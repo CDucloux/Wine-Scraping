@@ -30,7 +30,7 @@ from src.modules.bear_cleaner import super_pipe
 
 
 # Preparation
-def data_model(chemin: str, variable_a_predire: str):
+def data_model(chemin: str, variable_a_predire: str) -> pl.DataFrame:
     """Import le json, le transforme en dataframe, le nettoie et le prépare pour le ML"""
     df = pl.read_json(chemin)
     df = super_pipe(df)
@@ -38,8 +38,8 @@ def data_model(chemin: str, variable_a_predire: str):
     return df
 
 
-def prep_str(df, categorical_cols: list):
-    """Transforme les variables qualitatives en colonne binaire grâce à OneHotEncoder()
+def prep_str(df: pl.DataFrame, categorical_cols: list):
+    """Transforme les variables qualitatives en colonnes binaires grâce au `OneHotEncoder()`
 
     >> Exemple : colonne "country": 32 pays différent
         => création de 32 colonnes binaire.
@@ -214,7 +214,8 @@ def model_mlp(x_train, y_train, mode: str):
 def model_ridge(x_train, y_train, mode):
     """
     paramètres optimisés :
-    -alpha
+
+    - alpha
 
     Ridge ajoute une pénalité à la régression linéaire standard en modifiant la fonction objectif.
     """

@@ -38,25 +38,23 @@ def display_scatter(
     else:
         log = False
         title_y = "Prix unitaire"
-    warning = warnings(df, selected_wines)
-    if not warning:
-        scatter = px.scatter(
-            df,
-            x="conservation_time",
-            y="unit_price",
-            trendline="lowess",
-            color="type",
-            symbol="type",
-            size="capacity",
-            title=f"Prix d'un {' / '.join(selected_wines).lower()} en fonction de sa durée de conservation",
-            hover_name="name",
-            log_y=log,
-            trendline_color_override="white",
-            color_discrete_sequence=colors,
-        )
-        scatter.update_xaxes(title_text="Temps de conservation (en années)")
-        scatter.update_yaxes(title_text=title_y, ticksuffix=" €", showgrid=True)
-        st.plotly_chart(scatter)
+    scatter = px.scatter(
+        df,
+        x="conservation_time",
+        y="unit_price",
+        trendline="lowess",
+        color="type",
+        symbol="type",
+        size="capacity",
+        title=f"Prix d'un {' / '.join(selected_wines).lower()} en fonction de sa durée de conservation",
+        hover_name="name",
+        log_y=log,
+        trendline_color_override="white",
+        color_discrete_sequence=colors,
+    )
+    scatter.update_xaxes(title_text="Temps de conservation (en années)")
+    scatter.update_yaxes(title_text=title_y, ticksuffix=" €", showgrid=True)
+    return st.plotly_chart(scatter)
 
 
 def create_aggregate_df(df: pl.DataFrame) -> pl.DataFrame:
@@ -105,7 +103,7 @@ def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
 def display_corr(
     df: pl.DataFrame,
 ) -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
-    """Retourne un plot de corrélation"""
+    """Retourne une matrice de corrélation."""
     variables = [
         "capacity",
         "unit_price",

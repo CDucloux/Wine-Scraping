@@ -141,32 +141,21 @@ def write_table_ml(conn, table_name: str) -> DeltaGenerator:
     )
 
 
-# TODO : changer le clean_param en mapper comme fait dans st_functions.
-
-
-def clean_param(key):
-    """Renomme les valeurs des paramètres"""
-    if key == "entrainement__alpha":
-        key = "Alpha"
-    elif key == "imputation__strategy":
-        key = "Stratégie d'imputation"
-    elif key == "entrainement__hidden_layer_sizes":
-        key = "Hidden layer size"
-    elif key == "entrainement__max_iter":
-        key = "Itération maximale"
-    elif key == "entrainement__solver":
-        key = "Solver"
-    elif key == "entrainement__C":
-        key = "C"
-    elif key == "entrainement__n_neighbors":
-        key = "N neighbors"
-    elif key == "entrainement__max_depth":
-        key = "Max depth"
-    elif key == "entrainement__n_estimators":
-        key = "N estimators"
-    elif key == "entrainement__learning_rate":
-        key = "Learning rate"
-    return key
+def param_mapper(key: str) -> str:
+    """Mappe les noms des paramètres optimisés vers des noms plus lisibles."""
+    param_mapping = {
+        "entrainement__alpha": "Alpha",
+        "imputation__strategy": "Stratégie d'imputation",
+        "entrainement__hidden_layer_sizes": "Hidden Layer Size",
+        "entrainement__max_iter": "Itération maximale",
+        "entrainement__solver": "Solveur",
+        "entrainement__C": "C",
+        "entrainement__n_neighbors": "Nombre de Voisins",
+        "entrainement__max_depth": "Profondeur Maximale",
+        "entrainement__n_estimators": "N estimators",
+        "entrainement__learning_rate": "Learning Rate",
+    }
+    return param_mapping.get(key, "Le paramètre n'existe pas")
 
 
 def parametres(df: pl.DataFrame, place_model: int) -> DeltaGenerator:
@@ -175,13 +164,13 @@ def parametres(df: pl.DataFrame, place_model: int) -> DeltaGenerator:
     param = list()
     value = list()
     for key in list(parametres.keys()):
-        param.append(clean_param(key))
+        param.append(param_mapper(key))
         value.append(str(parametres[key]))
     tab = pl.DataFrame({"Paramètres ⚒️": param, "Valeur optimale ⭐": value})
     return st.dataframe(tab, hide_index=True)
 
 
-# TODO: ajouter un tableau de classification_report
+# TODO: inclure une métrique comme l'AUC aussi pourquoi pas ?
 
 
 def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
@@ -229,6 +218,9 @@ def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
         ]
         metrics_table["MCC"] = [
             round(matthews_corrcoef(y_true, df.select(model)), 3) for model in models
+        ]
+        metrics_table["Rapport 📜"] = [
+            classification_report(y_true, df.select(model)) for model in models
         ]
     table = pl.DataFrame(metrics_table)
     return st.dataframe(table, hide_index=True)
