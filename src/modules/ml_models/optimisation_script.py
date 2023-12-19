@@ -4,7 +4,10 @@ from src.modules.ml_models.prediction import *
 
 EXPLIQUEE = "type" #type or unit_price
 
-X_train, X_test, y_train, y_test, _ = init(EXPLIQUEE)
+X_train_n, X_test_n, y_train, y_test, _ = init(EXPLIQUEE)
+
+X_train = X_train_n.drop(columns=["name"])
+X_test = X_test_n.drop(columns=["name"])
 
 if EXPLIQUEE == "type":
     MODE = "classification"

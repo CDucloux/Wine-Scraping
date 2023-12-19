@@ -43,3 +43,4 @@ data = {"name": X_test_n["name"],
 
 df = pl.DataFrame(data)
 df.write_csv(f"./data/tables/pred_{MODE}.csv", separator=",")
+print("Succès")
