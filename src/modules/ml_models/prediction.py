@@ -355,8 +355,12 @@ def support_vector(variable, choix):
 
 
 def performance(variable):
+    """Sert de contrôle ..."""
     erreur_test = list()
-    X_train, X_test, y_train, y_test, _ = init(variable)
+    X_train_n, X_test_n, y_train, y_test, _ = init(variable)
+    
+    X_train = X_train_n.drop(columns=["name"])
+    X_test = X_test_n.drop(columns=["name"])
 
     models = list()
     model_functions = [
@@ -447,5 +451,5 @@ def stockage_result_csv(model, mode: str):
         "Mode": [mode, mode, mode, mode, mode, mode],
     }
     ml = pl.DataFrame(ml)
-    ml.write_csv(f"./data/result_ml_{mode}.csv", separator=",")
-    return print("C'est bon ça a marché")
+    ml.write_csv(f"./data/tables/result_ml_{mode}.csv", separator=",")
+    return print("Succès")
