@@ -11,6 +11,8 @@ if EXPLIQUEE == "type":
 elif EXPLIQUEE == "unit_price":
     MODE = "regression"
 
+print(f"Mode sélectionné : {MODE}")
+
 models = train_model(X_train, y_train, MODE)
 
 stockage_result_csv(models, MODE)

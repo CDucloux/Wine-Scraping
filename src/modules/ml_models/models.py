@@ -4,7 +4,7 @@ Module de préparation des modèles
 
 Structure :
 - Préparation : Convertit les variables qualitatives en variable binaire
-- Modèles de Régressions
+- Modèles de régression et classification 
 - Résultats
 """
 
@@ -25,24 +25,43 @@ from sklearn.preprocessing import MinMaxScaler, OneHotEncoder  # type: ignore
 import numpy as np
 import polars as pl
 import pandas as pd
+from src.modules.utils import model_name
 from src.modules.bear_cleaner import super_pipe  # type: ignore
 
+import warnings
 
-# Preparation
+warnings.filterwarnings("ignore")
+
+
 def data_model(chemin: str, variable_a_predire: str) -> pl.DataFrame:
-    """Import le json, le transforme en dataframe, le nettoie et le prépare pour le ML"""
-    df = pl.read_json(chemin)
-    df = super_pipe(df)
+    """Importe le json, le transforme en dataframe, le nettoie et le prépare pour le ML"""
+    df_brut = pl.read_json(chemin)
+    df = super_pipe(df_brut)
     df = df.filter(pl.col(variable_a_predire).is_not_null())
     return df
 
 
-def prep_str(df: pl.DataFrame, categorical_cols: list):
-    """Transforme les variables qualitatives en colonnes binaires grâce au `OneHotEncoder()`
+def prep_str(df: pl.DataFrame, categorical_cols: list) -> pd.DataFrame:
+    """`prep_str`: Transforme les variables qualitatives en colonnes binaires grâce au `OneHotEncoder()`.
+    Renvoie un DataFrame avec un nombre important de variables numériques binaires.
 
-    >> Exemple : colonne "country": 32 pays différent
-        => création de 32 colonnes binaire.
-    """
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # Le DataFrame initial
+        categorical_cols (list): # Une liste des variables catégorielles
+
+    `Returns`
+    --------- ::
+
+        pd.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> prep_str()
+    ... #_test_return_"""
     df_pd = df.to_pandas()
     encoder = OneHotEncoder()
 
@@ -57,13 +76,37 @@ def prep_str(df: pl.DataFrame, categorical_cols: list):
     return df_pd
 
 
-# Modèles Régression
-def model_rf(x_train, y_train, mode: str):
-    """
-    paramètres optimisés :
+@model_name
+def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
+    """`model_rf`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
+    en utilisant une Random Forest. Les paramètres optimisés sont :
+
     - n_estimators
     - max_depth
-    """
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        x_train (pd.DataFrame): # L'ensemble d'entrainement
+        y_train (pd.Series): # La variable à prédire
+        mode (str): # regression | classification
+
+    `Raises`
+    --------- ::
+
+        ValueError: # Une erreur est levée quand le mode est invalide
+
+    `Returns`
+    --------- ::
+
+        GridSearchCV
+
+    `Example(s)`
+    ---------
+
+    >>> model_rf()
+    ... #_test_return_"""
     if mode == "regression":
         model = Pipeline(
             [
@@ -96,11 +139,36 @@ def model_rf(x_train, y_train, mode: str):
     return cv
 
 
-def model_knn(x_train, y_train, mode: str):
-    """
-    paramètres optimisés :
-    -n_neighbors
-    """
+@model_name
+def model_knn(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
+    """`model_knn`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
+    en utilisant un KNN. Les paramètres optimisés sont :
+
+    - n_neighbors
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        x_train (pd.DataFrame): # L'ensemble d'entrainement
+        y_train (pd.Series): # La variable à prédire
+        mode (str): # regression | classification
+
+    `Raises`
+    --------- ::
+
+        ValueError: # Une erreur est levée quand le mode est invalide
+
+    `Returns`
+    --------- ::
+
+        GridSearchCV
+
+    `Example(s)`
+    ---------
+
+    >>> model_knn()
+    ... #_test_return_"""
     if mode == "regression":
         model = Pipeline(
             [
@@ -132,12 +200,37 @@ def model_knn(x_train, y_train, mode: str):
     return cv
 
 
-def model_boost(x_train, y_train, mode: str):
-    """
-    paramètres optimisés :
-    -learning_rate
-    -n_estimators
-    """
+@model_name
+def model_boost(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
+    """`model_boost`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
+    en utilisant un Gradient Boosting. Les paramètres optimisés sont :
+
+    - learning_rate
+    - n_estimators
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        x_train (pd.DataFrame): # L'ensemble d'entrainement
+        y_train (pd.Series): # La variable à prédire
+        mode (str): # regression | classification
+
+    `Raises`
+    --------- ::
+
+        ValueError: # Une erreur est levée quand le mode est invalide
+
+    `Returns`
+    --------- ::
+
+        GridSearchCV
+
+    `Example(s)`
+    ---------
+
+    >>> model_boost()
+    ... #_test_return_"""
     if mode == "regression":
         model = Pipeline(
             [
@@ -171,12 +264,37 @@ def model_boost(x_train, y_train, mode: str):
     return cv
 
 
-def model_mlp(x_train, y_train, mode: str):
-    """
-    paramètres optimisés :
-    -hidden_layer_sizes
-    -max_iter
-    """
+@model_name
+def model_mlp(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
+    """`model_mlp`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
+    en utilisant un Gradient Boosting. Les paramètres optimisés sont :
+
+    - hidden_layer_sizes
+    - max_iter
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        x_train (pd.DataFrame): # L'ensemble d'entrainement
+        y_train (pd.Series): # La variable à prédire
+        mode (str): # regression | classification
+
+    `Raises`
+    --------- ::
+
+        ValueError: # Une erreur est levée quand le mode est invalide
+
+    `Returns`
+    --------- ::
+
+        GridSearchCV
+
+    `Example(s)`
+    ---------
+
+    >>> model_mlp()
+    ... #_test_return_"""
     if mode == "regression":
         model = Pipeline(
             [
@@ -210,14 +328,38 @@ def model_mlp(x_train, y_train, mode: str):
     return cv
 
 
-def model_ridge(x_train, y_train, mode):
-    """
-    paramètres optimisés :
+@model_name
+def model_ridge(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
+    """`model_ridge`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
+    en utilisant un modèle Ridge. Les paramètres optimisés sont :
 
     - alpha
 
-    Ridge ajoute une pénalité à la régression linéaire standard en modifiant la fonction objectif.
-    """
+    Note : Ridge ajoute une pénalité à la régression linéaire standard en modifiant la fonction d'objectif.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        x_train (pd.DataFrame): # L'ensemble d'entrainement
+        y_train (pd.Series): # La variable à prédire
+        mode (str): # regression | classification
+
+    `Raises`
+    --------- ::
+
+        ValueError: # Une erreur est levée quand le mode est invalide
+
+    `Returns`
+    --------- ::
+
+        GridSearchCV
+
+    `Example(s)`
+    ---------
+
+    >>> model_ridge()
+    ... #_test_return_"""
     if mode == "regression":
         model = Pipeline(
             [
@@ -249,12 +391,37 @@ def model_ridge(x_train, y_train, mode):
     return cv
 
 
-def model_svm(x_train, y_train, mode):
-    """
-    paramètres optimisés :
+@model_name
+def model_svm(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
+    """`model_svm`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
+    en utilisant un SVM. Les paramètres optimisés sont :
+
     - C
     - epsilon
-    """
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        x_train (pd.DataFrame): # L'ensemble d'entrainement
+        y_train (pd.Series): # La variable à prédire
+        mode (str): # regression | classification
+
+    `Raises`
+    --------- ::
+
+        ValueError: # Une erreur est levée quand le mode est invalide
+
+    `Returns`
+    --------- ::
+
+        GridSearchCV
+
+    `Example(s)`
+    ---------
+
+    >>> model_svm()
+    ... #_test_return_"""
     if mode == "regression":
         model = Pipeline(
             [
@@ -286,8 +453,30 @@ def model_svm(x_train, y_train, mode):
     return cv
 
 
-def train_model(x_train, y_train, mode):
-    """Fonction entrainant tous les modèles"""
+def train_model(
+    x_train: pd.DataFrame, y_train: pd.Series, mode: str
+) -> dict[str, GridSearchCV]:
+    """`train_model`: Fonction entrainant tous les modèles.
+    Renvoie un dictionnaire permettant d'accéder à chaque modèle et ses hyperparamètres.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        x_train (pd.DataFrame): # L'ensemble d'entrainement
+        y_train (pd.Series): # La variable à prédire
+        mode (str): # regression | classification
+
+    `Returns`
+    --------- ::
+
+        dict[str, GridSearchCV]
+
+    `Example(s)`
+    ---------
+
+    >>> train_model()
+    ... #_test_return_"""
     return {
         "model_knn": model_knn(x_train, y_train, mode),
         "model_rf": model_rf(x_train, y_train, mode),
@@ -298,32 +487,31 @@ def train_model(x_train, y_train, mode):
     }
 
 
-# Résultats
-def score_test(model):
-    """Retourne le score de test"""
+def score_test(model: GridSearchCV) -> np.float64:
+    """Retourne le score de test du meilleur modèle."""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return round(model.cv_results_["mean_test_score"][indice_meilleur], 3)
 
 
-def score_entrainement(model):
-    """Retourne le score d'entrainement"""
+def score_entrainement(model: GridSearchCV) -> np.float64:
+    """Retourne le score d'entrainement du meilleur modèle."""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return round(model.cv_results_["mean_train_score"][indice_meilleur], 3)
 
 
-def ecart_type_test(model):
-    """Retourne l'ecart-type"""
+def ecart_type_test(model: GridSearchCV) -> np.float64:
+    """Retourne l'ecart-type du meilleur modèle."""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return round(model.cv_results_["std_test_score"][indice_meilleur], 3)
 
 
-def ecart_type_train(model):
-    """Retourne l'ecart-type"""
+def ecart_type_train(model: GridSearchCV) -> np.float64:
+    """Retourne l'ecart-type du meilleur modèle."""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return round(model.cv_results_["std_train_score"][indice_meilleur], 3)
 
 
-def parametre(model):
-    """Retourne les meilleurs paramètres"""
+def parametre(model: GridSearchCV) -> str:
+    """Retourne les paramètres du meilleur modèle."""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return str(model.cv_results_["params"][indice_meilleur])

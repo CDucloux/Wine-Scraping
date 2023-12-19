@@ -22,8 +22,14 @@ from sklearn.metrics import accuracy_score
 import ast
 import polars as pl
 
+import warnings
 
-def init(variable):
+warnings.filterwarnings("ignore")
+
+
+def init(
+    variable: str,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series, pd.DataFrame]:
     """Initialise le modèle en préparant les données"""
     EXPLIQUEE = variable
     if EXPLIQUEE == "type":
@@ -34,7 +40,7 @@ def init(variable):
     df_dm = data_model(chemin="./data/vins.json", variable_a_predire=EXPLIQUEE)
 
     df = df_dm.select(
-        "name",
+        # "name",
         "capacity",
         "unit_price",
         "millesime",
@@ -82,7 +88,7 @@ def recup_param(choix, variable):
     return ast.literal_eval(csv.filter(csv["Modèle"] == choix)["Paramètres"][0])
 
 
-def random_forest(variable, choix):
+def random_forest(variable: str, choix: str) -> Pipeline:
     """Modèle Random Forest"""
     if variable == "unit_price":
         model = Pipeline(
@@ -133,7 +139,7 @@ def random_forest(variable, choix):
     return model
 
 
-def boosting(variable, choix):
+def boosting(variable: str, choix: str) -> Pipeline:
     """Modèle Boosting"""
     if variable == "unit_price":
         model = Pipeline(
@@ -184,7 +190,7 @@ def boosting(variable, choix):
     return model
 
 
-def ridge(variable, choix):
+def ridge(variable, choix) -> Pipeline:
     """ "Modèle Ridge"""
     if variable == "unit_price":
         model = Pipeline(
@@ -223,7 +229,7 @@ def ridge(variable, choix):
     return model
 
 
-def mlp(variable, choix):
+def mlp(variable, choix) -> Pipeline:
     """Modèle MLP"""
     if variable == "unit_price":
         model = Pipeline(
@@ -272,7 +278,7 @@ def mlp(variable, choix):
     return model
 
 
-def knn(variable, choix):
+def knn(variable, choix) -> Pipeline:
     """Modèle KNN"""
     if variable == "unit_price":
         model = Pipeline(
@@ -317,7 +323,7 @@ def knn(variable, choix):
     return model
 
 
-def support_vector(variable, choix):
+def support_vector(variable, choix) -> Pipeline:
     """Modèle SVM"""
     if variable == "unit_price":
         model = Pipeline(
@@ -382,7 +388,7 @@ def performance(variable):
 
 
 def stockage_result_csv(model, mode: str):
-    """Stocke les résultats dans un CSV"""
+    """Exporte les résultats dans un CSV."""
     if mode == "regression":
         variable = "unit_price"
     elif mode == "classification":
