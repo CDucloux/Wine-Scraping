@@ -10,7 +10,7 @@ from streamlit.delta_generator import DeltaGenerator
 from duckdb import DuckDBPyConnection
 from st_plots import *
 from st_functions import *
-from sklearn.metrics import (
+from sklearn.metrics import (  # type: ignore
     r2_score,
     max_error,
     mean_absolute_error,
@@ -224,10 +224,6 @@ def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
         ]
     table = pl.DataFrame(metrics_table)
     return st.dataframe(table, hide_index=True)
-
-
-# TODO: changer le table_name en tant qu'Enum
-# TODO pareil pour le mode, qui, par ailleurs, n'est pas 100% nécessaire.
 
 
 def write_parameter(conn: DuckDBPyConnection, table_name: str, selected_model: str):

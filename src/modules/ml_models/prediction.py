@@ -73,10 +73,10 @@ def recup_param(choix, variable):
     """Permet de récupérer les paramètres optimaux"""
     if variable == "unit_price":
         mode = "regression"
-        csv = pl.read_csv("./data/result_ml_regression.csv")
+        csv = pl.read_csv("./data/tables/result_ml_regression.csv")
     elif variable == "type":
         mode = "classification"
-        csv = pl.read_csv("./data/result_ml_classification.csv")
+        csv = pl.read_csv("./data/tables/result_ml_classification.csv")
 
     csv = csv.filter(csv["Mode"] == mode)
     return ast.literal_eval(csv.filter(csv["Modèle"] == choix)["Paramètres"][0])

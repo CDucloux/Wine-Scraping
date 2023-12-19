@@ -12,6 +12,13 @@ Pour lancer le shell poetry :
 py -m poetry shell
 ```
 
+Une fois dans le shell, pour lancer l'appli, il faut **ABSOLUMENT** faire : 
+
+```powershell
+python -m streamlit run  'd:\Cours Mecen 
+(M2)\Machine Learning\Wine Scraping\src\modules\app\streamlit_app.py'
+```
+
 Pour installer les dépendances dans l'environnement virtuel :
 
 ```powershell

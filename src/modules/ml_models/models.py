@@ -8,25 +8,24 @@ Structure :
 - Résultats
 """
 
-from sklearn.model_selection import GridSearchCV
-from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier
-from sklearn.ensemble import (
+from sklearn.model_selection import GridSearchCV  # type: ignore
+from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier  # type: ignore
+from sklearn.ensemble import (  # type: ignore
     RandomForestRegressor,
     GradientBoostingRegressor,
     RandomForestClassifier,
     GradientBoostingClassifier,
 )
-from sklearn.neural_network import MLPRegressor, MLPClassifier
-from sklearn.linear_model import Ridge, RidgeClassifier
-from sklearn.svm import SVR, SVC
-from sklearn.impute import SimpleImputer
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.neural_network import MLPRegressor, MLPClassifier  # type: ignore
+from sklearn.linear_model import Ridge, RidgeClassifier  # type: ignore
+from sklearn.svm import SVR, SVC  # type: ignore
+from sklearn.impute import SimpleImputer  # type: ignore
+from sklearn.pipeline import Pipeline  # type: ignore
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder  # type: ignore
 import numpy as np
 import polars as pl
 import pandas as pd
-from src.modules.bear_cleaner import super_pipe
+from src.modules.bear_cleaner import super_pipe  # type: ignore
 
 
 # Preparation
@@ -44,18 +43,18 @@ def prep_str(df: pl.DataFrame, categorical_cols: list):
     >> Exemple : colonne "country": 32 pays différent
         => création de 32 colonnes binaire.
     """
-    df = df.to_pandas()
+    df_pd = df.to_pandas()
     encoder = OneHotEncoder()
 
-    encoded = encoder.fit_transform(df[categorical_cols]).toarray()
+    encoded = encoder.fit_transform(df_pd[categorical_cols]).toarray()
 
     df_encoded = pd.DataFrame(
         encoded, columns=encoder.get_feature_names_out(categorical_cols)
     )
 
-    df = pd.concat([df.drop(columns=categorical_cols), df_encoded], axis=1)
+    df_pd = pd.concat([df_pd.drop(columns=categorical_cols), df_encoded], axis=1)
 
-    return df
+    return df_pd
 
 
 # Modèles Régression

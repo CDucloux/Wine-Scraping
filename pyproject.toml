@@ -33,6 +33,9 @@ ruff = "^0.1.6"
 pytest = "^7.4.3"
 pytest-cov = "^4.1.0"
 
+[tool.mypy]
+disable_error_code = ["attr-defined"]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

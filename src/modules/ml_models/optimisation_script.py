@@ -2,7 +2,7 @@
 from src.modules.ml_models.models import *
 from src.modules.ml_models.prediction import *
 
-EXPLIQUEE = "type" #type or unit_price
+EXPLIQUEE = "type"  # type or unit_price
 
 X_train, X_test, y_train, y_test, _ = init(EXPLIQUEE)
 

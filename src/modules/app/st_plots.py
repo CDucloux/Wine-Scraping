@@ -7,22 +7,40 @@ import streamlit as st
 import polars as pl
 import numpy as np
 from streamlit.delta_generator import DeltaGenerator
-import plotly.express as px
-import plotly.figure_factory as ff
-from sklearn.metrics import confusion_matrix
+import plotly.express as px  # type: ignore
+import plotly.figure_factory as ff  # type: ignore
+from sklearn.metrics import confusion_matrix  # type: ignore
 from duckdb import DuckDBPyConnection
+
+# mypy backlog : 0 errors
 
 
 def warnings(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | None:
-    """Renvoie des messages d'avertissements spécifiques quand le dataframe modifié à cause de la sidebar ne génère pas de données."""
+    """`warnings`: Renvoie des messages d'avertissements spécifiques quand le dataframe modifié
+    à cause de la sidebar ne renvoie pas de données.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # DataFrame mutable
+        selected_wines (list[str]): # Vin(s) sélectionné(s)
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator | None
+
+    `Example(s)`
+    ---------
+
+    >>> warnings()
+    ... #_test_return_"""
     if not selected_wines:
-        return st.warning(
-            "Attention, aucun type de vin n'a été selectionné !", icon="🚨"
-        )
+        return st.warning("🚨 Attention, aucun type de vin n'a été selectionné !")
     elif len(df) == 0:
         return st.warning(
-            "Aucun vin avec l'ensemble des critères renseignés n'a pu être trouvé.",
-            icon="😵",
+            "😵 Aucun vin avec l'ensemble des critères renseignés n'a été trouvé."
         )
     else:
         return None
@@ -31,7 +49,28 @@ def warnings(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | No
 def display_scatter(
     df: pl.DataFrame, selected_wines: list[str], colors: list[str], scale: str
 ) -> DeltaGenerator:
-    """Génère un scatter plot du prix des vins avec plusieurs configurations."""
+    """`display_scatter`: Génère un scatter plot du prix des vins en fonction de leur
+    durée de conservation avec plusieurs échelles disponibles.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # DataFrame mutable
+        selected_wines (list[str]): # Vin(s) sélectionné(s)
+        colors (list[str]): # Liste de couleurs
+        scale (str): # Echelle (log/Linéaire)
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+
+    >>> display_scatter()
+    ... #_test_return_"""
     if scale == "$\\log(y)$":
         log = True
         title_y = "log(Prix unitaire)"
@@ -103,7 +142,24 @@ def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
 def display_corr(
     df: pl.DataFrame,
 ) -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
-    """Retourne une matrice de corrélation."""
+    """`display_corr`: Retourne une matrice de corrélation avec corrélation minimale et maximale.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # DataFrame
+
+    `Returns`
+    --------- ::
+
+        tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]
+
+    `Example(s)`
+    ---------
+
+    >>> display_corr()
+    ... #_test_return_"""
     variables = [
         "capacity",
         "unit_price",
@@ -165,7 +221,7 @@ def display_density(df: pl.DataFrame) -> DeltaGenerator:
 
 def display_bar(df: pl.DataFrame) -> DeltaGenerator:
     """Retourne un barplot des cepages."""
-    cepage_counts = df.groupby("cepage").agg(pl.col("cepage").count().alias("count"))
+    cepage_counts = df.groupby("cepage").agg(pl.col("cepage").count())
     cepage_filtre = cepage_counts.filter(cepage_counts["count"] >= 10)
     df_filtre = df.join(cepage_filtre, on="cepage")
     fig_bar = px.bar(
