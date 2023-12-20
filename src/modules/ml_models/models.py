@@ -33,11 +33,29 @@ import warnings
 warnings.filterwarnings("ignore")
 
 
-def data_model(chemin: str, variable_a_predire: str) -> pl.DataFrame:
-    """Importe le json, le transforme en dataframe, le nettoie et le prépare pour le ML"""
-    df_brut = pl.read_json(chemin)
+def data_model(path: str, target: str) -> pl.DataFrame:
+    """`data_model`: Importe le JSON, le transforme en dataframe, le nettoie et le prépare pour le ML.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        path (str): # Chemin vers les données
+        target (str): # Variable à prédire
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> data_model(path="./data/vins.json", target="type")
+    ... shape: (4_006, 40)"""
+    df_brut = pl.read_json(path)
     df = super_pipe(df_brut)
-    df = df.filter(pl.col(variable_a_predire).is_not_null())
+    df = df.filter(pl.col(target).is_not_null())
     return df
 
 
@@ -105,8 +123,19 @@ def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearch
     `Example(s)`
     ---------
 
-    >>> model_rf()
-    ... #_test_return_"""
+    >>> model_rf(x_train=X_train, y_train=y_train, mode = "regression")
+    ... Entrainement du modèle : Random Forest
+    ... GridSearchCV(estimator=Pipeline(steps=[('imputation', SimpleImputer()),
+    ...                                   ('echelle', MinMaxScaler()),
+    ...                                   ('entrainement',
+    ...                                    RandomForestRegressor())]),
+    ...         n_jobs=-1,
+    ...         param_grid={'entrainement__max_depth': range(1, 10),
+    ...                     'entrainement__n_estimators': range(10, 50, 10),
+    ...                     'imputation__strategy': ['mean', 'median',
+    ...                                              'most_frequent']},
+    ...         return_train_score=True)
+    """
     if mode == "regression":
         model = Pipeline(
             [

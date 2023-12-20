@@ -21,23 +21,56 @@ from sklearn.metrics import accuracy_score
 
 import ast
 import polars as pl
-
 import warnings
+from enum import Enum
 
 warnings.filterwarnings("ignore")
 
 
+class targets(Enum):
+    """Enumération modélisant les 2 variables à prédire possibles."""
+
+    PRICE = "unit_price"
+    TYPE = "type"
+
+
 def init(
-    variable: str,
+    target: str,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series, pd.DataFrame]:
-    """Initialise le modèle en préparant les données"""
-    EXPLIQUEE = variable
-    if EXPLIQUEE == "type":
+    """`init`: Initialise les données et les prépare au Machine Learning.
+    Effectue un Train/Test split (80%/20%) et renvoie un tuple contenant :
+
+    - Les features d'entrainement
+    - Les features de test
+    - La target d'entrainement
+    - La target de test
+    - Le DataFrame initial
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        target (str): # La variable à prédire
+
+    `Returns`
+    --------- ::
+
+        tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series, pd.DataFrame]
+
+    `Example(s)`
+    ---------
+
+    >>> X_train, X_test, y_train, y_test, df = init(targets.PRICE.value)
+    ... X_train.shape, X_test.shape, y_train.shape, y_test.shape, df.shape
+    ... ((3204, 253), (802, 253), (3204,), (802,), (4006, 254))
+    """
+    EXPLIQUEE = target
+    if EXPLIQUEE == targets.TYPE.value:
         CATEGORICALS = ["cepage", "par_gouts", "service", "country"]
-    elif EXPLIQUEE == "unit_price":
+    elif EXPLIQUEE == targets.PRICE.value:
         CATEGORICALS = ["cepage", "par_gouts", "service", "country", "type"]
 
-    df_dm = data_model(chemin="./data/vins.json", variable_a_predire=EXPLIQUEE)
+    df_dm = data_model(path="./data/vins.json", target=EXPLIQUEE)
 
     df = df_dm.select(
         # "name",
@@ -75,16 +108,42 @@ def init(
     return X_train, X_test, y_train, y_test, df
 
 
-def recup_param(choix, variable):
-    """Permet de récupérer les paramètres optimaux"""
-    if variable == "unit_price":
-        mode = "regression"
+def _recup_param(choix: str, target: str) -> dict:
+    """`_recup_param`: Permet de récupérer les paramètres optimaux dans le CSV de résultats du Machine Learning.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        choix (str): # Le choix du modèle de Machine Learning
+        target (str): # La variable à prédire
+
+    `Returns`
+    --------- ::
+
+        dict
+
+    `Example(s)`
+    ---------
+
+    - Exemple 1 : `Random Forest` et `classification`
+    >>> _recup_param("Random Forest", "type")
+    ... {'entrainement__max_depth': 9,
+    ...  'entrainement__n_estimators': 30,
+    ...  'imputation__strategy': 'median'}
+
+    - Exemple 2 : `Boosting` et `regression`
+
+    >>> _recup_param("Boosting", "unit_price")
+    ... {'entrainement__learning_rate': 0.1,
+    ... 'entrainement__n_estimators': 150,
+    ... 'imputation__strategy': 'most_frequent'}
+    """
+    if target == "unit_price":
         csv = pl.read_csv("./data/tables/result_ml_regression.csv")
-    elif variable == "type":
-        mode = "classification"
+    elif target == "type":
         csv = pl.read_csv("./data/tables/result_ml_classification.csv")
 
-    csv = csv.filter(csv["Mode"] == mode)
     return ast.literal_eval(csv.filter(csv["Modèle"] == choix)["Paramètres"][0])
 
 
@@ -96,17 +155,17 @@ def random_forest(variable: str, choix: str) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
                     RandomForestRegressor(
-                        max_depth=recup_param(choix, variable)[
+                        max_depth=_recup_param(choix, variable)[
                             "entrainement__max_depth"
                         ],
-                        n_estimators=recup_param(choix, variable)[
+                        n_estimators=_recup_param(choix, variable)[
                             "entrainement__n_estimators"
                         ],
                     ),
@@ -119,17 +178,17 @@ def random_forest(variable: str, choix: str) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
                     RandomForestClassifier(
-                        max_depth=recup_param(choix, variable)[
+                        max_depth=_recup_param(choix, variable)[
                             "entrainement__max_depth"
                         ],
-                        n_estimators=recup_param(choix, variable)[
+                        n_estimators=_recup_param(choix, variable)[
                             "entrainement__n_estimators"
                         ],
                     ),
@@ -147,17 +206,17 @@ def boosting(variable: str, choix: str) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
                     GradientBoostingRegressor(
-                        learning_rate=recup_param(choix, variable)[
+                        learning_rate=_recup_param(choix, variable)[
                             "entrainement__learning_rate"
                         ],
-                        n_estimators=recup_param(choix, variable)[
+                        n_estimators=_recup_param(choix, variable)[
                             "entrainement__n_estimators"
                         ],
                     ),
@@ -170,17 +229,17 @@ def boosting(variable: str, choix: str) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
                     GradientBoostingClassifier(
-                        learning_rate=recup_param(choix, variable)[
+                        learning_rate=_recup_param(choix, variable)[
                             "entrainement__learning_rate"
                         ],
-                        n_estimators=recup_param(choix, variable)[
+                        n_estimators=_recup_param(choix, variable)[
                             "entrainement__n_estimators"
                         ],
                     ),
@@ -198,13 +257,13 @@ def ridge(variable, choix) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
-                    Ridge(alpha=recup_param(choix, variable)["entrainement__alpha"]),
+                    Ridge(alpha=_recup_param(choix, variable)["entrainement__alpha"]),
                 ),
             ]
         )
@@ -214,14 +273,14 @@ def ridge(variable, choix) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
                     RidgeClassifier(
-                        alpha=recup_param(choix, variable)["entrainement__alpha"]
+                        alpha=_recup_param(choix, variable)["entrainement__alpha"]
                     ),
                 ),
             ]
@@ -237,18 +296,20 @@ def mlp(variable, choix) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
                     MLPRegressor(
-                        hidden_layer_sizes=recup_param(choix, variable)[
+                        hidden_layer_sizes=_recup_param(choix, variable)[
                             "entrainement__hidden_layer_sizes"
                         ],
-                        solver=recup_param(choix, variable)["entrainement__solver"],
-                        max_iter=recup_param(choix, variable)["entrainement__max_iter"],
+                        solver=_recup_param(choix, variable)["entrainement__solver"],
+                        max_iter=_recup_param(choix, variable)[
+                            "entrainement__max_iter"
+                        ],
                     ),
                 ),
             ]
@@ -259,18 +320,20 @@ def mlp(variable, choix) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
                     MLPClassifier(
-                        hidden_layer_sizes=recup_param(choix, variable)[
+                        hidden_layer_sizes=_recup_param(choix, variable)[
                             "entrainement__hidden_layer_sizes"
                         ],
-                        solver=recup_param(choix, variable)["entrainement__solver"],
-                        max_iter=recup_param(choix, variable)["entrainement__max_iter"],
+                        solver=_recup_param(choix, variable)["entrainement__solver"],
+                        max_iter=_recup_param(choix, variable)[
+                            "entrainement__max_iter"
+                        ],
                     ),
                 ),
             ]
@@ -286,14 +349,14 @@ def knn(variable, choix) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
                     KNeighborsRegressor(
-                        n_neighbors=recup_param(choix, variable)[
+                        n_neighbors=_recup_param(choix, variable)[
                             "entrainement__n_neighbors"
                         ]
                     ),
@@ -306,14 +369,14 @@ def knn(variable, choix) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
                     KNeighborsClassifier(
-                        n_neighbors=recup_param(choix, variable)[
+                        n_neighbors=_recup_param(choix, variable)[
                             "entrainement__n_neighbors"
                         ]
                     ),
@@ -331,13 +394,13 @@ def support_vector(variable, choix) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
-                    SVR(C=recup_param(choix, variable)["entrainement__C"]),
+                    SVR(C=_recup_param(choix, variable)["entrainement__C"]),
                 ),
             ]
         )
@@ -347,22 +410,22 @@ def support_vector(variable, choix) -> Pipeline:
                 (
                     "imputation",
                     SimpleImputer(
-                        strategy=recup_param(choix, variable)["imputation__strategy"]
+                        strategy=_recup_param(choix, variable)["imputation__strategy"]
                     ),
                 ),
                 ("echelle", MinMaxScaler()),
                 (
                     "entrainement",
-                    SVC(C=recup_param(choix, variable)["entrainement__C"]),
+                    SVC(C=_recup_param(choix, variable)["entrainement__C"]),
                 ),
             ]
         )
     return model
 
 
-def performance(variable):
+def performance(target: str):
     erreur_test = list()
-    X_train, X_test, y_train, y_test, _ = init(variable)
+    X_train, X_test, y_train, y_test, _ = init(target)
 
     models = list()
     model_functions = [
@@ -374,15 +437,15 @@ def performance(variable):
         ("Support Vector", support_vector),
     ]
     for model_name, model_function in model_functions:
-        model = model_function(variable, model_name)
+        model = model_function(target, model_name)
         model = model.fit(X_train, y_train)
         models.append(model)
 
     for model in models:
         y_pred = model.predict(X_test)
-        if variable == "type":
+        if target == "type":
             erreur_test.append(accuracy_score(y_test, y_pred))
-        elif variable == "unit_price":
+        elif target == "unit_price":
             erreur_test.append(mean_absolute_error(y_test, y_pred))
     return erreur_test
 
