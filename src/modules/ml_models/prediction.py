@@ -26,7 +26,6 @@ from enum import Enum
 
 warnings.filterwarnings("ignore")
 
-
 class targets(Enum):
     """Enumération modélisant les 2 variables à prédire possibles."""
 
@@ -516,5 +515,5 @@ def stockage_result_csv(model, mode: str):
         "Mode": [mode, mode, mode, mode, mode, mode],
     }
     ml = pl.DataFrame(ml)
-    ml.write_csv(f"./data/result_ml_{mode}.csv", separator=",")
-    return print("C'est bon ça a marché")
+    ml.write_csv(f"./data/tables/result_ml_{mode}.csv", separator=",")
+    return print("Succès")

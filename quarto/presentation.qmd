@@ -1,0 +1,66 @@
+---
+title: "🍷 À boire 🍻"
+author: "*L'histoire d'un breuvage*"
+format: 
+    revealjs:
+        theme: serif
+---
+
+## Introduction
+
+- Une immersion s'impose...
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+<iframe width="607" height="405" src="https://www.youtube.com/embed/mZ6xNxpuIOQ" title="Bodh&#39;Aktan - À boire" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+
+- *“Pour savoir qu'un verre était de trop, encore faut-il l'avoir bu.”* - Georges Courteline
+
+## Introduction
+
+- Le 18 janvier approche, une date en apparence anodine mais très importante pour nos deux compères.
+- Pour cette journée festive, les protagonistes se rendire sur `vinatis.com` pour trouver un breuvage.
+- Et c'est à ce moment que l'histoire prend racine...
+
+![](img\bouteille_dieu.png){fig-align="center"}
+
+## Scraping
+
+1. Scraping des liens
+2. Scraping d'une bouteille `mystical_soup.py`
+3. Stockage JSON `scraping_functions.py`
+
+![](img\bouteille_scrap.png){fig-align="center"}
+
+## Cleaning
+
+1. Pipeline aussi long que le Langeled `bear_cleaner.py`
+
+## Machine Learning (ML)
+
+1. Optimisation des paramètres `models.py`
+2. Prediction sur les données test `prediction.py`
+
+
+![](img\bouteille_ecole.png){fig-align="center"}
+
+## ML : Optimisation
+
+- Choix des **21 variables explicatives**
+- Choix de **6 modèles**
+- Optimisation des paramètres avec un Cross Validation
+
+## ML : Prédiction - Regression
+
+- Variable à expliquer : `unit_price`
+- Qualité : Anne Hidalgo
+
+## ML : Prédiction - Classification
+
+- Variable à expliquer : `type` 
+- Qualité : Vincent Perrolaz
+
+
+## Application
+
+## Références
+
+- Images : **DALL-E**
