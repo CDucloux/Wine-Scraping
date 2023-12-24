@@ -1,13 +1,13 @@
 from src.modules.ml_models.models import *
 from src.modules.ml_models.prediction import *
 
-EXPLIQUEE = "type" # unit_price | type
+EXPLIQUEE = targets.PRICE.value  # unit_price | type
 
 if EXPLIQUEE == "type":
     MODE = "classification"
 elif EXPLIQUEE == "unit_price":
     MODE = "regression"
-    
+
 X_train_n, X_test_n, y_train, y_test, _ = init(EXPLIQUEE)
 
 X_train = X_train_n.drop(columns=["name"])
@@ -32,14 +32,16 @@ preds_knn = model_knn.predict(X_test).astype(str)
 preds_mlp = model_mlp.predict(X_test).astype(str)
 preds_sv = model_sv.predict(X_test).astype(str)
 
-data = {"name": X_test_n["name"],
-        EXPLIQUEE: y_test,
-        "random_forest": preds_rf,
-        "boosting":preds_boost,
-        "ridge":preds_ridge,
-        "knn":preds_knn,
-        "mlp":preds_mlp,
-        "support_vector":preds_sv}
+data = {
+    "name": X_test_n["name"],
+    EXPLIQUEE: y_test,
+    "random_forest": preds_rf,
+    "boosting": preds_boost,
+    "ridge": preds_ridge,
+    "knn": preds_knn,
+    "mlp": preds_mlp,
+    "support_vector": preds_sv,
+}
 
 df = pl.DataFrame(data)
 df.write_csv(f"./data/tables/pred_{MODE}.csv", separator=",")

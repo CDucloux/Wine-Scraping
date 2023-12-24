@@ -1,3 +1,11 @@
 préciser la licence du projet
 faire un readme digne de ce nom
 axe d'amélioration => spacy et NLP
+how to streamlit test ?
+
+MYPY passing :
+
+- st_functions
+- st_plots
+- st_tables
+- bear_cleaner

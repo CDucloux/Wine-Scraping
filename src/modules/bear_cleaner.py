@@ -6,8 +6,8 @@ L'ours polaire qui nettoie la donnée 🐻
 """
 import polars as pl
 
-# TODO: implémentation LazyFrame
-# TODO 2: respecter l'interface privée des fonctions, utiliser doctest et mypy pour documenter.
+# TODO : utiliser doctest dans les docstrings.
+# TODO 2 : Vérif mypy
 
 
 def _get_avg_temp(df: pl.DataFrame) -> pl.DataFrame:

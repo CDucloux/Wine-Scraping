@@ -6,11 +6,11 @@ import duckdb
 import streamlit as st
 import polars as pl
 from pathlib import Path
-from src.modules.bear_cleaner import *
-from streamlit.delta_generator import DeltaGenerator
-from src.modules.ml_models.prediction import *
 from PIL import Image
+from streamlit.delta_generator import DeltaGenerator
 from duckdb import DuckDBPyConnection
+from src.modules.bear_cleaner import *  # type: ignore
+from src.modules.ml_models.prediction import *  # type: ignore
 
 # mypy & pylance backlog : 0 errors
 
@@ -360,6 +360,9 @@ def model_selector() -> str | None:
         "Modèle :",
         (models),
     )
+
+
+# TODO: changer le 0.8 et 1.2 en tant qu'Enum
 
 
 def format_prediction(prediction: float | str, truth: float | str) -> str:
