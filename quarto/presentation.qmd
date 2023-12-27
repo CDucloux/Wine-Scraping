@@ -7,15 +7,17 @@ format:
         theme: serif
         background-transition: fade
         transition: slide
-        footer: "--- Machine Learning ---"
+        navigation-mode: linear
+        footer: "**Machine Learning**"
         logo: https://corentinducloux.fr/dossier_img/mecen_transparent.png
 ---
+
+
+## Introduction {background-image="img\territoire_vin.png" background-opacity="0.5"}
 
 <link rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-
-## Introduction
 
 - Une immersion en territoire alcoolisé s'impose...
 <div style="display: flex; justify-content: center; align-items: center; height: 90vh;">
@@ -23,21 +25,22 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 - *“Pour savoir qu'un verre était de trop, encore faut-il l'avoir bu.”* - Georges Courteline
 
-## Introduction
+## Le *Pourquoi* du *Comment* {background-image="img\bouteille_dieu.png" background-opacity="0.5"}
 
 - Le 18 janvier approche, une date en apparence anodine mais très importante pour nos deux compères.
 - Pour cette journée festive, nos 2 protagonistes se rendirent sur `vinatis.com` pour trouver un breuvage.
-- Et c'est à ce moment que l'histoire prend racine...
+- Et c'est à ce moment que l'histoire prend **racine**...
 
-![](img\bouteille_dieu.png){fig-align="center"}
+::: {.fragment}
+::: {.fragment .grow}
+![](img\racine.jpg){fig-align="center" height="120"}
+:::
+::: {.fragment}
+**On parle de moi ?**
+:::
+:::
 
-## Scraping
-
-1. Scraping des liens
-2. Scraping d'une bouteille `mystical_soup.py`
-3. Stockage JSON `scraping_functions.py`
-
-![](img\bouteille_scrap.png){fig-align="center"}
+## Scraping {background-image="img\bouteille_scrap.png" background-opacity="0.5"}
 
 ## Scraping, Partie I {.smaller}
 
@@ -99,43 +102,73 @@ ROSE = "achat-vin-rose"
     }
 ```
 
-## Cleaning {.smaller}
+## Cleaning {.smaller background-image="img\pandas_vs_polars.png" background-opacity="0.25"}
 
-Mais ce *JSON* brut doit être nettoyé et considérablement restructuré !
+Mais ce *JSON* **brut** doit être nettoyé et considérablement restructuré !
 
-1. Nous avons choisi d'utiliser `polars` 🐻 et non pas `pandas` 🐼
-2. Toutes les fonctions de nettoyage sont contenues dans `bear_cleaner.py`
+1. Nous avons choisi d'utiliser `polars` 🐻 et non pas `pandas` 🐼 pour le faire.
+2. Toutes les fonctions de nettoyage sont contenues dans `bear_cleaner.py`.
 3. La fonction `super_pipe` permet de chainer toutes les transformations dans un pipeline propre pour structurer notre **Dataframe**.
+4. Nous obtenons ainsi un **Dataframe** de taille `(4006,40)` prêt pour le Machine Learning 
 
-![](img\pandas_vs_polars.png){fig-align="center"}
+![](img\bear_data.png){fig-align="center"}
 
-
-## Machine Learning (ML)
-
-1. Optimisation des paramètres `models.py`
-2. Prediction sur les données test `prediction.py`
+## Machine Learning {background-image="img\bouteille_ecole.png" background-opacity="0.25"}
 
 
-![](img\bouteille_ecole.png){fig-align="center"}
+## Machine Learning - Procédure
+
+1. Deux variables à prédire : *unit_price* & *type*
+2. Optimisation des paramètres $\Rightarrow$ `models.py`
+3. Prédiction sur les données de test $\Rightarrow$ `prediction.py`
+4. Utilisation d'un **pipeline** `sklearn` $-$ avantage : éviter le data leakage et procédure standardisée pour les 6 modèles.
+
 
 ## ML : Optimisation
 
-- Choix des **21 variables explicatives**
-- Choix de **6 modèles**
-- Optimisation des paramètres avec un Cross Validation
+1. Choix des **21 variables explicatives**
+2. Choix de **6 modèles**
+3. Optimisation des hyperparamètres par Cross-Validation
+4. La fonction `stockage_result_csv` permet d'exporter les résultats sous forme de CSV pour les 2 modes : classification et régression
+
+**METTRE LES RESULTATS SOUF FORME DE TABLEAU MARKDOWN ICI**
 
 ## ML : Prédiction - Regression
 
-- Variable à expliquer : `unit_price`
-- Qualité : Anne Hidalgo
+- Variable à prédire : `unit_price`
+- Qualité des résultats : Anne Hidalgo™ certified 
 
 ## ML : Prédiction - Classification
 
-- Variable à expliquer : `type` 
-- Qualité : Vincent Perrolaz
+- Variable à prédire : `type` 
+- Qualitédes résultats : Vincent Perrolaz™ certified
 
 
 ## Application
+
+## Choix du stockage
+
+<i class="fa-solid fa-database"></i> `duckdb` : La base de données qui fait *"coin coin"* 🦆
+
+```python
+def db_connector() -> DuckDBPyConnection:
+    """Se connecte à la base de données."""
+    connection = duckdb.connect(database=":memory:")
+    return connection
+```
+
+- `:memory:` $\Rightarrow$ Base de données **in-memory**
+- La base de données en mémoire stocke les informations directement dans la mémoire vive plutôt que sur un disque.
+- Réduit le temps nécessaire au stockage et à la consultations des données, et accélère l’exécution des requêtes
+
+## Un code de *Deutsche Qualität*
+
+- Docstrings explicites et soignées
+- Annotations de type claires
+- Projet modularisé 
+- Tests des features de l'application
+- Poetry 
+- Docker
 
 ## Références
 

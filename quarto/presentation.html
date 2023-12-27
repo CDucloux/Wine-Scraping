@@ -402,12 +402,9 @@
 </div>
 
 </section>
-<section class="slide level2">
-
-<p><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></p>
-</section>
-<section id="introduction" class="slide level2">
+<section id="introduction" class="slide level2" data-background-image="img\territoire_vin.png" data-background-opacity="0.5">
 <h2>Introduction</h2>
+<p><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></p>
 <ul>
 <li>Une immersion en territoire alcoolisé s’impose…
 <div style="display: flex; justify-content: center; align-items: center; height: 90vh;">
@@ -417,24 +414,29 @@
 <li><em>“Pour savoir qu’un verre était de trop, encore faut-il l’avoir bu.”</em> - Georges Courteline</li>
 </ul>
 </section>
-<section id="introduction-1" class="slide level2">
-<h2>Introduction</h2>
+<section id="le-pourquoi-du-comment" class="slide level2" data-background-image="img\bouteille_dieu.png" data-background-opacity="0.5">
+<h2>Le <em>Pourquoi</em> du <em>Comment</em></h2>
 <ul>
 <li>Le 18 janvier approche, une date en apparence anodine mais très importante pour nos deux compères.</li>
 <li>Pour cette journée festive, nos 2 protagonistes se rendirent sur <code>vinatis.com</code> pour trouver un breuvage.</li>
-<li>Et c’est à ce moment que l’histoire prend racine…</li>
+<li>Et c’est à ce moment que l’histoire prend <strong>racine</strong>…</li>
 </ul>
-
-<img data-src="img\bouteille_dieu.png" class="r-stretch quarto-figure-center"></section>
-<section id="scraping" class="slide level2">
+<div class="fragment">
+<div class="fragment grow">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img\racine.jpg" height="120"></p>
+</figure>
+</div>
+</div>
+<div class="fragment">
+<p><strong>On parle de moi ?</strong></p>
+</div>
+</div>
+</section>
+<section id="scraping" class="slide level2" data-background-image="img\bouteille_scrap.png" data-background-opacity="0.5">
 <h2>Scraping</h2>
-<ol type="1">
-<li>Scraping des liens</li>
-<li>Scraping d’une bouteille <code>mystical_soup.py</code></li>
-<li>Stockage JSON <code>scraping_functions.py</code></li>
-</ol>
-
-<img data-src="img\bouteille_scrap.png" class="r-stretch quarto-figure-center"></section>
+</section>
 <section id="scraping-partie-i" class="slide level2 smaller">
 <h2>Scraping, Partie I</h2>
 <p><code>scraping_functions</code> <span class="math inline">\(\Rightarrow\)</span> Le coeur du scraper</p>
@@ -492,48 +494,79 @@
 <span id="cb2-28"><a href="#cb2-28"></a>        <span class="dt">"accords_reco"</span><span class="fu">:</span> <span class="st">"Gigot d'agneau aux herbes de Provence; Tikka massala; Plateau de fromages."</span></span>
 <span id="cb2-29"><a href="#cb2-29"></a>    <span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="cleaning" class="slide level2 smaller">
+<section id="cleaning" class="slide level2 smaller" data-background-image="img\pandas_vs_polars.png" data-background-opacity="0.25">
 <h2>Cleaning</h2>
-<p>Mais ce <em>JSON</em> brut doit être nettoyé et considérablement restructuré !</p>
+<p>Mais ce <em>JSON</em> <strong>brut</strong> doit être nettoyé et considérablement restructuré !</p>
 <ol type="1">
-<li>Nous avons choisi d’utiliser <code>polars</code> 🐻 et non pas <code>pandas</code> 🐼</li>
-<li>Toutes les fonctions de nettoyage sont contenues dans <code>bear_cleaner.py</code></li>
+<li>Nous avons choisi d’utiliser <code>polars</code> 🐻 et non pas <code>pandas</code> 🐼 pour le faire.</li>
+<li>Toutes les fonctions de nettoyage sont contenues dans <code>bear_cleaner.py</code>.</li>
 <li>La fonction <code>super_pipe</code> permet de chainer toutes les transformations dans un pipeline propre pour structurer notre <strong>Dataframe</strong>.</li>
+<li>Nous obtenons ainsi un <strong>Dataframe</strong> de taille <code>(4006,40)</code> prêt pour le Machine Learning</li>
 </ol>
 
-<img data-src="img\pandas_vs_polars.png" class="r-stretch quarto-figure-center"></section>
-<section id="machine-learning-ml" class="slide level2">
-<h2>Machine Learning (ML)</h2>
+<img data-src="img\bear_data.png" class="r-stretch quarto-figure-center"></section>
+<section id="machine-learning" class="slide level2" data-background-image="img\bouteille_ecole.png" data-background-opacity="0.25">
+<h2>Machine Learning</h2>
+</section>
+<section id="machine-learning---procédure" class="slide level2">
+<h2>Machine Learning - Procédure</h2>
 <ol type="1">
-<li>Optimisation des paramètres <code>models.py</code></li>
-<li>Prediction sur les données test <code>prediction.py</code></li>
+<li>Deux variables à prédire : <em>unit_price</em> &amp; <em>type</em></li>
+<li>Optimisation des paramètres <span class="math inline">\(\Rightarrow\)</span> <code>models.py</code></li>
+<li>Prédiction sur les données de test <span class="math inline">\(\Rightarrow\)</span> <code>prediction.py</code></li>
+<li>Utilisation d’un <strong>pipeline</strong> <code>sklearn</code> <span class="math inline">\(-\)</span> avantage : éviter le data leakage et procédure standardisée pour les 6 modèles.</li>
 </ol>
-
-<img data-src="img\bouteille_ecole.png" class="r-stretch quarto-figure-center"></section>
+</section>
 <section id="ml-optimisation" class="slide level2">
 <h2>ML : Optimisation</h2>
-<ul>
+<ol type="1">
 <li>Choix des <strong>21 variables explicatives</strong></li>
 <li>Choix de <strong>6 modèles</strong></li>
-<li>Optimisation des paramètres avec un Cross Validation</li>
-</ul>
+<li>Optimisation des hyperparamètres par Cross-Validation</li>
+<li>La fonction <code>stockage_result_csv</code> permet d’exporter les résultats sous forme de CSV pour les 2 modes : classification et régression</li>
+</ol>
+<p><strong>METTRE LES RESULTATS SOUF FORME DE TABLEAU MARKDOWN ICI</strong></p>
 </section>
 <section id="ml-prédiction---regression" class="slide level2">
 <h2>ML : Prédiction - Regression</h2>
 <ul>
-<li>Variable à expliquer : <code>unit_price</code></li>
-<li>Qualité : Anne Hidalgo</li>
+<li>Variable à prédire : <code>unit_price</code></li>
+<li>Qualité des résultats : Anne Hidalgo™ certified</li>
 </ul>
 </section>
 <section id="ml-prédiction---classification" class="slide level2">
 <h2>ML : Prédiction - Classification</h2>
 <ul>
-<li>Variable à expliquer : <code>type</code></li>
-<li>Qualité : Vincent Perrolaz</li>
+<li>Variable à prédire : <code>type</code></li>
+<li>Qualitédes résultats : Vincent Perrolaz™ certified</li>
 </ul>
 </section>
 <section id="application" class="slide level2">
 <h2>Application</h2>
+</section>
+<section id="choix-du-stockage" class="slide level2">
+<h2>Choix du stockage</h2>
+<p><i class="fa-solid fa-database"></i> <code>duckdb</code> : La base de données qui fait <em>“coin coin”</em> 🦆</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">def</span> db_connector() <span class="op">-&gt;</span> DuckDBPyConnection:</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="co">"""Se connecte à la base de données."""</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    connection <span class="op">=</span> duckdb.<span class="ex">connect</span>(database<span class="op">=</span><span class="st">":memory:"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="cf">return</span> connection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>:memory:</code> <span class="math inline">\(\Rightarrow\)</span> Base de données <strong>in-memory</strong></li>
+<li>La base de données en mémoire stocke les informations directement dans la mémoire vive plutôt que sur un disque.</li>
+<li>Réduit le temps nécessaire au stockage et à la consultations des données, et accélère l’exécution des requêtes</li>
+</ul>
+</section>
+<section id="un-code-de-deutsche-qualität" class="slide level2">
+<h2>Un code de <em>Deutsche Qualität</em></h2>
+<ul>
+<li>Docstrings explicites et soignées</li>
+<li>Annotations de type claires</li>
+<li>Projet modularisé</li>
+<li>Tests des features de l’application</li>
+<li>Poetry</li>
+<li>Docker</li>
+</ul>
 </section>
 <section id="références" class="slide level2">
 <h2>Références</h2>
@@ -542,7 +575,7 @@
 </ul>
 
 <img src="https://corentinducloux.fr/dossier_img/mecen_transparent.png" class="slide-logo r-stretch"><div class="footer footer-default">
-<p>— Machine Learning —</p>
+<p><strong>Machine Learning</strong></p>
 </div>
 </section>
     </div>
