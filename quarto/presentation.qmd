@@ -1,23 +1,32 @@
 ---
 title: "🍷 À boire 🍻"
-author: "*L'histoire d'un breuvage*"
+subtitle: "*L'histoire d'un breuvage*"
+author: "`Guillaume DEVANT` & `Corentin DUCLOUX`"
 format: 
     revealjs:
         theme: serif
+        background-transition: fade
+        transition: slide
+        footer: "--- Machine Learning ---"
+        logo: https://corentinducloux.fr/dossier_img/mecen_transparent.png
 ---
+
+<link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 
 ## Introduction
 
-- Une immersion s'impose...
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-<iframe width="607" height="405" src="https://www.youtube.com/embed/mZ6xNxpuIOQ" title="Bodh&#39;Aktan - À boire" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+- Une immersion en territoire alcoolisé s'impose...
+<div style="display: flex; justify-content: center; align-items: center; height: 90vh;">
+<iframe width="800" height="380" src="https://www.youtube.com/embed/mZ6xNxpuIOQ" title="Bodh&#39;Aktan - À boire" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
 - *“Pour savoir qu'un verre était de trop, encore faut-il l'avoir bu.”* - Georges Courteline
 
 ## Introduction
 
 - Le 18 janvier approche, une date en apparence anodine mais très importante pour nos deux compères.
-- Pour cette journée festive, les protagonistes se rendire sur `vinatis.com` pour trouver un breuvage.
+- Pour cette journée festive, nos 2 protagonistes se rendirent sur `vinatis.com` pour trouver un breuvage.
 - Et c'est à ce moment que l'histoire prend racine...
 
 ![](img\bouteille_dieu.png){fig-align="center"}
@@ -30,9 +39,76 @@ format:
 
 ![](img\bouteille_scrap.png){fig-align="center"}
 
-## Cleaning
+## Scraping, Partie I {.smaller}
 
-1. Pipeline aussi long que le Langeled `bear_cleaner.py`
+`scraping_functions` $\Rightarrow$ Le coeur du scraper
+
+1. Construit des URL avec *query parameters* en utilisant le package `yarl`.
+
+```python
+URL_INIT = URL.build(scheme="https", host="vinatis.com")
+WHITE = "achat-vin-blanc"
+RED = "achat-vin-rouge"
+ROSE = "achat-vin-rose"
+
+>>> URL_INIT / WHITE % {"page": 1, "tri": 7}
+... URL('https://vinatis.com/achat-vin-blanc?page=1&tri=7')
+```
+
+2. `create_session` crée une session HTML avec un User-Agent et un Proxy aléatoire, pouvant changer entre les requêtes.
+3. Possède un décorateur `@random_waiter(min, max)` permettant de générer un temps d'attente aléatoire entre les deux bornes spécifiées entre chaque requête **GET** pour éviter d'envoyer trop de requêtes dans un laps de temps réduit.
+4. `create_all_wine_urls` permet de créer l'ensemble des liens **href**.
+5. `export_wine_links` permet d'exporter ces liens dans un fichier CSV.
+
+## Scraping, Partie II {.smaller}
+
+1. On va ensuite requêter ces liens **href** avec `extract_all_pages` et récupérer les pages brutes en HTML.
+2. La fonction `scraping` du module `mystical_soup` va permettre d'extraire toutes les informations intéressantes de la page brute et renvoyer la dataclass `Vin` sérialisable en *JSON*.
+
+<i class="fa-solid fa-wine-bottle"></i> *Exemple* d'un `Vin` et ses caractéristiques sérialisés en *JSON* :
+
+```json
+{
+        "name": "PINOT NOIR 2019 LAS PIZARRAS - ERRAZURIZ",
+        "capacity": "0,75 L",
+        "price": "94,90 €",
+        "price_bundle": null,
+        "characteristics": "Vin Rouge / Chili / Central Valley / Aconcagua Valley DO / 13,5 % vol / 100% Pinot noir",
+        "note": null,
+        "keywords": [
+            "Elégance",
+            "Finesse",
+            "Harmonie"
+        ],
+        "others": null,
+        "picture": "https://www.vinatis.com/67234-detail_default/pinot-noir-2019-las-pizarras-errazuriz.png",
+        "classification": null,
+        "millesime": "2019",
+        "cepage": "100% Pinot noir",
+        "gouts": "Rouge Charnu et fruité",
+        "par_gouts": "Puissant",
+        "oeil": "Robe rubis aux reflets violets.",
+        "nez": "Nez complexe sur la griotte, les épices et les champignons (truffe).",
+        "bouche": "Bouche fruitée et florale. Tanins structurés, élégants et fins. finale harmonieuse et persistante.",
+        "temperature": "8-10°C",
+        "service": "En bouteille ou en carafe",
+        "conservation_1": "2026",
+        "conservation_2": "A boire et à garder",
+        "accords_vins": "Apéritif, Entrée, Charcuterie, Viande rouge, Viande blanche, Volaille, Gibier, Champignon, Barbecue, Cuisine du monde, Fromage, Dessert fruité, Dessert chocolaté",
+        "accords_reco": "Gigot d'agneau aux herbes de Provence; Tikka massala; Plateau de fromages."
+    }
+```
+
+## Cleaning {.smaller}
+
+Mais ce *JSON* brut doit être nettoyé et considérablement restructuré !
+
+1. Nous avons choisi d'utiliser `polars` 🐻 et non pas `pandas` 🐼
+2. Toutes les fonctions de nettoyage sont contenues dans `bear_cleaner.py`
+3. La fonction `super_pipe` permet de chainer toutes les transformations dans un pipeline propre pour structurer notre **Dataframe**.
+
+![](img\pandas_vs_polars.png){fig-align="center"}
+
 
 ## Machine Learning (ML)
 
