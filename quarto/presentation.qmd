@@ -112,30 +112,52 @@ Mais ce *JSON* brut doit être nettoyé et considérablement restructuré !
 
 ## Machine Learning (ML)
 
-1. Optimisation des paramètres `models.py`
-2. Prediction sur les données test `prediction.py`
+1. ➶ Optimisation des paramètres (`models.py`)
+2. 🏹 Prediction sur les données de tests (`prediction.py`)
 
 
 ![](img\bouteille_ecole.png){fig-align="center"}
 
-## ML : Optimisation
+## ML : Optimisation ➶ {.smaller}
 
-- Choix des **21 variables explicatives**
-- Choix de **6 modèles**
-- Optimisation des paramètres avec un Cross Validation
+1. Choix des **21 variables explicatives** et des **6 modèles** 
+2. $\Rightarrow$ optimisation des paramètres avec une Cross Validation
 
-## ML : Prédiction - Regression
+- Avec `optimisation_script.py` on optimise les paramètres des modèles :
 
-- Variable à expliquer : `unit_price`
-- Qualité : Anne Hidalgo
+```CSV
+Modèle,Score Test,Score Entrainement,Ecart-Type Test,Ecart-Type Train,Paramètres,Score Test data,Mode
+Random Forest,0.934,0.941,0.007,0.007,"{'entrainement__max_depth': 9, 'entrainement__n_estimators': 30, 'imputation__strategy': 'median'}",0.9301745635910225,classification
+K Neighbors,0.954,0.965,0.012,0.003,"{'entrainement__n_neighbors': 5, 'imputation__strategy': 'median'}",0.9600997506234414,classification
+Réseaux de neurones,0.976,0.997,0.007,0.001,"{'entrainement__hidden_layer_sizes': (100,), 'entrainement__max_iter': 1000, 'entrainement__solver': 'adam', 'imputation__strategy': 'median'}",0.9800498753117207,classification
+Boosting,0.975,1.0,0.009,0.0,"{'entrainement__learning_rate': 0.5, 'entrainement__n_estimators': 200, 'imputation__strategy': 'median'}",0.9812967581047382,classification
+Ridge,0.979,0.983,0.009,0.002,"{'entrainement__alpha': 0.015625, 'imputation__strategy': 'mean'}",0.9812967581047382,classification
+Support Vector,0.981,0.992,0.008,0.002,"{'entrainement__C': 3.281341424030552, 'imputation__strategy': 'median'}",0.9825436408977556,classification
 
-## ML : Prédiction - Classification
+```
 
-- Variable à expliquer : `type` 
-- Qualité : Vincent Perrolaz
+- Une fois que l'on a les meilleurs paramètres pour chaque modèle on peut passer aux prédictions
 
+## ML : Prédiction 🏹 {.smaller} 
 
-## Application
+- Deux types de prédictions :
+    - Classification sur la type de vin (Vin Rouge / Blanc / Rosé)
+    - Regression sur le prix d'une bouteille de vin
+- Avec `prediction_script.py` on optimise réalise les prédictions avec tous les modèles
+
+```CSV
+name,type,random_forest,boosting,ridge,knn,mlp,support_vector
+LES CARLINES 2021 - MAS HAUT BUIS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
+LA BARGEMONE ROSE 2022 - COMMANDERIE DE LA BARGEMONE,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+TEMPRANILLO 2021- VEGA DEMARA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
+CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
+```
+
+- Pour chacun des 800 vins qui n'ont pas servit dans notre CV on réalise une prédiction par chacun de nos 6 modèles, le tout stocké dans un CSV.
+
+Afin de visualiser tous nos résultats une application serait idéal...
+
+## Application {.smaller} 
 
 ## Références
 

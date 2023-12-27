@@ -147,7 +147,28 @@ def _recup_param(choix: str, target: str) -> dict:
 
 
 def random_forest(variable: str, choix: str) -> Pipeline:
-    """Modèle Random Forest"""
+    """`random_forest`: permet de préparer le pipeline du modèle Random Forest en récupérant les paramètres optimaux avec `_recup_param`
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        variable (str): # La variable à prédire
+        choix (str): # Le choix du modèle de Machine Learning
+
+    `Returns`
+    --------- ::
+
+        Pipeline
+
+    `Example(s)`
+    ---------
+
+    - Exemple d'utilisation : `classification`
+    >>> model = random_forest("type", "Random Forest")
+    >>> model.fit(X_train, y_train)
+    >>> model.predict(X_test)
+    """
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -198,7 +219,28 @@ def random_forest(variable: str, choix: str) -> Pipeline:
 
 
 def boosting(variable: str, choix: str) -> Pipeline:
-    """Modèle Boosting"""
+    """`boosting`: permet de préparer le pipeline du modèle Boosting en récupérant les paramètres optimaux avec `_recup_param`
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        variable (str): # La variable à prédire
+        choix (str): # Le choix du modèle de Machine Learning
+
+    `Returns`
+    --------- ::
+
+        Pipeline
+
+    `Example(s)`
+    ---------
+
+    - Exemple d'utilisation : `classification`
+    >>> model = boosting("type", "Boosting")
+    >>> model.fit(X_train, y_train)
+    >>> model.predict(X_test)
+    """
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -249,7 +291,28 @@ def boosting(variable: str, choix: str) -> Pipeline:
 
 
 def ridge(variable, choix) -> Pipeline:
-    """ "Modèle Ridge"""
+    """`ridge`: permet de préparer le pipeline du modèle Ridge en récupérant les paramètres optimaux avec `_recup_param`
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        variable (str): # La variable à prédire
+        choix (str): # Le choix du modèle de Machine Learning
+
+    `Returns`
+    --------- ::
+
+        Pipeline
+
+    `Example(s)`
+    ---------
+
+    - Exemple d'utilisation : `classification`
+    >>> model = ridge("type", "Ridge")
+    >>> model.fit(X_train, y_train)
+    >>> model.predict(X_test)
+    """
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -288,7 +351,28 @@ def ridge(variable, choix) -> Pipeline:
 
 
 def mlp(variable, choix) -> Pipeline:
-    """Modèle MLP"""
+    """`mlp`: permet de préparer le pipeline du modèle Réseaux de neurones en récupérant les paramètres optimaux avec `_recup_param`
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        variable (str): # La variable à prédire
+        choix (str): # Le choix du modèle de Machine Learning
+
+    `Returns`
+    --------- ::
+
+        Pipeline
+
+    `Example(s)`
+    ---------
+
+    - Exemple d'utilisation : `classification`
+    >>> model = mlp("type", "Réseaux de neurones")
+    >>> model.fit(X_train, y_train)
+    >>> model.predict(X_test)
+    """
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -341,7 +425,28 @@ def mlp(variable, choix) -> Pipeline:
 
 
 def knn(variable, choix) -> Pipeline:
-    """Modèle KNN"""
+    """`knn`: permet de préparer le pipeline du modèle K Neighbors en récupérant les paramètres optimaux avec `_recup_param`
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        variable (str): # La variable à prédire
+        choix (str): # Le choix du modèle de Machine Learning
+
+    `Returns`
+    --------- ::
+
+        Pipeline
+
+    `Example(s)`
+    ---------
+
+    - Exemple d'utilisation : `classification`
+    >>> model = knn("type", "K Neighbors")
+    >>> model.fit(X_train, y_train)
+    >>> model.predict(X_test)
+    """
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -386,7 +491,28 @@ def knn(variable, choix) -> Pipeline:
 
 
 def support_vector(variable, choix) -> Pipeline:
-    """Modèle SVM"""
+    """`support_vector`: permet de préparer le pipeline du modèle Support Vector en récupérant les paramètres optimaux avec `_recup_param`
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        variable (str): # La variable à prédire
+        choix (str): # Le choix du modèle de Machine Learning
+
+    `Returns`
+    --------- ::
+
+        Pipeline
+
+    `Example(s)`
+    ---------
+
+    - Exemple d'utilisation : `classification`
+    >>> model = support_vector("type", "Support Vector")
+    >>> model.fit(X_train, y_train)
+    >>> model.predict(X_test)
+    """
     if variable == "unit_price":
         model = Pipeline(
             [
@@ -422,7 +548,34 @@ def support_vector(variable, choix) -> Pipeline:
     return model
 
 
-def performance(target: str):
+def performance(target: str) -> list:
+    """`performance`: permet de mesurer la performance des modèles.
+    
+    Le résultat se retrouve dans `result_ml_classification.csv`/ `result_ml_regression.csv`. \\
+    L'intérêt pour le développeur est que ce résultat soit proche de ce qui s'affiche dans l'application. \\
+    Sinon c'est qu'il y a un problème soit dans `prediction.py` soit dans `st_tables.py.
+    
+    Metrics : 
+    - Classification : accuracy_score
+    - Regression : mean_absolute_error
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        target (str): # La variable à prédire
+
+    `Returns`
+    --------- ::
+
+        list
+
+    `Example(s)`
+    ---------
+
+    - Exemple d'utilisation : `classification`
+    >>>
+    """
     erreur_test = list()
     X_train, X_test, y_train, y_test, _ = init(target)
 
@@ -450,7 +603,27 @@ def performance(target: str):
 
 
 def stockage_result_csv(model, mode: str):
-    """Exporte les résultats dans un CSV."""
+    """`stockage_result_csv`: créer un CSV avec les scores, écarts-types et performances des modèles
+    
+    ---------
+    `Parameters`
+    --------- ::
+    
+        model: modèles entrainer (par exemple avec `train_model`)
+        mode (str): Type de prédication : régression ou classification
+
+    `Returns`
+    --------- ::
+
+        "Succès": csv créée
+
+    `Example(s)`
+    ---------
+
+    - Exemple d'utilisation : 
+    >>> stockage_result_csv(models, "classification")
+    ... "Succès"
+    """
     if mode == "regression":
         variable = "unit_price"
     elif mode == "classification":

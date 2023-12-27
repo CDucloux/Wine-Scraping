@@ -1,3 +1,4 @@
+"""Script pour réaliser les prédictions avec tous les modèles"""
 from src.modules.ml_models.models import *
 from src.modules.ml_models.prediction import *
 
