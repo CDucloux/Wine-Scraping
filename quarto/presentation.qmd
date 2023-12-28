@@ -116,37 +116,25 @@ Mais ce *JSON* **brut** doit être nettoyé et considérablement restructuré !
 ## Machine Learning {background-image="img\bouteille_ecole.png" background-opacity="0.25"}
 
 
-## Machine Learning - Procédure
+## Machine Learning - Procédure {.smaller}
 
 1. Deux variables à prédire : *unit_price* & *type*
-2. Optimisation des paramètres $\Rightarrow$ `models.py`
-3. Prédiction sur les données de test $\Rightarrow$ `prediction.py`
-4. Utilisation d'un **pipeline** `sklearn` $-$ avantage : éviter le data leakage et procédure standardisée pour les 6 modèles.
-
-
-## ML : Optimisation
-
-1. Choix des **21 variables explicatives**
-2. Choix de **6 modèles**
-3. Optimisation des hyperparamètres par Cross-Validation
-4. La fonction `stockage_result_csv` permet d'exporter les résultats sous forme de CSV pour les 2 modes : classification et régression
-
-**METTRE LES RESULTATS SOUF FORME DE TABLEAU MARKDOWN ICI**
-1. ➶ Optimisation des paramètres (`models.py`)
-2. 🏹 Prediction sur les données de tests (`prediction.py`)
-
-
-![](img\bouteille_ecole.png){fig-align="center"}
+2. Utilisation de 6 modèles de **Machine Learning**
+3. ➶ Optimisation des hyperparamètres $\Rightarrow$ `models.py`
+4. 🏹 Prédiction sur les données de test $\Rightarrow$ `prediction.py`
+5. 🧪 Utilisation d'un **pipeline** `sklearn`
+    - Evite le Data Leakage
+    - Procédure standardisée pour l'ensemble des modèles.
 
 ## ML : Optimisation ➶ {.smaller}
 
-1. Choix des **21 variables explicatives** et des **6 modèles** 
-2. $\Rightarrow$ optimisation des paramètres avec une Cross Validation
+1. Choix des **21 variables explicatives**
+2. Optimisation des hyperparamètres par Cross-Validation
 
-- Avec `optimisation_script.py` on optimise les paramètres des modèles :
-
-- Variable à prédire : `unit_price`
-- Qualité des résultats : Anne Hidalgo™ certified 
+- Avec `optimisation_script.py` on optimise les hyperparamètres des modèles et on récupère sous forme de CSV :
+    - Les scores de test et d'entrainement
+    - Les écarts-type $\sigma_{\text{test}}$ et $\sigma_{\text{train}}$
+    - Les hyperparamètres optimaux pour chaque modèle
 
 ```CSV
 Modèle,Score Test,Score Entrainement,Ecart-Type Test,Ecart-Type Train,Paramètres,Score Test data,Mode
@@ -156,21 +144,16 @@ Réseaux de neurones,0.976,0.997,0.007,0.001,"{'entrainement__hidden_layer_sizes
 Boosting,0.975,1.0,0.009,0.0,"{'entrainement__learning_rate': 0.5, 'entrainement__n_estimators': 200, 'imputation__strategy': 'median'}",0.9812967581047382,classification
 Ridge,0.979,0.983,0.009,0.002,"{'entrainement__alpha': 0.015625, 'imputation__strategy': 'mean'}",0.9812967581047382,classification
 Support Vector,0.981,0.992,0.008,0.002,"{'entrainement__C': 3.281341424030552, 'imputation__strategy': 'median'}",0.9825436408977556,classification
-
 ```
-
-- Variable à prédire : `type` 
-- Qualitédes résultats : Vincent Perrolaz™ certified
-- Une fois que l'on a les meilleurs paramètres pour chaque modèle on peut passer aux prédictions
 
 ## ML : Prédiction 🏹 {.smaller} 
 
 - Deux types de prédictions :
-    - Classification sur la type de vin (Vin Rouge / Blanc / Rosé)
-    - Regression sur le prix d'une bouteille de vin
-- Avec `prediction_script.py` on optimise réalise les prédictions avec tous les modèles
+    - **Classification** sur le type de vin (Vin Rouge / Blanc / Rosé)
+    - **Régression** sur le prix d'une bouteille de vin
+- Avec `prediction_script.py` on réalise les prédictions avec tous les modèles
 
-```CSV
+```csv
 name,type,random_forest,boosting,ridge,knn,mlp,support_vector
 LES CARLINES 2021 - MAS HAUT BUIS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 LA BARGEMONE ROSE 2022 - COMMANDERIE DE LA BARGEMONE,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
@@ -178,9 +161,9 @@ TEMPRANILLO 2021- VEGA DEMARA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,
 CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 ```
 
-- Pour chacun des 800 vins qui n'ont pas servit dans notre CV on réalise une prédiction par chacun de nos 6 modèles, le tout stocké dans un CSV.
+- Pour chacun des 800 vins qui n'ont pas servi dans notre Cross Validation on réalise une prédiction par chacun de nos 6 modèles, le tout stocké dans un fichier CSV !
 
-Afin de visualiser tous nos résultats une application serait idéal...
+Afin de visualiser tous nos résultats une application serait idéale...
 
 ## Application {.smaller} 
 
@@ -207,6 +190,60 @@ def db_connector() -> DuckDBPyConnection:
 - Tests des features de l'application
 - Poetry 
 - Docker
+
+## Annotations de type {.smaller}
+
+```python
+def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
+    ...
+```
+
+parler de `mypy` static type check
+
+## Docstrings {.smaller}
+
+```python
+"""`model_rf`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
+    en utilisant une Random Forest. Les paramètres optimisés sont :
+
+    - n_estimators
+    - max_depth
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        x_train (pd.DataFrame): # L'ensemble d'entrainement
+        y_train (pd.Series): # La variable à prédire
+        mode (str): # regression | classification
+
+    `Raises`
+    --------- ::
+
+        ValueError: # Une erreur est levée quand le mode est invalide
+
+    `Returns`
+    --------- ::
+
+        GridSearchCV
+
+    `Example(s)`
+    ---------
+
+    >>> model_rf(x_train=X_train, y_train=y_train, mode = "regression")
+    ... Entrainement du modèle : Random Forest
+    ... GridSearchCV(estimator=Pipeline(steps=[('imputation', SimpleImputer()),
+    ...                                   ('echelle', MinMaxScaler()),
+    ...                                   ('entrainement',
+    ...                                    RandomForestRegressor())]),
+    ...         n_jobs=-1,
+    ...         param_grid={'entrainement__max_depth': range(1, 10),
+    ...                     'entrainement__n_estimators': range(10, 50, 10),
+    ...                     'imputation__strategy': ['mean', 'median',
+    ...                                              'most_frequent']},
+    ...         return_train_score=True)
+    """
+```
 
 ## Références
 
