@@ -165,7 +165,18 @@ CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge
 
 Afin de visualiser tous nos résultats une application serait idéale...
 
-## Application {.smaller} 
+## Application {.smaller}
+- 🕵 Qui ? **Framework** utilisé $\rightarrow$ ![](img\st2.png){height="80"}
+- 🤷 Pourquoi ? Permet de visualiser nos résultats
+    - Base de données néttoyée
+    - Statistiques descriptives (corrélation, répartition, ...)
+    - Machine Learning 
+- 👨‍🏭 Comment ? Forte flexibilité $\rightarrow$ L'utilisateur peut jouer avec les données
+    - Sidebar
+    - Radio buttons, select box, etc.
+
+<iframe src="https://giphy.com/embed/T7QRkgGzYdQju" width="480" height="272" frameBorder="0" class="giphy-embed" allowFullScreen style="display:block; margin:auto;"></iframe><p><a href="https://giphy.com/gifs/franceinfo-wtf-citation-T7QRkgGzYdQju"></a></p>
+
 
 ## Choix du stockage
 
