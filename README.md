@@ -31,20 +31,12 @@ Pour lister les packages installés dans le venv
 py -m poetry pip list/freeze
 ```
 
-+ Faire un quarto 
+<kbd>ctrl+A</kbd> $\Rightarrow$ shortcut keyboard
 
+![Alt Text](demo/streamlit_demo_p1.mp4)
 
-- Faire un module qui permet de mesurer l'erreur empirique et l'erreur contrôle pour détecter éventuellement un surapprentissage du modèle et éviter qu'il prédise n'importe quoi.
-- Récupérer `EQM` $\Rightarrow$ Erreur Quadratique Moyenne : 
-
-```python
-from sklearn.metrics import mean_squared_error
-```
-
-- [ ] En utilisant `cross_val_scores` on fait de la cross validation $\Rightarrow$ voir tp 6 pour l'implémentation
 - [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage + doctest pour les tests dans les docstrings.
-- [ ] Faire `poetry` et venv, voire `Docker`
-- [ ] Regarder du coté de `MLFLOW` pour les métriques de Machine Learning
+- [ ] Faire `Docker`
 
 > Plan :
 

@@ -4,7 +4,7 @@ subtitle: "*L'histoire d'un breuvage*"
 author: "`Guillaume DEVANT` & `Corentin DUCLOUX`"
 format: 
     revealjs:
-        theme: serif
+        theme: [serif, custom.scss]
         background-transition: fade
         transition: slide
         navigation-mode: linear
@@ -18,12 +18,12 @@ format:
 <link rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+<link href='https://fonts.googleapis.com/css?family=Fira Code' rel='stylesheet'>
+
 
 - Une immersion en territoire alcoolisé s'impose...
-<div style="display: flex; justify-content: center; align-items: center; height: 90vh;">
-<iframe width="800" height="380" src="https://www.youtube.com/embed/mZ6xNxpuIOQ" title="Bodh&#39;Aktan - À boire" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
-
-- *“Pour savoir qu'un verre était de trop, encore faut-il l'avoir bu.”* - Georges Courteline
+<div style="display: flex; justify-content: center; align-items: center; height: 60vh;">
+<iframe width="800" height="340" src="https://www.youtube.com/embed/mZ6xNxpuIOQ" title="Bodh&#39;Aktan - À boire" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
 ## Le *Pourquoi* du *Comment* {background-image="img\bouteille_dieu.png" background-opacity="0.5"}
 
@@ -42,9 +42,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 ## Scraping {background-image="img\bouteille_scrap.png" background-opacity="0.5"}
 
+> *“Pour savoir qu'un verre était de trop, encore faut-il avoir scrapé son vin !”* $-$ **Inconnu**
+
 ## Scraping, Partie I {.smaller}
 
-`scraping_functions` $\Rightarrow$ Le coeur du scraper
+`scraping_functions.py` $\Rightarrow$ Le coeur du scraper
 
 1. Construit des URL avec *query parameters* en utilisant le package `yarl`.
 
@@ -102,7 +104,7 @@ ROSE = "achat-vin-rose"
     }
 ```
 
-## Cleaning {.smaller background-image="img\pandas_vs_polars.png" background-opacity="0.25"}
+## 🧹 Cleaning {.smaller background-image="img\pandas_vs_polars.png" background-opacity="0.25"}
 
 Mais ce *JSON* **brut** doit être nettoyé et considérablement restructuré !
 
@@ -115,6 +117,7 @@ Mais ce *JSON* **brut** doit être nettoyé et considérablement restructuré !
 
 ## Machine Learning {background-image="img\bouteille_ecole.png" background-opacity="0.25"}
 
+> *“2024 sera un millésime français !”* $-$ **Emmanuel Macron**
 
 ## Machine Learning - Procédure {.smaller}
 
@@ -126,7 +129,7 @@ Mais ce *JSON* **brut** doit être nettoyé et considérablement restructuré !
     - Evite le Data Leakage
     - Procédure standardisée pour l'ensemble des modèles.
 
-## ML : Optimisation ➶ {.smaller}
+## ➶ ML : Optimisation {.smaller}
 
 1. Choix des **21 variables explicatives**
 2. Optimisation des hyperparamètres par Cross-Validation
@@ -146,7 +149,7 @@ Ridge,0.979,0.983,0.009,0.002,"{'entrainement__alpha': 0.015625, 'imputation__st
 Support Vector,0.981,0.992,0.008,0.002,"{'entrainement__C': 3.281341424030552, 'imputation__strategy': 'median'}",0.9825436408977556,classification
 ```
 
-## ML : Prédiction 🏹 {.smaller} 
+## 🏹 ML : Prédiction {.smaller} 
 
 - Deux types de prédictions :
     - **Classification** sur le type de vin (Vin Rouge / Blanc / Rosé)
@@ -161,21 +164,21 @@ TEMPRANILLO 2021- VEGA DEMARA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,
 CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 ```
 
-- Pour chacun des 800 vins qui n'ont pas servi dans notre Cross Validation on réalise une prédiction par chacun de nos 6 modèles, le tout stocké dans un fichier CSV !
+- Pour les 800 vins qui n'ont pas servi dans notre Cross Validation on réalise une prédiction par chacun de nos 6 modèles, le tout stocké dans un fichier CSV !
 
-Afin de visualiser tous nos résultats une application serait idéale...
+**Afin de visualiser tous nos résultats une application serait idéale...**
 
-## Application {.smaller}
-- 🕵 Qui ? **Framework** utilisé $\rightarrow$ ![](img\st2.png){height="80"}
-- 🤷 Pourquoi ? Permet de visualiser nos résultats
-    - Base de données néttoyée
-    - Statistiques descriptives (corrélation, répartition, ...)
+## 💻 Application {.smaller background-image="img\st.png" background-opacity="0.25"}
+🕵 **Framework** utilisé : `streamlit`
+
+- 🤷 Pourquoi ? Facilité de mise en oeuvre
+    - Base de données 
+    - Statistiques descriptives (corrélations, répartition, etc.)
     - Machine Learning 
 - 👨‍🏭 Comment ? Forte flexibilité $\rightarrow$ L'utilisateur peut jouer avec les données
-    - Sidebar
-    - Radio buttons, select box, etc.
+    - Sidebar avec de nombreux sélecteurs
 
-<iframe src="https://giphy.com/embed/T7QRkgGzYdQju" width="480" height="272" frameBorder="0" class="giphy-embed" allowFullScreen style="display:block; margin:auto;"></iframe><p><a href="https://giphy.com/gifs/franceinfo-wtf-citation-T7QRkgGzYdQju"></a></p>
+<iframe src="https://giphy.com/embed/T7QRkgGzYdQju" width="480" height="240" frameBorder="0" class="giphy-embed" allowFullScreen style="display:block; margin:auto;"></iframe><p><a href="https://giphy.com/gifs/franceinfo-wtf-citation-T7QRkgGzYdQju"></a></p>
 
 
 ## Choix du stockage
@@ -191,15 +194,17 @@ def db_connector() -> DuckDBPyConnection:
 
 - `:memory:` $\Rightarrow$ Base de données **in-memory**
 - La base de données en mémoire stocke les informations directement dans la mémoire vive plutôt que sur un disque.
-- Réduit le temps nécessaire au stockage et à la consultations des données, et accélère l’exécution des requêtes
+- Réduit le temps nécessaire au stockage et à la consultation des données, et accélère l’exécution des requêtes.
+
+## 🚀 Démonstration
 
 ## Un code de *Deutsche Qualität*
 
-- Docstrings explicites et soignées
 - Annotations de type claires
-- Projet modularisé 
-- Tests des features de l'application
-- Poetry 
+- Docstrings explicites et soignées
+- Gestion des dépendances avec Poetry
+- Modularité
+- Tests des features de l'application 
 - Docker
 
 ## Annotations de type {.smaller}
@@ -209,9 +214,24 @@ def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearch
     ...
 ```
 
-parler de `mypy` static type check
+- Expliciter au maximum les types d'entrée et de sortie des fonctions.
+- On peut parler de **documentation implicite** $\Rightarrow$ on cherche à éviter à un utilisateur d'utiliser des objets incompatibles avec ce qui a été établi.
+
+:::{.callout-note}
+
+`mypy` va nous permettre d'effectuer ce contrôle *(static type checking)*, c'est à dire de vérifier si les valeurs assignées aux variables, les arguments passés aux fonctions et les valeurs de retour correspondent aux types attendus.
+
+:::
 
 ## Docstrings {.smaller}
+
+- Chaque fonction à interface publique possède une docstring structurée :
+    - Nom de la fonction et description succinte
+    - Paramètre(s) d'entrée et paramètre(s) de sortie  
+    - Levée d'exception (si il y en a)
+    - Au minimum un exemple d'utilisation
+
+*Exemple* avec la fonction `model_rf` du module `models.py` : 
 
 ```python
 """`model_rf`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
@@ -254,6 +274,51 @@ parler de `mypy` static type check
     ...                                              'most_frequent']},
     ...         return_train_score=True)
     """
+```
+
+## 🧙‍♂️ Poetry {.smaller}
+
+**Gestion des dépendances** : `poetry` simplifie la gestion des dépendances en utilisant un fichier de configuration pyproject.toml. Il permet de spécifier les dépendances directes et les dépendances de développement requises pour le projet.
+
+**Environnement Virtuel** : venv isolé pour le projet, aidant à maintenir un environnement de développement propre et évitant les conflits entre les versions des packages.
+
+**Installation de dépendances** : Facilite l'installation des dépendances définies dans le fichier de configuration en utilisant la commande poetry install.
+
+## 🚢 Modulaire !{.smaller}
+
+Séparation des composants du projet :
+
+```
+├───data
+│   ├───🍷vins.json
+│   ├───💾wine_links.csv
+│   └───tables
+│       ├───💾pred_classification.csv
+│       ├───💾pred_regression.csv
+│       ├───💾result_ml_classification.csv
+│       └───💾result_ml_regression.csv
+├───src
+│   └───📦modules
+│       ├───⚙app
+│       │   ├───🐍st_functions.py
+│       │   ├───🐍st_plots.py
+│       │   ├───🐍st_tables.py
+│       │   └───🐍streamlit_app.py
+│       ├───⚙ml_models
+│       │   ├───🐍models.py
+│       │   ├───🐍optimisation_script.py
+│       │   ├───🐍prediction_script.py
+│       │   └───🐍prediction.py
+│       ├───⚙scraping
+│       │   ├───🐍mystical_soup.py
+│       │   ├───🐍scraper.py
+│       │   ├───🐍scraping_functions.py
+│       │   └───🐍vin_dataclass.py
+│       ├───🐍bear_cleaner.py
+│       └───🐍utils.py
+├───🧙‍♂️poetry.lock
+├───📍pyproject.toml
+└───📘README.md
 ```
 
 ## Références

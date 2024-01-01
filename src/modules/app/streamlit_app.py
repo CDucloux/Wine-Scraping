@@ -25,7 +25,6 @@ def main():
             filter_bio = sidebar_checkbox_bio()
             filter_new = sidebar_checkbox_new()
             filter_fav = sidebar_checkbox_fav()
-            # TODO: mettre un filter pour les grands crus
             st.divider()
             user_input = sidebar_input_wine()
             # main_df => a mutable dataframe
@@ -67,7 +66,7 @@ def main():
     )
 
     with tab1:
-        warning = warnings(main_df, selected_wines)
+        warning = warn(main_df, selected_wines)
         if not warning:
             write_price(main_df, selected_wines)
             write_table(main_df)
@@ -90,17 +89,15 @@ def main():
                 "🚨 Seuls les cépages ayant une fréquence supérieure à dix sont affichés !"
             )
 
-        # "**TODO** : Etudier écarts types, tests de Student, Inclure du latex, etc."
-
     with tab3:
         colors = color_selector(selected_wines)
-        warning = warnings(main_df, selected_wines)
+        warning = warn(main_df, selected_wines)
         if not warning:
             scale = scale_selector()
             display_scatter(main_df, selected_wines, colors, scale)
 
     with tab4:
-        warning = warnings(main_df, selected_wines)
+        warning = warn(main_df, selected_wines)
         with st.container(border=True):
             if not warning:
                 grouped_df = create_aggregate_df(main_df)

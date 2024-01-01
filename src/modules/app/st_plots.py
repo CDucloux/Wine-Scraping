@@ -15,8 +15,8 @@ from duckdb import DuckDBPyConnection
 # mypy backlog : 0 errors
 
 
-def warnings(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | None:
-    """`warnings`: Renvoie des messages d'avertissements spécifiques quand le dataframe modifié
+def warn(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | None:
+    """`warn`: Renvoie des messages d'avertissements spécifiques quand le dataframe modifié
     à cause de la sidebar ne renvoie pas de données.
 
     ---------
@@ -34,7 +34,7 @@ def warnings(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | No
     `Example(s)`
     ---------
 
-    >>> warnings()
+    >>> warn()
     ... #_test_return_"""
     if not selected_wines:
         return st.warning("🚨 Attention, aucun type de vin n'a été selectionné !")
@@ -221,7 +221,7 @@ def display_density(df: pl.DataFrame) -> DeltaGenerator:
 
 def display_bar(df: pl.DataFrame) -> DeltaGenerator:
     """Retourne un barplot des cepages."""
-    cepage_counts = df.groupby("cepage").agg(pl.col("cepage").count())
+    cepage_counts = df.groupby("cepage").count()
     cepage_filtre = cepage_counts.filter(cepage_counts["count"] >= 10)
     df_filtre = df.join(cepage_filtre, on="cepage")
     fig_bar = px.bar(
