@@ -72,7 +72,7 @@ def init(
     df_dm = data_model(path="./data/vins.json", target=EXPLIQUEE)
 
     df = df_dm.select(
-        # "name",
+        "name",
         "capacity",
         "unit_price",
         "millesime",

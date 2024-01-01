@@ -11,6 +11,7 @@ import plotly.express as px  # type: ignore
 import plotly.figure_factory as ff  # type: ignore
 from sklearn.metrics import confusion_matrix  # type: ignore
 from duckdb import DuckDBPyConnection
+import plotly.graph_objects as go
 
 # mypy backlog : 0 errors
 
@@ -279,3 +280,49 @@ def display_confusion_matrix(conn: DuckDBPyConnection, model: str) -> DeltaGener
             )
 
     return st.plotly_chart(cm_fig)
+
+def display_importances_features(choice : str, selected_model : str) -> DeltaGenerator:
+    """`display_importances_features`: Retourne un graphique montrant les 15 variables les plus importantes
+        Uniquement pour les modèles à base d'arbre
+    ---------
+    `Parameters`
+    --------- ::
+
+        choice (str)
+        selected_model (str)
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------"""
+    if not selected_model in ("Random Forest", "Boosting"):
+        return None
+
+    if choice == "Régression - Prédiction du prix":
+        variable = "unit_price"
+    else :
+        variable = "type"
+        
+    df = pl.read_csv("./data/importance.csv")
+    
+    df = df.filter(df["id"] == f"{variable} {selected_model}")
+
+    fig = go.Figure()
+    fig.add_trace(go.Bar(
+        x=df["importances"][238:253],
+        y=df["column_names"][238:253],
+        orientation='h'
+    ))
+    fig.update_layout(
+        title='Importance des 15 variables les plus importantes',
+        xaxis_title='Importance',
+        yaxis_title='Variables',
+        yaxis = dict(
+            tickfont = dict(size = 8)
+        )
+    )
+
+    return st.plotly_chart(fig)

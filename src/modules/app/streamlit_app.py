@@ -146,6 +146,8 @@ def main():
                 )
                 type = "classification"
         write_metrics(conn, type)
+        with st.expander("Importance des variables"):
+            display_importances_features(choice, selected_model)
         if choice == "Classification - Prédiction type de vin":
             display_confusion_matrix(conn, model_mapper(selected_model))
         st.divider()
