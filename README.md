@@ -33,7 +33,7 @@ py -m poetry pip list/freeze
 
 <kbd>ctrl+A</kbd> $\Rightarrow$ shortcut keyboard
 
-![Alt Text](demo/streamlit_demo_p1.mp4)
+![](streamlit_p1.gif)
 
 - [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage + doctest pour les tests dans les docstrings.
 - [ ] Faire `Docker`
