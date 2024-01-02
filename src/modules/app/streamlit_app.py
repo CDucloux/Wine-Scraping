@@ -28,7 +28,7 @@ def main():
             filter_fav = sidebar_checkbox_fav()
             st.divider()
             user_input = sidebar_input_wine()
-            # main_df => a mutable dataframe
+
             main_df = load_main_df(
                 df,
                 selected_wines,
@@ -67,6 +67,7 @@ def main():
     )
 
     with tab1:
+        ## DataFrame & Exploration Tab
         warning = warn(main_df, selected_wines)
         if not warning:
             write_price(main_df, selected_wines)
@@ -74,6 +75,7 @@ def main():
             st.divider()
 
     with tab2:
+        ## Stat Desc Tab
         info()
         choix = st.selectbox(
             "Que voulez-vous consulter ?",
@@ -91,6 +93,7 @@ def main():
             )
 
     with tab3:
+        ## Chart Tab
         colors = color_selector(selected_wines)
         warning = warn(main_df, selected_wines)
         if not warning:
@@ -98,6 +101,7 @@ def main():
             display_scatter(main_df, selected_wines, colors, scale)
 
     with tab4:
+        ## Provenance Tab
         warning = warn(main_df, selected_wines)
         with st.container(border=True):
             if not warning:
@@ -147,8 +151,12 @@ def main():
                 )
                 type = "classification"
         write_metrics(conn, type)
-        with st.expander("Importance des variables"):
-            display_importance(choice, selected_model)
+        with st.expander("**Importance des variables**"):
+            n = n_variable_selector()
+            display_importance(conn, choice, selected_model, n)
+            st.write(
+                "*Note* : L'importance des variables n'est disponible que dans les modèles de **Boosting** et de **Random Forest**."
+            )
         if choice == "Classification - Prédiction type de vin":
             display_confusion_matrix(conn, model_mapper(selected_model))
         st.divider()
@@ -185,6 +193,7 @@ def main():
         if choix_type == "Regression":
             popover_prediction(pred, truth)
         st.divider()
+
     with tab6:
         authors()
 

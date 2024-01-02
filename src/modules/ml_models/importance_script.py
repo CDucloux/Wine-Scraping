@@ -26,10 +26,10 @@ for EXPLIQUEE in ("type", "unit_price"):
             {
                 "importances": sorted_importances,
                 "column_names": sorted_column_names,
-                "id": len(importances) * [f"{EXPLIQUEE} {nom_model}"]
+                "id": len(importances) * [f"{EXPLIQUEE} {nom_model}"],
             }
         )
 
         df = pl.concat([df, temporaire])
 
-df.write_csv("./data/importance.csv", separator=",")
+df.write_csv("./data/tables/importance.csv", separator=",")

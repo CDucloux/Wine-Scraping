@@ -82,7 +82,6 @@ def display_scatter(
         y="unit_price",
         trendline="lowess",
         color="type",
-        # symbol="type",
         size="capacity",
         title=f"Prix d'un {' / '.join(selected_wines).lower()} en fonction de sa durée de conservation",
         hover_name="name",
@@ -130,12 +129,14 @@ def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
         grouped_df,
         x="country",
         y="count",
-        color_discrete_sequence=["white"],
+        color_discrete_sequence=["#ff4b4b"],
         title="Nombre de vins commercialisés par pays",
         text="count",
     )
+    bar.update_traces(textfont_color="white")
     bar.update_layout(margin=dict(l=20, r=20, t=25, b=0))
     bar.update_yaxes(visible=False)
+    bar.update_xaxes(title="Pays")
     return st.plotly_chart(bar)
 
 
@@ -281,8 +282,10 @@ def display_confusion_matrix(conn: DuckDBPyConnection, model: str) -> DeltaGener
     return st.plotly_chart(cm_fig)
 
 
-def display_importance(choice: str, selected_model: str) -> DeltaGenerator | None:
-    """`display_importance`: Retourne un graphique montrant les variables les plus importantes.
+def display_importance(
+    conn: DuckDBPyConnection, choice: str, selected_model: str, n: int
+) -> DeltaGenerator | None:
+    """`display_importance`: Retourne un graphique montrant les 15 variables les plus importantes.
 
     - /❗\ Uniquement disponible pour les modèles à base d'arbres.
 
@@ -296,7 +299,7 @@ def display_importance(choice: str, selected_model: str) -> DeltaGenerator | Non
     `Returns`
     --------- ::
 
-        DeltaGenerator
+        DeltaGenerator | None
 
     `Example(s)`
     ---------"""
@@ -304,25 +307,26 @@ def display_importance(choice: str, selected_model: str) -> DeltaGenerator | Non
         return None
 
     if choice == "Régression - Prédiction du prix":
-        variable = "unit_price"
+        target = "unit_price"
     else:
-        variable = "type"
+        target = "type"
 
-    df = pl.read_csv("./data/importance.csv")
+    df = conn.execute(f"SELECT * FROM var_importance").pl()
 
-    df = df.filter(df["id"] == f"{variable} {selected_model}")
+    df_imp_model = df.filter(pl.col("id") == f"{target} {selected_model}")
+    df_imp_tail = df_imp_model.tail(n)
 
     fig = go.Figure()
     fig.add_trace(
         go.Bar(
-            x=df["importances"][238:253],
-            y=df["column_names"][238:253],
+            x=df_imp_tail.select("importances").to_series(),
+            y=df_imp_tail.select("column_names").to_series(),
             orientation="h",
             marker=dict(color="#ff4b4b"),
         )
     )
     fig.update_layout(
-        title="Importance relative des variables décisives",
+        title=f"Importance relative des {n} variables les plus décisives",
         xaxis_title="Importance",
         yaxis_title="Variables",
         yaxis=dict(tickfont=dict(size=8)),

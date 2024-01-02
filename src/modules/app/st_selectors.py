@@ -129,3 +129,16 @@ def model_selector() -> str | None:
         "Modèle :",
         (models),
     )
+
+
+def n_variable_selector() -> int | float:
+    """Permet à l'utilisateur de sélectionner le nombre des n variables à afficher dans le plot de l'importance des variables.
+
+    - Valeur par défaut : 10
+    """
+    min_vars = 2
+    max_vars = 30
+    default_vars = 10
+    return st.number_input(
+        "Nombre de variables à afficher :", min_vars, max_vars, default_vars
+    )

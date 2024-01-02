@@ -7,6 +7,7 @@ import streamlit as st
 import polars as pl
 from pathlib import Path
 from PIL import Image
+from enum import Enum
 from streamlit.delta_generator import DeltaGenerator
 from duckdb import DuckDBPyConnection
 from src.modules.bear_cleaner import *  # type: ignore
@@ -28,6 +29,7 @@ def load_tables(connection: DuckDBPyConnection) -> None:
     pred_class = str(tables_folder / "pred_classification.csv")
     ml_reg = str(tables_folder / "result_ml_regression.csv")
     ml_class = str(tables_folder / "result_ml_classification.csv")
+    var_importance = str(tables_folder / "importance.csv")
     """Crée la table des prédictions pour la régression."""
     connection.execute(
         """
@@ -60,12 +62,20 @@ def load_tables(connection: DuckDBPyConnection) -> None:
     """,
         [ml_class],
     )
+    """Crée la table des de l'importance des variables."""
+    connection.execute(
+        """
+    CREATE OR REPLACE TABLE var_importance AS
+        SELECT * FROM read_csv_auto(?, header = true);
+    """,
+        [var_importance],
+    )
     return None
 
 
 @st.cache_data
 def load_df() -> pl.DataFrame:
-    """`load_df`: Charge notre DataFrame clean statique.
+    """`load_df`: Charge notre DataFrame clean statique utilisé dans la page de Statistiques Descriptives.
 
     `Returns`
     --------- ::
@@ -94,7 +104,9 @@ def load_main_df(
     filter_fav: set[int],
     user_input: str,
 ) -> pl.DataFrame:
-    """`load_main_df`: Charge le DataFrame clean, mais mutable avec possibilité de filtre.
+    """`load_main_df`: Charge notre DataFrame clean, mais mutable avec possibilité de filtre.
+
+    - Utilisé dans la page 1, 3 et 4 de Data Overview, Charts et Provenance
 
     ---------
     `Parameters`
@@ -246,8 +258,8 @@ def authors() -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
         st.balloons(),
         st.expander("Découvrir les `auteurs` de l'application").markdown(
             """
-- *Corentin DUCLOUX* : https://github.com/CDucloux 
-- *Guillaume DEVANT* : https://github.com/devgui37
+- 🐱‍💻 *Corentin DUCLOUX* : https://github.com/CDucloux 
+- 🐱‍💻 *Guillaume DEVANT* : https://github.com/devgui37
 """
         ),
         st.image(image),
@@ -280,13 +292,22 @@ def model_mapper_reverse(model_name: str) -> str:
     return model_names_mapping.get(model_name, "Le modèle n'existe pas")
 
 
-# TODO: changer le 0.8 et 1.2 en tant qu'Enum
+class threshold_price(Enum):
+    """Enumération modélisant les seuils d'acceptabilité des prédictions de prix.
+
+    - La prédiction doit être comprise entre 80 et 120% du prix pour être considérée comme acceptable.
+    """
+
+    LOW = 0.8
+    HIGH = 1.2
 
 
 def format_prediction(prediction: float | str, truth: float | str) -> str:
     """Formate le résultat brut de la prédiction dans l'application (soit le prix, soit le type de vin)."""
     if type(prediction) == float and type(truth) == float:
-        if (prediction / truth) > 0.8 and (prediction / truth) < 1.2:
+        if (prediction / truth) > threshold_price.LOW.value and (
+            prediction / truth
+        ) < threshold_price.HIGH.value:
             format_prediction = f"✅ {round(prediction,2)} €".replace(".", ",")
         else:
             format_prediction = f"❌ {round(prediction,2)} €".replace(".", ",")
@@ -303,12 +324,16 @@ def popover_prediction(
 ) -> tuple[DeltaGenerator, DeltaGenerator]:
     """Renvoie un message d'avertissement selon que le prix prédit soit supérieur ou inférieur au prix réel."""
     if prediction - truth < 0:
-        if (prediction / truth) > 0.8 and (prediction / truth) < 1.2:
+        if (prediction / truth) > threshold_price.LOW.value and (
+            prediction / truth
+        ) < threshold_price.HIGH.value:
             text = f"✔ Le prix prédit est {abs(round(prediction-truth,2))} € **inférieur** au prix réel, soit une différence acceptable !"
         else:
             text = f"🚨 Le prix prédit est {abs(round(prediction-truth,2))} € **inférieur** au prix réel, soit une importante différence !"
     elif prediction - truth > 0:
-        if (prediction / truth) > 0.8 and (prediction / truth) < 1.2:
+        if (prediction / truth) > threshold_price.LOW.value and (
+            prediction / truth
+        ) < threshold_price.HIGH.value:
             text = f"✔ Le prix prédit est {abs(round(prediction-truth,2))} € **supérieur** au prix réel, soit une différence acceptable !"
         else:
             text = f"🚨 Le prix prédit est {abs(round(prediction-truth,2))} € **supérieur** au prix réel, soit une importante différence !"
