@@ -170,9 +170,6 @@ def parametres(df: pl.DataFrame, place_model: int) -> DeltaGenerator:
     return st.dataframe(tab, hide_index=True)
 
 
-# TODO: inclure une métrique comme l'AUC aussi pourquoi pas ?
-
-
 def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
     """Metrics principales."""
     if type == "regression":
