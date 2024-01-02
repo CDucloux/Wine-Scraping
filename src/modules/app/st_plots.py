@@ -9,11 +9,9 @@ import numpy as np
 from streamlit.delta_generator import DeltaGenerator
 import plotly.express as px  # type: ignore
 import plotly.figure_factory as ff  # type: ignore
+import plotly.graph_objects as go  # type: ignore
 from sklearn.metrics import confusion_matrix  # type: ignore
 from duckdb import DuckDBPyConnection
-import plotly.graph_objects as go
-
-# mypy backlog : 0 errors
 
 
 def warn(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | None:
@@ -84,7 +82,7 @@ def display_scatter(
         y="unit_price",
         trendline="lowess",
         color="type",
-        symbol="type",
+        # symbol="type",
         size="capacity",
         title=f"Prix d'un {' / '.join(selected_wines).lower()} en fonction de sa durée de conservation",
         hover_name="name",
@@ -116,11 +114,12 @@ def create_map(df: pl.DataFrame) -> DeltaGenerator:
         hover_name="country",
         hover_data="count",
         color="country",
+        title="Carte de la provenance des vins",
     )
     map.update_layout(
         geo_bgcolor="#0e1117",
         showlegend=False,
-        margin=dict(l=20, r=20, t=0, b=0),
+        margin=dict(l=20, r=20, t=20, b=0),
     )
     return st.plotly_chart(map)
 
@@ -281,9 +280,12 @@ def display_confusion_matrix(conn: DuckDBPyConnection, model: str) -> DeltaGener
 
     return st.plotly_chart(cm_fig)
 
-def display_importances_features(choice : str, selected_model : str) -> DeltaGenerator:
-    """`display_importances_features`: Retourne un graphique montrant les 15 variables les plus importantes
-        Uniquement pour les modèles à base d'arbre
+
+def display_importance(choice: str, selected_model: str) -> DeltaGenerator | None:
+    """`display_importance`: Retourne un graphique montrant les variables les plus importantes.
+
+    - /❗\ Uniquement disponible pour les modèles à base d'arbres.
+
     ---------
     `Parameters`
     --------- ::
@@ -303,26 +305,27 @@ def display_importances_features(choice : str, selected_model : str) -> DeltaGen
 
     if choice == "Régression - Prédiction du prix":
         variable = "unit_price"
-    else :
+    else:
         variable = "type"
-        
+
     df = pl.read_csv("./data/importance.csv")
-    
+
     df = df.filter(df["id"] == f"{variable} {selected_model}")
 
     fig = go.Figure()
-    fig.add_trace(go.Bar(
-        x=df["importances"][238:253],
-        y=df["column_names"][238:253],
-        orientation='h'
-    ))
-    fig.update_layout(
-        title='Importance des 15 variables les plus importantes',
-        xaxis_title='Importance',
-        yaxis_title='Variables',
-        yaxis = dict(
-            tickfont = dict(size = 8)
+    fig.add_trace(
+        go.Bar(
+            x=df["importances"][238:253],
+            y=df["column_names"][238:253],
+            orientation="h",
+            marker=dict(color="#ff4b4b"),
         )
+    )
+    fig.update_layout(
+        title="Importance relative des variables décisives",
+        xaxis_title="Importance",
+        yaxis_title="Variables",
+        yaxis=dict(tickfont=dict(size=8)),
     )
 
     return st.plotly_chart(fig)

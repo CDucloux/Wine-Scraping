@@ -1,23 +1,22 @@
 """
 Module qui réalise des prédictions à partir des optimisations de paramètres faits avec models.py
 """
-from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier
-from sklearn.ensemble import (
+from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier  # type: ignore
+from sklearn.ensemble import (  # type: ignore
     RandomForestRegressor,
     GradientBoostingRegressor,
     RandomForestClassifier,
     GradientBoostingClassifier,
 )
-from sklearn.neural_network import MLPRegressor, MLPClassifier
-from sklearn.linear_model import Ridge, RidgeClassifier
-from sklearn.svm import SVR, SVC
-from sklearn.impute import SimpleImputer
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.neural_network import MLPRegressor, MLPClassifier  # type: ignore
+from sklearn.linear_model import Ridge, RidgeClassifier  # type: ignore
+from sklearn.svm import SVR, SVC  # type: ignore
+from sklearn.impute import SimpleImputer  # type: ignore
+from sklearn.pipeline import Pipeline  # type: ignore
+from sklearn.preprocessing import MinMaxScaler  # type: ignore
 from src.modules.ml_models.models import *
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split  # type: ignore
+from sklearn.metrics import mean_absolute_error, accuracy_score  # type: ignore
 
 import ast
 import polars as pl
@@ -604,11 +603,11 @@ def performance(target: str) -> list:
 
 def stockage_result_csv(model, mode: str):
     """`stockage_result_csv`: créer un CSV avec les scores, écarts-types et performances des modèles
-    
+
     ---------
     `Parameters`
     --------- ::
-    
+
         model: modèles entrainer (par exemple avec `train_model`)
         mode (str): Type de prédication : régression ou classification
 
@@ -620,7 +619,7 @@ def stockage_result_csv(model, mode: str):
     `Example(s)`
     ---------
 
-    - Exemple d'utilisation : 
+    - Exemple d'utilisation :
     >>> stockage_result_csv(models, "classification")
     ... "Succès"
     """

@@ -2,8 +2,9 @@ import streamlit as st
 import time
 from st_functions import *
 from st_tables import *
+from st_selectors import *
 from st_plots import *
-from src.modules.ml_models.prediction import *
+from src.modules.utils import *
 
 
 def main():
@@ -147,7 +148,7 @@ def main():
                 type = "classification"
         write_metrics(conn, type)
         with st.expander("Importance des variables"):
-            display_importances_features(choice, selected_model)
+            display_importance(choice, selected_model)
         if choice == "Classification - Prédiction type de vin":
             display_confusion_matrix(conn, model_mapper(selected_model))
         st.divider()
@@ -186,7 +187,6 @@ def main():
         st.divider()
     with tab6:
         authors()
-        # ajouter gradients
 
 
 if __name__ == "__main__":

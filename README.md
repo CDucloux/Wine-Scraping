@@ -1,5 +1,24 @@
 # Wine-Scraping
 
+## <u>Table of Contents</u>
+- [DataQuality](#dataquality)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+  - [Model](#model)
+  - [Package structure](#package-structure)
+  - [Explanations](#explanations)
+  - [Dependencies Management](#dependencies-management)
+  - [Virtual Environment](#virtual-environment)
+  - [Usage](#usage)
+    - [*Manual export*](#manual-export)
+    - [*Automated export*](#automated-export)
+  - [Modifications](#modifications)
+  - [Testing 🐱‍🚀](#testing-)
+  - [Roadmap 🗺](#roadmap-)
+  - [Authors 🖋](#authors-)
+
+## Description 
+
 Pour lancer un script sans avoir l'erreur **src : Module not Found** :
 
 ```powershell

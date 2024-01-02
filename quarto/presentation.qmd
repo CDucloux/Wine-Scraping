@@ -196,7 +196,9 @@ def db_connector() -> DuckDBPyConnection:
 - La base de données en mémoire stocke les informations directement dans la mémoire vive plutôt que sur un disque.
 - Réduit le temps nécessaire au stockage et à la consultation des données, et accélère l’exécution des requêtes.
 
-## 🚀 Démonstration
+## 🚀 Démonstration  {.smaller}
+
+Demonstration de l'application
 
 ## Un code de *Deutsche Qualität*
 
@@ -302,6 +304,7 @@ Séparation des composants du projet :
 │       ├───⚙app
 │       │   ├───🐍st_functions.py
 │       │   ├───🐍st_plots.py
+│       │   ├───🐍st_selectors.py
 │       │   ├───🐍st_tables.py
 │       │   └───🐍streamlit_app.py
 │       ├───⚙ml_models

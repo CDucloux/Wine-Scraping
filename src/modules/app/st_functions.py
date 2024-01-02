@@ -10,14 +10,11 @@ from PIL import Image
 from streamlit.delta_generator import DeltaGenerator
 from duckdb import DuckDBPyConnection
 from src.modules.bear_cleaner import *  # type: ignore
-from src.modules.ml_models.prediction import *  # type: ignore
-
-# mypy & pylance backlog : 0 errors
 
 
 @st.cache_resource
 def db_connector() -> DuckDBPyConnection:
-    """Se connecte à la base de données."""
+    """Connecteur à la base de données."""
     connection = duckdb.connect(database=":memory:")
     return connection
 
@@ -68,7 +65,18 @@ def load_tables(connection: DuckDBPyConnection) -> None:
 
 @st.cache_data
 def load_df() -> pl.DataFrame:
-    """Charge notre DataFrame clean."""
+    """`load_df`: Charge notre DataFrame clean statique.
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> load_df()
+    ... #_test_return_"""
     root = Path(".").resolve()
     data_folder = root / "data"
     df = pl.read_json(data_folder / "vins.json")
@@ -76,20 +84,40 @@ def load_df() -> pl.DataFrame:
     return df
 
 
-# TODO: expliciter les variables d'input pour mypy pour la fonction load_main_df
-
-
 @st.cache_data
 def load_main_df(
     _df: pl.DataFrame,
     selected_wines: list[str],
-    prices,
-    filter_bio,
-    filter_new,
-    filter_fav,
-    user_input,
+    prices: tuple[float, float],
+    filter_bio: set[int],
+    filter_new: set[int],
+    filter_fav: set[int],
+    user_input: str,
 ) -> pl.DataFrame:
-    """Charge le dataframe filtré"""
+    """`load_main_df`: Charge le DataFrame clean, mais mutable avec possibilité de filtre.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        _df (pl.DataFrame): # Le DataFrame clean
+        selected_wines (list[str]): # Type(s) de vin(s) sélectionné(s)
+        prices (tuple[float, float]): # Le prix min et max sélectionné
+        filter_bio (set[int]): # Filtre sur les vins bios
+        filter_new (set[int]): # Filtre sur les nouveautés
+        filter_fav (set[int]): # Filtre sur les vins favoris
+        user_input (str): # Recherche de vin spécifique
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> load_main_df()
+    ... #_test_return_"""
     main_df = (
         _df.filter(pl.col("type").is_in(selected_wines))
         .filter(pl.col("unit_price") > prices[0])
@@ -130,66 +158,34 @@ def remove_white_space() -> DeltaGenerator:
     )
 
 
-def sidebar_wine_selector() -> list[str]:
-    """Permet de sélectionner un type de vin."""
-    wine_types = ["Vin Blanc", "Vin Rouge", "Vin Rosé"]
-    return st.multiselect(
-        "Sélectionnez un type de vin :",
-        wine_types,
-        default="Vin Rouge",
-        placeholder="Choisir un type de vin",
+def custom_radio_css() -> None:
+    """Repositionne les boutons radio (colonne vers ligne)."""
+    return st.write(
+        "<style>div.row-widget.stRadio > div{flex-direction:row;}</style>",
+        unsafe_allow_html=True,
     )
-
-
-def sidebar_prices_slider(df: pl.DataFrame):
-    """Permet de choisir un intervalle de prix."""
-    return st.slider(
-        "Sélectionnez un intervalle de prix :",
-        df.select("unit_price").min().item(),
-        df.select("unit_price").max().item(),
-        (5.0, 400.0),
-        format="%.2f€",
-    )
-
-
-def sidebar_checkbox_bio():
-    """Une case à cocher pour n'inclure que les vins bios."""
-    bio = st.sidebar.checkbox("N'inclure que les vins Bio 🌿")
-    if bio:
-        filter_bio = 1
-    else:
-        filter_bio = {0, 1}
-    return filter_bio
-
-
-def sidebar_checkbox_new():
-    """Une case à cocher pour n'inclure que les nouveautés."""
-    new = st.sidebar.checkbox("N'inclure que les nouveautés 🆕")
-    if new:
-        filter_new = 1
-    else:
-        filter_new = {0, 1}
-    return filter_new
-
-
-def sidebar_checkbox_fav():
-    """Une case à cocher pour n'inclure que les coups de coeur client."""
-    fav = st.sidebar.checkbox("N'inclure que les Coups de Coeur")
-    if fav:
-        filter_fav = 1
-    else:
-        filter_fav = {0, 1}
-    return filter_fav
-
-
-def sidebar_input_wine() -> str:
-    """Un user input permettant de rechercher un nom de vin."""
-    user_input = st.text_input("Recherche par nom de vin :").upper()
-    return user_input
 
 
 def main_wine_metric(df: pl.DataFrame, wine_type: str) -> DeltaGenerator:
-    """Permet d'obtenir une métrique du nombre de vins selon le type de vin."""
+    """`main_wine_metric`: Permet d'obtenir une métrique du nombre de vins et du nombre de nouveautés associées selon le type de vin.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # DataFrame statique
+        wine_type (str): # Type de vin
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+
+    >>> main_wine_metric()
+    ... #_test_return_"""
     wine_count = (
         df.group_by(pl.col("type"))
         .count()
@@ -235,54 +231,8 @@ def write_price(df: pl.DataFrame, selected_wines: list[str]) -> None:
         )
 
 
-def scale_selector():
-    """Crée un radio button pour sélectionner l'échelle."""
-    return st.radio(
-        "Sélectionner une *échelle*",
-        ["$y$", "$\\log(y)$"],
-    )
-
-
-# TODO: corriger le color_selector qui merde.
-
-
-def color_selector(selected_wines: list[str]) -> list[str]:
-    """Permet de choisir une couleur selon le vin sélectionné pour le scatter plot des vins."""
-    red, white, pink = "#ff4b4b", "#f3b442", "#ff8fa3"
-    if selected_wines == ["Vin Rouge"]:
-        colors = [red]
-    elif selected_wines == ["Vin Blanc"]:
-        colors = [white]
-    elif selected_wines == ["Vin Rosé"]:
-        colors = [pink]
-    elif selected_wines == ["Vin Rouge", "Vin Blanc"]:
-        colors = [red, white]
-    elif selected_wines == ["Vin Rouge", "Vin Rosé"]:
-        colors = [red, pink]
-    elif selected_wines == ["Vin Blanc", "Vin Rouge"]:
-        colors = [red, white]
-    elif selected_wines == ["Vin Blanc", "Vin Rosé"]:
-        colors = [white, pink]
-    elif selected_wines == ["Vin Rosé", "Vin Rouge"]:
-        colors = [red, pink]
-    elif selected_wines == ["Vin Rosé", "Vin Blanc"]:
-        colors = [white, pink]
-    elif selected_wines == ["Vin Rouge", "Vin Blanc", "Vin Rosé"]:
-        colors = [red, white, pink]
-    else:
-        colors = [red, white, pink]
-    return colors
-
-
-def custom_radio_css() -> None:
-    """Repositionne les boutons radio (colonne --> ligne)."""
-    return st.write(
-        "<style>div.row-widget.stRadio > div{flex-direction:row;}</style>",
-        unsafe_allow_html=True,
-    )
-
-
 def info() -> DeltaGenerator:
+    """Retourne des informations sur une page."""
     return st.info(
         "L'ensemble de cet onglet est statique, la barre de paramètres n'influera pas sur les données.",
         icon="ℹ️",
@@ -291,7 +241,6 @@ def info() -> DeltaGenerator:
 
 def authors() -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
     """Crée la page 6 qui inclue nos noms 😎."""
-    # TODO: utiliser pathlib ici, pas de string relatif.
     image = Image.open("./img/img_vins.jpg")
     return (
         st.balloons(),
@@ -329,37 +278,6 @@ def model_mapper_reverse(model_name: str) -> str:
         "support_vector": "Support Vector",
     }
     return model_names_mapping.get(model_name, "Le modèle n'existe pas")
-
-
-def model_radio_selector() -> str | None:
-    """Permet de sélectionner un modèle de Machine Learning avec des radio buttons."""
-    return st.radio(
-        "Choisissez un modèle :",
-        [
-            "Boosting",
-            "Random Forest",
-            "K Neighbors",
-            "Support Vector",
-            "Réseaux de neurones",
-            "Ridge",
-        ],
-    )
-
-
-def model_selector() -> str | None:
-    """Permet de sélectionner un modèle de Machine learning avec une liste déroulante."""
-    models = [
-        "Random Forest",
-        "Boosting",
-        "Ridge",
-        "Réseaux de neurones",
-        "K Neighbors",
-        "Support Vector",
-    ]
-    return st.selectbox(
-        "Modèle :",
-        (models),
-    )
 
 
 # TODO: changer le 0.8 et 1.2 en tant qu'Enum
