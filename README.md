@@ -15,6 +15,9 @@
 - [🍷 Wine-Scraping](#-wine-scraping)
   - [Table des matières](#table-des-matières)
   - [Description](#description)
+  - [Scraping](#scraping)
+  - [Machine Learning](#machine-learning)
+  - [Résultats du Machine Learning](#résultats-du-machine-learning)
   - [Installation](#installation)
   - [Utilisation de l'application](#utilisation-de-lapplication)
     - [Onglet 1 : Data Overview](#onglet-1--data-overview)
@@ -22,7 +25,6 @@
     - [Onglet 3 : Charts](#onglet-3--charts)
     - [Onglet 4 : Provenance](#onglet-4--provenance)
     - [Onglet 5 : Machine Learning](#onglet-5--machine-learning)
-  - [Résultats du Machine Learning](#résultats-du-machine-learning)
   - [TODO](#todo)
 
 
@@ -46,6 +48,88 @@ L'objectif de ce projet est de récupérer des données sur un site web, les sto
 4. Modularité du projet, entièrement versionné sur **Git**
 5. Projet testé avec `pytest` et `pytest-cov`
 6. Docker
+
+## Scraping
+
+parler du script pour effectuer le scraping
+
+## Machine Learning
+
+La procédure de Machine Learning est la suivante :
+
+1. Il y a deux variables à prédire : *unit_price* & *type*
+2. Nous utiliserons 6 modèles de **Machine Learning**
+3. ➶ Optimisation des hyperparamètres par Cross-Validation $\Rightarrow$ `models.py`
+4. 🏹 Prédiction sur les données de test $\Rightarrow$ `prediction.py`
+5. 🧪 Utilisation d'un **pipeline** `sklearn`
+    - Evite le Data Leakage.
+    - Procédure standardisée pour l'ensemble des modèles.
+
+Les **21 variables explicatives** sont les suivantes : 
+
+| **Variable**        | **Type** | **Description**                                                 |
+| ------------------- | -------- | --------------------------------------------------------------- |
+| `name`              | str      | _Nom du vin_                                                    |
+| `capacity`          | float    | _Capacité en litres du vin_                                     |
+| `millesime`         | int      | _Année de vendange des raisins_                                 |
+| `cepage`            | str      | _Type de raisin utilisé pour confectionner le vin_              |
+| `par_gouts`         | str      | _Classification par goûts du vin_                               |
+| `service`           | str      | _Comment se sert le vin_                                        |
+| `avg_temp`          | float    | _Température moyenne de conservation du vin_                    |
+| `conservation_date` | int      | _Date de conservation maximale du vin après achat_              |
+| `bio`               | bool     | _Indique si le vin est issu de l'agriculture biologique_        |
+| `customer_fav`      | bool     | _Indique si le vin est un coup de coeur client_                 |
+| `is_new`            | bool     | _Indique si le vin est une nouveauté sur le site_               |
+| `top_100`           | bool     | _Indique si le vin fait partie d'un classement dans le top 100_ |
+| `destock`           | bool     | _Indique si le vin est en déstockage_                           |
+| `sulphite_free`     | bool     | _Indique si le vin est sans sulfites_                           |
+| `alcohol_volume`    | float    | _Degré de concentration d'alcool_                               |
+| `country`           | str      | _Pays d'origine du vin_                                         |
+| `bubbles`           | bool     | _Indique si le vin a des bulles_                                |
+| `wine_note`         | float    | _Indique la note sur 5 du vin_                                  |
+| `nb_reviews`        | int      | _Nombre de commentaires_                                        |
+| `conservation_time` | float    | _Durée de conservation du vin en années_                        |
+| `cru`               | bool     | _Indique si le vin est un grand cru_                            |
+
+## Résultats du Machine Learning
+
+5 tables de résultats de Machine Learning sont obtenues grâce au lancement des scripts d'export. Mais plutôt que d'utiliser chaque csv indépendamment ou de tenter de concaténer les résultats, nous avons préféré utiliser une base de données.
+
+`duckdb` est une base de données particulière en ce sens qu'elle n'est pas *Client-Server*, mais *in-memory*. Cela permet d’obtenir des temps de réponse minimaux en éliminant le besoin d'accéder à des unités de disque standard (SSD). Une base de données *in-memory* est donc idéale pour une application effectuant de l’analyse de données en temps réel.
+
+*Voici un schéma du processus d'ingestion :*
+
+```mermaid
+  graph LR;
+      A("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50"> pred_classification");
+      B("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">pred_regression");
+      C("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">result_ml_classification");
+      D("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">result_ml_regression");
+      E("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">importance");
+      F[("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/database.svg" width="50" height="50">In Memory DB")];
+
+      A-->F;
+      B-->F;
+      C-->F;
+      D-->F;
+      E-->F;
+```
+
+```mermaid
+graph LR;
+A-->F;
+B-->F;
+C-->F;
+D-->F;
+E-->F;
+```
+
+style A stroke:#adbac7,stroke-width:3px, fill:#222222;
+style B stroke:#adbac7,stroke-width:3px, fill:#222222;
+style C stroke:#adbac7,stroke-width:3px, fill:#222222;
+style D stroke:#adbac7,stroke-width:3px, fill:#222222;
+style E stroke:#adbac7,stroke-width:3px, fill:#222222;
+style F stroke:#fff100,stroke-width:3px, fill:#222222;
 
 ## Installation
 
@@ -195,7 +279,7 @@ Enfin, pour les modèles de **Boosting** et de **Random Forest**, l'importance r
 
 ![](img/streamlit_p5_pred.gif)
 
-**Prédiction** permet à l'utilisateur de choisir un vin sur lesquels les modèles n'ont pas été entrainés. En bonus, la bouteille de vin est même visualisée ;). 
+**Prédiction** permet à l'utilisateur de choisir un vin sur lesquels les modèles n'ont pas été entrainés. En bonus, la bouteille de vin est même visualisée 😉. 
 
 Ensuite, il peut choisir entre la prédiction du prix ou bien la classification du type de vin, et à la fin, sélectionner le modèle pour effectuer la prédiction !
 
@@ -205,47 +289,12 @@ Ensuite, il peut choisir entre la prédiction du prix ou bien la classification 
 
 Pour la prédiction du prix, pour que la prédiction soit considérée comme *"acceptable"*, il faut que le prix prédit soit compris entre :
 
-$$0.8 \times unit\_price_{\text{true}} < unit\_price_{\text{true}} < 1.2 \times unit\_price_{\text{true}}$$
+$$0.8 \times unit\\_price_{\text{true}} < unit\\_price_{\text{true}} < 1.2 \times unit\\_price_{\text{true}}$$
 
 - C'est à dire entre 80 et 120% du prix réel.
 
  Ce seuil est évidemment discutable car il n'est pas extrêmement précis pour les vins à prix elevé, néanmoins, pour les vins à bas prix, les écarts ne sont pas anormalement elevés. 
 
-***
-
-## Résultats du Machine Learning
-
-5 tables de résultats de Machine Learning sont obtenues grâce au lancement des scripts d'export. Mais plutôt que d'utiliser chaque csv indépendamment ou de tenter de concaténer les résultats, nous avons préféré utiliser une base de données.
-
-`duckdb` est une base de données particulière en ce sens qu'elle n'est pas *Client-Server*, mais *in-memory*. Cela permet d’obtenir des temps de réponse minimaux en éliminant le besoin d'accéder à des unités de disque standard (SSD). Une base de données *in-memory* est donc idéale pour une application effectuant de l’analyse de données en temps réel.
-
-*Voici un schéma du processus d'ingestion :*
-
-```mermaid
----
-title: Ingestion des tables
----
-  graph LR;
-      A("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50"> pred_classification");
-      B("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">pred_regression");
-      C("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">result_ml_classification");
-      D("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">result_ml_regression");
-      E("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">importance");
-      F[("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/database.svg" width="50" height="50">In Memory DB")];
-
-      A-->F;
-      B-->F;
-      C-->F;
-      D-->F;
-      E-->F;
-      style A stroke:#adbac7,stroke-width:3px, fill:#222222;
-      style B stroke:#adbac7,stroke-width:3px, fill:#222222;
-      style C stroke:#adbac7,stroke-width:3px, fill:#222222;
-      style D stroke:#adbac7,stroke-width:3px, fill:#222222;
-      style E stroke:#adbac7,stroke-width:3px, fill:#222222;
-      style F stroke:#fff100,stroke-width:3px, fill:#222222;
-
-```
 
 ## TODO
 
