@@ -273,14 +273,19 @@ Ensuite, il peut choisir entre la prédiction du prix ou bien la classification 
 
 Pour la prédiction du prix, pour que la prédiction soit considérée comme *"acceptable"*, il faut que le prix prédit soit compris entre :
 
-$$0.8 \times unit\_price_{\text{true}} < unit\_price_{\text{true}} < 1.2 \times unit\_price_{\text{true}}$$
+$$\boxed{0.8 \times unit\textunderscore price_{\text{true}} < unit\textunderscore price_{\text{true}} < 1.2 \times unit\textunderscore price_{\text{true}}}$$
 
 - C'est à dire entre 80 et 120% du prix réel.
 
  Ce seuil est évidemment discutable car il n'est pas extrêmement précis pour les vins à prix elevé, néanmoins, pour les vins à bas prix, les écarts ne sont pas anormalement elevés. 
 
+ ## Auteurs
 
-## TODO
+
+ ## Licence
+
+
+## TODO à retirer plus tard
 
 - [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage + doctest pour les tests dans les docstrings.
 - [ ] Faire `Docker`
