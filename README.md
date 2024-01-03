@@ -10,22 +10,20 @@
 
 *Face à cette situation, deux valeureux Chevaliers de la programmation Python s'élèvent pour secourir les amateurs de vin, menant une mission périlleuse pour libérer les données captives. Avec bravoure, ils s'attaquent aux défenses numériques pour délivrer les précieuses informations contenues dans les pages web tentaculaires...*
 
-## <u>Table des matières</u>
-- [DataQuality](#dataquality)
-  - [Table of Contents](#table-of-contents)
+## Table des matières
+
+- [🍷 Wine-Scraping](#-wine-scraping)
+  - [Table des matières](#table-des-matières)
   - [Description](#description)
-  - [Model](#model)
-  - [Package structure](#package-structure)
-  - [Explanations](#explanations)
-  - [Dependencies Management](#dependencies-management)
-  - [Virtual Environment](#virtual-environment)
-  - [Usage](#usage)
-    - [*Manual export*](#manual-export)
-    - [*Automated export*](#automated-export)
-  - [Modifications](#modifications)
-  - [Testing 🐱‍🚀](#testing-)
-  - [Roadmap 🗺](#roadmap-)
-  - [Authors 🖋](#authors-)
+  - [Installation](#installation)
+  - [Utilisation de l'application](#utilisation-de-lapplication)
+    - [Onglet 1 : Data Overview](#onglet-1--data-overview)
+    - [Onglet 2 : Statistiques Descriptives](#onglet-2--statistiques-descriptives)
+    - [Onglet 3 : Charts](#onglet-3--charts)
+    - [Onglet 4 : Provenance](#onglet-4--provenance)
+    - [Onglet 5 : Machine Learning](#onglet-5--machine-learning)
+  - [TODO](#todo)
+
 
 ## Description 
 
@@ -90,16 +88,9 @@ python -m streamlit run "src/modules/app/streamlit_app.py"
 ```
 
 
-## Utilisation
+## Utilisation de l'application
 
-L'application dispose d'une barre latérale permettant de filtrer les résultats, et possède 6 onglets ayant des fonctions différentes :
-
-1. Data Overview
-2. Statistiques Descriptives
-3. Charts
-4. Provenance
-5. Machine Learning
-6. Auteurs
+L'application dispose d'une barre latérale permettant de filtrer les résultats, et possède 6 onglets ayant des fonctions différentes.
 
 > Tous les onglets partagent aussi les métriques statiques sur le nombre de vins par type **(Vin rouge, blanc et rosé)**.
 
@@ -162,8 +153,57 @@ Le troisième onglet permet quant à lui d'observer le lien entre le prix unitai
 
 - [x] Sidebar utilisable
 
+Ce quatrième onglet permet de visualiser une carte de la provenance des vins ainsi qu'une indication du nombre de vins commercialisés par pays. 
+
+*Démonstration :*
+
+![](img/streamlit_p4.gif)
+
+*NB : Etant donné que le revendeur est français, il est évident que le nombre de vins commercialisés par la France est prépondérant.*
+
+### Onglet 5 : Machine Learning
+
+- [ ] Sidebar utilisable
+
+Ce cinquième onglet est probablement le plus complexe et le plus intéressant. Il se décline en 3 parties :
+
+- **Exploration**
+- **Investigation**
+- **Prédiction**
+
+*Démonstration :*
+
+![](img/streamlit_p5_exp.gif)
+
+**Exploration** permet de comparer le score d'entrainement et le score de test des 6 modèles de Machine Learning
 
 ***
+
+![](img/streamlit_p5_inv.gif)
+
+**Investigation** approfondit l'exploration en ayant accès aux hyperparamètres optimaux de chaque modèle. En plus, selon le mode sélectionné (*classification* ou *régression*), des métriques différentes s'affichent :
+
+- Pour la classification $\Rightarrow$ Accuracy, Precision, Recall, F1-Score,MCC, Rapport de classificatiton et Matrice de Confusion
+
+- Pour la régression $\Rightarrow$ MAE, MSE, $R^2$, Erreur Résiduelle Maximale
+
+Enfin, pour les modèles de **Boosting** et de **Random Forest**, l'importance relative des variables dans le modèle est disponible graphiquement.
+
+Explication Erreur Res Max $\Rightarrow$ **The max_error function computes the maximum residual error , a metric that captures the worst case error between the predicted value and the true value.**
+
++ voir si faire un peu plus de blabla sur les métriques. à voir.
+
+***
+
+![](img/streamlit_p5_pred.gif)
+
+**Prédiction**
+
+***
+
+Ajouter schéma mermaid pour duckdb et tables dans la db
+
+## TODO
 
 - [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage + doctest pour les tests dans les docstrings.
 - [ ] Faire `Docker`
