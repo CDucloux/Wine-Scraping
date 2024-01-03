@@ -97,15 +97,15 @@ Les **21 variables explicatives** sont les suivantes :
 
 `duckdb` est une base de données particulière en ce sens qu'elle n'est pas *Client-Server*, mais *in-memory*. Cela permet d’obtenir des temps de réponse minimaux en éliminant le besoin d'accéder à des unités de disque standard (SSD). Une base de données *in-memory* est donc idéale pour une application effectuant de l’analyse de données en temps réel.
 
-*Voici un schéma du processus d'ingestion :*
+*Voici un schéma du processus d'ingestion des tables :*
 
 ```mermaid
 graph LR;
-A("🕸 pred_classification")-->F;
-B("pred_regression")-->F;
-C("result_ml_regression")-->F;
-D("result_ml_classification")-->F;
-E("importance")-->F("In Memory Database");
+A("👨‍🔬 pred_classification")-->F;
+B("👨‍🔬 pred_regression")-->F;
+C("👩‍🏫result_ml_regression")-->F;
+D("👩‍🏫 result_ml_classification")-->F;
+E("🕵️‍♂️ importance")-->F[("🦆 In Memory Database")];
 
 style A stroke:#adbac7,stroke-width:3px, fill:#222222;
 style B stroke:#adbac7,stroke-width:3px, fill:#222222;
