@@ -22,6 +22,7 @@
     - [Onglet 3 : Charts](#onglet-3--charts)
     - [Onglet 4 : Provenance](#onglet-4--provenance)
     - [Onglet 5 : Machine Learning](#onglet-5--machine-learning)
+  - [Résultats du Machine Learning](#résultats-du-machine-learning)
   - [TODO](#todo)
 
 
@@ -143,7 +144,7 @@ L'onglet 2 permet quant à lui d'obtenir un aperçu rapide d'une analyse explora
 
 - [x] Sidebar utilisable
 
-Le troisième onglet permet quant à lui d'observer le lien entre le prix unitaire d'un vin et sa durée de conservation. Il est possible de sélectionner l'échelle et des régressions locales *LOESS* sont affichées pour chaque type de vin.
+Le troisième onglet se focalise sur le lien entre le prix unitaire d'un vin et sa durée de conservation. Il est possible de sélectionner l'échelle et des régressions locales *LOESS* sont affichées pour chaque type de vin.
 
 *Démonstration :*
 
@@ -153,7 +154,7 @@ Le troisième onglet permet quant à lui d'observer le lien entre le prix unitai
 
 - [x] Sidebar utilisable
 
-Ce quatrième onglet permet de visualiser une carte de la provenance des vins ainsi qu'une indication du nombre de vins commercialisés par pays. 
+Ce quatrième onglet permet de visualiser une carte de la provenance des vins ainsi qu'une indication du nombre de vins commercialisés par pays. *(Soyons honnêtes, c'est plus pour le style qu'autre chose.)*
 
 *Démonstration :*
 
@@ -175,33 +176,76 @@ Ce cinquième onglet est probablement le plus complexe et le plus intéressant. 
 
 ![](img/streamlit_p5_exp.gif)
 
-**Exploration** permet de comparer le score d'entrainement et le score de test des 6 modèles de Machine Learning
+**Exploration** permet de comparer le score d'entrainement et le score de test des 6 modèles de Machine Learning pour vérifier si il y a un problème de sur-apprentissage.
 
 ***
 
 ![](img/streamlit_p5_inv.gif)
 
-**Investigation** approfondit l'exploration en ayant accès aux hyperparamètres optimaux de chaque modèle. En plus, selon le mode sélectionné (*classification* ou *régression*), des métriques différentes s'affichent :
+**Investigation** approfondit l'exploration en ayant accès aux hyperparamètres optimaux de chaque modèle. En plus, selon le mode sélectionné (*classification* ou *régression*), différentes métriques d'évaluation s'affichent :
 
-- Pour la classification $\Rightarrow$ Accuracy, Precision, Recall, F1-Score,MCC, Rapport de classificatiton et Matrice de Confusion
+- Pour la *classification* $\Rightarrow$ Accuracy, Precision, Recall, $F_1$ score, $MCC$ (Coefficient de corrélation de Matthews), Rapport de classificatiton et Matrice de Confusion.
 
-- Pour la régression $\Rightarrow$ MAE, MSE, $R^2$, Erreur Résiduelle Maximale
+- Pour la *régression* $\Rightarrow$ $MAE$ (Erreur Absolue Moyenne), $MSE$ (Erreur Quadratique Moyenne), $R^2$, Erreur Résiduelle Maximale.
 
 Enfin, pour les modèles de **Boosting** et de **Random Forest**, l'importance relative des variables dans le modèle est disponible graphiquement.
 
-Explication Erreur Res Max $\Rightarrow$ **The max_error function computes the maximum residual error , a metric that captures the worst case error between the predicted value and the true value.**
-
-+ voir si faire un peu plus de blabla sur les métriques. à voir.
 
 ***
 
 ![](img/streamlit_p5_pred.gif)
 
-**Prédiction**
+**Prédiction** permet à l'utilisateur de choisir un vin sur lesquels les modèles n'ont pas été entrainés. En bonus, la bouteille de vin est même visualisée ;). 
+
+Ensuite, il peut choisir entre la prédiction du prix ou bien la classification du type de vin, et à la fin, sélectionner le modèle pour effectuer la prédiction !
+
+**Celle-ci est ensuite comparée à la réalité, avec un indicateur permettant de vérifier si il y a une correspondance.**
 
 ***
 
-Ajouter schéma mermaid pour duckdb et tables dans la db
+Pour la prédiction du prix, pour que la prédiction soit considérée comme *"acceptable"*, il faut que le prix prédit soit compris entre :
+
+$$0.8 \times unit\_price_{\text{true}} < unit\_price_{\text{true}} < 1.2 \times unit\_price_{\text{true}}$$
+
+- C'est à dire entre 80 et 120% du prix réel.
+
+ Ce seuil est évidemment discutable car il n'est pas extrêmement précis pour les vins à prix elevé, néanmoins, pour les vins à bas prix, les écarts ne sont pas anormalement elevés. 
+
+***
+
+## Résultats du Machine Learning
+
+5 tables de résultats de Machine Learning sont obtenues grâce au lancement des scripts d'export. Mais plutôt que d'utiliser chaque csv indépendamment ou de tenter de concaténer les résultats, nous avons préféré utiliser une base de données.
+
+`duckdb` est une base de données particulière en ce sens qu'elle n'est pas *Client-Server*, mais *in-memory*. Cela permet d’obtenir des temps de réponse minimaux en éliminant le besoin d'accéder à des unités de disque standard (SSD). Une base de données *in-memory* est donc idéale pour une application effectuant de l’analyse de données en temps réel.
+
+*Voici un schéma du processus d'ingestion :*
+
+```mermaid
+---
+title: Ingestion des tables
+---
+  graph LR;
+      A("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50"> pred_classification");
+      B("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">pred_regression");
+      C("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">result_ml_classification");
+      D("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">result_ml_regression");
+      E("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">importance");
+      F[("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/database.svg" width="50" height="50">In Memory DB")];
+
+      A-->F;
+      B-->F;
+      C-->F;
+      D-->F;
+      E-->F;
+      style A stroke:#adbac7,stroke-width:3px, fill:#222222;
+      style B stroke:#adbac7,stroke-width:3px, fill:#222222;
+      style C stroke:#adbac7,stroke-width:3px, fill:#222222;
+      style D stroke:#adbac7,stroke-width:3px, fill:#222222;
+      style E stroke:#adbac7,stroke-width:3px, fill:#222222;
+      style F stroke:#fff100,stroke-width:3px, fill:#222222;
+
+```
 
 ## TODO
 
