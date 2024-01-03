@@ -8,8 +8,8 @@ import ast
 import polars as pl
 from streamlit.delta_generator import DeltaGenerator
 from duckdb import DuckDBPyConnection
-from st_plots import *
-from st_functions import *
+from src.modules.app.st_plots import *
+from src.modules.app.st_functions import *
 from sklearn.metrics import (  # type: ignore
     r2_score,
     max_error,
@@ -25,7 +25,24 @@ from sklearn.metrics import (  # type: ignore
 
 
 def write_table(df: pl.DataFrame) -> DeltaGenerator:
-    """Retourne une table de données avec des colonnes configurées."""
+    """`write_table`: Retourne une table de données avec des colonnes configurées.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # DataFrame mutable
+        
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> df = load_df()
+    >>> write_table(df)
+    ... DeltaGenerator()"""
     return st.dataframe(
         data=df,
         hide_index=True,
@@ -107,7 +124,24 @@ def write_table(df: pl.DataFrame) -> DeltaGenerator:
 
 
 def write_table_ml(conn, table_name: str) -> DeltaGenerator:
-    """Retourne un tableau avec les résultats des modèles"""
+    """`write_table_ml`: Retourne un tableau avec les résultats des modèles.
+
+    ---------
+    `Parameters`
+    --------- ::
+        conn
+        table_name (str):
+        
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> df = load_df()
+    >>> write_table_ml(df)
+    ... DeltaGenerator()"""
     df = conn.execute(f"SELECT * FROM {table_name}").pl()
     return st.dataframe(
         data=df,
@@ -142,7 +176,28 @@ def write_table_ml(conn, table_name: str) -> DeltaGenerator:
 
 
 def param_mapper(key: str) -> str:
-    """Mappe les noms des paramètres optimisés vers des noms plus lisibles."""
+    """`param_mapper`: Mappe les noms des paramètres optimisés vers des noms plus lisibles.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        key (str):
+        
+    `Returns`
+    --------- ::
+
+        str
+
+    `Example(s)`
+    ---------
+    >>> df = load_df()
+    >>> param_mapper("entrainement__alpha")
+    ... 'Alpha'
+    ---------
+    >>> df = load_df()
+    >>> param_mapper("")
+    ... 'Le paramètre n'existe pas' """
     param_mapping = {
         "entrainement__alpha": "Alpha",
         "imputation__strategy": "Stratégie d'imputation",
@@ -159,7 +214,22 @@ def param_mapper(key: str) -> str:
 
 
 def parametres(df: pl.DataFrame, place_model: int) -> DeltaGenerator:
-    """Construction du tableau des paramètres."""
+    """`parametres`: Construction du tableau des paramètres.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame):
+        place_model (int):
+        
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------"""
     parametres = ast.literal_eval(df.select("Paramètres").to_series()[place_model])
     param = list()
     value = list()
@@ -171,7 +241,25 @@ def parametres(df: pl.DataFrame, place_model: int) -> DeltaGenerator:
 
 
 def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
-    """Metrics principales."""
+    """`write_metrics`: Metrics principales.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        conn (DuckDBPyConnection):
+        type (str):
+        
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> conn = db_connector()
+    >>> write_metrics(conn, "regression")
+    ... DeltaGenerator()"""
     if type == "regression":
         df = conn.execute(f"SELECT * FROM pred_regression").pl()
         predicted = "unit_price"
@@ -224,7 +312,26 @@ def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
 
 
 def write_parameter(conn: DuckDBPyConnection, table_name: str, selected_model: str):
-    """Retourne un tableau avec les paramètres d'un modèle"""
+    """`write_parameter`: Retourne un tableau avec les paramètres d'un modèle
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        conn (DuckDBPyConnection):
+        table_name (str):
+        selected_model (str):
+        
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> conn = db_connector()
+    >>> write_parameter(conn, "ml_regression", "Boosting")
+    ... DeltaGenerator()"""
     df = conn.execute(f"SELECT * FROM {table_name}").pl()
 
     if selected_model == "Random Forest":

@@ -32,9 +32,17 @@ def warn(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | None:
 
     `Example(s)`
     ---------
-
-    >>> warn()
-    ... #_test_return_"""
+    >>> df = []
+    >>> warn(df, "Vin Rouge")
+    ... DeltaGenerator()
+    ---------
+    >>> df = load_df()
+    >>> warn(df, "")
+    ... DeltaGenerator() 
+    ---------
+    >>> df = load_df()
+    >>> warn(df, "Vin Rouge")
+    ... None"""
     if not selected_wines:
         return st.warning("🚨 Attention, aucun type de vin n'a été selectionné !")
     elif len(df) == 0:
@@ -67,9 +75,9 @@ def display_scatter(
 
     `Example(s)`
     ---------
-
-    >>> display_scatter()
-    ... #_test_return_"""
+    >>> df = load_df()
+    >>> display_scatter(df)
+    ... DeltaGenerator()"""
     if scale == "$\\log(y)$":
         log = True
         title_y = "log(Prix unitaire)"
@@ -95,7 +103,39 @@ def display_scatter(
 
 
 def create_aggregate_df(df: pl.DataFrame) -> pl.DataFrame:
-    """Crée un Dataframe groupé par pays et code ISO avec le nombre de vins."""
+    """`create_aggregate_df`: Crée un Dataframe groupé par pays et code ISO avec le nombre de vins.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # DataFrame mutable
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+    >>> df = load_df()
+    >>> create_aggregate_df(df)
+    ... shape: (31, 3)
+    ... ┌────────────┬──────────┬───────┐
+    ... │ country    ┆ iso_code ┆ count │
+    ... │ ---        ┆ ---      ┆ ---   │
+    ... │ str        ┆ str      ┆ u32   │
+    ... ╞════════════╪══════════╪═══════╡
+    ... │ France     ┆ FRA      ┆ 3203  │
+    ... │ Italie     ┆ ITA      ┆ 226   │
+    ... │ Espagne    ┆ ESP      ┆ 166   │
+    ... │ Argentine  ┆ ARG      ┆ 59    │
+    ... │ …          ┆ …        ┆ …     │
+    ... │ Angleterre ┆ GBR      ┆ 1     │
+    ... │ Uruguay    ┆ URY      ┆ 1     │
+    ... │ Mexique    ┆ MEX      ┆ 1     │
+    ... │ Turquie    ┆ TUR      ┆ 1     │
+    ... └────────────┴──────────┴───────┘"""
     grouped_df = (
         df.group_by("country", "iso_code")
         .count()
@@ -106,7 +146,24 @@ def create_aggregate_df(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def create_map(df: pl.DataFrame) -> DeltaGenerator:
-    """Crée la carte de provenance des vins."""
+    """`create_map`: Crée la carte de provenance des vins.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # DataFrame mutable
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> df = load_df()
+    >>> create_map(df)
+    ... DeltaGenerator()"""
     map = px.choropleth(
         df,
         locations="iso_code",
@@ -124,7 +181,24 @@ def create_map(df: pl.DataFrame) -> DeltaGenerator:
 
 
 def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
-    """Crée un diagramme en barres du nombre de vins commercialisés par pays."""
+    """`create_bar`: Crée un diagramme en barres du nombre de vins commercialisés par pays.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # DataFrame mutable
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> df = load_df()
+    >>> create_bar(df)
+    ... DeltaGenerator()"""
     bar = px.bar(
         grouped_df,
         x="country",
@@ -155,12 +229,14 @@ def display_corr(
     --------- ::
 
         tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]
+        Il y a 3 éléments DeltaGenerator car il y a 3 outputs
 
     `Example(s)`
     ---------
 
-    >>> display_corr()
-    ... #_test_return_"""
+    >>> df = load_df()
+    >>> display_corr(df)
+    ... (DeltaGenerator(), DeltaGenerator(), DeltaGenerator())"""
     variables = [
         "capacity",
         "unit_price",
@@ -201,7 +277,24 @@ def display_corr(
 
 
 def display_density(df: pl.DataFrame) -> DeltaGenerator:
-    """Retourne l'histogramme de densité des prix."""
+    """`display_density`: Retourne l'histogramme de densité des prix.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # DataFrame
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> df = load_df()
+    >>> display_density(df)
+    ... DeltaGenerator()"""
     fig_tv = px.histogram(
         df,
         x="unit_price",
@@ -221,7 +314,24 @@ def display_density(df: pl.DataFrame) -> DeltaGenerator:
 
 
 def display_bar(df: pl.DataFrame) -> DeltaGenerator:
-    """Retourne un barplot des cepages."""
+    """`display_bar`: Retourne un barplot des cepages.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # DataFrame mutable
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> df = load_df()
+    >>> display_bar(df)
+    ... DeltaGenerator() """
     cepage_counts = df.groupby("cepage").count()
     cepage_filtre = cepage_counts.filter(cepage_counts["count"] >= 10)
     df_filtre = df.join(cepage_filtre, on="cepage")
@@ -240,7 +350,25 @@ def display_bar(df: pl.DataFrame) -> DeltaGenerator:
 
 
 def display_wine_img(df: pl.DataFrame, wine_name: str) -> DeltaGenerator:
-    """Permet d'afficher l'image d'un vin prédit à partir de son nom."""
+    """`display_wine_img`: Permet d'afficher l'image d'un vin prédit à partir de son nom.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame):# DataFrame mutable
+        wine_name (str): # Nom du vin
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> df = load_df()
+    >>> display_wine_img(df)
+    ... DeltaGenerator() """
     link = (
         df.select("name", "picture")
         .filter(pl.col("name") == wine_name)
@@ -251,7 +379,25 @@ def display_wine_img(df: pl.DataFrame, wine_name: str) -> DeltaGenerator:
 
 
 def display_confusion_matrix(conn: DuckDBPyConnection, model: str) -> DeltaGenerator:
-    """Crée la matrice de confusion."""
+    """`display_confusion_matrix`: Crée la matrice de confusion.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        conn (DuckDBPyConnection):
+        model (str): #Modèle choisit
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> df = load_df()
+    >>> display_confusion_matrix(df)
+    ... DeltaGenerator()"""
     df = conn.execute(f"SELECT * FROM pred_classification").pl()
     y_true = df.select(pl.col("type"))
     y_pred = df.select(pl.col(model))
@@ -293,8 +439,8 @@ def display_importance(
     `Parameters`
     --------- ::
 
-        choice (str)
-        selected_model (str)
+        choice (str):
+        selected_model (str):
 
     `Returns`
     --------- ::
@@ -302,7 +448,10 @@ def display_importance(
         DeltaGenerator | None
 
     `Example(s)`
-    ---------"""
+    ---------
+    >>> df = load_df()
+    >>> display_importance(df)
+    ... DeltaGenerator()"""
     if not selected_model in ("Random Forest", "Boosting"):
         return None
 

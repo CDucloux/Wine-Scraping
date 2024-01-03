@@ -168,6 +168,21 @@ CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge
 
 **Afin de visualiser tous nos résultats une application serait idéale...**
 
+## 🔬 Metrics {.smaller}
+
+- **Regression**:
+    - Erreur moyenne absolue : MAE($y$,$\hat{y}$) = $\frac{1}{n}\sum|y_i - \hat{y_i}|$
+    - Erreur quadratique moyenne : MSE($y$,$\hat{y}$) = $\frac{1}{n}\sum(y_i - \hat{y_i})^2$
+    - Erreur Résiduelle Maximale : MaxError($y$, $\hat{y}$) = max(|$y_i-\hat{y_i}$|)
+    - $R^2$ Score = 1 - $\frac{\sum(y_i-\hat{y_i})^2}{\sum(y_i-\bar{y_i})^2}$
+
+- **Classification**:
+    - Accuracy Score : AS($y$,$\hat{y}$) = $\frac{1}{n}\sum(\hat{y_i} = y_i)$
+    - precision = $\frac{\text{true positive}}{\text{true positive + false positive}}$
+    - recall = $\frac{\text{true positive}}{\text{true positive + false negative}}$
+    - F1 Score = $2 \times \frac{\text{precision } \times \text{ recall}}{\text{precision + recall}}$
+    - Matthews Correlation Coefficient
+
 ## 💻 Application {.smaller background-image="img\st.png" background-opacity="0.25"}
 🕵 **Framework** utilisé : `streamlit`
 
@@ -199,6 +214,7 @@ def db_connector() -> DuckDBPyConnection:
 ## 🚀 Démonstration  {.smaller}
 
 Demonstration de l'application
+
 
 ## Un code de *Deutsche Qualität*
 

@@ -15,7 +15,17 @@ from src.modules.bear_cleaner import *  # type: ignore
 
 @st.cache_resource
 def db_connector() -> DuckDBPyConnection:
-    """Connecteur à la base de données."""
+    """`db_connector`: Connecteur à la base de données.
+    
+    `Returns`
+    --------- ::
+
+        DuckDBPyConnection
+        
+    `Example(s)`
+    ---------
+    >>> db_connector()
+    ... <duckdb.duckdb.DuckDBPyConnection object at 0x00000165478A1D30>"""
     connection = duckdb.connect(database=":memory:")
     return connection
 
@@ -196,8 +206,7 @@ def main_wine_metric(df: pl.DataFrame, wine_type: str) -> DeltaGenerator:
     `Example(s)`
     ---------
 
-    >>> main_wine_metric()
-    ... #_test_return_"""
+    >>> main_wine_metric()"""
     wine_count = (
         df.group_by(pl.col("type"))
         .count()

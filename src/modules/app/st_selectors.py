@@ -7,7 +7,21 @@ import polars as pl
 
 
 def sidebar_wine_selector() -> list[str]:
-    """Permet de sélectionner un type de vin."""
+    """`sidebar_wine_selector`: Permet de sélectionner un type de vin.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+    `Returns`
+    --------- ::
+
+        list[str]
+
+    `Example(s)`
+    ---------
+    >>> sidebar_wine_selector()
+    ... ['Vin Rouge']"""
     wine_types = ["Vin Blanc", "Vin Rouge", "Vin Rosé"]
     return st.multiselect(
         "Sélectionnez un type de vin :",
@@ -18,7 +32,24 @@ def sidebar_wine_selector() -> list[str]:
 
 
 def sidebar_prices_slider(df: pl.DataFrame) -> tuple[float, float]:
-    """Permet de choisir un intervalle de prix."""
+    """`sidebar_prices_slider`: Permet de choisir un intervalle de prix.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame)
+    
+    `Returns`
+    --------- ::
+
+        tuple[float, float]
+
+    `Example(s)`
+    ---------
+    >>> df = load_df()
+    >>> sidebar_prices_slider(df)
+    ... (5.0, 400.0)"""
     return st.slider(
         "Sélectionnez un intervalle de prix :",
         df.select("unit_price").min().item(),
@@ -29,7 +60,21 @@ def sidebar_prices_slider(df: pl.DataFrame) -> tuple[float, float]:
 
 
 def sidebar_checkbox_bio() -> set[int]:
-    """Une case à cocher pour n'inclure que les vins bios."""
+    """`sidebar_checkbox_bio`: Une case à cocher pour n'inclure que les vins bios.
+    
+    ---------
+    `Parameters`
+    --------- ::
+    
+    `Returns`
+    --------- ::
+
+        set[int]
+
+    `Example(s)`
+    ---------
+    >>> sidebar_checkbox_bio()
+    ... {0, 1}"""
     bio = st.sidebar.checkbox("N'inclure que les vins Bio 🌿")
     if bio:
         filter_bio = {1}
@@ -39,7 +84,21 @@ def sidebar_checkbox_bio() -> set[int]:
 
 
 def sidebar_checkbox_new() -> set[int]:
-    """Une case à cocher pour n'inclure que les nouveautés."""
+    """`sidebar_checkbox_new`: Une case à cocher pour n'inclure que les nouveautés.
+    
+    ---------
+    `Parameters`
+    --------- ::
+    
+    `Returns`
+    --------- ::
+
+        set[int]
+
+    `Example(s)`
+    ---------
+    >>> sidebar_checkbox_new()
+    ... {0, 1}"""
     new = st.sidebar.checkbox("N'inclure que les nouveautés 🆕")
     if new:
         filter_new = {1}
@@ -49,7 +108,17 @@ def sidebar_checkbox_new() -> set[int]:
 
 
 def sidebar_checkbox_fav() -> set[int]:
-    """Une case à cocher pour n'inclure que les coups de coeur client."""
+    """`sidebar_checkbox_fav`: Une case à cocher pour n'inclure que les coups de coeur client.
+    
+    `Returns`
+    --------- ::
+
+        set[int]
+
+    `Example(s)`
+    ---------
+    >>> sidebar_checkbox_fav()
+    ... {0, 1}"""
     fav = st.sidebar.checkbox("N'inclure que les Coups de Coeur")
     if fav:
         filter_fav = {1}
@@ -59,13 +128,33 @@ def sidebar_checkbox_fav() -> set[int]:
 
 
 def sidebar_input_wine() -> str:
-    """Un user input permettant de rechercher un nom de vin."""
+    """`sidebar_input_wine`: Un user input permettant de rechercher un nom de vin.
+    
+    `Returns`
+    --------- ::
+
+        str
+
+    `Example(s)`
+    ---------
+    >>> sidebar_input_wine()
+    ... '' """
     user_input = st.text_input("Recherche par nom de vin :").upper()
     return user_input
 
 
 def scale_selector() -> str | None:
-    """Crée un radio button pour sélectionner l'échelle."""
+    """`scale_selector`: Crée un radio button pour sélectionner l'échelle.
+    
+    `Returns`
+    --------- ::
+
+        str | None
+
+    `Example(s)`
+    ---------
+    >>> scale_selector()
+    ... '$y$' """
     return st.radio(
         "Sélectionner une *échelle*",
         ["$y$", "$\\log(y)$"],
@@ -73,7 +162,26 @@ def scale_selector() -> str | None:
 
 
 def color_selector(selected_wines: list[str]) -> list[str]:
-    """Permet de choisir une couleur selon le vin sélectionné pour le scatter plot des vins."""
+    """`color_selector`: Permet de choisir une couleur selon le vin sélectionné pour le scatter plot des vins.
+    
+    ---------
+    `Parameters`
+    --------- ::
+    
+    selected_wines (list[str])
+    
+    `Returns`
+    --------- ::
+
+        list[str]
+
+    `Example(s)`
+    ---------
+    >>> color_selector(["Vin Rouge"])
+    ... ['#ff4b4b']
+    ---------
+    >>> color_selector(["Vin Rouge", "Vin Blanc"])
+    ... ['#f3b442', '#ff4b4b']"""
     red, white, pink = "#ff4b4b", "#f3b442", "#ff8fa3"
     if selected_wines == ["Vin Rouge"]:
         colors = [red]
@@ -101,7 +209,21 @@ def color_selector(selected_wines: list[str]) -> list[str]:
 
 
 def model_radio_selector() -> str | None:
-    """Permet de sélectionner un modèle de Machine Learning avec des radio buttons."""
+    """`model_radio_selector`: Permet de sélectionner un modèle de Machine Learning avec des radio buttons.
+    
+    ---------
+    `Parameters`
+    --------- ::
+    
+    `Returns`
+    --------- ::
+
+        str | None
+
+    `Example(s)`
+    ---------
+    >>> model_radio_selector()
+    ... 'Boosting'"""
     return st.radio(
         "Choisissez un modèle :",
         [
@@ -116,7 +238,21 @@ def model_radio_selector() -> str | None:
 
 
 def model_selector() -> str | None:
-    """Permet de sélectionner un modèle de Machine learning avec une liste déroulante."""
+    """`model_selector`: Permet de sélectionner un modèle de Machine learning avec une liste déroulante.
+    
+    ---------
+    `Parameters`
+    --------- ::
+    
+    `Returns`
+    --------- ::
+
+        str | None
+
+    `Example(s)`
+    ---------
+    >>> model_selector()
+    ... 'Random Forest'"""
     models = [
         "Random Forest",
         "Boosting",
@@ -132,10 +268,24 @@ def model_selector() -> str | None:
 
 
 def n_variable_selector() -> int | float:
-    """Permet à l'utilisateur de sélectionner le nombre des n variables à afficher dans le plot de l'importance des variables.
+    """`n_variable_selector`: Permet à l'utilisateur de sélectionner le nombre des n variables à afficher dans le plot de l'importance des variables.
 
     - Valeur par défaut : 10
-    """
+    - Valeur minimal : 2
+    - Valeur maximal : 30
+    ---------
+    `Parameters`
+    --------- ::
+    
+    `Returns`
+    --------- ::
+
+        int | float
+
+    `Example(s)`
+    ---------
+    >>> n_variable_selector()
+    ... 10"""
     min_vars = 2
     max_vars = 30
     default_vars = 10
