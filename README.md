@@ -122,7 +122,6 @@ B-->F;
 C-->F;
 D-->F;
 E-->F;
-```
 
 style A stroke:#adbac7,stroke-width:3px, fill:#222222;
 style B stroke:#adbac7,stroke-width:3px, fill:#222222;
@@ -130,6 +129,7 @@ style C stroke:#adbac7,stroke-width:3px, fill:#222222;
 style D stroke:#adbac7,stroke-width:3px, fill:#222222;
 style E stroke:#adbac7,stroke-width:3px, fill:#222222;
 style F stroke:#fff100,stroke-width:3px, fill:#222222;
+```
 
 ## Installation
 
