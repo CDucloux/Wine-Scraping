@@ -100,28 +100,12 @@ Les **21 variables explicatives** sont les suivantes :
 *Voici un schéma du processus d'ingestion :*
 
 ```mermaid
-  graph LR;
-      A("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50"> pred_classification");
-      B("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">pred_regression");
-      C("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">result_ml_classification");
-      D("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">result_ml_regression");
-      E("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/file-csv.svg" width="50" height="50">importance");
-      F[("<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/database.svg" width="50" height="50">In Memory DB")];
-
-      A-->F;
-      B-->F;
-      C-->F;
-      D-->F;
-      E-->F;
-```
-
-```mermaid
 graph LR;
-A-->F;
-B-->F;
-C-->F;
-D-->F;
-E-->F;
+A("🕸 pred_classification")-->F;
+B("pred_regression")-->F;
+C("result_ml_regression")-->F;
+D("result_ml_classification")-->F;
+E("importance")-->F("In Memory Database");
 
 style A stroke:#adbac7,stroke-width:3px, fill:#222222;
 style B stroke:#adbac7,stroke-width:3px, fill:#222222;
@@ -289,7 +273,7 @@ Ensuite, il peut choisir entre la prédiction du prix ou bien la classification 
 
 Pour la prédiction du prix, pour que la prédiction soit considérée comme *"acceptable"*, il faut que le prix prédit soit compris entre :
 
-$$0.8 \times unit\\_price_{\text{true}} < unit\\_price_{\text{true}} < 1.2 \times unit\\_price_{\text{true}}$$
+$$0.8 \times unit\_price_{\text{true}} < unit\_price_{\text{true}} < 1.2 \times unit\_price_{\text{true}}$$
 
 - C'est à dire entre 80 et 120% du prix réel.
 
