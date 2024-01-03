@@ -14,7 +14,9 @@ from sklearn.svm import SVR, SVC  # type: ignore
 from sklearn.impute import SimpleImputer  # type: ignore
 from sklearn.pipeline import Pipeline  # type: ignore
 from sklearn.preprocessing import MinMaxScaler  # type: ignore
+
 from src.modules.ml_models.models import *
+
 from sklearn.model_selection import train_test_split  # type: ignore
 from sklearn.metrics import mean_absolute_error, accuracy_score  # type: ignore
 

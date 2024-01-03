@@ -76,10 +76,7 @@ def prep_str(df: pl.DataFrame, categorical_cols: list) -> pd.DataFrame:
         pd.DataFrame
 
     `Example(s)`
-    ---------
-
-    >>> prep_str()
-    ... #_test_return_"""
+    ---------"""
     df_pd = df.to_pandas()
     encoder = OneHotEncoder()
 
@@ -196,8 +193,17 @@ def model_knn(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearc
     `Example(s)`
     ---------
 
-    >>> model_knn()
-    ... #_test_return_"""
+    >>> model_knn(x_train=X_train, y_train=y_train, mode = "classification")
+    ... Entrainement du modèle : K Neighbors
+    ... GridSearchCV(estimator=Pipeline(steps=[('imputation', SimpleImputer()),
+    ...                                ('echelle', MinMaxScaler()),
+    ...                                ('entrainement',
+    ...                                 KNeighborsClassifier())]),
+    ...      n_jobs=-1,
+    ...      param_grid={'entrainement__n_neighbors': range(2, 15),
+    ...                  'imputation__strategy': ['mean', 'median',
+    ...                                           'most_frequent']},
+    ...      return_train_score=True)"""
     if mode == "regression":
         model = Pipeline(
             [
@@ -257,9 +263,20 @@ def model_boost(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSea
 
     `Example(s)`
     ---------
-
-    >>> model_boost()
-    ... #_test_return_"""
+    
+    >>> model_boost(x_train=X_train, y_train=y_train, mode = "classification")
+    ... Entrainement du modèle : Boosting
+    ... GridSearchCV(estimator=Pipeline(steps=[('imputation', SimpleImputer()),
+    ...                                    ('echelle', MinMaxScaler()),
+    ...                                    ('entrainement',
+    ...                                     GradientBoostingClassifier())]),
+    ...          n_jobs=-1,
+    ...          param_grid={'entrainement__learning_rate': (0.005, 0.01, 0.1, 0.5),
+    ...                      'entrainement__n_estimators': (50, 100, 150, 200, 400),
+    ...                      'imputation__strategy': ['mean', 'median',
+    ...                                               'most_frequent']},
+    ...          return_train_score=True)
+    """
     if mode == "regression":
         model = Pipeline(
             [
@@ -322,8 +339,19 @@ def model_mlp(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearc
     `Example(s)`
     ---------
 
-    >>> model_mlp()
-    ... #_test_return_"""
+    >>> model_mlp(x_train=X_train, y_train=y_train, mode = "classification")
+    ... Entrainement du modèle : Réseaux de neurones
+    ... GridSearchCV(estimator=Pipeline(steps=[('imputation', SimpleImputer()),
+    ...                                    ('echelle', MinMaxScaler()),
+    ...                                    ('entrainement', MLPClassifier())]),
+    ...          n_jobs=-1,
+    ...          param_grid={'entrainement__hidden_layer_sizes': [(100,), (50, 50),
+    ...                                                           (60, 60)],
+    ...                      'entrainement__max_iter': [1000],
+    ...                      'entrainement__solver': ['adam'],
+    ...                      'imputation__strategy': ['mean', 'median',
+    ...                                               'most_frequent']},
+    ...          return_train_score=True)"""
     if mode == "regression":
         model = Pipeline(
             [
@@ -387,8 +415,18 @@ def model_ridge(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSea
     `Example(s)`
     ---------
 
-    >>> model_ridge()
-    ... #_test_return_"""
+    >>> model_ridge(x_train=X_train, y_train=y_train, mode = "classification")
+    ... Entrainement du modèle : Ridge
+    ... GridSearchCV(estimator=Pipeline(steps=[('imputation', SimpleImputer()),
+    ...                                    ('echelle', MinMaxScaler()),
+    ...                                    ('entrainement', RidgeClassifier())]),
+    ...          n_jobs=-1,
+    ...          param_grid={'entrainement__alpha': [0.015625, 0.03125, 0.0625,
+    ...                                              0.125, 0.25, 0.5, 1, 2, 4, 8,
+    ...                                              16, 32, 64],
+    ...                      'imputation__strategy': ['mean', 'median',
+    ...                                               'most_frequent']},
+    ...          return_train_score=True)"""
     if mode == "regression":
         model = Pipeline(
             [
@@ -449,8 +487,19 @@ def model_svm(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearc
     `Example(s)`
     ---------
 
-    >>> model_svm()
-    ... #_test_return_"""
+    >>> model_svm(x_train=X_train, y_train=y_train, mode = "classification")
+    ... Entrainement du modèle : Support Vector
+    ... GridSearchCV(estimator=Pipeline(steps=[('imputation', SimpleImputer()),
+    ...                                    ('echelle', MinMaxScaler()),
+    ...                                    ('entrainement', SVC())]),
+    ...          n_jobs=-1,
+    ...          param_grid={'entrainement__C': array([6.25000000e-02, 1.68237524e-01, 4.52861832e-01, 1.21901365e+00,
+    ...    3.28134142e+00, 8.83271611e+00, 2.37759086e+01, 6.40000000e+01,
+    ...    1.72275225e+02, 4.63730516e+02, 1.24826998e+03, 3.36009362e+03,
+    ...    9.04470130e+03, 2.43465304e+04, 6.55360000e+04]),
+    ...                      'imputation__strategy': ['mean', 'median',
+    ...                                               'most_frequent']},
+    ...          return_train_score=True)"""
     if mode == "regression":
         model = Pipeline(
             [
@@ -504,8 +553,22 @@ def train_model(
     `Example(s)`
     ---------
 
-    >>> train_model()
-    ... #_test_return_"""
+    >>> train_model(x_train=X_train, y_train=y_train, mode = "classification")
+    ... Entrainement du modèle : K Neighbors
+    ... Entrainement du modèle : Random Forest
+    ... Entrainement du modèle : Boosting
+    ... Entrainement du modèle : Ridge
+    ... Entrainement du modèle : Support Vector
+    ... Entrainement du modèle : Réseaux de neurones
+    ... {'model_knn': GridSearchCV(estimator=Pipeline(steps=[('imputation', SimpleImputer()),
+    ...                                     ('echelle', MinMaxScaler()),
+    ...                                     ('entrainement',
+    ...                                      KNeighborsClassifier())]),
+    ...           n_jobs=-1,
+    ...           param_grid={'entrainement__n_neighbors': range(2, 15),
+    ...                       'imputation__strategy': ['mean', 'median',
+    ...                                                'most_frequent']},
+    ... 'model_rf' : ...}"""
     return {
         "model_knn": model_knn(x_train, y_train, mode),
         "model_rf": model_rf(x_train, y_train, mode),
@@ -517,30 +580,119 @@ def train_model(
 
 
 def score_test(model: GridSearchCV) -> np.float64:
-    """Retourne le score de test du meilleur modèle."""
+    """`score_test`: Retourne le score de test du meilleur modèle.
+    Note : le meilleur modèle est celui ayant le score de test minimal
+    ---------
+    `Parameters`
+    --------- ::
+
+        model (GridSearchCV): # Modèle
+
+    `Returns`
+    --------- ::
+
+        np.float64
+
+    `Example(s)`
+    ---------
+
+    >>> score_test(model["model_rf"])
+    ... 0.69"""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return round(model.cv_results_["mean_test_score"][indice_meilleur], 3)
 
 
 def score_entrainement(model: GridSearchCV) -> np.float64:
-    """Retourne le score d'entrainement du meilleur modèle."""
+    """`score_entrainement`: Retourne le score d'entrainement du meilleur modèle.
+    Note : le meilleur modèle est celui ayant le score de test minimal
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        model (GridSearchCV): # Modèle
+
+    `Returns`
+    --------- ::
+
+        np.float64
+
+    `Example(s)`
+    ---------
+
+    >>> score_entrainement(model["model_rf"])
+    ... 0.69"""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return round(model.cv_results_["mean_train_score"][indice_meilleur], 3)
 
 
 def ecart_type_test(model: GridSearchCV) -> np.float64:
-    """Retourne l'ecart-type du meilleur modèle."""
+    """`ecart_type_test`: Retourne l'ecart-type de test du meilleur modèle.
+    Note : le meilleur modèle est celui ayant le score de test minimal
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        model (GridSearchCV): # Modèle
+
+    `Returns`
+    --------- ::
+
+        np.float64
+
+    `Example(s)`
+    ---------
+
+    >>> ecart_type_test(model["model_rf"])
+    ... 0.007"""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return round(model.cv_results_["std_test_score"][indice_meilleur], 3)
 
 
 def ecart_type_train(model: GridSearchCV) -> np.float64:
-    """Retourne l'ecart-type du meilleur modèle."""
+    """`ecart_type_train`: Retourne l'ecart-type d'entrainement du meilleur modèle.
+    Note : le meilleur modèle est celui ayant le score de test minimal
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        model (GridSearchCV): # Modèle
+
+    `Returns`
+    --------- ::
+
+        np.float64
+
+    `Example(s)`
+    ---------
+
+    >>> ecart_type_train(model["model_rf"])
+    ... 0.007"""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return round(model.cv_results_["std_train_score"][indice_meilleur], 3)
 
 
 def parametre(model: GridSearchCV) -> str:
-    """Retourne les paramètres du meilleur modèle."""
+    """`parametre`: Retourne les paramètres du meilleur modèle.
+    Note : le meilleur modèle est celui ayant le score de test minimal
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        model (GridSearchCV): # Modèle
+
+    `Returns`
+    --------- ::
+
+        str
+
+    `Example(s)`
+    ---------
+
+    >>> parametre(model["model_rf"])
+    ... '{'entrainement__max_depth': 9, 'entrainement__n_estimators': 30, 'imputation__strategy': 'median'}'"""
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return str(model.cv_results_["params"][indice_meilleur])

@@ -10,23 +10,57 @@ A metamorphosis from text to soup,
 From tangled web to structured code, in truth.
 """
 
-# TODO: expliciter plus ce module.
 # mypy-backlog : 1 erreur liée à l'import de la dataclass, ignore l'erreur f/now
 
 from bs4 import BeautifulSoup as BS, Tag
 from serde.json import to_json
 from vin_dataclass import Vin  # type: ignore
 from pathlib import Path
-
+import requests as rq
 
 def _soupifier(page: str) -> BS:
-    """Soupifie la page web."""
+    """`_soupifier`: Soupifie la page web.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        page (str): # Page HTML 
+
+    `Returns`
+    --------- ::
+
+        BS (BeautifulSoup)
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> _soupifier(page.text)
+    ... <!DOCTYPE HTML> {CONTENU DE LA PAGE} </html>"""
     soup = BS(page, "html.parser")
     return soup
 
 
 def _scrap_name(soup: BS) -> str | None:
-    """Recupère le nom du vin."""
+    """`_scrap_name`: Recupère le nom du vin.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        soup (BS): 
+
+    `Returns`
+    --------- ::
+
+        str 
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> soupe = _soupifier(page.text)
+    >>> _scrap_name(soupe)
+    ... 'CHINON LES PICASSES 2017 - DOMAINE OLGA RAFFAULT'"""
     name = soup.find("h1", id="produit-titre")
 
     if isinstance(name, Tag):
@@ -36,7 +70,25 @@ def _scrap_name(soup: BS) -> str | None:
 
 
 def _scrap_capacity(soup: BS) -> str | None:
-    """Recupère la capacité de la bouteille."""
+    """`_scrap_capacity`: Recupère la capacité de la bouteille.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        soup (BS): 
+
+    `Returns`
+    --------- ::
+
+        str | None
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> soupe = _soupifier(page.text)
+    >>> _scrap_capacity(soupe)
+    ... '0,75 L'"""
     class_attrs = [
         "contenance-v2 inline-block",
         "btn-sm bg-transparent color-gray border border-gray no-pointer inline-block",
@@ -55,7 +107,25 @@ def _scrap_capacity(soup: BS) -> str | None:
 
 
 def _scrap_price(soup: BS) -> str | None:
-    """Récupère le prix de la bouteille à l'unité + les promos si il y en a."""
+    """`_scrap_price`: Récupère le prix de la bouteille à l'unité et les promos si il y en a.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        soup (BS): 
+
+    `Returns`
+    --------- ::
+
+        str | None
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> soupe = _soupifier(page.text)
+    >>> _scrap_price(soupe)
+    ... '15,00 €'"""
     price = soup.find("span", id="our_price_display")
 
     if isinstance(price, Tag):
@@ -65,7 +135,25 @@ def _scrap_price(soup: BS) -> str | None:
 
 
 def _scrap_price_bundle(soup: BS) -> str | None:
-    """Récupère le prix des bouteilles par achat groupé."""
+    """`_scrap_price_bundle`: Récupère le prix des bouteilles par achat groupé.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        soup (BS): 
+
+    `Returns`
+    --------- ::
+
+        str | None
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> soupe = _soupifier(page.text)
+    >>> _scrap_price(soupe)
+    ... null"""
     price_bundle_matches = soup.find(
         name="span", attrs={"id": "quantity_discount_pretaxe"}
     )
@@ -84,7 +172,25 @@ def _scrap_price_bundle(soup: BS) -> str | None:
 
 
 def _scrap_characteristics(soup: BS) -> str | None:
-    """Recupère les caractéristiques principales du vin."""
+    """`_scrap_characteristics`: Recupère les caractéristiques principales du vin.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        soup (BS):
+
+    `Returns`
+    --------- ::
+
+        str | None
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> soupe = _soupifier(page.text)
+    >>> _scrap_characteristics(soupe)
+    ... 'Vin Rouge / Loire / Chinon AOC / 12,5 % vol / 100% Cabernet-franc'"""
     characteristics = soup.find(name="span", attrs={"class": "no-padding-horizontal"})
 
     if isinstance(characteristics, Tag):
@@ -94,7 +200,25 @@ def _scrap_characteristics(soup: BS) -> str | None:
 
 
 def _scrap_notes(soup: BS) -> str | None:
-    """Recupère la note et le nombre d'avis."""
+    """`_scrap_notes`: Recupère la note et le nombre d'avis.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        soup (BS): 
+
+    `Returns`
+    --------- ::
+
+        str | None
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> soupe = _soupifier(page.text)
+    >>> _scrap_notes(soupe)
+    ... null"""
     notes = soup.find(name="div", attrs={"class": "col-xs-12 padding-bottom-10"})
 
     if isinstance(notes, Tag):
@@ -105,7 +229,29 @@ def _scrap_notes(soup: BS) -> str | None:
 
 
 def _scrap_keywords(soup: BS) -> list[str]:
-    """Recupère les mots important mis en avant sur la page du produit."""
+    """`_scrap_keywords`: Recupère les mots importants mis en avant sur la page du produit.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        soup (BS): 
+
+    `Returns`
+    --------- ::
+
+        str | None
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> soupe = _soupifier(page.text)
+    >>> _scrap_keywords(soupe)
+    ... [
+    ...     "Dense",
+    ...     "Souple",
+    ...     "Griotte"
+    ... ]"""
     kwd_class = "margin-right margin-bottom bg-gray-dark taille-md padding-horizontal-30 padding-vertical-5 rounded-corner-3 label"
     matches = soup.find_all(name="span", attrs={"class": kwd_class})
     keywords = [keyword.text for keyword in matches]
@@ -113,7 +259,25 @@ def _scrap_keywords(soup: BS) -> list[str]:
 
 
 def _scrap_other(soup: BS) -> str | None:
-    """Récupère d'autres attributs : bio, nouveauté, vigneron indépendant, etc."""
+    """`_scrap_other`: Récupère d'autres attributs : bio, nouveauté, vigneron indépendant, etc.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        soup (BS): 
+
+    `Returns`
+    --------- ::
+
+        str | None
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> soupe = _soupifier(page.text)
+    >>> _scrap_other(soupe)
+    ... 'Bio'"""
     matches = soup.find_all(
         "div",
         attrs={"class": "margin-top-3 display-inline"},
@@ -126,7 +290,25 @@ def _scrap_other(soup: BS) -> str | None:
 
 
 def _scrap_img(soup: BS) -> str | list[str] | None:
-    """Récupère le lien de l'image de la bouteille"""
+    """`_scrap_img`: Récupère le lien de l'image de la bouteille
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        soup (BS): 
+
+    `Returns`
+    --------- ::
+
+        str | list[str] | None
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> soupe = _soupifier(page.text)
+    >>> _scrap_img(soupe)
+    ... 'https://www.vinatis.com/75407-detail_default/chinon-les-picasses-2017-domaine-olga-raffault.png'"""
     picture = soup.find(
         name="img", attrs={"class": "img-full-width img-max-450 center-block"}
     )
@@ -137,7 +319,38 @@ def _scrap_img(soup: BS) -> str | list[str] | None:
 
 
 def _scrap_details(soup: BS) -> dict[str, str]:
-    """Crée un dictionnaire clé-valeur pour extraire des caractéristiques complémentaires."""
+    """`_scrap_details`: Crée un dictionnaire clé-valeur pour extraire des caractéristiques complémentaires.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        soup (BS): 
+
+    `Returns`
+    --------- ::
+
+        dict[str, str]
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> soupe = _soupifier(page.text)
+    >>> _scrap_details(soupe)
+    ... {'Millésime': '2017',
+    ... 'Cépage': '100% Cabernet-franc',
+    ... 'Bio': 'Certifié Agriculture Biologique, Certifié Eurofeuille',
+    ... 'Goûts': 'Rouge Charnu et fruité',
+    ... 'Par Goûts': 'Puissant',
+    ... "A l'oeil": 'Robe rouge soutenue',
+    ... 'Au nez': 'Arômes de fruits rouges mûrs.',
+    ... 'En bouche': 'Bouche structurée, fruitée et aromatique',
+    ... 'Température de service': '16-18°C',
+    ... 'Service': 'Ouvrir 1h avant le service',
+    ... 'Conservation': 'A boire et à garder',
+    ... "Jusqu'à": '2030',
+    ... 'Accords mets-vin': 'Charcuterie, Viande rouge, Viande blanche, Barbecue',
+    ... 'Accords recommandés': 'Viandes goûteuses telles l’agneau ou le bœuf cuisiné. Parfait avec les petits gibiers.'}"""
     key_class = "table-cell-css vertical-align-top padding-vertical-5 nowrap padding-right-10 taille-xs color-gray-darker"
     value_class = "table-cell-css vertical-align-top padding-vertical-5 taille-xs color-gray-darker text-bold"
     keys = soup.find_all("div", attrs={"class": key_class})
@@ -149,7 +362,27 @@ def _scrap_details(soup: BS) -> dict[str, str]:
 
 
 def _get_value(dict_details: dict, key: str) -> str | None:
-    """Récupère dans le dictionnaire de détails la valeur associée à une clé existante."""
+    """`_get_value`: Récupère dans le dictionnaire de détails la valeur associée à une clé existante.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        dict_details: dict
+        key: str
+
+    `Returns`
+    --------- ::
+
+        str | None
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> soupe = _soupifier(page.text)
+    >>> dictionnaire = _scrap_details(soupe)
+    >>> _get_value(dictionnaire, "Cépage")
+    ... '100% Cabernet-franc'"""
     try:
         value = dict_details[key]
     except KeyError:
@@ -158,7 +391,52 @@ def _get_value(dict_details: dict, key: str) -> str | None:
 
 
 def scraping(page: str) -> Vin:
-    """Agrégateur de tous les fonctions de scraping"""
+    """`scraping`: Agrégateur de tous les fonctions de scraping.
+    Le tout est transformé en la data classe Vin
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        page : str
+
+    `Returns`
+    --------- ::
+
+        Vin
+
+    `Example(s)`
+    --------- ::
+    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> scraping(page)
+    ... {
+    ... "name": "CHINON LES PICASSES 2017 - DOMAINE OLGA RAFFAULT",
+    ... "capacity": "0,75 L",
+    ... "price": "15,00 €",
+    ... "price_bundle": null,
+    ... "characteristics": "Vin Rouge / Loire / Chinon AOC / 12,5 % vol / 100% Cabernet-franc",
+    ... "note": null,
+    ... "keywords": [
+    ...     "Dense",
+    ...     "Souple",
+    ...     "Griotte"
+    ... ],
+    ... "others": "Bio",
+    ... "picture": "https://www.vinatis.com/75407-detail_default/chinon-les-picasses-2017-domaine-olga-raffault.png",
+    ... "classification": null,
+    ... "millesime": "2017",
+    ... "cepage": "100% Cabernet-franc",
+    ... "gouts": "Rouge Charnu et fruité",
+    ... "par_gouts": "Puissant",
+    ... "oeil": "Robe rouge soutenue",
+    ... "nez": "Arômes de fruits rouges mûrs.",
+    ... "bouche": "Bouche structurée, fruitée et aromatique",
+    ... "temperature": "16-18°C",
+    ... "service": "Ouvrir 1h avant le service",
+    ... "conservation_1": "2030",
+    ... "conservation_2": "A boire et à garder",
+    ... "accords_vins": "Charcuterie, Viande rouge, Viande blanche, Barbecue",
+    ... "accords_reco": "Viandes goûteuses telles l’agneau ou le bœuf cuisiné. Parfait avec les petits gibiers."}"""
     soup = _soupifier(page)
     dict_details = _scrap_details(soup)
 
@@ -192,16 +470,40 @@ def scraping(page: str) -> Vin:
 
 
 def create_json(all_pages: list[str]) -> None:
-    """Crée un fichier semi-structuré JSON."""
+    """`create_json`: Crée un fichier semi-structuré JSON à partir d'une liste contenant les liens des vins à scraper.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        all_pages : list[str]
+
+    `Returns`
+    --------- ::
+
+        None
+
+    `Example(s)`
+    --------- ::
+    >>> create_json(all_pages)
+    ... Lien n° 1 / 3 scrapé.
+    ... Lien n° 2 / 3 scrapé.
+    ... Lien n° 3 / 3 scrapé.
+    ... "Export en JSON réalisé avec succès dans nom_du_fichier !" """
     root = Path(".").resolve()
     data_folder = root / "data"
 
     vins = list()
+    nb_vins = len(all_pages)
+    etape = 1
     for page in all_pages:
-        vins.append(scraping(page))
+        requete = rq.get(page)
+        vins.append(scraping(requete.text))
+        print(f"Lien n° {etape} / {nb_vins} scrapé.")
+        etape = etape + 1
 
     vins_json = to_json(vins)
-    file_path = data_folder / "vins.json"
+    file_path = data_folder / "vins2.json"
 
     with open(file_path, "w", encoding="utf-8") as json_file:
         json_file.write(vins_json)
