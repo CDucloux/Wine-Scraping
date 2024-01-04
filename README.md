@@ -25,7 +25,9 @@
     - [Onglet 3 : Charts](#onglet-3--charts)
     - [Onglet 4 : Provenance](#onglet-4--provenance)
     - [Onglet 5 : Machine Learning](#onglet-5--machine-learning)
-  - [TODO](#todo)
+  - [Auteurs](#auteurs)
+  - [Licence](#licence)
+  - [TODO à retirer plus tard](#todo-à-retirer-plus-tard)
 
 
 ## Description 
@@ -34,7 +36,7 @@ L'objectif de ce projet est de récupérer des données sur un site web, les sto
 
 **En ce sens, ce projet présente plusieurs étapes** :
 
-1. Scraping des données avec `bs4` ♨
+1. Scraping des données avec `requests` et  `bs4` ♨
 2. Restructuration des données avec `polars` 🐻
 3. Création de pipelines de *Machine Learning* avec `sklearn` 🤖
 4. Alimentation d'une base de données contenant les prédictions des modèles avec `duckdb` 💾
@@ -51,11 +53,30 @@ L'objectif de ce projet est de récupérer des données sur un site web, les sto
 
 ## Scraping
 
-parler du script pour effectuer le scraping
+**TODO : Ameliorer cette partie** + parler du script pour effectuer le scraping
+
+`scraping_functions.py` $\Rightarrow$ Le coeur du scraper
+
+1. Construit des URL avec *query parameters* en utilisant le package `yarl`.
+
+```python
+URL_INIT = URL.build(scheme="https", host="vinatis.com")
+WHITE = "achat-vin-blanc"
+RED = "achat-vin-rouge"
+ROSE = "achat-vin-rose"
+
+>>> URL_INIT / WHITE % {"page": 1, "tri": 7}
+... URL('https://vinatis.com/achat-vin-blanc?page=1&tri=7')
+```
+
+2. `create_session` crée une session HTML avec un User-Agent et un Proxy aléatoire, pouvant changer entre les requêtes.
+3. Possède un décorateur `@random_waiter(min, max)` permettant de générer un temps d'attente aléatoire entre les deux bornes spécifiées entre chaque requête **GET** pour éviter d'envoyer trop de requêtes dans un laps de temps réduit.
+4. `create_all_wine_urls` permet de créer l'ensemble des liens **href**.
+5. `export_wine_links` permet d'exporter ces liens dans un fichier CSV.
 
 ## Machine Learning
 
-La procédure de Machine Learning est la suivante :
+La procédure de Machine Learning se déroule en plusieurs étapes :
 
 1. Il y a deux variables à prédire : *unit_price* & *type*
 2. Nous utiliserons 6 modèles de **Machine Learning**
@@ -93,7 +114,7 @@ Les **21 variables explicatives** sont les suivantes :
 
 ## Résultats du Machine Learning
 
-5 tables de résultats de Machine Learning sont obtenues grâce au lancement des scripts d'export. Mais plutôt que d'utiliser chaque csv indépendamment ou de tenter de concaténer les résultats, nous avons préféré utiliser une base de données.
+5 tables de résultats de Machine Learning sont obtenues grâce à l'éxéuction de `ml_trigger` qui se charge d'éxécuter l'ensemble des scripts d'export.Mais plutôt que d'utiliser chaque csv indépendamment ou de tenter de concaténer les résultats, nous avons préféré utiliser une base de données.
 
 `duckdb` est une base de données particulière en ce sens qu'elle n'est pas *Client-Server*, mais *in-memory*. Cela permet d’obtenir des temps de réponse minimaux en éliminant le besoin d'accéder à des unités de disque standard (SSD). Une base de données *in-memory* est donc idéale pour une application effectuant de l’analyse de données en temps réel.
 
@@ -114,6 +135,14 @@ style D stroke:#adbac7,stroke-width:3px, fill:#222222;
 style E stroke:#adbac7,stroke-width:3px, fill:#222222;
 style F stroke:#fff100,stroke-width:3px, fill:#222222;
 ```
+
+Voici comment lancer la *trigger* une fois dans l'environnement virtuel du projet (pas nécessaire pour faire fonctionner l'application car les tables existent déjà): 
+
+```powershell
+python -m "src.modules.ml_trigger"
+```
+
+*Attention, le temps d'éxécution moyen peut considérablement varier selon la machine utilisée !*
 
 ## Installation
 
@@ -273,7 +302,7 @@ Ensuite, il peut choisir entre la prédiction du prix ou bien la classification 
 
 Pour la prédiction du prix, pour que la prédiction soit considérée comme *"acceptable"*, il faut que le prix prédit soit compris entre :
 
-$$\boxed{0.8 \times unit\textunderscore price_{\text{true}} < unit\textunderscore price_{\text{true}} < 1.2 \times unit\textunderscore price_{\text{true}}}$$
+$$0.8 \times unit\textunderscore price_{\text{true}} < unit\textunderscore price_{\text{true}} < 1.2 \times unit\textunderscore price_{\text{true}}$$
 
 - C'est à dire entre 80 et 120% du prix réel.
 
@@ -288,9 +317,6 @@ $$\boxed{0.8 \times unit\textunderscore price_{\text{true}} < unit\textunderscor
 ## TODO à retirer plus tard
 
 - [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage + doctest pour les tests dans les docstrings.
-- [ ] Faire `Docker`
-
-> Plan :
 
 - **Scraping**
     - `scraping_functions` $\Rightarrow$ module finalisé
@@ -299,26 +325,14 @@ $$\boxed{0.8 \times unit\textunderscore price_{\text{true}} < unit\textunderscor
 - **Soup & JSON**
     - `mystical_soup` $\Rightarrow$ module finalisé (Transforme en les résultats trouvés dans les pages html à l'aide de *BeautifulSoup*)
 
-- **Polars & Restructuration tabulaire**
-    - `bear_cleaner` $\Rightarrow$ module finalisé (Transfomr le json brurt en format tabulaire exploitable)
 
 - **Machine Learning**
     - `models` $\Rightarrow$ module finalisé (Prépare les modèles)
     - `prediction` $\Rightarrow$ module finalisé (Applique les modèles et fait les prédictions)
 
-- **Base de données** : Alimentation d'une DB in memory suite au cleaning avec polars
-
-- **Application** : Création d'une appli avec Dash ou Streamlit
-
-- **Phase de tests unitaires, check MYPY, environnements virtuels, poetry, re-documentation & éventuellement Docker**
+- **Phase de tests unitaires, éventuellement Docker**
 
 - [ ] Voir tests unitaires dans des docstrings $\Rightarrow$ `doctest`
 
 
 ***
-
-Pour lancer un script sans avoir l'erreur **src : Module not Found** :
-
-```powershell
-py -m src.modules.ml_models.models
-```

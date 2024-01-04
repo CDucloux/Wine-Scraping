@@ -27,6 +27,7 @@ from enum import Enum
 
 warnings.filterwarnings("ignore")
 
+
 class targets(Enum):
     """Enumération modélisant les 2 variables à prédire possibles."""
 
@@ -603,20 +604,20 @@ def performance(target: str) -> list:
     return erreur_test
 
 
-def stockage_result_csv(model, mode: str):
+def stockage_result_csv(model, mode: str) -> None:
     """`stockage_result_csv`: créer un CSV avec les scores, écarts-types et performances des modèles
 
     ---------
     `Parameters`
     --------- ::
 
-        model: modèles entrainer (par exemple avec `train_model`)
-        mode (str): Type de prédication : régression ou classification
+        model: #modèles entrainés (par exemple avec `train_model`)
+        mode (str): #Type de prédication : régression ou classification
 
     `Returns`
     --------- ::
 
-        "Succès": csv créée
+        None : # le csv a bien été créé et un message l'indique
 
     `Example(s)`
     ---------
@@ -690,4 +691,4 @@ def stockage_result_csv(model, mode: str):
     }
     ml = pl.DataFrame(ml)
     ml.write_csv(f"./data/tables/result_ml_{mode}.csv", separator=",")
-    return print("Succès")
+    return print(f"Succès : table result_ml_{mode} exportée dans le dossier data.")

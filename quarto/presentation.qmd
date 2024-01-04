@@ -304,6 +304,8 @@ def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearch
 
 ## 🚢 Modulaire !{.smaller}
 
+🛑 TODO: Modifier la structure
+
 Séparation des composants du projet :
 
 ```
@@ -315,6 +317,7 @@ Séparation des composants du projet :
 │       ├───💾pred_regression.csv
 │       ├───💾result_ml_classification.csv
 │       └───💾result_ml_regression.csv
+│       └───💾importance.csv
 ├───src
 │   └───📦modules
 │       ├───⚙app

@@ -33,3 +33,4 @@ for EXPLIQUEE in ("type", "unit_price"):
         df = pl.concat([df, temporaire])
 
 df.write_csv("./data/tables/importance.csv", separator=",")
+print(f"Succès : table importance exportée dans le dossier data.")

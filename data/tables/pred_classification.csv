@@ -1,6 +1,6 @@
 name,type,random_forest,boosting,ridge,knn,mlp,support_vector
 LES CARLINES 2021 - MAS HAUT BUIS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-LA BARGEMONE ROSE 2022 - COMMANDERIE DE LA BARGEMONE,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+LA BARGEMONE ROSE 2022 - COMMANDERIE DE LA BARGEMONE,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 TEMPRANILLO 2021- VEGA DEMARA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHÂTEAU BELLE COLINE 2016,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -33,7 +33,7 @@ SAINT-JOSEPH - LA SOURCE 2021 - FERRATON PÈRE & FILS,Vin Rouge,Vin Rouge,Vin Ro
 ALARIC 2017 - CHATEAU LA BARONNE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CÔTES DU JURA - LA CÔTE 39 - DOMAINE MARCEL CABELIER,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CHATEAUNEUF-DU-PAPE - BARBE RAC 2020 - LES PARCELLAIRES MICHEL CHAPOUTIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-CLOS DE L'OURS - L'ACCENT ROSE 2022,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rosé
+CLOS DE L'OURS - L'ACCENT ROSE 2022,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rosé
 GIGONDAS - LES SECRETS DE MONTMIRAIL 2019 - DOMAINE BRUSSET,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 A VUE DE NEZ 2021 - SANS SOUFRE - BY JEFF CARREL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 ULTREIA LA CLAUDINA 2021 - RAUL PEREZ (BODEGAS Y VINEDOS),Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
@@ -53,7 +53,7 @@ STERN SAUVIGNON BLANCO 2022 - KALTERN,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vi
 CHATEAU HAUT SELVE 2018,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 BOURGOGNE PINOT NOIR 2021 - LOUIS LATOUR,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 COSTIERES DE NIMES BIO 2020 - PIERRE VIDAL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-VOUVRAY SEC 2019 - CLOS NAUDIN,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+VOUVRAY SEC 2019 - CLOS NAUDIN,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 RASTEAU PRESTIGE TALISMAN 2018 - ROMAIN DUVERNAY,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 DOURO BRANCO 2021 - LAVRADORES DE FEITORIA,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 SAUVIGNON BLANC 2022 - YARDEN GOLAN HEIGHTS WINERY,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
@@ -64,13 +64,13 @@ CROZES-HERMITAGE - NOBLES RIVES 2020 - CAVE DE TAIN,Vin Rouge,Vin Rouge,Vin Roug
 GEWURZTRAMINER RESERVE PARTICULIERE 2022 - HENRI EHRHART,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 MAGNUM CLOS VOUGEOT GRAND CRU 2013 - LOUIS JADOT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 MERCUREY BLANC 2020 - CHATEAU DE CHAMIREY,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
-UP ROSE 2022 - ULTIMATE PROVENCE,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+UP ROSE 2022 - ULTIMATE PROVENCE,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 MONTHELIE 2019 - BOUCHARD PERE ET FILS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 TORUS 2018 - ALAIN BRUMONT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 ESCUDO ROJO CHARDONNAY RESERVA 2020 - BARON PHILIPPE DE ROTHSCHILD,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 TOURAINE BLANC LA JAVA 2022 - DOMAINE DES GRANDES ESPERANCES,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 6 BOUTEILLES MIRAVAL ROSE 2022 ACHETÉES = 1 SEAU MIRAVAL OFFERT,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
-SAINT PERAY 2021 - DOMAINE DURAND ERIC & JOËL,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+SAINT PERAY 2021 - DOMAINE DURAND ERIC & JOËL,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 LE SEUIL DE MAZEYRES 2021 - SECOND VIN DU CHATEAU MAZEYRES,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHIGNIN BERGERON CUVEE GASTRONOMIE 2021 - DOMAINE JEAN PERRIER & FILS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 FREESTYLE - FIGURE LIBRE - 2021 - DOMAINE GAYDA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -81,7 +81,7 @@ FLEURIE - LES CLOCHERS 2020 - VIGNERONS DE BEL AIR,Vin Rouge,Vin Rouge,Vin Rouge
 ESCUDO ROJO ORIGINE 2019 - BARON PHILIPPE DE ROTHSCHILD,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHATEAUNEUF DU PAPE - L'AVENUE 2017 - CHÂTEAU DE VAUDIEU,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 TRADITION 2019 - DOMAINE SERGENT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-VIEILLES VIGNES BLANC 2022 - DOMAINE DU CLOS DES FEES,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+VIEILLES VIGNES BLANC 2022 - DOMAINE DU CLOS DES FEES,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 MUSAR JEUNE 2020 - CHÂTEAU MUSAR,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 GRANDE CUVÉE 2020 - LA CHAPELLE SAINT MATHIEU,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 SHEEP SAUVIGNON BLANC 2022 - TUSSOCK JUMPER,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
@@ -98,7 +98,7 @@ SAINT JOSEPH BLANC - ORGANZA 2021 - ROMAIN DUVERNAY,Vin Blanc,Vin Blanc,Vin Blan
 PINOT NOIR SANTA BARBARA 2020 - AU BON CLIMAT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 PINOT BLANC 2019 - LES PRINCES ABBES - DOMAINE SCHLUMBERGER,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 COTES DU RHONE - SAINTE CECILE BIO 2021 - LES JARLOTIERS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-MAISON SAINTE MARGUERITE - MAGNUM - SYMPHONIE ROSE 2022,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+MAISON SAINTE MARGUERITE - MAGNUM - SYMPHONIE ROSE 2022,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 DEMI-BOUTEILLE - CHATEAU D'ARCINS 2019 - CRU BOURGEOIS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 MORGON LA CHANAISE 2021 - MAISON PIRON,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 MÂCON-PRISSÉ 2020 - PARCELLE & CIE - VIGNERONS DES TERRES SECRETES,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
@@ -120,7 +120,7 @@ TRADITION 2020 - DOMAINE FRÉDÉRIC LAMBERT,Vin Blanc,Vin Blanc,Vin Blanc,Vin Bl
 SANCERRE MEGALITHE 2019 - DOMAINE DE LA PERRIÈRE,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 JULIUS 2022 - HENSCHKE,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CHATEAU RAUZAN SEGLA 2017 - 2EME CRU CLASSE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-DALMATIAN DOG BABIĆ 2019 - TESTAMENT WINERY,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+DALMATIAN DOG BABIĆ 2019 - TESTAMENT WINERY,Vin Rouge,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 DEMI BOUTEILLE MOUTON CADET 2020 (90EME ANNIVERSAIRE) - BARON PHILIPPE DE ROTHSCHILD,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHATEAU LATOUR 2010 - PREMIER CRU CLASSE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 SAVIGNY LES BEAUNE 1ER CRU - AUX GUETTES 2017 - DOUDET-NAUDIN (DOMAINE),Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -149,7 +149,7 @@ CHATEAU POUJEAUX 2016,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Roug
 RIESLING SCHLOSSBOCKELHEIMER FELSENBERG TROCKEN GG 2021 - DÖNNHOFF,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CÔTE RÔTIE - NEVE - 2020- LES PARCELLAIRES MICHEL CHAPOUTIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHATEAU LA TOUR DE SEGUR 2018,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-HACIENDA LAS CAÑAS LISTÁN BLANCO 2021 - SUERTES DEL MARQUÉS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Rosé,Vin Blanc
+HACIENDA LAS CAÑAS LISTÁN BLANCO 2021 - SUERTES DEL MARQUÉS,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Rosé,Vin Blanc
 DEMI BOUTEILLE CHATEAU D'YQUEM 2019 - 1ER CRU CLASSE SUPERIEUR,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CLOS DADY 2016,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc
 SOLL PINOT GRIGIO 2022 - KALTERN,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
@@ -182,10 +182,10 @@ CHATEAU LAFFITTE CARCASSET 2016 - CRU BOURGEOIS,Vin Rouge,Vin Rouge,Vin Rouge,Vi
 WOODCUTTER'S SHIRAZ 2021 - TORBRECK,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 LE CLEMENTIN DU PAPE CLEMENT BLANC 2016 - SECOND VIN DU CHATEAU PAPE-CLEMENT,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CHATEAU LAFON ROCHET 2018 - 4EME CRU CLASSE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-DOMAINE ROTIER - RENAISSANCE BLANC VENDANGES TARDIVES 2018,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc
+DOMAINE ROTIER - RENAISSANCE BLANC VENDANGES TARDIVES 2018,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc
 COTE ROTIE - LIEU DIT BONNIVIERES 2021 - YVES CUILLERON,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 SAINT-JOSEPH - LAUTARET 2021 - DOMAINE DURAND ERIC & JOËL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-LUNA BEBERIDE GODELLO 2021 - BODEGA Y VIÑEDOS LUNA BEBERIDE,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc
+LUNA BEBERIDE GODELLO 2021 - BODEGA Y VIÑEDOS LUNA BEBERIDE,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc
 JOHANNISBERG DE CHAMOSON 2022 - DOMAINE JEAN-RENÉ GERMANIER,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 VIEILLES VIGNES 2019 - DOMAINE DU CROS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHÂTEAUNEUF DU PAPE - CLOS DU CALVAIRE TRADITION 2021 - CLOS DU CALVAIRE (VIGNOBLES MAYARD),Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -194,7 +194,7 @@ MALAYETO 2020 - VIÑA ZORZAL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,V
 GEWURZTRAMINER 2020 - LES PRINCES ABBES - DOMAINE SCHLUMBERGER,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 SYLVANER DES CHASSEURS DE LUNE 2020 - BESTHEIM,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 MIRABEAU ETOILE ROSE 2022,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
-MINUTY - PRESTIGE ROSE 2022,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
+MINUTY - PRESTIGE ROSE 2022,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
 HISTOIRE D'A PINOT NOIR 2020 - DOMAINE NICO,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 LAUZETA 2016 - DOMAINE LA LAUZETA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 LA SYRARE 2020 - DOMAINE GALLETY,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -205,11 +205,11 @@ LE CLOS 2018 - LES PARCELLAIRES MICHEL CHAPOUTIER,Vin Rouge,Vin Rouge,Vin Rouge,
 PINOT GRIS GRAND CRU BRAND 2016 - DOMAINE JOSMEYER,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 GEVREY CHAMBERTIN VIEILLES VIGNES 2021 - CLOSERIE DES ALISIERS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 PETITE MARQUISE 2016 - CLOS DU MARQUIS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-POUILLY FUISSE - TRILOGIE DE TERROIR 2022 - CLOSERIE DES ALISIERS,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+POUILLY FUISSE - TRILOGIE DE TERROIR 2022 - CLOSERIE DES ALISIERS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 ERMITAGE - LE PAVILLON 2018- LES PARCELLAIRES MICHEL CHAPOUTIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CERSIUS BLANC 2022 - ALMA CERSIUS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 TERROIR GASCON 2020 - DOMAINE CHIROULET,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-CERDON ROSE LES SIGNOLS METHODE ANCESTRALE DEMI SEC - DUBREUIL & FILS,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
+CERDON ROSE LES SIGNOLS METHODE ANCESTRALE DEMI SEC - DUBREUIL & FILS,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
 MOULIN A VENT - LES TROIS ROCHES 2021 - DOMAINES CHERMETTE (VISSOUX),Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHÂTEAU BEAUREGARD 2016,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CREMANT DE SAVOIE - CAVE DE CRUET,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
@@ -223,7 +223,7 @@ STORIA DI ECCE FRUCTUS 2021 - CLOS CULOMBU,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rou
 VOLNAY 1ER CRU - CLOS DES CHENES 2018 - JOSEPH DROUHIN,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHABLIS 1ER CRU MONT DE MILIEU 2019 - MAISON SIMONNET FEBVRE,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CLOS DE LA MOLENIE BLANC 2022,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
-ANTONYME 2022 - DOMAINE CANET VALETTE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rosé
+ANTONYME 2022 - DOMAINE CANET VALETTE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rosé,Vin Rouge,Vin Rosé
 IL ETAIT UNE FOIS 2020 - DOMAINE DE FONDRECHE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 COTE ROTIE - LES GRANDES PLACES 2020 - DOMAINE STEPHANE PICHAT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 BATUTA 2017 - NIEPOORT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -235,13 +235,13 @@ LE CLEMENTIN DE PAPE CLEMENT 2019 - SECOND VIN DU CHATEAU PAPE-CLEMENT,Vin Rouge
 SAINT-PERAY MARSANNE 2022 - DOMAINE DU TUNNEL,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 LE CLOS 2017 - CLOS SAINT SEBASTIEN - CAISSE BOIS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 PIC SAINT-LOUP VIEILLES VIGNES 2020 - CHÂTEAU DE LANCYRE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-DOMAINE RAMATUELLE - LE P'TIT RAMATUELLE,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rosé
+DOMAINE RAMATUELLE - LE P'TIT RAMATUELLE,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rosé
 GEWURZTRAMINER DES CHASSEURS DE LUNE 2020 - BESTHEIM,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CHATEAU CANTEMERLE 2020 - 5EME CRU CLASSE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 SIRENE DE GISCOURS 2020 - SECOND VIN DU CHATEAU GISCOURS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 APREMONT - CON'VID 2022 - DOMAINE JEAN MASSON ET FILS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 PETIT CHABLIS 2022 - LOUIS MOREAU,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
-LA VIE EN ROSE 2022 - CHATEAU ROUBINE,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+LA VIE EN ROSE 2022 - CHATEAU ROUBINE,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 SAINT AMOUR - LES BAMBINS 2022 - LES BERTRAND,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 MILLESIME 1980 - MAS AMIEL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CABERNET FRANC 2019 - AMPELEIA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -275,22 +275,22 @@ BANNOCKBURN PINOT NOIR 2021 - FELTON ROAD,Vin Rouge,Vin Rouge,Vin Rouge,Vin Roug
 LA SAVANTE PINOT NOIR 2021 - DOMAINE NICO,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 BOURGOGNE 2022 - LAURENT PERRACHON & FILS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CHATEAU FERREYRES 2020,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-CONFIDENTIELLE 2022 - FIGUIERE,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
+CONFIDENTIELLE 2022 - FIGUIERE,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
 SEIGNEUR DE GREZETE 2018 GRANDE RESERVE - CHATEAU LAGREZETTE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 TESTAMATTA BIANCO 2021 - BIBI GRAETZ,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 DACITE CÔTES DU FOREZ 2022 - LES VINS DE LA MADONE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 SAINT-JOSEPH 2021 - DOMAINE DU TUNNEL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 DEMI BOUTEILLE - CHEVAL NOIR 2020,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 LE PIGEONNIER 2016 - CHATEAU LAGREZETTE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-INSPIRATION MINERALE 2021 - CLOS SAINT SEBASTIEN,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Rosé,Vin Rosé,Vin Blanc
+INSPIRATION MINERALE 2021 - CLOS SAINT SEBASTIEN,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Rosé,Vin Blanc,Vin Blanc
 LANGHE NEBBIOLO 2022 - CARLO REVELLO & FIGLI,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 SAUVIGNON BLANC 2022 - FLORES,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
-PETIT PONT ROUGE RESERVE - PAYS D'OC 2022 - DOMAINES ROBERT VIC,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+PETIT PONT ROUGE RESERVE - PAYS D'OC 2022 - DOMAINES ROBERT VIC,Vin Rouge,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 B... D'AGNIANE - VERMENTINO 2020 - FONS SANATIS,Vin Blanc,Vin Rouge,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 AMPELEIA 2018 - AMPELEIA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 POMMARD - LES NOIZONS 2021 - DOMAINE LAFOUGE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHATEAU GISCOURS 2016 - 3EME CRU CLASSE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-BIB 5L - GRENACHE SYRAH 2022 - MARIUS BY M. CHAPOUTIER,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
+BIB 5L - GRENACHE SYRAH 2022 - MARIUS BY M. CHAPOUTIER,Vin Rouge,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
 MAGNUM CHÂTEAU LA PENSÉE 2020,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Blanc,Vin Rouge,Vin Rouge
 L'ARGNEE VIEILLES VIGNES 2020 - FAMILLE PERRIN,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHATEAU FLEUR CARDINALE 2020,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -310,7 +310,7 @@ CHATEAU CALISSANNE - ROCHER ROUGE 2020,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,V
 ENGELGARTEN 2020 - LE JARDIN DES ANGES - MARCEL DEISS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 BEAUNE - LES BONS FEUVRES 2021 - DOMAINE PRUNIER JP ET LAURENT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CONDRIEU - CLOS BOUCHER 2021 - MAISON DELAS FRERES,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
-JARDIN DE ROSES 2021 - DOMAINES PAUL MAS,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+JARDIN DE ROSES 2021 - DOMAINES PAUL MAS,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 MAGNUM - CUVEE L 2022 - LAURENT COMBIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 MACAN CLASSICO 2019 - BENJAMIN DE ROTHSCHILD & VEGA SICILIA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 "MERCUREY 1ER CRU ""EN SAZENAY"" 2020 - CHATEAU DE CHAMIREY",Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -353,8 +353,8 @@ CLOS JUNET 2020,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin 
 BRUNELLO DI MONTALCINO RISERVA COLOMBAIOLO 2015 - CASISANO,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHEVERNY BLANC 2022 - DOMAINE MAISON,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CHATEAU PUY D'AMOUR - CUVÉE GRAIN DE FOLIE 2020,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-MOUTON CADET BIO ROSE X MATHILDE 2022 - BARON PHILIPPE DE ROTHSCHILD,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
-L'ETE GASCON ROSE 2022 - DOMAINE PELLEHAUT,Vin Rosé,Vin Blanc,Vin Blanc,Vin Rosé,Vin Blanc,Vin Rosé,Vin Blanc
+MOUTON CADET BIO ROSE X MATHILDE 2022 - BARON PHILIPPE DE ROTHSCHILD,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
+L'ETE GASCON ROSE 2022 - DOMAINE PELLEHAUT,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Blanc,Vin Rosé,Vin Blanc
 VIEILLE MULE ROUGE 2020 - BY JEFF CARREL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHATEAU CAMPILLOT 2018 - CRU BOURGEOIS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 LES MANYES ROUGE 2019 - TERROIR AL LÍMIT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -367,7 +367,7 @@ KADETTE CAPE BLEND 2020 - DOMAINE KANONKOP,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rou
 GRUENSPIEL 2018 - LE JEU DES VERTS - MARCEL DEISS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 BOURGOGNE ALIGOTE 2022 - DOMAINE COLBOIS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 BOURGOGNE PINOT NOIR - LAFORET 2020 - JOSEPH DROUHIN,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-DEMI BOUTEILLE - CHATEAU CLIMENS 2005 - 1ER CRU CLASSE,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+DEMI BOUTEILLE - CHATEAU CLIMENS 2005 - 1ER CRU CLASSE,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 COTE-ROTIE - BERTHOLON 2015 - DOMAINE STÉPHANE OGIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 LES ACACIAS 2022 - DOMAINE LE SOLLIER,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 MAGNUM CLARENDELLE 2016 AVEC ETUI - INSPIRE PAR HAUT-BRION,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -381,7 +381,7 @@ CHATEAU LE COTEAU 2019,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rou
 UBY BIO BLANC DOUX N°24 2022 - DOMAINE UBY,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 SANCERRE CUVÉE DU CONNÉTABLE 2021 - CHÂTEAU DE SANCERRE,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 SAUMUR BLANC - LA JOUVENCELLE 2022 - DOMAINE DE ROCHEVILLE,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
-PILAHO ROSE 2022 - DOMAINE PELLEHAUT,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+PILAHO ROSE 2022 - DOMAINE PELLEHAUT,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 MÂCON MILLY-LAMARTINE 2022 - CHÂTEAU DES BOIS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 MALBEC - ARGENTINO 2020 - CATENA ZAPATA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHATEAU LE GAY 2017,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -414,7 +414,7 @@ CHATEAU OLIVIER ROUGE 2019,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin
 AUXEY DURESSES BLANC - LES CRAIS 2022 - ALAIN GRAS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 DOMAINE VIRGINIE THUNEVIN 2018,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CONTINO VIÑA DEL OLIVO 2017 - CVNE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-LA TRIPLE ROSE - DOMAINE LAFAGE,Vin Rosé,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+LA TRIPLE ROSE - DOMAINE LAFAGE,Vin Rosé,Vin Blanc,Vin Rosé,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 FLEURIE - MON PETIT CHERI 2022 - LES BERTRAND,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 PINOT NOIR 2021 - BREAD AND BUTTER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 VOUVRAY DEMI-SEC RESERVE 2021 - BARTON & GUESTIER,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
@@ -444,10 +444,10 @@ CHATEAU VILLEMAURINE 2019,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin 
 CHATEAU FERRAN BLANC 2020,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CHATEAU PAPE CLEMENT 2019,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHARDONNAY TETE DE CUVÉE 2020 - DOMAINE TARIQUET,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
-CREMANT DE LOIRE BRUT - ARNAUD LAMBERT,Vin Blanc,Vin Blanc,Vin Rosé,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+CREMANT DE LOIRE BRUT - ARNAUD LAMBERT,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CHATEAU LA GAFFELIERE 2018 - 1ER GRAND CRU CLASSE B,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 PERNAND VERGELESSES - LES PINS 2021 - DOUDET-NAUDIN (DOMAINE),Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
-PLAISIR ROSE - MAITRES VIGNERONS DE VIDAUBAN,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rouge,Vin Rosé
+PLAISIR ROSE - MAITRES VIGNERONS DE VIDAUBAN,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rosé
 RESERVE DE FAMILLE 2019 - CHATEAU MARTET,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 BOUTEILLE A LA MER 2020 - XAVIER VIGNON,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 L'AUTHENTIQUE 2021 - DOMAINE PETITEAU,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
@@ -465,7 +465,7 @@ CHIGNIN MONDEUSE - VOIE ROYALE 2021 - DOMAINE DU COTEAU DE TORMERY - GUILLAUME Q
 CHATEAU DAUZAC 2016,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 PAVILLON ROUGE 2015 - SECOND VIN DU CHATEAU MARGAUX,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 MERCREDI 12H30 2021 - DOMAINE PUJOL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-CONDRIEU 2020 - E. GUIGAL,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+CONDRIEU 2020 - E. GUIGAL,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 PROSECCO ASOLO SUPERIORE BIOLDO DOCG EXTRA DRY BIO - VAL D'OCA,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 FAVUGNË FALANGHINA BIANCO 2022 - CANTINE TEANUM,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 MAGNUM - PARALLELE 45 BIO - 2021 - MAISON PAUL JABOULET AINE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -503,7 +503,7 @@ CHATEAU MAUCAILLOU 2019,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Ro
 BEAUJOLAIS - COEUR DE VENDANGES 2021 - VIGNES CENTENAIRES - DOMAINES CHERMETTE (VISSOUX),Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 MAX'S SHIRAZ CABERNET SAUVIGNON 2019 - PENFOLDS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 MONDOT 2016 - SECOND VIN DU CHATEAU TROPLONG MONDOT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-COFFRET PRESTIGE ARCANE - XAVIER VIGNON,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rosé,Vin Rosé,Vin Rosé
+COFFRET PRESTIGE ARCANE - XAVIER VIGNON,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rosé,Vin Rouge,Vin Rosé
 SYRAH - LES GRAINS 2021 - MARRENON,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHATEAU PHELAN SEGUR 2015,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHARDONNAY 2021 - PLANETA,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
@@ -515,9 +515,9 @@ BIB 3L PREMIERES GRIVES 2022 - DOMAINE TARIQUET,Vin Blanc,Vin Blanc,Vin Blanc,Vi
 COTE-ROTIE - LA COTE BLONDE 2015 - DOMAINE STÉPHANE OGIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 DO UT DES 2018 - FATTORIA CARPINETA FONTALPINO,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 BOURGUEIL - CUVEE VIEILLES VIGNES 2020 - DOMAINE OLIVIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-PINOT NOIR 2019 LAS PIZARRAS - ERRAZURIZ,Vin Rouge,Vin Rouge,Vin Blanc,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
+PINOT NOIR 2019 LAS PIZARRAS - ERRAZURIZ,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 DOMAINE ISABELLE DOUDET - HAUTES CÔTES DE BEAUNE BLANC 2021,Vin Blanc,Vin Blanc,Vin Blanc,Vin Rosé,Vin Blanc,Vin Blanc,Vin Blanc
-GEWURZTRAMINER 2020 - EVIDENCE - GUSTAVE LORENTZ,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+GEWURZTRAMINER 2020 - EVIDENCE - GUSTAVE LORENTZ,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 SANCERRE CLOS PARADIS 2022 - DOMAINE FOUASSIER,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 PICO FERREIRA 2021 - BODEGAS Y VIÑEDOS CESAR MARQUEZ,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 VIOGNIER 2020 - BELA-BELA,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
@@ -525,7 +525,7 @@ MAGNUM BAROLO CANNUBI 2019 - E. PIRA E FIGLI CHIARA BOSCHIS - EN CAISSE BOIS,Vin
 BIB 3L - CÔTES DU RHÔNE BIO - VIGNERONS ARDÉCHOIS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 HAUTES-COTES DE NUITS 2021 - MAISON PATRIARCHE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CORRIENTE 2020 - BODEGA LANZAGA - TELMO RODRIGUEZ,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-LE MAS 2021 - DOMAINE CLAVEL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rosé,Vin Rouge
+LE MAS 2021 - DOMAINE CLAVEL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CORNAS - LES PREMICES 2021 - DOMAINE DURAND ERIC & JOËL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 MUSCADET SEVRE ET MAINE SUR LIE 2021 - DOMAINE DES SABLONS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 MOULIN A VENT BIO 2021 - DOMAINE RICHARD ROTTIERS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -544,7 +544,7 @@ BEAUNE 1ER CRU CLOS DES MARCONNETS 2019 - CHANSON PERE ET FILS,Vin Rouge,Vin Rou
 LA COLLINE EN FLAMME 2022 - DOMAINE DES POTHIERS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHARDONNAY 2020 - EL ENEMIGO,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CABERNET SAUVIGNON SOUTHERN HILLS 2019 - WENTE VINEYARD,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-CHÂTEAU LÉOUBE - ROSÉ DE LÉOUBE 2022,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+CHÂTEAU LÉOUBE - ROSÉ DE LÉOUBE 2022,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 HECULA 2020 - BODEGAS CASTAÑO,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 SIGNATURE SOMMELIER BLANC 2022 - FABRICE SOMMIER MOF,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CHÂTEAU MOUTON ROTHSCHILD 2001 - 1ER CRU CLASSÉ,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -587,7 +587,7 @@ CORNAS - SAINT-PIERRE 2018 - MAISON PAUL JABOULET AINE,Vin Rouge,Vin Rouge,Vin R
 BIB 5L - CLIN D’OEIL BLANC - ALLIANCE LOIRE,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 GRAND CLASSIQUE 2020 - DOMAINE D'AIGUES BELLES,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 RIESLING 2021 - HUBERT MEYER,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
-IMPERIAL PALACE BRUT - BLANC DE BLANCS,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+IMPERIAL PALACE BRUT - BLANC DE BLANCS,Vin Blanc,Vin Blanc,Vin Rosé,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 ENTRECHATS 2021 - DOMAINE FELINES JOURDAN,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rosé,Vin Rosé
 CHATEAU BELLE ASSISE COUREAU 2020,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 POMMARD - LES VIGNOTS 2019 - NICOLAS ROSSIGNOL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -705,7 +705,7 @@ BOURGOGNE ALIGOTÉ 2022 - CLOSERIE DES ALISIERS,Vin Blanc,Vin Blanc,Vin Blanc,Vi
 LE GRAND ROSSIGNOL 2018 - CHATEAU LAMOTHE-VINCENT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 MOREY SAINT-DENIS 1ER CRU - LES SORBETS 2020 - MAISON ALBERT BICHOT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CHATEAU LA MISSION HAUT-BRION 2016,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-LES PIEDS DANS L'EAU 2022 - ALMA CERSIUS,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
+LES PIEDS DANS L'EAU 2022 - ALMA CERSIUS,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
 CLOS DE LA DIOTERIE 2018 - DOMAINE CHARLES JOGUET,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 VERY LIMOUX BLANC 2022 - ANNE DE JOYEUSE,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 BAROLO CIABOT MENTIN 2018 - DOMENICO CLERICO,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -713,10 +713,10 @@ PURPLE PARADISE 2020 - CHRONIC CELLARS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,V
 BRUNELLO DI MONTALCINO TENUTA NUOVA 2016 - CASANOVA DI NERI,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CROZES-HERMITAGE - LES PIERRELLES 2021 - DOMAINE BELLE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 PREMIUM ORGANIC MALBEC 2021 - DOMAINE BOUSQUET,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-LARMES CELESTES 2018 - CHATEAU BOUSCASSE,Vin Blanc,Vin Blanc,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
+LARMES CELESTES 2018 - CHATEAU BOUSCASSE,Vin Blanc,Vin Rouge,Vin Rouge,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 SYRAH 2021- CAVE DE TAIN,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 CÔTES DU JURA - TROUSSEAU 2020 - DOMAINE MARCEL CABELIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-SANCERRE ROSE 2022 - DOMAINE CHAUVEAU,Vin Rosé,Vin Blanc,Vin Blanc,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rosé
+SANCERRE ROSE 2022 - DOMAINE CHAUVEAU,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rosé
 CHATEAU PALOUMEY 2015 - CRU BOURGEOIS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 NICOLE 2020 - DOMAINE D'AIGUES BELLES,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 NERO D'AVOLA 2021 - LUIGI LEONARDO,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -738,7 +738,7 @@ PONCE 2021 - BODEGAS Y VIÑEDOS PONCE,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vi
 CHARME DES DEMOISELLES BLANC 2021 - CHATEAU DES DEMOISELLES,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CORNAS - BRISE CAILLOUX 2021 - MATTHIEU BARRET - DOMAINE DU COULET,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 LE CIRQUE 2021 - TERRES PLURIELLES,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-PINOT NOIR 2019 - BISCHÖFLICHE WEINGÜTER TRIER,Vin Rouge,Vin Blanc,Vin Rouge,Vin Rouge,Vin Blanc,Vin Rouge,Vin Rouge
+PINOT NOIR 2019 - BISCHÖFLICHE WEINGÜTER TRIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Blanc,Vin Rouge,Vin Rouge
 L'ESQUERDA 2019 - DOMAINE DE BILA HAUT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 SAINT JOSEPH - DESCHANTS 2021 - M. CHAPOUTIER,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 PALACIO DEL BURGO RESERVA 2018 - BODEGAS BURGO VIEJO,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
@@ -776,18 +776,18 @@ CHINON CLASSIQUE 2022 - DOMAINE PHILIPPE ALLIET,Vin Rouge,Vin Rouge,Vin Rouge,Vi
 MAGNUM BEAUNE 1ER CRU - CLOS DES COUCHEREAUX 2015 - LOUIS JADOT,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 D'OMBRE ET DE LUMIERE 2022 - CHÂTEAU DE LANCYRE,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 MAGNUM MENGOBA MENCIA DE ESPANILLO 2019 - BODEGAS Y VIÑEDOS MENGOBA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
-MUSE DE MIRAVAL - MAGNUM 2022,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+MUSE DE MIRAVAL - MAGNUM 2022,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 MIRAVAL - MAGNUM - ROSE 2022,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 DOMAINES OTT - CHATEAU DE SELLE 2022,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rouge,Vin Rosé,Vin Rosé
 CHIGNIN BERGERON - LES TERRASSES 2022 - ANDRE ET MICHEL QUENARD,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 CALEO - LIMOUX 2019 - GUILLAUME GANGLOFF,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 PUR GRAND JEAN - CHATEAU GRAND JEAN,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
-LOVE BY LÉOUBE - ROSÉ 2022,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+LOVE BY LÉOUBE - ROSÉ 2022,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 SAUVIGNON BLANC 2020 - CASAS DE BUCALEMU,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
 LES MEMOIRES 2021 - DOMAINE ROCHES NEUVES THIERRY GERMAIN,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 FLEUR DES FEES ROSE 2022 - VILLA DRIA,Vin Rosé,Vin Blanc,Vin Blanc,Vin Rosé,Vin Rouge,Vin Rosé,Vin Blanc
 PARALLÈLE 45 BLANC 2022 - MAISON PAUL JABOULET AINE,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc,Vin Blanc
-6 BOUTEILLES MOUTON CADET ROSE BIO X MATHILDE ACHETÉES = 6 VERRES OFFERTS,Vin Rosé,Vin Blanc,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
+6 BOUTEILLES MOUTON CADET ROSE BIO X MATHILDE ACHETÉES = 6 VERRES OFFERTS,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé,Vin Rosé
 CHATEAU PRIEURE DE BEYZAC 2016 - CRU BOURGEOIS,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 MALBEC 2020 - BODEGA CATENA ZAPATA,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge
 JULIENAS - LES CAPITANS 2019 - DOMAINE TRENEL,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge,Vin Rouge

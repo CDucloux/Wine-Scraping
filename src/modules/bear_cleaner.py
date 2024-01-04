@@ -6,9 +6,6 @@ L'ours polaire qui nettoie la donnée 🐻
 """
 import polars as pl
 
-# TODO : utiliser doctest dans les docstrings.
-# TODO 2 : Vérif mypy
-
 
 def _get_avg_temp(df: pl.DataFrame) -> pl.DataFrame:
     """Obtient la température moyenne du vin à partir d'une valeur au format <10-12°C>."""

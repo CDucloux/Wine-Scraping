@@ -1,26 +1,23 @@
 importances,column_names,id
 0.0,cepage_ Grenache,type Random Forest
+0.0,cepage_ Merlot,type Random Forest
 0.0,cepage_.,type Random Forest
 0.0,cepage_Agiorgitiko,type Random Forest
 0.0,cepage_Aglianico,type Random Forest
 0.0,cepage_Albariño,type Random Forest
+0.0,cepage_Albilla,type Random Forest
 0.0,cepage_Aleaticu,type Random Forest
-0.0,cepage_Altesse,type Random Forest
-0.0,cepage_Alvarinho,type Random Forest
+0.0,cepage_Ansonica,type Random Forest
 0.0,cepage_Arneis,type Random Forest
-0.0,cepage_Autres cépages,type Random Forest
 0.0,cepage_Babić,type Random Forest
 0.0,cepage_Barbera,type Random Forest
 0.0,cepage_Blaufrankisch,type Random Forest
 0.0,cepage_Bobal,type Random Forest
-0.0,cepage_Bonarda,type Random Forest
-0.0,cepage_Bourboulenc,type Random Forest
 0.0,cepage_Braucol,type Random Forest
 0.0,cepage_Cabernet,type Random Forest
+0.0,cepage_Cabernet Sauvignon,type Random Forest
 0.0,cepage_Cabernet Sauvignon ,type Random Forest
 0.0,cepage_Cabernet sauvignon,type Random Forest
-0.0,cepage_Cabernet-sauvignon,type Random Forest
-0.0,cepage_Caiño,type Random Forest
 0.0,cepage_Canaiolo,type Random Forest
 0.0,cepage_Carignan,type Random Forest
 0.0,cepage_Carignan blanc,type Random Forest
@@ -30,25 +27,25 @@ importances,column_names,id
 0.0,cepage_Clairette,type Random Forest
 0.0,cepage_Cornalin,type Random Forest
 0.0,cepage_Corniva,type Random Forest
+0.0,cepage_Counoise,type Random Forest
 0.0,cepage_César,type Random Forest
+0.0,cepage_Côt,type Random Forest
 0.0,cepage_Dolcetto,type Random Forest
 0.0,cepage_Duras,type Random Forest
 0.0,cepage_Falanghina,type Random Forest
 0.0,cepage_Fer Servadou,type Random Forest
+0.0,cepage_Fiano,type Random Forest
 0.0,cepage_Folle Blanche,type Random Forest
 0.0,cepage_Folle noire,type Random Forest
 0.0,cepage_Gamaret,type Random Forest
-0.0,cepage_Gamay Saint-romain,type Random Forest
+0.0,cepage_Garganega,type Random Forest
 0.0,cepage_Garnacha,type Random Forest
 0.0,cepage_Garnacha Blanca,type Random Forest
-0.0,cepage_Godello,type Random Forest
 0.0,cepage_Graciano,type Random Forest
 0.0,cepage_Greco,type Random Forest
 0.0,cepage_Grillo,type Random Forest
-0.0,cepage_Grolleau noir,type Random Forest
 0.0,cepage_Inzolia,type Random Forest
 0.0,cepage_Johannisberg,type Random Forest
-0.0,cepage_Kakhuri,type Random Forest
 0.0,cepage_Listàn Negro,type Random Forest
 0.0,cepage_Listán blanco,type Random Forest
 0.0,cepage_Listán negro,type Random Forest
@@ -57,29 +54,34 @@ importances,column_names,id
 0.0,cepage_Malvasia Fina,type Random Forest
 0.0,cepage_Malvasia Nera,type Random Forest
 0.0,cepage_Malvasie di candia,type Random Forest
+0.0,cepage_Malvoisie,type Random Forest
+0.0,cepage_Marselan,type Random Forest
 0.0,cepage_Merwah,type Random Forest
 0.0,cepage_Monastrell,type Random Forest
+0.0,cepage_Montepulciano,type Random Forest
 0.0,cepage_Moscatel,type Random Forest
 0.0,cepage_Moscato,type Random Forest
+0.0,cepage_Moscato Giallo,type Random Forest
 0.0,cepage_Mtsvane,type Random Forest
+0.0,cepage_Muscat d'Alexandrie,type Random Forest
 0.0,cepage_Negroamaro,type Random Forest
 0.0,cepage_Nerello Mascalese,type Random Forest
 0.0,cepage_Nero Di Troia,type Random Forest
 0.0,cepage_Nero Mascalese,type Random Forest
-0.0,cepage_Nero d’Avola,type Random Forest
 0.0,cepage_Négrette,type Random Forest
+0.0,cepage_Pais,type Random Forest
 0.0,cepage_Persan,type Random Forest
 0.0,cepage_Petit Manseng,type Random Forest
-0.0,cepage_Picpoul,type Random Forest
+0.0,cepage_Petite Syrah,type Random Forest
+0.0,cepage_Pineau D'Aunis,type Random Forest
 0.0,cepage_Pinot Noir,type Random Forest
 0.0,cepage_Pinot auxerrois,type Random Forest
 0.0,cepage_Pinotage,type Random Forest
 0.0,cepage_Posip,type Random Forest
-0.0,cepage_Poulsard,type Random Forest
 0.0,cepage_Primitivo,type Random Forest
 0.0,cepage_Pusipel,type Random Forest
 0.0,cepage_Rabigato,type Random Forest
-0.0,cepage_Romorantin,type Random Forest
+0.0,cepage_Rondinella,type Random Forest
 0.0,cepage_Sangiovese Grosso,type Random Forest
 0.0,cepage_Saperavi,type Random Forest
 0.0,cepage_Sauvignon gris,type Random Forest
@@ -87,176 +89,176 @@ importances,column_names,id
 0.0,cepage_Teroldego,type Random Forest
 0.0,cepage_Terret Blanc,type Random Forest
 0.0,cepage_Terret noir,type Random Forest
+0.0,cepage_Tibouren,type Random Forest
 0.0,cepage_Tinta de Toro,type Random Forest
-0.0,cepage_Tinta roriz,type Random Forest
 0.0,cepage_Tinto Fino,type Random Forest
-0.0,cepage_Touriga Franca,type Random Forest
-0.0,cepage_Touriga nacional,type Random Forest
+0.0,cepage_Tockaij,type Random Forest
+0.0,cepage_Torrontes,type Random Forest
+0.0,cepage_Trebbiano,type Random Forest
 0.0,cepage_Trempranillo,type Random Forest
-0.0,cepage_Trousseau,type Random Forest
 0.0,cepage_Ugni blanc,type Random Forest
+0.0,cepage_Vermentino,type Random Forest
 0.0,cepage_Voskèak,type Random Forest
 0.0,cepage_Welschriesling,type Random Forest
-0.0,cepage_Xarello,type Random Forest
 0.0,cepage_Zibibbo,type Random Forest
 0.0,cepage_Zinfandel,type Random Forest
 0.0,cepage_cabernet sauvignon,type Random Forest
 0.0,cepage_merlot,type Random Forest
-0.0,par_gouts_Animal,type Random Forest
-0.0,"country_12,5 % vol",type Random Forest
+0.0,par_gouts_Végétal,type Random Forest
 0.0,country_Arménie,type Random Forest
+0.0,country_Autriche,type Random Forest
 0.0,country_Bulgarie,type Random Forest
 0.0,country_Croatie,type Random Forest
+0.0,country_Grèce,type Random Forest
 0.0,country_Géorgie,type Random Forest
-0.0,country_Hongrie,type Random Forest
-0.0,country_Israël,type Random Forest
 0.0,country_Liban,type Random Forest
+0.0,country_Maroc,type Random Forest
 0.0,country_Mexique,type Random Forest
+0.0,country_Nouvelle-Zélande,type Random Forest
 0.0,country_Pérou,type Random Forest
 0.0,country_Roumanie,type Random Forest
 0.0,country_Slovénie,type Random Forest
 0.0,country_Syrie,type Random Forest
+0.0,country_Turquie,type Random Forest
 0.0,country_Uruguay,type Random Forest
-5.042165657314862e-8,country_Angleterre,type Random Forest
-1.936586244897506e-7,cepage_Muscat,type Random Forest
-1.9441301441442858e-7,cepage_Trebbiano,type Random Forest
-5.291688909843312e-7,country_Maroc,type Random Forest
-7.00740349239247e-7,cepage_Albilla,type Random Forest
-8.570043084390441e-7,cepage_Montepulciano,type Random Forest
-1.0498050421398197e-6,cepage_Mencia,type Random Forest
-1.281119670623514e-6,cepage_Counoise,type Random Forest
-1.3486838414683263e-6,country_Turquie,type Random Forest
-1.5319497416922265e-6,country_Grèce,type Random Forest
-2.0121682663922206e-6,cepage_Muscat d'Alexandrie,type Random Forest
-2.135416082324832e-6,cepage_Petite Syrah,type Random Forest
-2.1484269873661603e-6,cepage_Corvina,type Random Forest
-2.1915128870756493e-6,cepage_Nebbiolo,type Random Forest
-2.337428106704618e-6,par_gouts_Végétal,type Random Forest
-2.3460358344788504e-6,cepage_Côt,type Random Forest
-2.9002436791573575e-6,cepage_Moscato Giallo,type Random Forest
-4.064004433054284e-6,country_Argentine,type Random Forest
-4.49255442131807e-6,country_Australie,type Random Forest
-5.7544276991240735e-6,cepage_Molette,type Random Forest
-8.509012403820595e-6,cepage_Torrontes,type Random Forest
-0.00001761718267917965,cepage_ Merlot,type Random Forest
-0.00003199293514997435,country_Etats-Unis,type Random Forest
-0.000032359841489252106,country_Nouvelle-Zélande,type Random Forest
-0.00003306558480901669,cepage_Mauzac,type Random Forest
-0.00003520905889531049,cepage_Pais,type Random Forest
-0.00004047003332758547,cepage_Glera,type Random Forest
-0.00004176293866515676,cepage_Cabernet Sauvignon,type Random Forest
-0.000044403132606523725,cepage_Marselan,type Random Forest
-0.0000499535241823392,cepage_Tockaij,type Random Forest
-0.00004998099689458245,cepage_Chasan,type Random Forest
-0.000050797353677908414,cepage_Rolle,type Random Forest
-0.00005143449765159841,cepage_Malbec,type Random Forest
-0.000057498967059333895,cepage_Petite Arvine,type Random Forest
-0.00006048712315282698,cepage_Loureiro,type Random Forest
-0.00006815570829096096,cepage_Jacquère,type Random Forest
-0.00007596433144651351,cepage_Tannat,type Random Forest
-0.000083344980117931,cepage_Garganega,type Random Forest
-0.00008607816437205229,country_Chili,type Random Forest
-0.00009081318248695422,cepage_Savagnin Blanc,type Random Forest
-0.00009304341929771247,sulphite_free,type Random Forest
-0.00009425851772304083,cepage_Pinot gris,type Random Forest
-0.00010648214256158546,cepage_Verdejo,type Random Forest
-0.00010745953389835176,cepage_Rondinella,type Random Forest
-0.00011988865058067214,cepage_Malvoisie,type Random Forest
-0.00012796135591178824,country_Italie,type Random Forest
-0.0001398277691205875,cepage_Viura,type Random Forest
-0.00014943137638206077,cepage_Grenache gris,type Random Forest
-0.0001654942014523828,par_gouts_Boisé,type Random Forest
-0.00017215617993979307,country_Autriche,type Random Forest
-0.00017727949310308657,country_Afrique du Sud,type Random Forest
-0.00017748162824822767,cepage_Macabeo,type Random Forest
-0.0001787910040340536,cepage_Fiano,type Random Forest
-0.00017979198562798136,country_Chine,type Random Forest
-0.00018444543725381604,cepage_Petit Courbu,type Random Forest
-0.00018807711441760805,cepage_Amigne,type Random Forest
-0.000207836830206252,country_Suisse,type Random Forest
-0.00021175903197819573,top_100,type Random Forest
-0.00022150473892307155,cepage_Ansonica,type Random Forest
-0.00023783659393973892,country_Espagne,type Random Forest
-0.00025241592101215226,cepage_Pineau D'Aunis,type Random Forest
-0.0002578387749111721,cepage_Niellucciu,type Random Forest
-0.00026698048589197243,cepage_Pinot blanc,type Random Forest
-0.0002671097583807901,cepage_Aligoté,type Random Forest
-0.00028935341542898516,cepage_Muscat petits grains,type Random Forest
-0.0002968825023504996,cepage_Grüner Veltliner,type Random Forest
-0.0002995534983426306,cepage_Tibouren,type Random Forest
-0.0003059136519931588,par_gouts_Epicé,type Random Forest
-0.0003310780259402002,cepage_Lambrusco Salamino Di Santa Croce,type Random Forest
-0.0003455372918725878,cepage_Grenache noir,type Random Forest
-0.0003459153689567304,cepage_Gros Manseng,type Random Forest
-0.0003496785166124978,cepage_Mondeuse,type Random Forest
-0.00045681695268941566,is_new,type Random Forest
-0.0005027425961928045,country_Portugal,type Random Forest
-0.0005298233439645226,cepage_Colombard,type Random Forest
-0.0005779186707306277,cepage_Furmint,type Random Forest
-0.0006520639948052971,cru,type Random Forest
-0.0006660088903571985,par_gouts_Souple,type Random Forest
-0.0007305119400834192,cepage_Cabernet-franc,type Random Forest
-0.0007521720761640955,cepage_Sciaccarellu,type Random Forest
-0.0008014483939633249,cepage_Tempranillo,type Random Forest
-0.0009366059808113361,service_En bouteille ou en carafe,type Random Forest
-0.0009569292736827093,cepage_None,type Random Forest
-0.000996366093370952,customer_fav,type Random Forest
-0.0013613608820406168,cepage_Vermentino,type Random Forest
-0.0013863808358399777,bio,type Random Forest
-0.001389554676078917,cepage_Sauvignon,type Random Forest
-0.0013917619587362033,par_gouts_None,type Random Forest
-0.0014715813708531366,par_gouts_Fruité,type Random Forest
-0.0014808216587246545,cepage_Sangiovese,type Random Forest
-0.0015047974403014726,country_France,type Random Forest
-0.001639261413871444,cepage_Melon de Bourgogne,type Random Forest
-0.001654170853387225,cepage_Savagnin,type Random Forest
-0.0016750745638107903,service_Non Renseigné,type Random Forest
-0.0017892306747647007,cepage_Gewurztraminer,type Random Forest
-0.00189424328470415,cepage_Grenache blanc,type Random Forest
-0.002028824537673168,destock,type Random Forest
-0.0023071232784000373,cepage_Cabernet-Franc,type Random Forest
-0.0030278542843763614,cepage_Mourvèdre,type Random Forest
-0.0032294082617491454,nb_reviews,type Random Forest
-0.0033516125945066613,par_gouts_Puissant,type Random Forest
-0.0037053287843494933,wine_note,type Random Forest
-0.004312213233069263,par_gouts_Floral,type Random Forest
-0.004545942748604643,country_Allemagne,type Random Forest
-0.004715117685239879,par_gouts_Sucré,type Random Forest
-0.005323226130966827,unit_price,type Random Forest
-0.005523579880381264,cepage_Cinsault,type Random Forest
-0.006589529586435059,cepage_Chenin,type Random Forest
-0.006722719091056642,cepage_Viognier,type Random Forest
-0.007187690469778534,cepage_Gamay,type Random Forest
-0.007374027916957004,cepage_Roussanne,type Random Forest
-0.0075681655283468385,cepage_Sémillon,type Random Forest
-0.007700323749017063,capacity,type Random Forest
-0.008962241561354861,service_Passer en carafe,type Random Forest
-0.00904654431967574,bubbles,type Random Forest
-0.010180173938842267,par_gouts_Sec,type Random Forest
-0.01120964345651945,cepage_Merlot,type Random Forest
-0.012003612409800005,cepage_Cabernet-Sauvignon,type Random Forest
-0.012688023879839394,cepage_Marsanne,type Random Forest
-0.013086198671093896,cepage_Pinot noir,type Random Forest
-0.022215969362290925,cepage_Syrah,type Random Forest
-0.02345650745374565,conservation_time,type Random Forest
-0.02374987870947818,cepage_Sauvignon blanc,type Random Forest
-0.02444603320371729,cepage_Grenache,type Random Forest
-0.027248945854969717,par_gouts_Minéral,type Random Forest
-0.028754427134323145,cepage_Riesling,type Random Forest
-0.028943968008649838,conservation_date,type Random Forest
-0.03707106221887577,service_Ouvrir avant le service,type Random Forest
-0.04080038389568033,millesime,type Random Forest
-0.05624040970933537,alcohol_volume,type Random Forest
-0.06629408282255599,service_En bouteille,type Random Forest
-0.09939501850801756,cepage_Chardonnay,type Random Forest
-0.32389945735120845,avg_temp,type Random Forest
+8.368529959329786e-8,cepage_Tinta roriz,type Random Forest
+1.619467120137708e-7,top_100,type Random Forest
+2.364433938332369e-7,cepage_Poulsard,type Random Forest
+2.544120219496589e-7,cepage_Loureiro,type Random Forest
+2.807501350091048e-7,country_Etats-Unis,type Random Forest
+1.2758830742986788e-6,cepage_Xarello,type Random Forest
+1.7621321179283513e-6,cepage_Mencia,type Random Forest
+2.2611150112363245e-6,cepage_Verdejo,type Random Forest
+2.459094386634896e-6,cepage_Romorantin,type Random Forest
+3.349193070034123e-6,cepage_Bonarda,type Random Forest
+3.86735203743317e-6,cepage_Corvina,type Random Forest
+4.0593771768349244e-6,cepage_Nebbiolo,type Random Forest
+4.872384876393853e-6,cepage_Mauzac,type Random Forest
+6.121695191730653e-6,cepage_Picpoul,type Random Forest
+6.494418655357532e-6,country_Angleterre,type Random Forest
+0.000012294768480218333,par_gouts_Animal,type Random Forest
+0.000013145871440327094,"country_12,5 % vol",type Random Forest
+0.000013697037047655599,cepage_Altesse,type Random Forest
+0.00001588019209076907,country_Argentine,type Random Forest
+0.000016131844005693536,cepage_Molette,type Random Forest
+0.00003475875020206739,cepage_Petite Arvine,type Random Forest
+0.000037435642752014187,country_Chine,type Random Forest
+0.00004241222228880255,country_Afrique du Sud,type Random Forest
+0.00004913152486487917,cepage_Alvarinho,type Random Forest
+0.0000515900195726094,cepage_Muscat petits grains,type Random Forest
+0.000053676736781076,country_Israël,type Random Forest
+0.00005505674514188687,cepage_Petit Courbu,type Random Forest
+0.00005618539462349868,cepage_Kakhuri,type Random Forest
+0.00006297706565899859,country_Espagne,type Random Forest
+0.0000688509661350507,cepage_Macabeo,type Random Forest
+0.00006916590011357683,cepage_Cabernet-sauvignon,type Random Forest
+0.00007035821988609945,country_Australie,type Random Forest
+0.00007189671853987097,cepage_Amigne,type Random Forest
+0.00008429611265024812,cepage_Nero d’Avola,type Random Forest
+0.00009148823532359255,cepage_Chasan,type Random Forest
+0.00009380930497435737,cepage_Autres cépages,type Random Forest
+0.000103674268532229,cepage_Touriga Franca,type Random Forest
+0.00011042357856576315,cepage_Caiño,type Random Forest
+0.00012906817516455873,country_Portugal,type Random Forest
+0.00013838642953934918,country_Hongrie,type Random Forest
+0.000142720863006519,cepage_Touriga nacional,type Random Forest
+0.00014385950036527515,cepage_Grolleau noir,type Random Forest
+0.0001546916921787738,cepage_Lambrusco Salamino Di Santa Croce,type Random Forest
+0.0001605451863353047,cepage_Rolle,type Random Forest
+0.00016979562407575194,cepage_Trousseau,type Random Forest
+0.00018384611033965277,cepage_Gros Manseng,type Random Forest
+0.00019056827121497619,country_Chili,type Random Forest
+0.00020922924779825705,cepage_Sauvignon,type Random Forest
+0.0002113639577298247,cepage_Bourboulenc,type Random Forest
+0.0002189313755478992,cepage_Viura,type Random Forest
+0.0002302750891874501,cepage_Gamay Saint-romain,type Random Forest
+0.00028092998681216987,sulphite_free,type Random Forest
+0.0002924779016590376,cepage_Colombard,type Random Forest
+0.0002939981244557218,country_Suisse,type Random Forest
+0.00029675563491554944,cepage_Godello,type Random Forest
+0.0003246940395414851,cepage_Tannat,type Random Forest
+0.00035654517712185353,cepage_Niellucciu,type Random Forest
+0.0003723120122253397,cepage_Muscat,type Random Forest
+0.0003723494006557431,cepage_Grenache gris,type Random Forest
+0.0003824490739796741,cepage_Sciaccarellu,type Random Forest
+0.00038282602530763843,cepage_Savagnin Blanc,type Random Forest
+0.000465377252736043,cepage_Grenache noir,type Random Forest
+0.0005217876981614274,par_gouts_Souple,type Random Forest
+0.0005264892401489931,cepage_Tempranillo,type Random Forest
+0.0005485146117275868,cepage_Aligoté,type Random Forest
+0.0005494340606363337,service_En bouteille ou en carafe,type Random Forest
+0.0005735844998134077,cepage_Glera,type Random Forest
+0.0006364846732293747,cepage_Grüner Veltliner,type Random Forest
+0.0006700329091412079,country_Italie,type Random Forest
+0.0007114959021337064,cepage_Furmint,type Random Forest
+0.0007826388310743642,cepage_Cabernet-franc,type Random Forest
+0.000929501444561882,cepage_Pinot blanc,type Random Forest
+0.0010679150720108203,cepage_Melon de Bourgogne,type Random Forest
+0.0011932541207821353,bio,type Random Forest
+0.0012352076332396466,is_new,type Random Forest
+0.0012353429265422678,cepage_Pinot gris,type Random Forest
+0.001329751324821158,cepage_Sangiovese,type Random Forest
+0.0013535831686081442,par_gouts_Epicé,type Random Forest
+0.0015397279381835329,cepage_Jacquère,type Random Forest
+0.0015790396255626416,par_gouts_None,type Random Forest
+0.0015887904981856946,customer_fav,type Random Forest
+0.0016291631151238836,par_gouts_Fruité,type Random Forest
+0.0017453608118586218,cepage_Gewurztraminer,type Random Forest
+0.0017689219355848825,country_France,type Random Forest
+0.0018817492739657594,nb_reviews,type Random Forest
+0.0019696614847169404,par_gouts_Boisé,type Random Forest
+0.0019725651095005353,wine_note,type Random Forest
+0.0020512835956922547,cepage_Cinsault,type Random Forest
+0.0020789725597048685,cepage_None,type Random Forest
+0.002123662527339129,cepage_Savagnin,type Random Forest
+0.0023900076197301136,cru,type Random Forest
+0.002396996176976752,destock,type Random Forest
+0.0024066748590778784,cepage_Mondeuse,type Random Forest
+0.0025713597827514006,cepage_Grenache blanc,type Random Forest
+0.00261019535286847,cepage_Roussanne,type Random Forest
+0.00262726725289203,par_gouts_Floral,type Random Forest
+0.003296824405388775,cepage_Cabernet-Franc,type Random Forest
+0.003377559270141867,cepage_Malbec,type Random Forest
+0.0034257380340375673,cepage_Mourvèdre,type Random Forest
+0.003626950327130815,service_Non Renseigné,type Random Forest
+0.0038610387518571107,bubbles,type Random Forest
+0.004274881194882068,country_Allemagne,type Random Forest
+0.005912785452503315,cepage_Cabernet-Sauvignon,type Random Forest
+0.00622370104807771,par_gouts_Puissant,type Random Forest
+0.006308780932385947,capacity,type Random Forest
+0.006937496233299945,cepage_Gamay,type Random Forest
+0.007553498928689313,cepage_Viognier,type Random Forest
+0.007818927605515617,cepage_Chenin,type Random Forest
+0.008033970166733153,par_gouts_Sucré,type Random Forest
+0.008091361392352798,cepage_Sémillon,type Random Forest
+0.010068846930113126,unit_price,type Random Forest
+0.010429742075180427,cepage_Riesling,type Random Forest
+0.01074705721174426,service_Passer en carafe,type Random Forest
+0.01260060389165768,par_gouts_Sec,type Random Forest
+0.013666273598004963,cepage_Marsanne,type Random Forest
+0.01596493165527369,conservation_time,type Random Forest
+0.01676484795226926,cepage_Merlot,type Random Forest
+0.01778096073753729,cepage_Grenache,type Random Forest
+0.021960789473292785,par_gouts_Minéral,type Random Forest
+0.02289075149937882,cepage_Syrah,type Random Forest
+0.024153206173834228,cepage_Pinot noir,type Random Forest
+0.025312894626866363,conservation_date,type Random Forest
+0.028470549182984913,cepage_Sauvignon blanc,type Random Forest
+0.03412624772143446,service_Ouvrir avant le service,type Random Forest
+0.05595549929268304,millesime,type Random Forest
+0.05752595496066925,service_En bouteille,type Random Forest
+0.07380066302149325,cepage_Chardonnay,type Random Forest
+0.0757785816516327,alcohol_volume,type Random Forest
+0.3350417938098803,avg_temp,type Random Forest
 0.0,top_100,type Boosting
 0.0,cepage_ Grenache,type Boosting
 0.0,cepage_ Merlot,type Boosting
 0.0,cepage_.,type Boosting
 0.0,cepage_Aglianico,type Boosting
+0.0,cepage_Albariño,type Boosting
 0.0,cepage_Albilla,type Boosting
 0.0,cepage_Aleaticu,type Boosting
+0.0,cepage_Aligoté,type Boosting
 0.0,cepage_Alvarinho,type Boosting
 0.0,cepage_Amigne,type Boosting
 0.0,cepage_Ansonica,type Boosting
@@ -284,12 +286,17 @@ importances,column_names,id
 0.0,cepage_Duras,type Boosting
 0.0,cepage_Falanghina,type Boosting
 0.0,cepage_Fer Servadou,type Boosting
+0.0,cepage_Fiano,type Boosting
 0.0,cepage_Folle Blanche,type Boosting
 0.0,cepage_Folle noire,type Boosting
+0.0,cepage_Furmint,type Boosting
 0.0,cepage_Gamaret,type Boosting
+0.0,cepage_Garganega,type Boosting
 0.0,cepage_Garnacha,type Boosting
+0.0,cepage_Garnacha Blanca,type Boosting
 0.0,cepage_Godello,type Boosting
 0.0,cepage_Graciano,type Boosting
+0.0,cepage_Greco,type Boosting
 0.0,cepage_Johannisberg,type Boosting
 0.0,cepage_Kakhuri,type Boosting
 0.0,cepage_Listàn Negro,type Boosting
@@ -306,15 +313,18 @@ importances,column_names,id
 0.0,cepage_Montepulciano,type Boosting
 0.0,cepage_Moscatel,type Boosting
 0.0,cepage_Moscato,type Boosting
-0.0,cepage_Mtsvane,type Boosting
 0.0,cepage_Nebbiolo,type Boosting
 0.0,cepage_Negroamaro,type Boosting
 0.0,cepage_Nerello Mascalese,type Boosting
 0.0,cepage_Nero Di Troia,type Boosting
+0.0,cepage_Nero Mascalese,type Boosting
 0.0,cepage_Nero d’Avola,type Boosting
 0.0,cepage_Négrette,type Boosting
 0.0,cepage_Pais,type Boosting
 0.0,cepage_Persan,type Boosting
+0.0,cepage_Petit Courbu,type Boosting
+0.0,cepage_Petit Manseng,type Boosting
+0.0,cepage_Petite Arvine,type Boosting
 0.0,cepage_Petite Syrah,type Boosting
 0.0,cepage_Pinot Noir,type Boosting
 0.0,cepage_Pinot auxerrois,type Boosting
@@ -327,6 +337,7 @@ importances,column_names,id
 0.0,cepage_Sangiovese,type Boosting
 0.0,cepage_Sangiovese Grosso,type Boosting
 0.0,cepage_Saperavi,type Boosting
+0.0,cepage_Sauvignon gris,type Boosting
 0.0,cepage_Savagnin Blanc,type Boosting
 0.0,cepage_Sylvaner,type Boosting
 0.0,cepage_Teroldego,type Boosting
@@ -345,6 +356,7 @@ importances,column_names,id
 0.0,cepage_cabernet sauvignon,type Boosting
 0.0,cepage_merlot,type Boosting
 0.0,par_gouts_Animal,type Boosting
+0.0,par_gouts_Souple,type Boosting
 0.0,par_gouts_Végétal,type Boosting
 0.0,"country_12,5 % vol",type Boosting
 0.0,country_Afrique du Sud,type Boosting
@@ -354,12 +366,14 @@ importances,column_names,id
 0.0,country_Autriche,type Boosting
 0.0,country_Bulgarie,type Boosting
 0.0,country_Chili,type Boosting
+0.0,country_Chine,type Boosting
 0.0,country_Croatie,type Boosting
 0.0,country_Etats-Unis,type Boosting
 0.0,country_Grèce,type Boosting
 0.0,country_Géorgie,type Boosting
 0.0,country_Hongrie,type Boosting
 0.0,country_Israël,type Boosting
+0.0,country_Italie,type Boosting
 0.0,country_Liban,type Boosting
 0.0,country_Maroc,type Boosting
 0.0,country_Mexique,type Boosting
@@ -371,136 +385,122 @@ importances,column_names,id
 0.0,country_Suisse,type Boosting
 0.0,country_Syrie,type Boosting
 0.0,country_Turquie,type Boosting
-5.370155454542544e-13,country_Uruguay,type Boosting
-3.7245292325856136e-10,cepage_Agiorgitiko,type Boosting
-4.1147468277646884e-10,country_Italie,type Boosting
-4.970940386632481e-10,cepage_Nero Mascalese,type Boosting
-8.107646930435116e-10,cepage_Garnacha Blanca,type Boosting
-8.692638354964295e-10,country_Argentine,type Boosting
-1.0732388838866718e-9,cepage_Côt,type Boosting
-1.150529905802668e-9,cepage_Albariño,type Boosting
-1.2873795489238145e-9,cepage_Petite Arvine,type Boosting
-1.6178304450149616e-9,cepage_Aligoté,type Boosting
-2.1168220899104033e-9,country_Chine,type Boosting
-2.7597373826151945e-9,cepage_Greco,type Boosting
-2.8235706396042776e-9,cepage_Garganega,type Boosting
-3.940145035254965e-9,cepage_Sauvignon gris,type Boosting
-5.836801694435195e-9,cepage_Tempranillo,type Boosting
-7.224688156094094e-9,cepage_Furmint,type Boosting
-1.8450615920211006e-8,cepage_Carricante,type Boosting
-1.9331450877795004e-8,cepage_Fiano,type Boosting
-2.0484006845247824e-8,cepage_Petit Manseng,type Boosting
-3.2102351134297214e-8,cepage_Chasselas,type Boosting
-3.437772174192556e-8,cepage_Petit Courbu,type Boosting
-9.2006850214571e-8,country_France,type Boosting
-9.861869712252929e-8,cepage_Torrontes,type Boosting
-2.4024714240629683e-7,cepage_Bourboulenc,type Boosting
-2.931748325130657e-7,cepage_Posip,type Boosting
-3.1991577550526277e-7,cepage_Cabernet-franc,type Boosting
-3.5789449108577677e-7,cepage_Verdejo,type Boosting
-4.113913630013133e-7,cepage_Zibibbo,type Boosting
-4.607471316468367e-7,cepage_Rolle,type Boosting
-5.818625601782179e-7,cepage_Pinot gris,type Boosting
-5.97189237406044e-7,cepage_Chasan,type Boosting
-6.125019596727799e-7,sulphite_free,type Boosting
-6.879074322619876e-7,cepage_Picpoul,type Boosting
-7.169993193177978e-7,cepage_Altesse,type Boosting
-7.675435348539094e-7,par_gouts_Souple,type Boosting
-7.798998137416967e-7,cepage_Inzolia,type Boosting
-8.233429860385385e-7,cepage_Grillo,type Boosting
-1.1611526463515197e-6,cepage_Gros Manseng,type Boosting
-1.9411399783078553e-6,cepage_Moscato Giallo,type Boosting
-2.3589644597070753e-6,cepage_Pineau D'Aunis,type Boosting
-3.89822566932921e-6,cepage_Gamay Saint-romain,type Boosting
-4.285558002246774e-6,cepage_Monastrell,type Boosting
-4.509306647791294e-6,cepage_Carignan,type Boosting
-4.633318811010821e-6,cepage_Touriga nacional,type Boosting
-5.058643843022841e-6,par_gouts_Floral,type Boosting
-5.475995858551993e-6,cepage_Trousseau,type Boosting
-5.513006501802851e-6,cepage_Sauvignon,type Boosting
-5.935904932550903e-6,cepage_Clairette,type Boosting
-6.676236365072958e-6,par_gouts_Boisé,type Boosting
-7.408443782926039e-6,cepage_Vermentino,type Boosting
-0.000019089408726091624,cepage_Lambrusco Salamino Di Santa Croce,type Boosting
-0.00002139051169093106,cepage_Mauzac,type Boosting
-0.00002300145139415956,cepage_Muscat petits grains,type Boosting
-0.000025716860819117616,customer_fav,type Boosting
-0.000030755202062382586,cepage_Molette,type Boosting
-0.00003680407882659219,cepage_Muscat d'Alexandrie,type Boosting
-0.00005176869353889173,cepage_Ugni blanc,type Boosting
-0.00006886849516226666,cepage_Xarello,type Boosting
-0.00006959796559578397,par_gouts_Puissant,type Boosting
-0.00008588415772989186,par_gouts_Fruité,type Boosting
-0.00009175427430725821,country_Allemagne,type Boosting
-0.00010130178415664303,cepage_Chenin,type Boosting
-0.0001079119151578449,is_new,type Boosting
-0.00012585008765456223,cepage_Jacquère,type Boosting
-0.00014074771603280915,bio,type Boosting
-0.00014172782432840208,service_En bouteille,type Boosting
-0.0001435112080445259,service_Non Renseigné,type Boosting
-0.00016125144882980403,par_gouts_Sec,type Boosting
-0.00017040231905577507,par_gouts_None,type Boosting
-0.00017473149461395365,cepage_Pinot blanc,type Boosting
-0.00020078363740572573,service_Passer en carafe,type Boosting
-0.00020607312994145558,cepage_Marselan,type Boosting
-0.0002549936234282877,cepage_Grolleau noir,type Boosting
-0.0002653162098370995,cru,type Boosting
-0.0003215021454233076,cepage_Cabernet-Sauvignon,type Boosting
-0.0003438574981570807,cepage_Tannat,type Boosting
-0.0003948250915333018,service_En bouteille ou en carafe,type Boosting
-0.000426587145282351,par_gouts_Sucré,type Boosting
-0.00045599812974783584,country_Espagne,type Boosting
-0.00047100552605929886,cepage_Mondeuse,type Boosting
-0.0005206033934853083,cepage_Macabeo,type Boosting
-0.0005209434801265702,cepage_Tibouren,type Boosting
-0.0005354661950410741,cepage_Caiño,type Boosting
-0.0005429299058173728,cepage_Malbec,type Boosting
-0.0005507626963511033,cepage_Loureiro,type Boosting
-0.0005542142403461076,service_Ouvrir avant le service,type Boosting
-0.0006123697396257449,cepage_Grüner Veltliner,type Boosting
-0.0006325201078006768,cepage_Gewurztraminer,type Boosting
-0.0006734327859988987,cepage_Colombard,type Boosting
-0.0006811031462153198,cepage_Muscat,type Boosting
-0.0006832725595062704,cepage_Glera,type Boosting
-0.0007270280401051145,cepage_Viognier,type Boosting
-0.0008172370608231578,par_gouts_Epicé,type Boosting
-0.000858715159923114,conservation_time,type Boosting
-0.0008679821135006555,cepage_Viura,type Boosting
-0.0008733250666926621,cepage_Melon de Bourgogne,type Boosting
-0.0009141439135737727,cepage_Grenache blanc,type Boosting
-0.000965414350760941,cepage_Autres cépages,type Boosting
-0.0010810896367135347,destock,type Boosting
-0.0012067298389549556,cepage_Poulsard,type Boosting
-0.0012742055713551852,cepage_None,type Boosting
-0.001307104335943282,wine_note,type Boosting
-0.0013832878741447893,cepage_Cabernet-Franc,type Boosting
-0.0014219850368951033,cepage_Sciaccarellu,type Boosting
-0.0016962711464949404,cepage_Sauvignon blanc,type Boosting
-0.0018458083789082364,conservation_date,type Boosting
-0.0018856078435846022,cepage_Niellucciu,type Boosting
-0.002023768337031369,cepage_Grenache gris,type Boosting
-0.0020314726368090463,cepage_Sémillon,type Boosting
-0.002255310970094045,unit_price,type Boosting
-0.002334758788962565,millesime,type Boosting
-0.002718449533180847,nb_reviews,type Boosting
-0.003024084973026599,par_gouts_Minéral,type Boosting
-0.0030664624697815846,cepage_Grenache noir,type Boosting
-0.003486708195479348,bubbles,type Boosting
-0.003950405476612122,capacity,type Boosting
-0.00441786402518719,cepage_Gamay,type Boosting
-0.00493008021668612,cepage_Merlot,type Boosting
-0.005581075672489363,cepage_Roussanne,type Boosting
-0.005787531809036469,cepage_Savagnin,type Boosting
-0.006803167646070616,alcohol_volume,type Boosting
-0.007717171147703875,cepage_Mourvèdre,type Boosting
-0.008298481687893936,cepage_Pinot noir,type Boosting
-0.008521527692892609,cepage_Chardonnay,type Boosting
-0.009088786390104336,cepage_Syrah,type Boosting
-0.012312586453927446,cepage_Marsanne,type Boosting
-0.012555966234055183,cepage_Cinsault,type Boosting
-0.015179609078701504,cepage_Riesling,type Boosting
-0.05159859670119651,cepage_Grenache,type Boosting
-0.7914827165307424,avg_temp,type Boosting
+0.0,country_Uruguay,type Boosting
+2.8989081968675715e-11,country_Espagne,type Boosting
+3.446962821102061e-9,cepage_Agiorgitiko,type Boosting
+4.762606846035674e-9,country_Argentine,type Boosting
+8.093012490775028e-9,cepage_Côt,type Boosting
+2.4838582502744895e-8,par_gouts_Sec,type Boosting
+2.9287605869315536e-8,cepage_Mtsvane,type Boosting
+4.968253551450103e-8,cepage_Tempranillo,type Boosting
+1.228755175607224e-7,cepage_Chasan,type Boosting
+3.0354872132470924e-7,service_Passer en carafe,type Boosting
+3.715838264901699e-7,cepage_Torrontes,type Boosting
+3.7556116571328173e-7,cepage_Chasselas,type Boosting
+6.019361863270714e-7,cepage_Pinot gris,type Boosting
+7.441386389937453e-7,cepage_Carricante,type Boosting
+8.068624408151819e-7,cepage_Altesse,type Boosting
+9.805731046275314e-7,cepage_Picpoul,type Boosting
+1.094855384711592e-6,cepage_Posip,type Boosting
+1.1803128076329699e-6,cepage_Verdejo,type Boosting
+1.2312854188210083e-6,sulphite_free,type Boosting
+1.5773945131405537e-6,cepage_Rolle,type Boosting
+1.597976044856891e-6,par_gouts_Puissant,type Boosting
+1.6697443059166332e-6,cepage_Bourboulenc,type Boosting
+1.7432020743033657e-6,cepage_Zibibbo,type Boosting
+1.9601437775075747e-6,cepage_Grillo,type Boosting
+2.3759052465301687e-6,customer_fav,type Boosting
+2.7552127841782133e-6,cepage_Monastrell,type Boosting
+2.9514172031818873e-6,cepage_Carignan,type Boosting
+3.1364062490842364e-6,cepage_Inzolia,type Boosting
+3.2071425564552984e-6,cepage_Moscato Giallo,type Boosting
+3.5418750419458507e-6,cepage_Gros Manseng,type Boosting
+3.7177825887068034e-6,service_En bouteille ou en carafe,type Boosting
+4.702287724979697e-6,cepage_Trousseau,type Boosting
+9.15766979860671e-6,cepage_Sauvignon,type Boosting
+0.000010902058536479947,cepage_Clairette,type Boosting
+0.00001168115026176101,cru,type Boosting
+0.000012637908178445119,cepage_Mauzac,type Boosting
+0.000013006824549895739,cepage_Vermentino,type Boosting
+0.000014125098757563414,par_gouts_Boisé,type Boosting
+0.00001523824618534954,cepage_Lambrusco Salamino Di Santa Croce,type Boosting
+0.00001558374328426687,cepage_Touriga nacional,type Boosting
+0.000025368346552688417,bio,type Boosting
+0.00002559939521385504,cepage_Muscat d'Alexandrie,type Boosting
+0.00002885747095712668,cepage_Muscat petits grains,type Boosting
+0.00003900455289079926,is_new,type Boosting
+0.000043110175808561325,par_gouts_Fruité,type Boosting
+0.00004944561483811693,par_gouts_None,type Boosting
+0.00006441277550969168,cepage_Pineau D'Aunis,type Boosting
+0.00009127802574605607,par_gouts_Floral,type Boosting
+0.00009408477269955914,cepage_Xarello,type Boosting
+0.00009452633725247673,cepage_Molette,type Boosting
+0.000111256141637961,country_Allemagne,type Boosting
+0.00011591076383754299,cepage_Cabernet-Sauvignon,type Boosting
+0.0001186029769207923,country_France,type Boosting
+0.00012075771074917914,cepage_Jacquère,type Boosting
+0.0001378700798799998,cepage_Pinot blanc,type Boosting
+0.00015642387562811392,cepage_Marselan,type Boosting
+0.00015941273861376314,cepage_Tannat,type Boosting
+0.00016120209469287327,service_En bouteille,type Boosting
+0.0001920291839448815,cepage_Mondeuse,type Boosting
+0.0002175596309384174,cepage_Gamay Saint-romain,type Boosting
+0.00025708138177615706,cepage_Melon de Bourgogne,type Boosting
+0.00029779681101625396,cepage_Ugni blanc,type Boosting
+0.00030265354149773804,cepage_Muscat,type Boosting
+0.00033784924638528363,cepage_Grüner Veltliner,type Boosting
+0.00037144098062710996,cepage_Gewurztraminer,type Boosting
+0.0003749604310753707,cepage_Grolleau noir,type Boosting
+0.0003769494914778175,cepage_Sauvignon blanc,type Boosting
+0.00038547510491832173,cepage_Cabernet-franc,type Boosting
+0.0004092075914643003,cepage_Glera,type Boosting
+0.00042324344198480207,cepage_Autres cépages,type Boosting
+0.000434153031093827,cepage_Tibouren,type Boosting
+0.0004447207269220085,cepage_Chenin,type Boosting
+0.0004473892567885467,service_Ouvrir avant le service,type Boosting
+0.0004493326945363309,cepage_Malbec,type Boosting
+0.0004521577232700744,cepage_Loureiro,type Boosting
+0.00046169577077513266,wine_note,type Boosting
+0.0004889642673188104,par_gouts_Sucré,type Boosting
+0.0004998396923388677,cepage_Macabeo,type Boosting
+0.0005483256069051664,cepage_Colombard,type Boosting
+0.0005913477885806404,cepage_Caiño,type Boosting
+0.000625695663534321,service_Non Renseigné,type Boosting
+0.0007175790255508283,cepage_Viura,type Boosting
+0.0007320453028495188,cepage_Grenache blanc,type Boosting
+0.0009423193186084847,cepage_Poulsard,type Boosting
+0.0009689328765224284,cepage_Viognier,type Boosting
+0.0010093883352766965,destock,type Boosting
+0.0010638723988207702,par_gouts_Epicé,type Boosting
+0.0010731977794533403,millesime,type Boosting
+0.0011491999885430543,cepage_Cabernet-Franc,type Boosting
+0.0011848629883510794,cepage_Sciaccarellu,type Boosting
+0.001598353985200354,nb_reviews,type Boosting
+0.0016526543272226257,conservation_time,type Boosting
+0.001810967298607258,capacity,type Boosting
+0.0018710677885007832,conservation_date,type Boosting
+0.001961164208325703,cepage_Niellucciu,type Boosting
+0.0026087513304904795,cepage_Grenache noir,type Boosting
+0.002664257258172559,cepage_None,type Boosting
+0.002709351102300835,cepage_Sémillon,type Boosting
+0.002745912839037709,par_gouts_Minéral,type Boosting
+0.002875582413466647,bubbles,type Boosting
+0.0033254837637076142,cepage_Roussanne,type Boosting
+0.003753206350334965,cepage_Gamay,type Boosting
+0.004158741305468988,cepage_Merlot,type Boosting
+0.005459800773405331,cepage_Savagnin,type Boosting
+0.006339665333992864,cepage_Mourvèdre,type Boosting
+0.0063527881941985095,cepage_Pinot noir,type Boosting
+0.007089605475241607,cepage_Chardonnay,type Boosting
+0.008836936955107786,cepage_Syrah,type Boosting
+0.010282148723878514,cepage_Marsanne,type Boosting
+0.010487660639526658,cepage_Cinsault,type Boosting
+0.013708812684786484,cepage_Riesling,type Boosting
+0.020677155382217705,cepage_Grenache gris,type Boosting
+0.0428560793175861,cepage_Grenache,type Boosting
+0.0499679400734139,unit_price,type Boosting
+0.06011849927494568,alcohol_volume,type Boosting
+0.7040738194151155,avg_temp,type Boosting
 0.0,sulphite_free,unit_price Random Forest
 0.0,cepage_ Grenache,unit_price Random Forest
 0.0,cepage_ Merlot,unit_price Random Forest
@@ -514,10 +514,10 @@ importances,column_names,id
 0.0,cepage_Alvarinho,unit_price Random Forest
 0.0,cepage_Amigne,unit_price Random Forest
 0.0,cepage_Arneis,unit_price Random Forest
+0.0,cepage_Autres cépages,unit_price Random Forest
 0.0,cepage_Babić,unit_price Random Forest
 0.0,cepage_Barbera,unit_price Random Forest
 0.0,cepage_Blaufrankisch,unit_price Random Forest
-0.0,cepage_Bobal,unit_price Random Forest
 0.0,cepage_Bonarda,unit_price Random Forest
 0.0,cepage_Bourboulenc,unit_price Random Forest
 0.0,cepage_Braucol,unit_price Random Forest
@@ -559,6 +559,7 @@ importances,column_names,id
 0.0,cepage_Gros Manseng,unit_price Random Forest
 0.0,cepage_Grüner Veltliner,unit_price Random Forest
 0.0,cepage_Inzolia,unit_price Random Forest
+0.0,cepage_Jacquère,unit_price Random Forest
 0.0,cepage_Johannisberg,unit_price Random Forest
 0.0,cepage_Kakhuri,unit_price Random Forest
 0.0,cepage_Lambrusco Salamino Di Santa Croce,unit_price Random Forest
@@ -574,26 +575,27 @@ importances,column_names,id
 0.0,cepage_Malvasie di candia,unit_price Random Forest
 0.0,cepage_Marselan,unit_price Random Forest
 0.0,cepage_Mauzac,unit_price Random Forest
-0.0,cepage_Mencia,unit_price Random Forest
+0.0,cepage_Melon de Bourgogne,unit_price Random Forest
 0.0,cepage_Merwah,unit_price Random Forest
 0.0,cepage_Molette,unit_price Random Forest
 0.0,cepage_Monastrell,unit_price Random Forest
-0.0,cepage_Mondeuse,unit_price Random Forest
 0.0,cepage_Montepulciano,unit_price Random Forest
 0.0,cepage_Moscatel,unit_price Random Forest
 0.0,cepage_Moscato Giallo,unit_price Random Forest
 0.0,cepage_Mtsvane,unit_price Random Forest
-0.0,cepage_Muscat,unit_price Random Forest
 0.0,cepage_Muscat d'Alexandrie,unit_price Random Forest
+0.0,cepage_Nebbiolo,unit_price Random Forest
 0.0,cepage_Negroamaro,unit_price Random Forest
 0.0,cepage_Nerello Mascalese,unit_price Random Forest
 0.0,cepage_Nero Di Troia,unit_price Random Forest
 0.0,cepage_Nero Mascalese,unit_price Random Forest
 0.0,cepage_Nero d’Avola,unit_price Random Forest
+0.0,cepage_Niellucciu,unit_price Random Forest
 0.0,cepage_Négrette,unit_price Random Forest
 0.0,cepage_Pais,unit_price Random Forest
 0.0,cepage_Persan,unit_price Random Forest
 0.0,cepage_Petit Courbu,unit_price Random Forest
+0.0,cepage_Petit Manseng,unit_price Random Forest
 0.0,cepage_Petite Arvine,unit_price Random Forest
 0.0,cepage_Petite Syrah,unit_price Random Forest
 0.0,cepage_Picpoul,unit_price Random Forest
@@ -605,28 +607,30 @@ importances,column_names,id
 0.0,cepage_Poulsard,unit_price Random Forest
 0.0,cepage_Primitivo,unit_price Random Forest
 0.0,cepage_Pusipel,unit_price Random Forest
-0.0,cepage_Rabigato,unit_price Random Forest
 0.0,cepage_Rolle,unit_price Random Forest
 0.0,cepage_Romorantin,unit_price Random Forest
 0.0,cepage_Rondinella,unit_price Random Forest
 0.0,cepage_Saperavi,unit_price Random Forest
+0.0,cepage_Sauvignon,unit_price Random Forest
 0.0,cepage_Sauvignon gris,unit_price Random Forest
 0.0,cepage_Savagnin Blanc,unit_price Random Forest
+0.0,cepage_Sciaccarellu,unit_price Random Forest
 0.0,cepage_Sylvaner,unit_price Random Forest
-0.0,cepage_Tannat,unit_price Random Forest
 0.0,cepage_Teroldego,unit_price Random Forest
 0.0,cepage_Terret Blanc,unit_price Random Forest
 0.0,cepage_Terret noir,unit_price Random Forest
 0.0,cepage_Tibouren,unit_price Random Forest
 0.0,cepage_Tinta de Toro,unit_price Random Forest
 0.0,cepage_Tinta roriz,unit_price Random Forest
+0.0,cepage_Tockaij,unit_price Random Forest
 0.0,cepage_Torrontes,unit_price Random Forest
 0.0,cepage_Touriga Franca,unit_price Random Forest
 0.0,cepage_Touriga nacional,unit_price Random Forest
+0.0,cepage_Trebbiano,unit_price Random Forest
+0.0,cepage_Trempranillo,unit_price Random Forest
 0.0,cepage_Trousseau,unit_price Random Forest
 0.0,cepage_Ugni blanc,unit_price Random Forest
 0.0,cepage_Verdejo,unit_price Random Forest
-0.0,cepage_Vermentino,unit_price Random Forest
 0.0,cepage_Viura,unit_price Random Forest
 0.0,cepage_Voskèak,unit_price Random Forest
 0.0,cepage_Welschriesling,unit_price Random Forest
@@ -643,117 +647,113 @@ importances,column_names,id
 0.0,country_Croatie,unit_price Random Forest
 0.0,country_Grèce,unit_price Random Forest
 0.0,country_Géorgie,unit_price Random Forest
+0.0,country_Hongrie,unit_price Random Forest
 0.0,country_Israël,unit_price Random Forest
+0.0,country_Liban,unit_price Random Forest
 0.0,country_Maroc,unit_price Random Forest
 0.0,country_Mexique,unit_price Random Forest
 0.0,country_Portugal,unit_price Random Forest
 0.0,country_Pérou,unit_price Random Forest
 0.0,country_Roumanie,unit_price Random Forest
 0.0,country_Slovénie,unit_price Random Forest
-0.0,country_Suisse,unit_price Random Forest
 0.0,country_Syrie,unit_price Random Forest
 0.0,country_Turquie,unit_price Random Forest
 0.0,country_Uruguay,unit_price Random Forest
-1.9420341350719819e-10,cepage_Moscato,unit_price Random Forest
-2.387218171009867e-10,cepage_Tockaij,unit_price Random Forest
-2.2552817602061015e-8,cepage_Furmint,unit_price Random Forest
-4.197012151341313e-8,cepage_Pinot gris,unit_price Random Forest
-4.9283661905445975e-8,cepage_Petit Manseng,unit_price Random Forest
-1.8007796008405375e-7,cepage_Cabernet Sauvignon ,unit_price Random Forest
-1.9486644871656087e-7,cepage_Jacquère,unit_price Random Forest
-9.005363698879237e-7,country_Afrique du Sud,unit_price Random Forest
-9.357651676948792e-7,country_Nouvelle-Zélande,unit_price Random Forest
-1.382607481769935e-6,"country_12,5 % vol",unit_price Random Forest
-1.7140512971767907e-6,cepage_Malvoisie,unit_price Random Forest
-2.3884277349345703e-6,cepage_Muscat petits grains,unit_price Random Forest
-2.4578869522018567e-6,country_Hongrie,unit_price Random Forest
-2.9110264659274176e-6,cepage_Sciaccarellu,unit_price Random Forest
-3.920592953630456e-6,cepage_Niellucciu,unit_price Random Forest
-4.8013229609912635e-6,cepage_Trebbiano,unit_price Random Forest
-5.9963506502648835e-6,cepage_Melon de Bourgogne,unit_price Random Forest
-6.415361148852593e-6,cepage_Grenache gris,unit_price Random Forest
-6.46026561054157e-6,country_Liban,unit_price Random Forest
-6.577287185636843e-6,cepage_Trempranillo,unit_price Random Forest
-8.055080941403795e-6,cepage_Roussanne,unit_price Random Forest
-0.000010767276765459602,destock,unit_price Random Forest
-0.00001224664864843719,par_gouts_Floral,unit_price Random Forest
-0.00001293552395839972,cepage_Viognier,unit_price Random Forest
-0.000016066052150442522,par_gouts_Végétal,unit_price Random Forest
-0.000017592614687637382,cepage_Autres cépages,unit_price Random Forest
-0.000020293011576944183,cepage_Gewurztraminer,unit_price Random Forest
-0.000023734232879492095,country_Angleterre,unit_price Random Forest
-0.0000312979521496232,cepage_Altesse,unit_price Random Forest
-0.00003657715088418399,cepage_Sangiovese Grosso,unit_price Random Forest
-0.000037577779519418005,cepage_Grenache blanc,unit_price Random Forest
-0.000046181917909266266,cepage_Cabernet-Franc,unit_price Random Forest
-0.00005102590629508978,cepage_Sauvignon,unit_price Random Forest
-0.00005988759765768978,customer_fav,unit_price Random Forest
-0.00006651338411725296,cepage_Chenin,unit_price Random Forest
-0.00007438469609920029,cepage_Nebbiolo,unit_price Random Forest
-0.00009133420040096083,cepage_Clairette,unit_price Random Forest
-0.00009138881521263646,cepage_Savagnin,unit_price Random Forest
-0.00023162643191373345,cepage_Cinsault,unit_price Random Forest
-0.00033951400372741303,par_gouts_Sucré,unit_price Random Forest
-0.000379441732703734,cepage_Pinot Noir,unit_price Random Forest
-0.00040141315753806266,par_gouts_Minéral,unit_price Random Forest
-0.00046096330932642065,bubbles,unit_price Random Forest
-0.0005555853111387883,type_Vin Rosé,unit_price Random Forest
-0.0005583935283173341,cepage_Sémillon,unit_price Random Forest
-0.000573669429750157,cepage_Sauvignon blanc,unit_price Random Forest
-0.0006376733521411422,par_gouts_Sec,unit_price Random Forest
-0.0006737568177169541,cepage_Grenache,unit_price Random Forest
-0.000731770928414761,cepage_Riesling,unit_price Random Forest
-0.0007569218064131442,wine_note,unit_price Random Forest
-0.0007702392219864975,cepage_Malbec,unit_price Random Forest
-0.000982775834296518,cepage_Tempranillo,unit_price Random Forest
-0.0010960296040764556,cepage_Corvina,unit_price Random Forest
-0.001148055810141028,par_gouts_Souple,unit_price Random Forest
-0.0012766506635143845,cepage_Grenache noir,unit_price Random Forest
-0.0013242433313259265,cepage_Cabernet-sauvignon,unit_price Random Forest
-0.0013481228571884825,country_Chili,unit_price Random Forest
-0.0014272203723844459,country_Argentine,unit_price Random Forest
-0.0019133164922423011,country_France,unit_price Random Forest
-0.002010774965040227,country_Espagne,unit_price Random Forest
-0.002075360195960617,cepage_Sangiovese,unit_price Random Forest
-0.0022303007483079223,par_gouts_Epicé,unit_price Random Forest
-0.0023430526947363388,type_Vin Rouge,unit_price Random Forest
-0.0025654130059344924,service_En bouteille ou en carafe,unit_price Random Forest
-0.002657961728849331,cepage_Ansonica,unit_price Random Forest
-0.0029096991548485667,cepage_Cabernet-franc,unit_price Random Forest
-0.0030606193756901883,country_Allemagne,unit_price Random Forest
-0.00323544233969021,type_Vin Blanc,unit_price Random Forest
-0.003441969313176128,cepage_Merlot,unit_price Random Forest
-0.003454461231047268,par_gouts_Boisé,unit_price Random Forest
-0.0038434987271180263,country_Italie,unit_price Random Forest
-0.004089176151471429,cepage_None,unit_price Random Forest
-0.004955156664874692,cepage_Cabernet-Sauvignon,unit_price Random Forest
-0.005104357661076709,service_En bouteille,unit_price Random Forest
-0.005107929829415576,par_gouts_None,unit_price Random Forest
-0.005742333547597265,bio,unit_price Random Forest
-0.006527356640574832,service_Non Renseigné,unit_price Random Forest
-0.0069526296196385385,country_Australie,unit_price Random Forest
-0.008091899909239829,nb_reviews,unit_price Random Forest
-0.008552693447358572,par_gouts_Fruité,unit_price Random Forest
-0.01041844317709815,par_gouts_Puissant,unit_price Random Forest
-0.01137298337632046,cepage_Cabernet Sauvignon,unit_price Random Forest
-0.01215179412706064,cepage_Tinto Fino,unit_price Random Forest
-0.012204694809226521,top_100,unit_price Random Forest
-0.012977154661279057,cepage_Syrah,unit_price Random Forest
-0.013216381230655994,cepage_Pinot noir,unit_price Random Forest
-0.01340721361673179,service_Passer en carafe,unit_price Random Forest
-0.016107054504870363,cru,unit_price Random Forest
-0.016725455691409388,is_new,unit_price Random Forest
-0.019746063340783184,country_Etats-Unis,unit_price Random Forest
-0.020110366525836445,cepage_Marsanne,unit_price Random Forest
-0.02056797813239279,cepage_Mourvèdre,unit_price Random Forest
-0.02393164627626582,cepage_Chardonnay,unit_price Random Forest
-0.02591814206738824,service_Ouvrir avant le service,unit_price Random Forest
-0.0313654685922319,avg_temp,unit_price Random Forest
-0.039849982475057305,millesime,unit_price Random Forest
-0.04752326578978042,alcohol_volume,unit_price Random Forest
-0.07914850604575809,capacity,unit_price Random Forest
-0.08874746878096765,conservation_date,unit_price Random Forest
-0.3772152553232134,conservation_time,unit_price Random Forest
+1.1384371856930945e-11,cepage_Mondeuse,unit_price Random Forest
+9.961610083265207e-10,cepage_Mencia,unit_price Random Forest
+4.71796495458601e-9,cepage_Muscat,unit_price Random Forest
+3.397443564199532e-7,cepage_Bobal,unit_price Random Forest
+5.068799242473337e-7,"country_12,5 % vol",unit_price Random Forest
+7.060087003148849e-7,cepage_Vermentino,unit_price Random Forest
+1.7693435484257685e-6,cepage_Malvoisie,unit_price Random Forest
+2.1010716366201163e-6,cepage_Furmint,unit_price Random Forest
+2.4719584861907774e-6,cepage_Muscat petits grains,unit_price Random Forest
+3.296827667901398e-6,country_Suisse,unit_price Random Forest
+3.3866802357846618e-6,cepage_Pinot gris,unit_price Random Forest
+4.209949409575844e-6,cepage_Grenache gris,unit_price Random Forest
+8.70355726692165e-6,cepage_Viognier,unit_price Random Forest
+0.000012563310447761243,country_Nouvelle-Zélande,unit_price Random Forest
+0.000017473103811733688,par_gouts_Végétal,unit_price Random Forest
+0.000018663623041584928,country_Angleterre,unit_price Random Forest
+0.00002508857874010163,cepage_Roussanne,unit_price Random Forest
+0.00003026851526615451,cepage_Cabernet Sauvignon ,unit_price Random Forest
+0.000032917236839874125,cepage_Tannat,unit_price Random Forest
+0.0000398550041617072,cepage_Chenin,unit_price Random Forest
+0.00004093461505069517,cepage_Rabigato,unit_price Random Forest
+0.00004094823295601424,cepage_Clairette,unit_price Random Forest
+0.00004529298815550675,cepage_Altesse,unit_price Random Forest
+0.00005047800792546965,cepage_Savagnin,unit_price Random Forest
+0.00006891992754377582,destock,unit_price Random Forest
+0.00007101901926213859,cepage_Gewurztraminer,unit_price Random Forest
+0.00007575170559570219,cepage_Sangiovese Grosso,unit_price Random Forest
+0.00007617726950968081,par_gouts_Floral,unit_price Random Forest
+0.00009192340083792494,cepage_Grenache blanc,unit_price Random Forest
+0.00013313078484089013,country_Afrique du Sud,unit_price Random Forest
+0.00016055934236735856,type_Vin Rosé,unit_price Random Forest
+0.00016263122558271618,cepage_Cinsault,unit_price Random Forest
+0.00017419305330092097,cepage_Cabernet-Franc,unit_price Random Forest
+0.00020853463257348347,cepage_Pinot Noir,unit_price Random Forest
+0.0002514609957256302,customer_fav,unit_price Random Forest
+0.000263987358553859,par_gouts_Minéral,unit_price Random Forest
+0.00035131635790809895,cepage_None,unit_price Random Forest
+0.00037651530841431455,par_gouts_Sec,unit_price Random Forest
+0.0005735987317609743,cepage_Moscato,unit_price Random Forest
+0.0006026887780840519,cepage_Sauvignon blanc,unit_price Random Forest
+0.0006260145283476168,cepage_Malbec,unit_price Random Forest
+0.0006261198220434333,country_Chili,unit_price Random Forest
+0.000649360204617298,cepage_Grenache,unit_price Random Forest
+0.0006849524274387921,cepage_Sémillon,unit_price Random Forest
+0.0008079077436902617,bubbles,unit_price Random Forest
+0.001008033296717683,cepage_Corvina,unit_price Random Forest
+0.0011911673916494474,par_gouts_Epicé,unit_price Random Forest
+0.0012303093354775097,par_gouts_Souple,unit_price Random Forest
+0.0015133979610432245,cepage_Tempranillo,unit_price Random Forest
+0.0015586136763934613,cepage_Riesling,unit_price Random Forest
+0.0015893945405985415,cepage_Grenache noir,unit_price Random Forest
+0.0017554676235146157,par_gouts_Sucré,unit_price Random Forest
+0.0017795781766253578,cepage_Cabernet-sauvignon,unit_price Random Forest
+0.0018846139609527347,wine_note,unit_price Random Forest
+0.0018862875446407558,cepage_Sangiovese,unit_price Random Forest
+0.0018971874280148348,country_Espagne,unit_price Random Forest
+0.001915178749757841,country_Italie,unit_price Random Forest
+0.0019218038873850686,country_Argentine,unit_price Random Forest
+0.0019313345961451476,country_Allemagne,unit_price Random Forest
+0.0019483008482089371,cepage_Merlot,unit_price Random Forest
+0.002246635219551859,cepage_Ansonica,unit_price Random Forest
+0.002434233618717579,country_France,unit_price Random Forest
+0.002672546960306057,cepage_Cabernet-franc,unit_price Random Forest
+0.00287376468581869,type_Vin Blanc,unit_price Random Forest
+0.0029184451394068216,par_gouts_None,unit_price Random Forest
+0.0039918910219498335,type_Vin Rouge,unit_price Random Forest
+0.004567838324200862,service_En bouteille,unit_price Random Forest
+0.004815936605697444,par_gouts_Boisé,unit_price Random Forest
+0.005171121409315884,service_En bouteille ou en carafe,unit_price Random Forest
+0.005407296536860943,bio,unit_price Random Forest
+0.006176840208283133,service_Non Renseigné,unit_price Random Forest
+0.007591235616127455,nb_reviews,unit_price Random Forest
+0.00791118169832756,cepage_Cabernet-Sauvignon,unit_price Random Forest
+0.008365270479471679,top_100,unit_price Random Forest
+0.008630933227080789,country_Australie,unit_price Random Forest
+0.00880329268529137,par_gouts_Puissant,unit_price Random Forest
+0.010179094711295699,cepage_Cabernet Sauvignon,unit_price Random Forest
+0.010432952927546436,cepage_Syrah,unit_price Random Forest
+0.010495638823670968,par_gouts_Fruité,unit_price Random Forest
+0.012491178259965307,cepage_Tinto Fino,unit_price Random Forest
+0.012627480621217093,cepage_Pinot noir,unit_price Random Forest
+0.0157003629097409,service_Passer en carafe,unit_price Random Forest
+0.01709780709368379,cepage_Mourvèdre,unit_price Random Forest
+0.017332261341737494,cepage_Marsanne,unit_price Random Forest
+0.017777634735757587,is_new,unit_price Random Forest
+0.018079566428180434,country_Etats-Unis,unit_price Random Forest
+0.018082318543933926,cru,unit_price Random Forest
+0.023631839763254236,cepage_Chardonnay,unit_price Random Forest
+0.026595425134931544,service_Ouvrir avant le service,unit_price Random Forest
+0.02838833624196386,avg_temp,unit_price Random Forest
+0.043150415200296686,millesime,unit_price Random Forest
+0.054743348755758134,alcohol_volume,unit_price Random Forest
+0.0831042200749488,capacity,unit_price Random Forest
+0.09705533136095908,conservation_date,unit_price Random Forest
+0.3660269110364866,conservation_time,unit_price Random Forest
 0.0,sulphite_free,unit_price Boosting
 0.0,bubbles,unit_price Boosting
 0.0,cepage_ Grenache,unit_price Boosting
@@ -843,6 +843,7 @@ importances,column_names,id
 0.0,cepage_Mauzac,unit_price Boosting
 0.0,cepage_Melon de Bourgogne,unit_price Boosting
 0.0,cepage_Mencia,unit_price Boosting
+0.0,cepage_Merwah,unit_price Boosting
 0.0,cepage_Molette,unit_price Boosting
 0.0,cepage_Monastrell,unit_price Boosting
 0.0,cepage_Mondeuse,unit_price Boosting
@@ -850,6 +851,7 @@ importances,column_names,id
 0.0,cepage_Moscatel,unit_price Boosting
 0.0,cepage_Moscato Giallo,unit_price Boosting
 0.0,cepage_Mtsvane,unit_price Boosting
+0.0,cepage_Muscat,unit_price Boosting
 0.0,cepage_Muscat d'Alexandrie,unit_price Boosting
 0.0,cepage_Muscat petits grains,unit_price Boosting
 0.0,cepage_Negroamaro,unit_price Boosting
@@ -888,6 +890,7 @@ importances,column_names,id
 0.0,cepage_Sciaccarellu,unit_price Boosting
 0.0,cepage_Sylvaner,unit_price Boosting
 0.0,cepage_Tannat,unit_price Boosting
+0.0,cepage_Tempranillo,unit_price Boosting
 0.0,cepage_Teroldego,unit_price Boosting
 0.0,cepage_Terret Blanc,unit_price Boosting
 0.0,cepage_Terret noir,unit_price Boosting
@@ -917,6 +920,7 @@ importances,column_names,id
 0.0,par_gouts_Floral,unit_price Boosting
 0.0,par_gouts_Minéral,unit_price Boosting
 0.0,par_gouts_Sec,unit_price Boosting
+0.0,par_gouts_Souple,unit_price Boosting
 0.0,par_gouts_Végétal,unit_price Boosting
 0.0,"country_12,5 % vol",unit_price Boosting
 0.0,country_Afrique du Sud,unit_price Boosting
@@ -924,6 +928,7 @@ importances,column_names,id
 0.0,country_Arménie,unit_price Boosting
 0.0,country_Autriche,unit_price Boosting
 0.0,country_Bulgarie,unit_price Boosting
+0.0,country_Chili,unit_price Boosting
 0.0,country_Chine,unit_price Boosting
 0.0,country_Croatie,unit_price Boosting
 0.0,country_Grèce,unit_price Boosting
@@ -942,68 +947,63 @@ importances,column_names,id
 0.0,country_Syrie,unit_price Boosting
 0.0,country_Turquie,unit_price Boosting
 0.0,country_Uruguay,unit_price Boosting
-9.876183564226082e-9,par_gouts_Souple,unit_price Boosting
-3.0525701748101066e-8,customer_fav,unit_price Boosting
-4.2636473937120155e-6,cepage_Muscat,unit_price Boosting
-6.04324466939733e-6,type_Vin Blanc,unit_price Boosting
-0.000016658461674506457,cepage_Merwah,unit_price Boosting
-0.000026722444640257755,cepage_Chenin,unit_price Boosting
-0.00003878012027215579,destock,unit_price Boosting
-0.00004068281132558919,cepage_Corniva,unit_price Boosting
-0.000045040081819704436,cepage_Pinot gris,unit_price Boosting
-0.00004632130530722866,cepage_Aglianico,unit_price Boosting
-0.000049023035468247434,country_Liban,unit_price Boosting
-0.00016455180386766983,cepage_Pinot Noir,unit_price Boosting
-0.0001653341645266883,cepage_Savagnin,unit_price Boosting
-0.00024301007192862746,par_gouts_Boisé,unit_price Boosting
-0.00025901538481358413,type_Vin Rosé,unit_price Boosting
-0.0002622617175560828,cepage_Riesling,unit_price Boosting
-0.0002858325747078178,country_France,unit_price Boosting
-0.00034359968571410127,par_gouts_Sucré,unit_price Boosting
-0.0003856782859162313,cepage_Moscato,unit_price Boosting
-0.00042330584394879975,cepage_Nebbiolo,unit_price Boosting
-0.0004933716840936666,cepage_Grenache,unit_price Boosting
-0.0005411000411927194,cepage_Cinsault,unit_price Boosting
-0.0005449251879552116,country_Chili,unit_price Boosting
-0.0005796584229243705,wine_note,unit_price Boosting
-0.0006992488017896846,cepage_Tempranillo,unit_price Boosting
-0.0007485622779817015,cepage_None,unit_price Boosting
-0.0008818475462447573,cepage_Syrah,unit_price Boosting
-0.0008983116474680614,country_Argentine,unit_price Boosting
-0.001041615380750587,par_gouts_Epicé,unit_price Boosting
-0.0014198129819774493,cepage_Merlot,unit_price Boosting
-0.0015400459571454958,par_gouts_Fruité,unit_price Boosting
-0.0016216241665216583,cepage_Sémillon,unit_price Boosting
-0.0016465064987409607,cepage_Cabernet-franc,unit_price Boosting
-0.0022311740113909522,country_Espagne,unit_price Boosting
-0.002533871358709482,cepage_Ansonica,unit_price Boosting
-0.0034352337797941886,cepage_Sangiovese,unit_price Boosting
-0.0036310482183926035,cepage_Pinot noir,unit_price Boosting
-0.003951022624392048,type_Vin Rouge,unit_price Boosting
-0.004256216536370333,country_Australie,unit_price Boosting
-0.004479540847567379,cepage_Cabernet-Sauvignon,unit_price Boosting
-0.004632127969105563,bio,unit_price Boosting
-0.005085787435867779,service_En bouteille ou en carafe,unit_price Boosting
-0.006182702269400187,service_Non Renseigné,unit_price Boosting
-0.0062033332844899,service_En bouteille,unit_price Boosting
-0.006770524955057526,is_new,unit_price Boosting
-0.006957952518400814,cepage_Cabernet Sauvignon,unit_price Boosting
-0.007182497976155241,par_gouts_None,unit_price Boosting
-0.007967551334531305,country_Allemagne,unit_price Boosting
-0.008603680080648076,service_Passer en carafe,unit_price Boosting
-0.010965094192091037,cepage_Marsanne,unit_price Boosting
-0.012413372881038701,par_gouts_Puissant,unit_price Boosting
-0.012563647528950115,cepage_Mourvèdre,unit_price Boosting
-0.012713407444859099,service_Ouvrir avant le service,unit_price Boosting
-0.013303692601586236,cepage_Tinto Fino,unit_price Boosting
-0.015872785974990502,nb_reviews,unit_price Boosting
-0.017436036264506703,top_100,unit_price Boosting
-0.017695275334285037,avg_temp,unit_price Boosting
-0.018003350096621608,cepage_Chardonnay,unit_price Boosting
-0.021448388329163105,country_Etats-Unis,unit_price Boosting
-0.023384928460053904,cru,unit_price Boosting
-0.03214294149787368,alcohol_volume,unit_price Boosting
-0.04068245454987543,millesime,unit_price Boosting
-0.09695916924515198,conservation_date,unit_price Boosting
-0.10741736570237073,capacity,unit_price Boosting
-0.4474310290140868,conservation_time,unit_price Boosting
+0.000036434980534922094,cepage_Moscato,unit_price Boosting
+0.00004068281132558915,cepage_Corniva,unit_price Boosting
+0.00004504008181968271,cepage_Pinot gris,unit_price Boosting
+0.00004632130530723945,cepage_Aglianico,unit_price Boosting
+0.00004902303546824735,country_Liban,unit_price Boosting
+0.00005287427490636647,destock,unit_price Boosting
+0.00016067250461432832,cepage_Savagnin,unit_price Boosting
+0.00016455180386769127,cepage_Pinot Noir,unit_price Boosting
+0.0001711215207761648,cepage_Grenache,unit_price Boosting
+0.00018260034772235682,cepage_Chenin,unit_price Boosting
+0.0001897315547178262,country_France,unit_price Boosting
+0.00021931782146189424,customer_fav,unit_price Boosting
+0.0002306730098929133,par_gouts_Boisé,unit_price Boosting
+0.0002622617175559962,cepage_Riesling,unit_price Boosting
+0.0002713272368007235,type_Vin Rosé,unit_price Boosting
+0.00042330584394878863,cepage_Nebbiolo,unit_price Boosting
+0.0005411000411925954,cepage_Cinsault,unit_price Boosting
+0.0006154947574169271,par_gouts_Sucré,unit_price Boosting
+0.000616369346523654,cepage_None,unit_price Boosting
+0.0008818475462448863,cepage_Syrah,unit_price Boosting
+0.0008983116474679422,country_Argentine,unit_price Boosting
+0.0010416153807506834,par_gouts_Epicé,unit_price Boosting
+0.001260897232710957,cepage_Sémillon,unit_price Boosting
+0.0014209766389949997,cepage_Merlot,unit_price Boosting
+0.0016366336274653425,par_gouts_Fruité,unit_price Boosting
+0.001646506498740927,cepage_Cabernet-franc,unit_price Boosting
+0.0025338713587096423,cepage_Ansonica,unit_price Boosting
+0.0026760194386718523,type_Vin Blanc,unit_price Boosting
+0.002930422813180635,country_Espagne,unit_price Boosting
+0.003435233779794224,cepage_Sangiovese,unit_price Boosting
+0.003639466324564261,cepage_Pinot noir,unit_price Boosting
+0.0037920613786418963,country_Australie,unit_price Boosting
+0.00411784233150129,type_Vin Rouge,unit_price Boosting
+0.004301855267394118,cepage_Cabernet-Sauvignon,unit_price Boosting
+0.004458016562818363,wine_note,unit_price Boosting
+0.004608431513745496,bio,unit_price Boosting
+0.00508764224105278,par_gouts_None,unit_price Boosting
+0.005179958465310789,service_En bouteille ou en carafe,unit_price Boosting
+0.00578580059716074,cepage_Mourvèdre,unit_price Boosting
+0.006517426521714786,service_En bouteille,unit_price Boosting
+0.006723158995787224,is_new,unit_price Boosting
+0.006957952518400848,cepage_Cabernet Sauvignon,unit_price Boosting
+0.007967551334531371,country_Allemagne,unit_price Boosting
+0.008524231722337105,service_Passer en carafe,unit_price Boosting
+0.010965094192091447,cepage_Marsanne,unit_price Boosting
+0.011272238793939947,service_Non Renseigné,unit_price Boosting
+0.011884855018905608,nb_reviews,unit_price Boosting
+0.012423054337940675,par_gouts_Puissant,unit_price Boosting
+0.012712544896294349,service_Ouvrir avant le service,unit_price Boosting
+0.013303692601586233,cepage_Tinto Fino,unit_price Boosting
+0.013675271794110736,avg_temp,unit_price Boosting
+0.017436036264506467,top_100,unit_price Boosting
+0.018003350096621774,cepage_Chardonnay,unit_price Boosting
+0.021448388329163126,country_Etats-Unis,unit_price Boosting
+0.023524073617390878,cru,unit_price Boosting
+0.03303017043099533,alcohol_volume,unit_price Boosting
+0.04052911938115224,millesime,unit_price Boosting
+0.09995822571248576,conservation_date,unit_price Boosting
+0.10908517010945439,capacity,unit_price Boosting
+0.44840607868981414,conservation_time,unit_price Boosting

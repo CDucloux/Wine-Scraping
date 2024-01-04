@@ -2,8 +2,6 @@
 from src.modules.ml_models.models import *
 from src.modules.ml_models.prediction import *
 
-#EXPLIQUEE = targets.PRICE.value  # unit_price | type
-
 for EXPLIQUEE in ("type", "unit_price"):
     if EXPLIQUEE == "type":
         MODE = "classification"
@@ -47,4 +45,4 @@ for EXPLIQUEE in ("type", "unit_price"):
 
     df = pl.DataFrame(data)
     df.write_csv(f"./data/tables/pred_{MODE}.csv", separator=",")
-    print("Succès")
+    print(f"Succès : table pred_{MODE} exportée dans le dossier data.")
