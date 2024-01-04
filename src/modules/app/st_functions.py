@@ -31,7 +31,19 @@ def db_connector() -> DuckDBPyConnection:
 
 
 def load_tables(connection: DuckDBPyConnection) -> None:
-    """Charge l'ensemble des tables en csv dans la base de données In-memory."""
+    """`load_tables`: Charge l'ensemble des tables en csv dans la base de données In-memory.
+    
+    ---------
+    `Parameters`
+    --------- ::
+    
+    connection (DuckDBPyConnection):
+
+    `Example(s)`
+    ---------
+    >>> conn = db_connector()
+    >>> load_tables(conn)
+    ... None"""
     root = Path(".").resolve()
     data_folder = root / "data"
     tables_folder = data_folder / "tables"
@@ -96,7 +108,17 @@ def load_df() -> pl.DataFrame:
     ---------
 
     >>> load_df()
-    ... #_test_return_"""
+    ... shape: (4_006, 40)
+    ┌─────────────┬──────────┬────────────┬────────────┬───┬───────────┬────────────┬────────────┬─────┐
+    │ name        ┆ capacity ┆ unit_price ┆ offer_pric ┆ … ┆ wine_note ┆ nb_reviews ┆ conservati ┆ cru │
+    │ ---         ┆ ---      ┆ ---        ┆ e          ┆   ┆ ---       ┆ ---        ┆ on_time    ┆ --- │
+    │ str         ┆ f64      ┆ f64        ┆ ---        ┆   ┆ f64       ┆ i64        ┆ ---        ┆ i32 │
+    │             ┆          ┆            ┆ f64        ┆   ┆           ┆            ┆ i64        ┆     │
+    ╞═════════════╪══════════╪════════════╪════════════╪═══╪═══════════╪════════════╪════════════╪═════╡
+    │ ABYMES 2021 ┆ 0.75     ┆ 9.5        ┆ null       ┆ … ┆ 3.975     ┆ 10         ┆ 2          ┆ 0   │
+    │ - REMY      ┆          ┆            ┆            ┆   ┆           ┆            ┆            ┆     │
+    │ BERLIOZ     ┆          ┆            ┆            ┆   ┆           ┆            ┆            ┆     │
+"""
     root = Path(".").resolve()
     data_folder = root / "data"
     df = pl.read_json(data_folder / "vins.json")
@@ -138,8 +160,9 @@ def load_main_df(
     `Example(s)`
     ---------
 
-    >>> load_main_df()
-    ... #_test_return_"""
+    >>> load_main_df(df,["Vin Rouge"], (0.,15.), {1},{1},{0}, "")
+    ... shape: (6, 40)
+"""
     main_df = (
         _df.filter(pl.col("type").is_in(selected_wines))
         .filter(pl.col("unit_price") > prices[0])
@@ -153,12 +176,28 @@ def load_main_df(
 
 
 def page_config() -> None:
-    """Configure le titre et le favicon de l'application."""
+    """`page_config`: Configure le titre et le favicon de l'application.
+
+    `Example(s)`
+    ---------
+    >>> page_config()
+    ... None
+"""
     return st.set_page_config(page_title="Wine Scraper", page_icon="🍇")
 
 
 def remove_white_space() -> DeltaGenerator:
-    """Utilise du CSS pour retirer de l'espace non-utilisé"""
+    """`remove_white_space`: Utilise du CSS pour retirer de l'espace non-utilisé
+    
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> remove_white_space(df)
+    ... DeltaGenerator()"""
     return st.markdown(
         """
         <style>
@@ -181,7 +220,12 @@ def remove_white_space() -> DeltaGenerator:
 
 
 def custom_radio_css() -> None:
-    """Repositionne les boutons radio (colonne vers ligne)."""
+    """`custom_radio_css`: Repositionne les boutons radio (colonne vers ligne).
+    
+    `Example(s)`
+    ---------
+    >>> custom_radio_css()
+    ... None"""
     return st.write(
         "<style>div.row-widget.stRadio > div{flex-direction:row;}</style>",
         unsafe_allow_html=True,
@@ -206,7 +250,9 @@ def main_wine_metric(df: pl.DataFrame, wine_type: str) -> DeltaGenerator:
     `Example(s)`
     ---------
 
-    >>> main_wine_metric()"""
+    >>> df = load_df()
+    >>> main_wine_metric(df, "Vin Rouge")
+    ... DeltaGenerator()"""
     wine_count = (
         df.group_by(pl.col("type"))
         .count()
@@ -239,7 +285,26 @@ def main_wine_metric(df: pl.DataFrame, wine_type: str) -> DeltaGenerator:
 
 
 def write_price(df: pl.DataFrame, selected_wines: list[str]) -> None:
-    """Retourne le prix moyen d'un vin de la sélection ou indique l'impossibilité de le calculer."""
+    """`write_price`: Retourne le prix moyen d'un vin de la sélection ou indique l'impossibilité de le calculer.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # DataFrame statique
+        selected_wines (list[str]): 
+
+    `Returns`
+    --------- ::
+
+        None
+
+    `Example(s)`
+    ---------
+
+    >>> df = load_df()
+    >>> write_price(df, ["Vin Rouge"])
+    ... None"""
     mean_price = df.select(pl.col("unit_price")).mean().item()
     if mean_price == None:
         return st.write("Le prix moyen d'un vin de la sélection est *incalculable*.")
@@ -253,7 +318,18 @@ def write_price(df: pl.DataFrame, selected_wines: list[str]) -> None:
 
 
 def info() -> DeltaGenerator:
-    """Retourne des informations sur une page."""
+    """`info`: Retourne des informations sur une page.
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+
+    >>> info()
+    ... DeltaGenerator()"""
     return st.info(
         "L'ensemble de cet onglet est statique, la barre de paramètres n'influera pas sur les données.",
         icon="ℹ️",
@@ -261,7 +337,18 @@ def info() -> DeltaGenerator:
 
 
 def authors() -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
-    """Crée la page 6 qui inclue nos noms 😎."""
+    """`info`: Crée la page 6 qui inclue nos noms 😎.
+
+    `Returns`
+    --------- ::
+
+        tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]
+
+    `Example(s)`
+    ---------
+
+    >>> info()
+    ... (DeltaGenerator(), DeltaGenerator(), DeltaGenerator())"""
     image = Image.open("./img/img_vins.jpg")
     return (
         st.balloons(),
@@ -276,7 +363,23 @@ def authors() -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
 
 
 def model_mapper(model_name: str) -> str:
-    """Mappe le nom des modèles à ceux contenus dans la base de données."""
+    """`model_mapper`: Mappe le nom des modèles à ceux contenus dans la base de données.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        model_name (str)
+    
+    `Returns`
+    --------- ::
+
+        str
+
+    `Example(s)`
+    ---------
+    >>> model_mapper("Random Forest")
+    ... 'random_forest' """
     model_names_mapping = {
         "Random Forest": "random_forest",
         "Boosting": "boosting",
@@ -289,7 +392,24 @@ def model_mapper(model_name: str) -> str:
 
 
 def model_mapper_reverse(model_name: str) -> str:
-    """Mappe les noms de modèles de la base de données à ceux "réels"."""
+    """`model_mapper_reverse`: Mappe les noms de modèles de la base de données à ceux "réels".
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        model_name (str)
+    
+    `Returns`
+    --------- ::
+
+        str
+
+    `Example(s)`
+    ---------
+    
+    >>> model_mapper_reverse('random_forest')
+    ... 'Random Forest' """
     model_names_mapping = {
         "random_forest": "Random Forest",
         "boosting": "Boosting",
@@ -312,7 +432,27 @@ class threshold_price(Enum):
 
 
 def format_prediction(prediction: float | str, truth: float | str) -> str:
-    """Formate le résultat brut de la prédiction dans l'application (soit le prix, soit le type de vin)."""
+    """`format_prediction`: Formate le résultat brut de la prédiction dans l'application (soit le prix, soit le type de vin).
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        prediction (float | str)
+        truth (float | str)
+    
+    `Returns`
+    --------- ::
+
+        str
+
+    `Example(s)`
+    ---------
+    >>> format_prediction("Vin Rouge", "Vin Blanc")
+    ... '❌ Vin Rouge'
+    
+    >>> format_prediction("Vin Blanc", "Vin Blanc")
+    ... '✅ Vin Blanc'"""
     if type(prediction) == float and type(truth) == float:
         if (prediction / truth) > threshold_price.LOW.value and (
             prediction / truth
@@ -331,7 +471,25 @@ def format_prediction(prediction: float | str, truth: float | str) -> str:
 def popover_prediction(
     prediction: float, truth: float
 ) -> tuple[DeltaGenerator, DeltaGenerator]:
-    """Renvoie un message d'avertissement selon que le prix prédit soit supérieur ou inférieur au prix réel."""
+    """`popover_prediction`: Renvoie un message d'avertissement selon que le prix prédit soit supérieur ou inférieur au prix réel.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        prediction (float)
+        truth (float)
+    
+    `Returns`
+    --------- ::
+
+        tuple[DeltaGenerator, DeltaGenerator]
+
+    `Example(s)`
+    ---------
+    >>> popover_prediction(3, 7)
+    ... (DeltaGenerator(), DeltaGenerator())
+    """
     if prediction - truth < 0:
         if (prediction / truth) > threshold_price.LOW.value and (
             prediction / truth
@@ -354,7 +512,25 @@ def popover_prediction(
 
 
 def get_names(conn: DuckDBPyConnection) -> list[str]:
-    """Récupère les noms des vins qui ont été prédits par le modèle."""
+    """`get_names`: Récupère les noms des vins qui ont été prédits par le modèle.
+    
+    ---------
+    `Parameters`
+    --------- ::
+
+        conn (DuckDBPyConnection)
+    
+    `Returns`
+    --------- ::
+
+        list[str]
+
+    `Example(s)`
+    ---------
+    >>> conn = db_connector()
+    >>> get_names(conn)
+    ... 
+    """
     result = conn.execute("SELECT name FROM pred_regression")
     names = [row[0] for row in result.fetchall()]
     return names
@@ -363,14 +539,30 @@ def get_names(conn: DuckDBPyConnection) -> list[str]:
 def get_value(
     conn: DuckDBPyConnection, column: str, table_name: str, wine_name: str
 ) -> float | str:
-    """Récupère la colonne d'une table filtrée selon le nom d'un vin, c'est à dire une valeur.
+    """`get_value`: Récupère la colonne d'une table filtrée selon le nom d'un vin, c'est à dire une valeur.
 
     La colonne peut être :
 
     - unit_price
     - type
     - un des 6 modèles de Machine Learning
+    
+    ---------
+    `Parameters`
+    --------- ::
 
+        conn (DuckDBPyConnection)
+        column (str)
+        table_name (str)
+        wine_name (str)
+    
+    `Returns`
+    --------- ::
+
+        float | str
+
+    `Example(s)`
+    ---------
     """
     query = conn.execute(
         f"SELECT {column} FROM {table_name} WHERE name = ?", [wine_name]

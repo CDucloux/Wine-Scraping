@@ -8,10 +8,6 @@ import polars as pl
 
 def sidebar_wine_selector() -> list[str]:
     """`sidebar_wine_selector`: Permet de sélectionner un type de vin.
-    
-    ---------
-    `Parameters`
-    --------- ::
 
     `Returns`
     --------- ::
@@ -62,10 +58,6 @@ def sidebar_prices_slider(df: pl.DataFrame) -> tuple[float, float]:
 def sidebar_checkbox_bio() -> set[int]:
     """`sidebar_checkbox_bio`: Une case à cocher pour n'inclure que les vins bios.
     
-    ---------
-    `Parameters`
-    --------- ::
-    
     `Returns`
     --------- ::
 
@@ -85,10 +77,6 @@ def sidebar_checkbox_bio() -> set[int]:
 
 def sidebar_checkbox_new() -> set[int]:
     """`sidebar_checkbox_new`: Une case à cocher pour n'inclure que les nouveautés.
-    
-    ---------
-    `Parameters`
-    --------- ::
     
     `Returns`
     --------- ::
@@ -211,10 +199,6 @@ def color_selector(selected_wines: list[str]) -> list[str]:
 def model_radio_selector() -> str | None:
     """`model_radio_selector`: Permet de sélectionner un modèle de Machine Learning avec des radio buttons.
     
-    ---------
-    `Parameters`
-    --------- ::
-    
     `Returns`
     --------- ::
 
@@ -239,10 +223,6 @@ def model_radio_selector() -> str | None:
 
 def model_selector() -> str | None:
     """`model_selector`: Permet de sélectionner un modèle de Machine learning avec une liste déroulante.
-    
-    ---------
-    `Parameters`
-    --------- ::
     
     `Returns`
     --------- ::
@@ -273,9 +253,6 @@ def n_variable_selector() -> int | float:
     - Valeur par défaut : 10
     - Valeur minimal : 2
     - Valeur maximal : 30
-    ---------
-    `Parameters`
-    --------- ::
     
     `Returns`
     --------- ::
