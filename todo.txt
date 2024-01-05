@@ -1,9 +1,6 @@
-TODOS :
-
-
+TODOS à supprimer à la fin:
 
 - doctest
-- déployer l'app sur le cloud streamlit
+- Tests de l'application aussi
+- déployer l'app sur le cloud streamlit (facile, + générer un requirements.txt pour l'app)
 - Docker
-- préciser la licence du projet
-- axe d'amélioration => spacy et NLP

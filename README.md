@@ -25,8 +25,8 @@
     - [Onglet 3 : Charts](#onglet-3--charts)
     - [Onglet 4 : Provenance](#onglet-4--provenance)
     - [Onglet 5 : Machine Learning](#onglet-5--machine-learning)
+  - [Axes d'amélioration](#axes-damélioration)
   - [Auteurs](#auteurs)
-  - [Licence](#licence)
   - [TODO à retirer plus tard](#todo-à-retirer-plus-tard)
 
 
@@ -34,7 +34,10 @@
 
 L'objectif de ce projet est de récupérer des données sur un site web, les stocker, les transformer puis les exploiter pour faire des modèles de Machine Learning ainsi qu'une application.
 
-**En ce sens, ce projet présente plusieurs étapes** :
+> ⚠️Si vous êtes intéréssé uniquement par l'utilisation de l'application et non pas les considérations techniques, alors vous pouvez directement vous rendre dans la partie [**Installation**](#installation) puis [**Utilisation de l'application**](#utilisation-de-lapplication).
+
+
+**Le projet, dans les grandes lignes** :
 
 1. Scraping des données avec `requests` et  `bs4` ♨
 2. Restructuration des données avec `polars` 🐻
@@ -42,7 +45,7 @@ L'objectif de ce projet est de récupérer des données sur un site web, les sto
 4. Alimentation d'une base de données contenant les prédictions des modèles avec `duckdb` 💾
 5. Création d'une application pour visualiser les résultats avec `streamlit` et `plotly` 📊
 
-**Il répond aussi à un certain nombre de normes de production et de reproductibilité** :
+**Répond aussi à un certain nombre de normes de production et de reproductibilité** :
 
 1. Annotations de type claires 
 2. Des *docstrings* compréhensibles, avec exemples
@@ -53,7 +56,7 @@ L'objectif de ce projet est de récupérer des données sur un site web, les sto
 
 ## Scraping
 
-La récupération des données se déroule en plusieurs étapes. Tout d'abord :
+Voici comment se déroule la récupération des données :
 
 1. On construit les URL des pages de recherche proprement avec *query parameters* en utilisant le package `yarl`.
 
@@ -123,12 +126,12 @@ python -m "src.modules.scraping_trigger"
 
 ## Machine Learning
 
-La procédure de Machine Learning se déroule en plusieurs étapes :
+Que prédire ? Avec quoi le prédire ? Comment utiliser les résultats ? Les réponses sont ci-dessous :
 
-1. Il y a deux variables à prédire : *unit_price* & *type*
+1. Deux variables à prédire : *unit_price* & *type*
 2. Nous utiliserons 6 modèles de **Machine Learning**
-3. ➶ Optimisation des hyperparamètres par Cross-Validation $\Rightarrow$ `models.py`
-4. 🏹 Prédiction sur les données de test $\Rightarrow$ `prediction.py`
+3. ➶ Optimisation des hyperparamètres par Cross-Validation avec `models.py`
+4. 🏹 Prédiction sur les données de test avec `prediction.py`
 5. 🧪 Utilisation d'un **pipeline** `sklearn`
     - Evite le Data Leakage.
     - Procédure standardisée pour l'ensemble des modèles.
@@ -161,7 +164,7 @@ Les **21 variables explicatives** sont les suivantes :
 
 ## Résultats du Machine Learning
 
-5 tables de résultats de Machine Learning sont obtenues grâce à l'éxéuction de `ml_trigger` qui se charge d'éxécuter l'ensemble des scripts d'export.Mais plutôt que d'utiliser chaque csv indépendamment ou de tenter de concaténer les résultats, nous avons préféré utiliser une base de données.
+5 tables de résultats de Machine Learning sont obtenues grâce à l'éxéuction de `ml_trigger` qui se charge d'éxécuter l'ensemble des scripts d'export. Mais plutôt que d'utiliser chaque csv indépendamment ou de tenter de concaténer les résultats, nous avons préféré utiliser une base de données pour l'implémentation dans notre application.
 
 `duckdb` est une base de données particulière en ce sens qu'elle n'est pas *Client-Server*, mais *in-memory*. Cela permet d’obtenir des temps de réponse minimaux en éliminant le besoin d'accéder à des unités de disque standard (SSD). Une base de données *in-memory* est donc idéale pour une application effectuant de l’analyse de données en temps réel.
 
@@ -245,26 +248,7 @@ L'application dispose d'une barre latérale permettant de filtrer les résultats
 
 Le premier onglet de l'application contient les données sous forme de tableau filtrable grâce à la barre latérale. Il est possible pour l'utilisateur d'étudier une multitude d'informations :
 
-- Nom du vin
-- Prix unitaire
-- Image de la bouteille
-- Capacité en litres
-- Type de vin
-- Millésime
-- Durée de conservation
-- Mots-clés associés
-- Cépage Majoritaire
-- Vin bio
-- Nouveauté
-- Coup de coeur client
-- Destockage
-- Service
-- Température moyenne
-- Degré d'alcool
-- Description
-- Goûts / A l'oeil / Au nez / En bouche
-- Pays d'origine du vin
-- Note du vin
+- Le nom du vin, le prix unitaire, l'image de la bouteille, la capacité en litres, le type de vin, millésime, la durée de conservation, les mots-clés associés, le cépage, etc.
 
 *Démonstration :*
 
@@ -355,12 +339,18 @@ $$0.8 \times unit\textunderscore price_{\text{true}} < unit\textunderscore price
 
 Ce seuil est évidemment discutable car il n'est pas extrêmement précis pour les vins à prix elevé, néanmoins, pour les vins à bas prix, les écarts ne sont pas anormalement elevés. 
 
+## Axes d'amélioration
+
+Si la *User Interface* de notre application est bien réussie, il n'en reste pas moins que les modèles de régression des prix ont des performances plutôt moyennes. En effet, même si le paramètre le plus important est évidemment la durée de conservation d'un vin, de nombreux autres paramètres sont indisponibles dans nos données - comme le domaine ou la rareté du vin. 
+
+**Il est clair que l'ajout de ces variables améliorerait nettement nos résultats.**
+
+Une autre piste à explorer serait d'utiliser du **NLP** avec `spacy` pour exploiter au maximum les données textuelles disponibles dans des variables comme la *description*, le *goût en bouche*, etc.
+
 ## Auteurs
 
 - *[Corentin DUCLOUX](https://github.com/CDucloux)*
 - *[Guillaume DEVANT](https://github.com/devgui37)*
-
-## Licence
 
 
 ## TODO à retirer plus tard
@@ -371,5 +361,3 @@ Ce seuil est évidemment discutable car il n'est pas extrêmement précis pour l
 
 - [ ] Voir tests unitaires dans des docstrings $\Rightarrow$ `doctest`
 
-
-***
