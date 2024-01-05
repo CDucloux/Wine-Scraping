@@ -53,11 +53,9 @@ L'objectif de ce projet est de récupérer des données sur un site web, les sto
 
 ## Scraping
 
-**TODO : Ameliorer cette partie** + parler du script pour effectuer le scraping
+La récupération des données se déroule en plusieurs étapes. Tout d'abord :
 
-`scraping_functions.py` $\Rightarrow$ Le coeur du scraper
-
-1. Construit des URL avec *query parameters* en utilisant le package `yarl`.
+1. On construit les URL des pages de recherche proprement avec *query parameters* en utilisant le package `yarl`.
 
 ```python
 URL_INIT = URL.build(scheme="https", host="vinatis.com")
@@ -70,9 +68,58 @@ ROSE = "achat-vin-rose"
 ```
 
 2. `create_session` crée une session HTML avec un User-Agent et un Proxy aléatoire, pouvant changer entre les requêtes.
-3. Possède un décorateur `@random_waiter(min, max)` permettant de générer un temps d'attente aléatoire entre les deux bornes spécifiées entre chaque requête **GET** pour éviter d'envoyer trop de requêtes dans un laps de temps réduit.
+3. Un décorateur `@random_waiter(min, max)` permet de générer un temps d'attente aléatoire entre les deux bornes spécifiées entre chaque requête **GET** pour éviter d'envoyer trop de requêtes dans un laps de temps réduit.
 4. `create_all_wine_urls` permet de créer l'ensemble des liens **href**.
 5. `export_wine_links` permet d'exporter ces liens dans un fichier CSV.
+
+*Note : Chaque lien **href** récupéré correspond à la page d'un vin.*
+
+> Toutes ces étapes peuvent être éxécutées grâce au script `page_scraper.py` si on souhaite uniquement récupérer les liens des pages pour effectuer les requêtes plus tard.
+
+Il ne suffit plus maintenant que de requêter ces liens pour récupérer les informations brutes des pages, en extraire des attributs de valeur et utiliser une `@dataclass` sérialisable en **JSON** pour stocker les informations.
+
+> Si les liens ont déjà été scrapés, alors lancer le script `wine_scraper.py` permettra de le faire.
+
+*Voici un exemple des caractéristiques d'un vin au format JSON :*
+
+
+```json
+{
+        "name": "PINOT NOIR 2019 LAS PIZARRAS - ERRAZURIZ",
+        "capacity": "0,75 L",
+        "price": "94,90 €",
+        "price_bundle": null,
+        "characteristics": "Vin Rouge / Chili / Central Valley / Aconcagua Valley DO / 13,5 % vol / 100% Pinot noir",
+        "note": null,
+        "keywords": [
+            "Elégance",
+            "Finesse",
+            "Harmonie"
+        ],
+        "others": null,
+        "picture": "https://www.vinatis.com/67234-detail_default/pinot-noir-2019-las-pizarras-errazuriz.png",
+        "classification": null,
+        "millesime": "2019",
+        "cepage": "100% Pinot noir",
+        "gouts": "Rouge Charnu et fruité",
+        "par_gouts": "Puissant",
+        "oeil": "Robe rubis aux reflets violets.",
+        "nez": "Nez complexe sur la griotte, les épices et les champignons (truffe).",
+        "bouche": "Bouche fruitée et florale. Tanins structurés, élégants et fins. finale harmonieuse et persistante.",
+        "temperature": "8-10°C",
+        "service": "En bouteille ou en carafe",
+        "conservation_1": "2026",
+        "conservation_2": "A boire et à garder",
+        "accords_vins": "Apéritif, Entrée, Charcuterie, Viande rouge, Viande blanche, Volaille, Gibier, Champignon, Barbecue, Cuisine du monde, Fromage, Dessert fruité, Dessert chocolaté",
+        "accords_reco": "Gigot d'agneau aux herbes de Provence; Tikka massala; Plateau de fromages."
+    }
+```
+
+Il est cependant possible de faire tourner la procédure complète une fois dans l'environnement virtuel du projet avec la commande : 
+
+```powershell
+python -m "src.modules.scraping_trigger"
+```
 
 ## Machine Learning
 
@@ -306,29 +353,19 @@ $$0.8 \times unit\textunderscore price_{\text{true}} < unit\textunderscore price
 
 - C'est à dire entre 80 et 120% du prix réel.
 
- Ce seuil est évidemment discutable car il n'est pas extrêmement précis pour les vins à prix elevé, néanmoins, pour les vins à bas prix, les écarts ne sont pas anormalement elevés. 
+Ce seuil est évidemment discutable car il n'est pas extrêmement précis pour les vins à prix elevé, néanmoins, pour les vins à bas prix, les écarts ne sont pas anormalement elevés. 
 
- ## Auteurs
+## Auteurs
 
+- *[Corentin DUCLOUX](https://github.com/CDucloux)*
+- *[Guillaume DEVANT](https://github.com/devgui37)*
 
- ## Licence
+## Licence
 
 
 ## TODO à retirer plus tard
 
 - [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage + doctest pour les tests dans les docstrings.
-
-- **Scraping**
-    - `scraping_functions` $\Rightarrow$ module finalisé
-    - `scraper` $\Rightarrow$ module finalisé (récupère les hrefs des vins et les écrit dans un fichier csv)
-
-- **Soup & JSON**
-    - `mystical_soup` $\Rightarrow$ module finalisé (Transforme en les résultats trouvés dans les pages html à l'aide de *BeautifulSoup*)
-
-
-- **Machine Learning**
-    - `models` $\Rightarrow$ module finalisé (Prépare les modèles)
-    - `prediction` $\Rightarrow$ module finalisé (Applique les modèles et fait les prédictions)
 
 - **Phase de tests unitaires, éventuellement Docker**
 
