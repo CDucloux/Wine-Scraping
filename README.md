@@ -360,9 +360,6 @@ Ce seuil est évidemment discutable car il n'est pas extrêmement précis pour l
 - *[Corentin DUCLOUX](https://github.com/CDucloux)*
 - *[Guillaume DEVANT](https://github.com/devgui37)*
 
-## Licence
-
-
 ## TODO à retirer plus tard
 
 - [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage + doctest pour les tests dans les docstrings.
