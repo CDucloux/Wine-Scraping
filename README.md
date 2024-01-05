@@ -352,7 +352,6 @@ Une autre piste à explorer serait d'utiliser du **NLP** avec `spacy` pour explo
 - *[Corentin DUCLOUX](https://github.com/CDucloux)*
 - *[Guillaume DEVANT](https://github.com/devgui37)*
 
-
 ## TODO à retirer plus tard
 
 - [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage + doctest pour les tests dans les docstrings.
