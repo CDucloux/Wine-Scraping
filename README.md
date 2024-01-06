@@ -174,7 +174,7 @@ Les **21 variables explicatives** sont les suivantes :
 graph LR;
 A("👨‍🔬 pred_classification")-->F;
 B("👨‍🔬 pred_regression")-->F;
-C("👩‍🏫result_ml_regression")-->F;
+C("👩‍🏫 result_ml_regression")-->F;
 D("👩‍🏫 result_ml_classification")-->F;
 E("🕵️‍♂️ importance")-->F[("🦆 In Memory Database")];
 
@@ -357,6 +357,4 @@ Une autre piste à explorer serait d'utiliser du **NLP** avec `spacy` pour explo
 - [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage + doctest pour les tests dans les docstrings.
 
 - **Phase de tests unitaires, éventuellement Docker**
-
-- [ ] Voir tests unitaires dans des docstrings $\Rightarrow$ `doctest`
 

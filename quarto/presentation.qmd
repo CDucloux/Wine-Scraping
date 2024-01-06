@@ -1,6 +1,6 @@
 ---
 title: "🍷 À boire 🍻"
-subtitle: "*L'histoire d'un breuvage*"
+subtitle: "*Le breuvage contre-attaque*"
 author: "`Guillaume DEVANT` & `Corentin DUCLOUX`"
 format: 
     revealjs:
@@ -40,9 +40,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 :::
 :::
 
+::: {.notes}
+- Nous avons commencé à rechercher notre proie dès fin septembre pour faire quelques tests, notamment sur la partie scraping.
+:::
+
 ## Scraping {background-image="img\bouteille_scrap.png" background-opacity="0.5"}
 
 > *“Pour savoir qu'un verre était de trop, encore faut-il avoir scrapé son vin !”* $-$ **Inconnu**
+
+::: {.notes}
+Eh non Jean ! On ne parle pas de toi mais bien du scraping de vin. D'ailleurs on voit au tableau ce magnifique proverbe indonéso-inconnu qui énonce que **Pour savoir qu'un verre était de trop, encore faut-il avoir scrapé son vin !**
+
+Ca t'a ouvert les chakras Guillaume ? Ouais, non ? Bon moi non plus, et si on passait à la partie technique plutôt ?
+:::
 
 ## Scraping, Partie I {.smaller}
 
@@ -64,6 +74,18 @@ ROSE = "achat-vin-rose"
 3. Possède un décorateur `@random_waiter(min, max)` permettant de générer un temps d'attente aléatoire entre les deux bornes spécifiées entre chaque requête **GET** pour éviter d'envoyer trop de requêtes dans un laps de temps réduit.
 4. `create_all_wine_urls` permet de créer l'ensemble des liens **href**.
 5. `export_wine_links` permet d'exporter ces liens dans un fichier CSV.
+
+::: {.notes}
+Pour un peu de mise en contexte, initialement on avait commencé par scraper les pages de vente de vins où une trentaine de vins sont affichés...mais on s'est rapidement rendu compte que dans ces pages, il manquait beaucoup d'informations. On s'est plutôt mis en tête de récupérer les caractéristiques sur chaque page individuelle de vin, qu'on peut facilement récupérer sur les pages de recherche grâce à des liens href.
+
+*Note* : On aurait pu construire les URL à la main mais c'était beaucoup moins élégant que de le faire comme ça.
+
+- Ensuite on a voulu introduire un User Agent réaliste quand on effectue notre requête get, pour éviter que le site ne finisse par comprendre que c'est un bot. Ca permet simplement d'envoyer des en-têtes que renvoierai un navigateur comme Firefox, Chrome ou Edge. 
+- Le proxy permet quant à lui de masquer son adresse IP, au cas où on finirait par se faire bannir.
+- On a aussi voulu éviter de surcharger les serveurs en envoyant trop de requêtes en même temps donc on a utilisé un décorateur (**point 3**)
+
+Cela étant, on a eu aucun problème jusqu'ici chaque fois qu'on a fait le scraping. 
+:::
 
 ## Scraping, Partie II {.smaller}
 
@@ -115,6 +137,14 @@ Mais ce *JSON* **brut** doit être nettoyé et considérablement restructuré !
 
 ![](img\bear_data.png){fig-align="center"}
 
+::: {.notes}
+On l'a vu avec l'exemple d'un vin sérialisé en json sur la slide précédente, les entrées ne sont pas nettoyées : les valeurs numériques sont stockées sous forme de texte, etc.
+
+**Pourquoi polars ?** $\Rightarrow$ Les expressions polars nous permettent de faire tout un tas d'opérations sans jamais utiliser des lambda functions, l'API est mieux documentée.
+
+- En sortie : 4006 vins distincts et 40 variables !
+:::
+
 ## Machine Learning {background-image="img\bouteille_ecole.png" background-opacity="0.25"}
 
 > *“2024 sera un millésime français !”* $-$ **Emmanuel Macron**
@@ -128,6 +158,16 @@ Mais ce *JSON* **brut** doit être nettoyé et considérablement restructuré !
 5. 🧪 Utilisation d'un **pipeline** `sklearn`
     - Evite le Data Leakage
     - Procédure standardisée pour l'ensemble des modèles.
+
+::: {.notes}
+Mais Guillaume dis-moi, si on peut facilement voir l'intérêt de prédire le prix d'une bouteille de vin, quel est l'intérêt de prédire le type de vin ? Je veux dire, une fois qu'on regarde la bouteille, à la couleur on peut savoir, ça semble un peu bête non ?
+
+Eh bien Corentin, la réponse était à Noel ! Quand, dans un repas de famille, on nous présente pas moins d'une dizaine de vins et qu'on commence à tous les goûter, il arrive ce moment inéluctable ou on dépasse les 2 grammes par litre, et à ce moment... difficile de distinguer ce qu'on boit. Nos modèles viennent en aide à ce moment là ! Enfin, si l'utilisateur arrive à utiliser son ordinateur...
+
+***
+
+Le *Data Leakage* se produit lorsque des informations qui sont indisponibles au moment de la prédiction sont utilisées pendant la construction du modèle. Se traduit par des estimations de performances trop optimistes, et donc de moins bonnes performances quand le modèle est utilisé sur de nouvelles données.
+:::
 
 ## ➶ ML : Optimisation {.smaller}
 
@@ -173,15 +213,23 @@ CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge
 - **Regression**:
     - Erreur moyenne absolue : MAE($y$,$\hat{y}$) = $\frac{1}{n}\sum|y_i - \hat{y_i}|$
     - Erreur quadratique moyenne : MSE($y$,$\hat{y}$) = $\frac{1}{n}\sum(y_i - \hat{y_i})^2$
-    - Erreur Résiduelle Maximale : MaxError($y$, $\hat{y}$) = max(|$y_i-\hat{y_i}$|)
+    - Erreur Résiduelle Maximale : MaxError($y$, $\hat{y}$) = $\max\left(|y_i-\hat{y_i}|\right)$
     - $R^2$ Score = 1 - $\frac{\sum(y_i-\hat{y_i})^2}{\sum(y_i-\bar{y_i})^2}$
 
 - **Classification**:
     - Accuracy Score : AS($y$,$\hat{y}$) = $\frac{1}{n}\sum(\hat{y_i} = y_i)$
-    - precision = $\frac{\text{true positive}}{\text{true positive + false positive}}$
-    - recall = $\frac{\text{true positive}}{\text{true positive + false negative}}$
-    - F1 Score = $2 \times \frac{\text{precision } \times \text{ recall}}{\text{precision + recall}}$
-    - Matthews Correlation Coefficient
+    - Precision = $\frac{\text{true positive}}{\text{true positive + false positive}}$
+    - Recall = $\frac{\text{true positive}}{\text{true positive + false negative}}$
+    - $F_1$ Score = $2 \times \frac{\text{precision } \times \text{ recall}}{\text{precision + recall}}$
+
+::: {.notes}
+Nous avons utilisé un certains nombre de métriques implémentées dans `sklearn` pour évaluer la qualité de nos modèles :
+
+- La $MAE$ est en fait simplement la somme des erreurs absolues divisée par la taille de l'échantillon. 
+- La $MSE$ mesure la moyenne des carrés des erreurs, c'est-à-dire la différence quadratique moyenne entre la valeur estimée et la valeur réelle.
+- L'erreur résiduelle maximale est une métrique qui capture l'erreur la plus importante entre la valeur prédite et la valeur réelle.
+- Le $R^2$ représente la proportion de variance de la variable à prédire expliquée par les variables indépendantes du modèle. Il fournit une indication de la qualité de l'ajustement.
+:::
 
 ## 💻 Application {.smaller background-image="img\st.png" background-opacity="0.25"}
 🕵 **Framework** utilisé : `streamlit`
@@ -196,7 +244,7 @@ CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge
 <iframe src="https://giphy.com/embed/T7QRkgGzYdQju" width="480" height="240" frameBorder="0" class="giphy-embed" allowFullScreen style="display:block; margin:auto;"></iframe><p><a href="https://giphy.com/gifs/franceinfo-wtf-citation-T7QRkgGzYdQju"></a></p>
 
 
-## Choix du stockage
+## Choix du stockage, Partie I
 
 <i class="fa-solid fa-database"></i> `duckdb` : La base de données qui fait *"coin coin"* 🦆
 
@@ -211,12 +259,60 @@ def db_connector() -> DuckDBPyConnection:
 - La base de données en mémoire stocke les informations directement dans la mémoire vive plutôt que sur un disque.
 - Réduit le temps nécessaire au stockage et à la consultation des données, et accélère l’exécution des requêtes.
 
-## 🚀 Démonstration  {.smaller}
+## Choix du stockage, Partie II {.smaller}
 
-Demonstration de l'application
+- 5 tables de résultats de Machine Learning sont obtenues grâce à l'éxéuction de `ml_trigger` qui se charge d'éxécuter l'ensemble des scripts d'export. 
+
+*Voici un schéma du processus d'ingestion des tables :*
+
+```{mermaid}
+graph LR;
+A("👨‍🔬 pred_classification")-->F;
+B("👨‍🔬 pred_regression")-->F;
+C("👩‍🏫 result_ml_regression")-->F;
+D("👩‍🏫 result_ml_classification")-->F;
+E("🕵️‍♂️ importance")-->F[("🦆 In Memory Database")];
+
+style A stroke:#adbac7,stroke-width:3px, fill:white;
+style B stroke:#adbac7,stroke-width:3px, fill:white;
+style C stroke:#adbac7,stroke-width:3px, fill:white;
+style D stroke:#adbac7,stroke-width:3px, fill:white;
+style E stroke:#adbac7,stroke-width:3px, fill:white;
+style F stroke:#fff100,stroke-width:3px, fill:white;
+```
+
+## 🚀 Démonstration
+
+**Demonstration de l'application, 2 Méthodes.** 
+
+:::{.callout-note}
+
+## **Depuis un terminal** :
+
+- *Lancement du shell poetry* : 
+
+```powershell
+py -m poetry shell
+```
+
+- *Lancement de l'application* :
+
+```powershell
+python -m streamlit run "src/modules/app/streamlit_app.py"
+```
+:::
 
 
-## Un code de *Deutsche Qualität*
+:::{.callout-note}
+
+## **Depuis le lien de l'application hébergée sur le cloud** :
+
+1. **Lien** : 
+
+:::
+
+
+## Un code de *Deutsche Qualität* {.smaller background-image="img\deutsche_qualitat.png" background-opacity="0.25"}
 
 - Annotations de type claires
 - Docstrings explicites et soignées
@@ -304,8 +400,6 @@ def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearch
 
 ## 🚢 Modulaire !{.smaller}
 
-🛑 TODO: Modifier la structure
-
 Séparation des composants du projet :
 
 ```
@@ -327,15 +421,19 @@ Séparation des composants du projet :
 │       │   ├───🐍st_tables.py
 │       │   └───🐍streamlit_app.py
 │       ├───⚙ml_models
+│       │   ├───🐍importance_script.py
 │       │   ├───🐍models.py
 │       │   ├───🐍optimisation_script.py
 │       │   ├───🐍prediction_script.py
 │       │   └───🐍prediction.py
 │       ├───⚙scraping
 │       │   ├───🐍mystical_soup.py
-│       │   ├───🐍scraper.py
+│       │   ├───🐍page_scraper.py
 │       │   ├───🐍scraping_functions.py
-│       │   └───🐍vin_dataclass.py
+│       │   ├───🐍vin_dataclass.py
+│       │   └───🐍wine_scraper.py
+│       ├───🐍ml_trigger.py
+│       ├───🐍scraping_trigger.py
 │       ├───🐍bear_cleaner.py
 │       └───🐍utils.py
 ├───🧙‍♂️poetry.lock
