@@ -222,7 +222,7 @@ py -m poetry shell
 Une fois dans le shell, pour lancer l'application, il faut simplement faire : 
 
 ```powershell
-python -m streamlit run "src/modules/app/streamlit_app.py"
+python -m streamlit run "streamlit_app.py"
 ```
 
 ***

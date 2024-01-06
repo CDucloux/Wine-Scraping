@@ -16,12 +16,12 @@ from src.modules.bear_cleaner import *  # type: ignore
 @st.cache_resource
 def db_connector() -> DuckDBPyConnection:
     """`db_connector`: Connecteur à la base de données.
-    
+
     `Returns`
     --------- ::
 
         DuckDBPyConnection
-        
+
     `Example(s)`
     ---------
     >>> db_connector()
@@ -32,11 +32,11 @@ def db_connector() -> DuckDBPyConnection:
 
 def load_tables(connection: DuckDBPyConnection) -> None:
     """`load_tables`: Charge l'ensemble des tables en csv dans la base de données In-memory.
-    
+
     ---------
     `Parameters`
     --------- ::
-    
+
     connection (DuckDBPyConnection):
 
     `Example(s)`
@@ -118,7 +118,7 @@ def load_df() -> pl.DataFrame:
     │ ABYMES 2021 ┆ 0.75     ┆ 9.5        ┆ null       ┆ … ┆ 3.975     ┆ 10         ┆ 2          ┆ 0   │
     │ - REMY      ┆          ┆            ┆            ┆   ┆           ┆            ┆            ┆     │
     │ BERLIOZ     ┆          ┆            ┆            ┆   ┆           ┆            ┆            ┆     │
-"""
+    """
     root = Path(".").resolve()
     data_folder = root / "data"
     df = pl.read_json(data_folder / "vins.json")
@@ -161,8 +161,7 @@ def load_main_df(
     ---------
 
     >>> load_main_df(df,["Vin Rouge"], (0.,15.), {1},{1},{0}, "")
-    ... shape: (6, 40)
-"""
+    ... shape: (6, 40)"""
     main_df = (
         _df.filter(pl.col("type").is_in(selected_wines))
         .filter(pl.col("unit_price") > prices[0])
@@ -181,14 +180,13 @@ def page_config() -> None:
     `Example(s)`
     ---------
     >>> page_config()
-    ... None
-"""
-    return st.set_page_config(page_title="Wine Scraper", page_icon="🍇")
+    ... None"""
+    return st.set_page_config(page_title="Wine Scraping", page_icon="🍇")
 
 
 def remove_white_space() -> DeltaGenerator:
     """`remove_white_space`: Utilise du CSS pour retirer de l'espace non-utilisé
-    
+
     `Returns`
     --------- ::
 
@@ -221,7 +219,7 @@ def remove_white_space() -> DeltaGenerator:
 
 def custom_radio_css() -> None:
     """`custom_radio_css`: Repositionne les boutons radio (colonne vers ligne).
-    
+
     `Example(s)`
     ---------
     >>> custom_radio_css()
@@ -292,7 +290,7 @@ def write_price(df: pl.DataFrame, selected_wines: list[str]) -> None:
     --------- ::
 
         df (pl.DataFrame): # DataFrame statique
-        selected_wines (list[str]): 
+        selected_wines (list[str]):
 
     `Returns`
     --------- ::
@@ -356,6 +354,8 @@ def authors() -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
             """
 - 🐱‍💻 *Corentin DUCLOUX* : https://github.com/CDucloux 
 - 🐱‍💻 *Guillaume DEVANT* : https://github.com/devgui37
+
+> Pour plus d'informations, lire le 📃 [*README*](https://github.com/CDucloux/Wine-Scraping/blob/master/README.md) de l'application.
 """
         ),
         st.image(image),
@@ -364,13 +364,13 @@ def authors() -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
 
 def model_mapper(model_name: str) -> str:
     """`model_mapper`: Mappe le nom des modèles à ceux contenus dans la base de données.
-    
+
     ---------
     `Parameters`
     --------- ::
 
         model_name (str)
-    
+
     `Returns`
     --------- ::
 
@@ -379,7 +379,7 @@ def model_mapper(model_name: str) -> str:
     `Example(s)`
     ---------
     >>> model_mapper("Random Forest")
-    ... 'random_forest' """
+    ... 'random_forest'"""
     model_names_mapping = {
         "Random Forest": "random_forest",
         "Boosting": "boosting",
@@ -393,13 +393,13 @@ def model_mapper(model_name: str) -> str:
 
 def model_mapper_reverse(model_name: str) -> str:
     """`model_mapper_reverse`: Mappe les noms de modèles de la base de données à ceux "réels".
-    
+
     ---------
     `Parameters`
     --------- ::
 
         model_name (str)
-    
+
     `Returns`
     --------- ::
 
@@ -407,9 +407,9 @@ def model_mapper_reverse(model_name: str) -> str:
 
     `Example(s)`
     ---------
-    
+
     >>> model_mapper_reverse('random_forest')
-    ... 'Random Forest' """
+    ... 'Random Forest'"""
     model_names_mapping = {
         "random_forest": "Random Forest",
         "boosting": "Boosting",
@@ -433,14 +433,14 @@ class threshold_price(Enum):
 
 def format_prediction(prediction: float | str, truth: float | str) -> str:
     """`format_prediction`: Formate le résultat brut de la prédiction dans l'application (soit le prix, soit le type de vin).
-    
+
     ---------
     `Parameters`
     --------- ::
 
         prediction (float | str)
         truth (float | str)
-    
+
     `Returns`
     --------- ::
 
@@ -450,7 +450,7 @@ def format_prediction(prediction: float | str, truth: float | str) -> str:
     ---------
     >>> format_prediction("Vin Rouge", "Vin Blanc")
     ... '❌ Vin Rouge'
-    
+
     >>> format_prediction("Vin Blanc", "Vin Blanc")
     ... '✅ Vin Blanc'"""
     if type(prediction) == float and type(truth) == float:
@@ -472,14 +472,14 @@ def popover_prediction(
     prediction: float, truth: float
 ) -> tuple[DeltaGenerator, DeltaGenerator]:
     """`popover_prediction`: Renvoie un message d'avertissement selon que le prix prédit soit supérieur ou inférieur au prix réel.
-    
+
     ---------
     `Parameters`
     --------- ::
 
         prediction (float)
         truth (float)
-    
+
     `Returns`
     --------- ::
 
@@ -513,13 +513,13 @@ def popover_prediction(
 
 def get_names(conn: DuckDBPyConnection) -> list[str]:
     """`get_names`: Récupère les noms des vins qui ont été prédits par le modèle.
-    
+
     ---------
     `Parameters`
     --------- ::
 
         conn (DuckDBPyConnection)
-    
+
     `Returns`
     --------- ::
 
@@ -529,7 +529,7 @@ def get_names(conn: DuckDBPyConnection) -> list[str]:
     ---------
     >>> conn = db_connector()
     >>> get_names(conn)
-    ... 
+    ...
     """
     result = conn.execute("SELECT name FROM pred_regression")
     names = [row[0] for row in result.fetchall()]
@@ -546,7 +546,7 @@ def get_value(
     - unit_price
     - type
     - un des 6 modèles de Machine Learning
-    
+
     ---------
     `Parameters`
     --------- ::
@@ -555,7 +555,7 @@ def get_value(
         column (str)
         table_name (str)
         wine_name (str)
-    
+
     `Returns`
     --------- ::
 

@@ -283,7 +283,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 
 ## 🚀 Démonstration
 
-**Demonstration de l'application, 2 Méthodes.** 
+**Lancement de l'application, 2 Méthodes.** 
 
 :::{.callout-note}
 
@@ -298,7 +298,7 @@ py -m poetry shell
 - *Lancement de l'application* :
 
 ```powershell
-python -m streamlit run "src/modules/app/streamlit_app.py"
+python -m streamlit run "streamlit_app.py"
 ```
 :::
 
@@ -419,7 +419,7 @@ Séparation des composants du projet :
 │       │   ├───🐍st_plots.py
 │       │   ├───🐍st_selectors.py
 │       │   ├───🐍st_tables.py
-│       │   └───🐍streamlit_app.py
+│       │   └───🐍st_tables.py
 │       ├───⚙ml_models
 │       │   ├───🐍importance_script.py
 │       │   ├───🐍models.py
@@ -438,7 +438,9 @@ Séparation des composants du projet :
 │       └───🐍utils.py
 ├───🧙‍♂️poetry.lock
 ├───📍pyproject.toml
-└───📘README.md
+├───📘README.md
+├───🧾requirements.txt
+└───🐍streamlit_app.py
 ```
 
 ## Références

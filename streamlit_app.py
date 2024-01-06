@@ -1,9 +1,9 @@
 import streamlit as st
 import time
-from st_functions import *
-from st_tables import *
-from st_selectors import *
-from st_plots import *
+from src.modules.app.st_functions import *
+from src.modules.app.st_tables import *
+from src.modules.app.st_selectors import *
+from src.modules.app.st_plots import *
 from src.modules.utils import *
 
 

@@ -740,7 +740,7 @@
 <pre class="mermaid mermaid-js">graph LR;
 A("👨‍🔬 pred_classification")--&gt;F;
 B("👨‍🔬 pred_regression")--&gt;F;
-C("👩‍🏫result_ml_regression")--&gt;F;
+C("👩‍🏫 result_ml_regression")--&gt;F;
 D("👩‍🏫 result_ml_classification")--&gt;F;
 E("🕵️‍♂️ importance")--&gt;F[("🦆 In Memory Database")];
 
@@ -775,7 +775,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <ul>
 <li><em>Lancement de l’application</em> :</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1"></a>python <span class="op">-</span>m streamlit run <span class="st">"src/modules/app/streamlit_app.py"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1"></a>python <span class="op">-</span>m streamlit run <span class="st">"streamlit_app.py"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -907,7 +907,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 │       │   ├───🐍st_plots.py
 │       │   ├───🐍st_selectors.py
 │       │   ├───🐍st_tables.py
-│       │   └───🐍streamlit_app.py
+│       │   └───🐍st_tables.py
 │       ├───⚙ml_models
 │       │   ├───🐍importance_script.py
 │       │   ├───🐍models.py
@@ -926,7 +926,9 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 │       └───🐍utils.py
 ├───🧙‍♂️poetry.lock
 ├───📍pyproject.toml
-└───📘README.md</code></pre>
+├───📘README.md
+├───🧾requirements.txt
+└───🐍streamlit_app.py</code></pre>
 </section>
 <section id="références" class="slide level2">
 <h2>Références</h2>
