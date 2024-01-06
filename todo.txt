@@ -1,6 +1,4 @@
 TODOS à supprimer à la fin:
 
 - doctest
-- Tests de l'application aussi
-- déployer l'app sur le cloud streamlit (facile, + générer un requirements.txt pour l'app)
 - Docker

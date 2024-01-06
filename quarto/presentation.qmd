@@ -149,7 +149,7 @@ On l'a vu avec l'exemple d'un vin sérialisé en json sur la slide précédente,
 
 > *“2024 sera un millésime français !”* $-$ **Emmanuel Macron**
 
-## Machine Learning - Procédure {.smaller}
+## Machine Learning - Procédure {.smaller background-image="img\pipeline.png" background-opacity="0.25"}
 
 1. Deux variables à prédire : *unit_price* & *type*
 2. Utilisation de 6 modèles de **Machine Learning**
@@ -214,7 +214,7 @@ CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge
     - Erreur moyenne absolue : MAE($y$,$\hat{y}$) = $\frac{1}{n}\sum|y_i - \hat{y_i}|$
     - Erreur quadratique moyenne : MSE($y$,$\hat{y}$) = $\frac{1}{n}\sum(y_i - \hat{y_i})^2$
     - Erreur Résiduelle Maximale : MaxError($y$, $\hat{y}$) = $\max\left(|y_i-\hat{y_i}|\right)$
-    - $R^2$ Score = 1 - $\frac{\sum(y_i-\hat{y_i})^2}{\sum(y_i-\bar{y_i})^2}$
+    - $R^2$ Score = $1- \frac{\sum(y_i-\hat{y_i})^2}{\sum(y_i-\bar{y_i})^2}$
 
 - **Classification**:
     - Accuracy Score : AS($y$,$\hat{y}$) = $\frac{1}{n}\sum(\hat{y_i} = y_i)$
@@ -261,7 +261,7 @@ def db_connector() -> DuckDBPyConnection:
 
 ## Choix du stockage, Partie II {.smaller}
 
-- 5 tables de résultats de Machine Learning sont obtenues grâce à l'éxéuction de `ml_trigger` qui se charge d'éxécuter l'ensemble des scripts d'export. 
+- 5 tables de résultats de Machine Learning sont obtenues grâce à l'exéuction de `ml_trigger` qui se charge d'éxécuter l'ensemble des scripts d'export. 
 
 *Voici un schéma du processus d'ingestion des tables :*
 
@@ -305,9 +305,9 @@ python -m streamlit run "streamlit_app.py"
 
 :::{.callout-note}
 
-## **Depuis le lien de l'application hébergée sur le cloud** :
+## **Depuis le lien de l'application déployée sur le cloud `streamlit`** :
 
-1. **Lien** : 
+- **Lien** : [https://wine-scraping.streamlit.app/ <i class="fa-solid fa-up-right-from-square"></i>](https://wine-scraping.streamlit.app/)
 
 :::
 
@@ -439,9 +439,12 @@ Séparation des composants du projet :
 ├───🧙‍♂️poetry.lock
 ├───📍pyproject.toml
 ├───📘README.md
-├───🧾requirements.txt
 └───🐍streamlit_app.py
 ```
+
+## Fin {.smaller background-image="img\weird_man.png" background-opacity="0.25"}
+
+> Bon alors, y'a t'y qu'on l'goûte quand ce vin ?
 
 ## Références
 

@@ -35,7 +35,7 @@ def test_boosting():
     """test de la fonction boosting()"""
     model = boosting("type", "Boosting")
     assert isinstance(model, Pipeline)
- 
+
 def test_ridge():
     """test de la fonction ridge()"""
     model = ridge("type", "Ridge")

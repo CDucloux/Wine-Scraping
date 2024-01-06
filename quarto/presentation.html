@@ -583,7 +583,7 @@
 <p><em>“2024 sera un millésime français !”</em> <span class="math inline">\(-\)</span> <strong>Emmanuel Macron</strong></p>
 </blockquote>
 </section>
-<section id="machine-learning---procédure" class="slide level2 smaller">
+<section id="machine-learning---procédure" class="slide level2 smaller" data-background-image="img\pipeline.png" data-background-opacity="0.25">
 <h2>Machine Learning - Procédure</h2>
 <ol type="1">
 <li>Deux variables à prédire : <em>unit_price</em> &amp; <em>type</em></li>
@@ -663,7 +663,7 @@
 <li>Erreur moyenne absolue : MAE(<span class="math inline">\(y\)</span>,<span class="math inline">\(\hat{y}\)</span>) = <span class="math inline">\(\frac{1}{n}\sum|y_i - \hat{y_i}|\)</span></li>
 <li>Erreur quadratique moyenne : MSE(<span class="math inline">\(y\)</span>,<span class="math inline">\(\hat{y}\)</span>) = <span class="math inline">\(\frac{1}{n}\sum(y_i - \hat{y_i})^2\)</span></li>
 <li>Erreur Résiduelle Maximale : MaxError(<span class="math inline">\(y\)</span>, <span class="math inline">\(\hat{y}\)</span>) = <span class="math inline">\(\max\left(|y_i-\hat{y_i}|\right)\)</span></li>
-<li><span class="math inline">\(R^2\)</span> Score = 1 - <span class="math inline">\(\frac{\sum(y_i-\hat{y_i})^2}{\sum(y_i-\bar{y_i})^2}\)</span></li>
+<li><span class="math inline">\(R^2\)</span> Score = <span class="math inline">\(1- \frac{\sum(y_i-\hat{y_i})^2}{\sum(y_i-\bar{y_i})^2}\)</span></li>
 </ul></li>
 <li><strong>Classification</strong>:
 <ul>
@@ -730,7 +730,7 @@
 <section id="choix-du-stockage-partie-ii" class="slide level2 smaller">
 <h2>Choix du stockage, Partie II</h2>
 <ul>
-<li>5 tables de résultats de Machine Learning sont obtenues grâce à l’éxéuction de <code>ml_trigger</code> qui se charge d’éxécuter l’ensemble des scripts d’export.</li>
+<li>5 tables de résultats de Machine Learning sont obtenues grâce à l’exéuction de <code>ml_trigger</code> qui se charge d’éxécuter l’ensemble des scripts d’export.</li>
 </ul>
 <p><em>Voici un schéma du processus d’ingestion des tables :</em></p>
 <div class="cell" data-reveal="true">
@@ -758,7 +758,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 </section>
 <section id="démonstration" class="slide level2">
 <h2>🚀 Démonstration</h2>
-<p><strong>Demonstration de l’application, 2 Méthodes.</strong></p>
+<p><strong>Lancement de l’application, 2 Méthodes.</strong></p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -785,12 +785,12 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong><strong>Depuis le lien de l’application hébergée sur le cloud</strong> :</strong></p>
+<p><strong><strong>Depuis le lien de l’application déployée sur le cloud <code>streamlit</code></strong> :</strong></p>
 </div>
 <div class="callout-content">
-<ol type="1">
-<li><strong>Lien</strong> :</li>
-</ol>
+<ul>
+<li><strong>Lien</strong> : <a href="https://wine-scraping.streamlit.app/">https://wine-scraping.streamlit.app/ <i class="fa-solid fa-up-right-from-square"></i></a></li>
+</ul>
 </div>
 </div>
 </div>
@@ -927,8 +927,13 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 ├───🧙‍♂️poetry.lock
 ├───📍pyproject.toml
 ├───📘README.md
-├───🧾requirements.txt
 └───🐍streamlit_app.py</code></pre>
+</section>
+<section id="fin" class="slide level2 smaller" data-background-image="img\weird_man.png" data-background-opacity="0.25">
+<h2>Fin</h2>
+<blockquote>
+<p>Bon alors, y’a t’y qu’on l’goûte quand ce vin ?</p>
+</blockquote>
 </section>
 <section id="références" class="slide level2">
 <h2>Références</h2>

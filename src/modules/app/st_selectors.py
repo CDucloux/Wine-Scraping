@@ -24,18 +24,19 @@ def sidebar_wine_selector() -> list[str]:
         wine_types,
         default="Vin Rouge",
         placeholder="Choisir un type de vin",
+        key="wine_selector",
     )
 
 
 def sidebar_prices_slider(df: pl.DataFrame) -> tuple[float, float]:
     """`sidebar_prices_slider`: Permet de choisir un intervalle de prix.
-    
+
     ---------
     `Parameters`
     --------- ::
 
         df (pl.DataFrame)
-    
+
     `Returns`
     --------- ::
 
@@ -52,12 +53,13 @@ def sidebar_prices_slider(df: pl.DataFrame) -> tuple[float, float]:
         df.select("unit_price").max().item(),
         (5.0, 400.0),
         format="%.2f€",
+        key="price_slider",
     )
 
 
 def sidebar_checkbox_bio() -> set[int]:
     """`sidebar_checkbox_bio`: Une case à cocher pour n'inclure que les vins bios.
-    
+
     `Returns`
     --------- ::
 
@@ -77,7 +79,7 @@ def sidebar_checkbox_bio() -> set[int]:
 
 def sidebar_checkbox_new() -> set[int]:
     """`sidebar_checkbox_new`: Une case à cocher pour n'inclure que les nouveautés.
-    
+
     `Returns`
     --------- ::
 
@@ -97,7 +99,7 @@ def sidebar_checkbox_new() -> set[int]:
 
 def sidebar_checkbox_fav() -> set[int]:
     """`sidebar_checkbox_fav`: Une case à cocher pour n'inclure que les coups de coeur client.
-    
+
     `Returns`
     --------- ::
 
@@ -117,7 +119,7 @@ def sidebar_checkbox_fav() -> set[int]:
 
 def sidebar_input_wine() -> str:
     """`sidebar_input_wine`: Un user input permettant de rechercher un nom de vin.
-    
+
     `Returns`
     --------- ::
 
@@ -126,14 +128,14 @@ def sidebar_input_wine() -> str:
     `Example(s)`
     ---------
     >>> sidebar_input_wine()
-    ... '' """
+    ... ''"""
     user_input = st.text_input("Recherche par nom de vin :").upper()
     return user_input
 
 
 def scale_selector() -> str | None:
     """`scale_selector`: Crée un radio button pour sélectionner l'échelle.
-    
+
     `Returns`
     --------- ::
 
@@ -142,7 +144,7 @@ def scale_selector() -> str | None:
     `Example(s)`
     ---------
     >>> scale_selector()
-    ... '$y$' """
+    ... '$y$'"""
     return st.radio(
         "Sélectionner une *échelle*",
         ["$y$", "$\\log(y)$"],
@@ -151,13 +153,13 @@ def scale_selector() -> str | None:
 
 def color_selector(selected_wines: list[str]) -> list[str]:
     """`color_selector`: Permet de choisir une couleur selon le vin sélectionné pour le scatter plot des vins.
-    
+
     ---------
     `Parameters`
     --------- ::
-    
+
     selected_wines (list[str])
-    
+
     `Returns`
     --------- ::
 
@@ -198,7 +200,7 @@ def color_selector(selected_wines: list[str]) -> list[str]:
 
 def model_radio_selector() -> str | None:
     """`model_radio_selector`: Permet de sélectionner un modèle de Machine Learning avec des radio buttons.
-    
+
     `Returns`
     --------- ::
 
@@ -223,7 +225,7 @@ def model_radio_selector() -> str | None:
 
 def model_selector() -> str | None:
     """`model_selector`: Permet de sélectionner un modèle de Machine learning avec une liste déroulante.
-    
+
     `Returns`
     --------- ::
 
@@ -253,7 +255,7 @@ def n_variable_selector() -> int | float:
     - Valeur par défaut : 10
     - Valeur minimal : 2
     - Valeur maximal : 30
-    
+
     `Returns`
     --------- ::
 
