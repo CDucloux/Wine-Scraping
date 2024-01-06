@@ -18,6 +18,7 @@ def main():
 
     with st.sidebar:
         # Configure l'ensemble de la sidebar de paramètres
+        st.image("img/wine_scraping_logo.png")
         st.header("*Paramètres*")
         with st.spinner("Chargement..."):
             time.sleep(0.25)
@@ -26,7 +27,6 @@ def main():
             filter_bio = sidebar_checkbox_bio()
             filter_new = sidebar_checkbox_new()
             filter_fav = sidebar_checkbox_fav()
-            st.divider()
             user_input = sidebar_input_wine()
 
             main_df = load_main_df(
