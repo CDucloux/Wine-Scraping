@@ -579,7 +579,10 @@ def performance(target: str) -> list:
     >>>
     """
     erreur_test = list()
-    X_train, X_test, y_train, y_test, _ = init(target)
+    
+    X_train_n, X_test_n, y_train, y_test, _ = init(target)
+    X_train = X_train_n.drop(columns=["name"])
+    X_test = X_test_n.drop(columns=["name"])
 
     models = list()
     model_functions = [
