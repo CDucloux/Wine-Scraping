@@ -77,7 +77,7 @@ def _get_unit_and_offer_price(df: pl.DataFrame) -> pl.DataFrame:
         )
         .unnest("price")
         .with_columns(
-            pl.col("unit_price", "offer_price")
+            pl.col("unit_price") #,"offer_price"
             .str.replace(",", ".")
             .str.replace(" €", "")
             .cast(pl.Float64)
