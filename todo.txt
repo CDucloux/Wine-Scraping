@@ -1,4 +1,3 @@
 TODOS à supprimer à la fin:
 
 - doctest
-- Docker
