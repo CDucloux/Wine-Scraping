@@ -35,65 +35,65 @@ def test_prep_str():
 
 def test_model_rf():
     """test la fonction model_rf()"""
-    X_train_n, _, y_train, _, _ = init("type", "./tests/test_data.json")
+    X_train_n, _, y_train, _, _ = init("type")
     X_train = X_train_n.drop(columns=["name"])
-    model = model_rf(X_train, y_train, "classification")
+    model = model_rf(X_train[0:50], y_train[0:50], "classification")
     assert isinstance(model, GridSearchCV)
 
 
 def test_model_boost():
     """test la fonction model_boost()"""
-    X_train_n, _, y_train, _, _ = init("type", "./tests/test_data.json")
+    X_train_n, _, y_train, _, _ = init("type")
     X_train = X_train_n.drop(columns=["name"])
-    model = model_boost(X_train, y_train, "classification")
+    model = model_boost(X_train[0:50], y_train[0:50], "classification")
     assert isinstance(model, GridSearchCV)
 
 
 def test_model_knn():
     """test la fonction model_knn()"""
-    X_train_n, _, y_train, _, _ = init("type", "./tests/test_data.json")
+    X_train_n, _, y_train, _, _ = init("type")
     X_train = X_train_n.drop(columns=["name"])
-    model = model_knn(X_train, y_train, "classification")
+    model = model_knn(X_train[0:50], y_train[0:50], "classification")
     assert isinstance(model, GridSearchCV)
 
 
 def test_model_svm():
     """test la fonction model_svm()"""
-    X_train_n, _, y_train, _, _ = init("type", "./tests/test_data.json")
+    X_train_n, _, y_train, _, _ = init("type")
     X_train = X_train_n.drop(columns=["name"])
-    model = model_svm(X_train, y_train, "classification")
+    model = model_svm(X_train[0:50], y_train[0:50], "classification")
     assert isinstance(model, GridSearchCV)
 
 
 def test_model_mlp():
     """test la fonction model_mlp()"""
-    X_train_n, _, y_train, _, _ = init("type", "./tests/test_data.json")
+    X_train_n, _, y_train, _, _ = init("type")
     X_train = X_train_n.drop(columns=["name"])
-    model = model_mlp(X_train, y_train, "classification")
+    model = model_mlp(X_train[0:50], y_train[0:50], "classification")
     assert isinstance(model, GridSearchCV)
 
 
 def test_model_ridge():
     """test la fonction model_ridge()"""
-    X_train_n, _, y_train, _, _ = init("type", "./tests/test_data.json")
+    X_train_n, _, y_train, _, _ = init("type")
     X_train = X_train_n.drop(columns=["name"])
-    model = model_ridge(X_train, y_train, "classification")
+    model = model_ridge(X_train[0:50], y_train[0:50], "classification")
     assert isinstance(model, GridSearchCV)
 
 
 def test_train_model():
     """test la fonction train_model()"""
-    X_train_n, _, y_train, _, _ = init("type", "./tests/test_data.json")
+    X_train_n, _, y_train, _, _ = init("type")
     X_train = X_train_n.drop(columns=["name"])
-    model = train_model(X_train, y_train, "classification")
+    model = train_model(X_train[0:50], y_train[0:50], "classification")
     assert isinstance(model, dict)
 
 
 def test_score():
     """test les fonctions score_test() et score_entrainement()"""
-    X_train_n, _, y_train, _, _ = init("type", "./tests/test_data.json")
+    X_train_n, _, y_train, _, _ = init("type")
     X_train = X_train_n.drop(columns=["name"])
-    model = model_knn(X_train, y_train, "classification")
+    model = model_knn(X_train[0:50], y_train[0:50], "classification")
     score_t = score_test(model)
     score_e = score_entrainement(model)
     assert 0 <= score_t <= 1
@@ -102,9 +102,9 @@ def test_score():
 
 def test_ecart_type():
     """test les fonctions ecart_type_test() et ecart_type_train()"""
-    X_train_n, _, y_train, _, _ = init("type", "./tests/test_data.json")
+    X_train_n, _, y_train, _, _ = init("type")
     X_train = X_train_n.drop(columns=["name"])
-    model = model_knn(X_train, y_train, "classification")
+    model = model_knn(X_train[0:50], y_train[0:50], "classification")
     ecart_t = ecart_type_test(model)
     ecart_e = ecart_type_train(model)
     assert isinstance(ecart_t, float)
@@ -113,8 +113,8 @@ def test_ecart_type():
 
 def test_parametre():
     """test la fonctions test_parametre()"""
-    X_train_n, _, y_train, _, _ = init("type", "./tests/test_data.json")
+    X_train_n, _, y_train, _, _ = init("type")
     X_train = X_train_n.drop(columns=["name"])
-    model = model_knn(X_train, y_train, "classification")
+    model = model_knn(X_train[0:50], y_train[0:50], "classification")
     param = parametre(model)
     assert isinstance(param, str)
