@@ -19,6 +19,7 @@
   - [Machine Learning](#machine-learning)
   - [Résultats du Machine Learning](#résultats-du-machine-learning)
   - [Installation](#installation)
+  - [Docker](#docker)
   - [Utilisation de l'application](#utilisation-de-lapplication)
     - [Onglet 1 : Data Overview](#onglet-1--data-overview)
     - [Onglet 2 : Statistiques Descriptives](#onglet-2--statistiques-descriptives)
@@ -27,7 +28,6 @@
     - [Onglet 5 : Machine Learning](#onglet-5--machine-learning)
   - [Axes d'amélioration](#axes-damélioration)
   - [Auteurs](#auteurs)
-  - [TODO à retirer plus tard](#todo-à-retirer-plus-tard)
 
 
 ## Description 
@@ -235,6 +235,45 @@ python -m streamlit run "streamlit_app.py"
   Local URL: http://localhost:8501
 ```
 
+## Docker
+
+En plus d'une installation *"classique"*, il est aussi possible de lancer la création d'une image Docker à partir du *Dockerfile* fourni dans le repository. Il faudra avant tout installer **Docker Desktop** $\Rightarrow$ https://docs.docker.com/desktop/install/windows-install/.
+
+Une fois installé, l'image est construite en exécutant la commande suivante dans un terminal :
+
+```powershell
+docker image build . -t "wine_scraping"
+```
+
+Une fois la création de l'image terminée, on peut consulter la taille de celle-ci avec :
+
+```powershell
+docker images
+```
+
+Ensuite, pour lancer le conteneur Docker avec l'utilisateur *app* sur le port initial (8501) de streamlit, il suffit de faire :
+
+```powershell
+docker run -u app -p 8501:8501 wine_scraping
+```
+
+***
+
+🎉 Félicitations, le conteneur est lancé et fonctionnel ! Vous devriez le voir apparaitre dans **Docker Desktop**. Pour accéder à l'application, il suffit maintenant simplement de se rendre sur http://localhost:8501/.
+
+***
+
+*Note* : Si trop d'images s'accumulent, elles peuvent considérablement réduire l'espace disque disponible. Pour éviter cela on peut retirer tous les conteneurs inactifs et les images (Attention cependant, il faudra reconstruire l'image après) : 
+
+```powerhsell
+docker system prune -a --volumes
+```
+
+*Note* : Pour décharger la mémoire vive quand le conteneur n'est plus utilisé et que **Docker Desktop** est fermé, on peut arrêter **Windows Subsystem for Linux** dans le terminal avec : 
+
+```powershell
+wsl --shutdown
+```
 
 ## Utilisation de l'application
 
@@ -351,10 +390,4 @@ Une autre piste à explorer serait d'utiliser du **NLP** avec `spacy` pour explo
 
 - *[Corentin DUCLOUX](https://github.com/CDucloux)*
 - *[Guillaume DEVANT](https://github.com/devgui37)*
-
-## TODO à retirer plus tard
-
-- [ ] Commencer à faire les tests unitaires et d'intégration et pytest coverage + doctest pour les tests dans les docstrings.
-
-- **Phase de tests unitaires, éventuellement Docker**
 
