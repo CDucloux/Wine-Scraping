@@ -521,9 +521,11 @@ FROM python:3.10-slim-buster
 10. **ENTRYPOINT** $\Rightarrow$ Définit la commande d'entrée à exécuter quand le conteneur basé sur l'image est démarré. Dans notre cas, on fait un streamlit run de notre application sur le port 8501.
 :::
 
+## 🏗️ Le conteneur en action ! {.smaller}
+
 ## Fin {.smaller background-image="img\weird_man.png" background-opacity="0.25"}
 
-> Bon alors, y'a t'y qu'on l'goûte quand ce vin ?
+> −··· −−− −·  ·− ·−·· −−− ·−· ··· −−··−−  −·−− ·−−−−· ·−  − ·−−−−· −·−−  −−·− ··− ·−−−−· −−− −·  ·−·· ·−−−−· −−· −−− ··− − ·  −−·− ··− ·− −· −··  −·−· ·  ···− ·· −·  ··−−·· 
 
 ## Références
 
