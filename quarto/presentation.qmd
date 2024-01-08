@@ -76,7 +76,7 @@ ROSE = "achat-vin-rose"
 5. `export_wine_links` permet d'exporter ces liens dans un fichier CSV.
 
 ::: {.notes}
-Pour un peu de mise en contexte, initialement on avait commencé par scraper les pages de vente de vins où une trentaine de vins sont affichés...mais on s'est rapidement rendu compte que dans ces pages, il manquait beaucoup d'informations. On s'est plutôt mis en tête de récupérer les caractéristiques sur chaque page individuelle de vin, qu'on peut facilement récupérer sur les pages de recherche grâce à des liens href.
+Pour un peu de mise en contexte, initialement on avait commencé par scraper les pages de vente de vins où une trentaine de vins sont affichés...mais on s'est rapidement rendu compte que dans ces pages, il manquait beaucoup d'informations. On s'est plutôt mis en tête de récupérer les caractéristiques sur chaque page individuelle de vin, qu'on peut facilement récupérer sur les pages de recherche grâce à des liens href. Et initialement, on l'avait fait avec `Selenium` mais ça prenait un temps monstre donc on a changé d'idée.
 
 *Note* : On aurait pu construire les URL à la main mais c'était beaucoup moins élégant que de le faire comme ça.
 
@@ -311,6 +311,12 @@ python -m streamlit run "streamlit_app.py"
 
 :::
 
+:::{.notes}
+On a deux méthodes pour lancer notre application. Je dirais même, comme un vieil adage le dit : **Jamais deux sans trois** ! Sauf que la troisième méthode on va la garder pour plus tard en bonus. 
+
+La différence entre les deux premières méthodes c'est que l'une va tourner en local alors que l'autre est sur le cloud streamlit. Le déploiement sur le cloud est assez simple : on link le repo Github, le pyproject.toml et poetry.lock qui installe les dépendances et c'est parti 🚀.
+:::
+
 
 ## Un code de *Deutsche Qualität* {.smaller background-image="img\deutsche_qualitat.png" background-opacity="0.25"}
 
@@ -396,7 +402,11 @@ def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearch
 
 **Environnement Virtuel** : venv isolé pour le projet, aidant à maintenir un environnement de développement propre et évitant les conflits entre les versions des packages.
 
-**Installation de dépendances** : Facilite l'installation des dépendances définies dans le fichier de configuration en utilisant la commande poetry install.
+**Installation de dépendances** : Facilite l'installation des dépendances définies dans le fichier de configuration en utilisant la commande `poetry install`.
+
+```powershell
+py -m poetry install
+```
 
 ## 🚢 Modulaire !{.smaller}
 
@@ -441,6 +451,75 @@ Séparation des composants du projet :
 ├───📘README.md
 └───🐍streamlit_app.py
 ```
+
+## 🐳 Docker, Partie I {.smaller}
+
+**Pourquoi utiliser Docker ?**
+
+**Isolation** : Docker permet d'isoler l'application, ses dépendances et son environnement d'exécution dans un conteneur. Cela signifie que l'application s'exécute avec ses propres ressources et dépendances sans affecter l'environnement hôte.
+
+**Portabilité** : Une fois que l'image Docker est créée, elle peut être exécutée sur n'importe quel système prenant en charge Docker, offrant une portabilité élevée.
+
+<hr>
+
+**Comment ?** $\Rightarrow$ `Dockerfile`
+
+Docker assure la reproductibilité en permettant à n'importe qui de construire et d'exécuter le **même conteneur** à partir des spécifications définies dans le `Dockerfile`.
+
+:::{.notes}
+Le `Dockerfile` spécifie les étapes pour installer les dépendances de l'application (dans ce cas, on va utiliser `poetry` pour gérer les dépendances) et configurer un environnement minimaliste à l'intérieur du conteneur.
+:::
+
+## 🐳 Docker, Partie II {.smaller}
+
+- *Contenu du `Dockerfile` :*
+
+```{.Dockerfile code-line-numbers="|1|2|4|6-8|10-13|15-16|18|20|22|24|"}
+FROM python:3.10-slim-buster
+WORKDIR /app
+
+COPY pyproject.toml poetry.lock ./
+
+RUN pip install poetry \ 
+    && poetry config virtualenvs.create false \
+    && poetry install --no-dev --no-interaction --no-ansi
+
+COPY streamlit_app.py .
+COPY src ./src
+COPY data ./data
+COPY img ./img
+
+RUN addgroup --system app \
+    && adduser --system --group app
+
+USER app
+
+EXPOSE 8501
+
+HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+
+ENTRYPOINT ["python", "-m", "streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+```
+
+:::{.notes}
+Regardons plus en détail ce que contient ce `Dockerfile`. 
+
+FROM python:3.10-slim-buster
+
+1. **FROM python:3.10-slim-buster** $\Rightarrow$ spécifie l'image de base à partir de laquelle notre image Docker sera construite. On utilise l'image Python *3.10-slim-buster* comme base. Cette image *slim-buster* est une version réduite plus rapide de l'image complète avec le minimum de dépendances possible.
+2. **WORKDIR /app** $\Rightarrow$ définit le répertoire de travail dans le conteneur. Toutes les instructions suivantes sont exécutées à partir de ce répertoire.
+3. **COPY pyproject.toml poetry.lock ./** $\Rightarrow$ copie les fichiers pyproject.toml et poetry.lock depuis le répertoire local dans le répertoire *app* du conteneur.
+4. **RUN pip install poetry && poetry config virtualenvs.create false && poetry install --no-dev --no-interaction --no-ansi** $\Rightarrow$ Exécute plusieurs commandes en une seule instruction RUN :
+    - On installe `poetry` dans le conteneur via pip.
+    - On configure `poetry` pour ne pas créer d'environnement virtuel.
+    - On Installe les dépendances du projet à partir de poetry.lock, en excluant les dépendances de développement (--no-dev), sans interaction (--no-interaction) et sans afficher de couleurs ANSI (--no-ansi). En effet, on ne copie pas nos tests dans le conteneur, ça alourdirait l'image pour rien.
+5. **COPY streamlit_app.py** $\Rightarrow$ On copie le fichier `streamlit_app.py`, le dossier `src`, `data` et `img` depuis le répertoire local dans le répertoire *app* du conteneur.
+6. **RUN addgroup --system app && adduser --system --group app** $\Rightarrow$ Crée un groupe système appelé app et un utilisateur système également appelé app.
+7. **USER app** $\Rightarrow$ Définit l'utilisateur qui exécutera les commandes suivantes dans le conteneur comme étant l'utilisateur **app**.
+8. **EXPOSE 8501** $\Rightarrow$ Expose le port 8501. Indique simplement quel port qui doit être publié lors de l'exécution de l'image.
+9. **HEALTHCHECK** $\Rightarrow$ Pour tester si le conteneur fonctionne toujours correctement.
+10. **ENTRYPOINT** $\Rightarrow$ Définit la commande d'entrée à exécuter quand le conteneur basé sur l'image est démarré. Dans notre cas, on fait un streamlit run de notre application sur le port 8501.
+:::
 
 ## Fin {.smaller background-image="img\weird_man.png" background-opacity="0.25"}
 

@@ -492,7 +492,7 @@
 <li><code>export_wine_links</code> permet d’exporter ces liens dans un fichier CSV.</li>
 </ol>
 <aside class="notes">
-<p>Pour un peu de mise en contexte, initialement on avait commencé par scraper les pages de vente de vins où une trentaine de vins sont affichés…mais on s’est rapidement rendu compte que dans ces pages, il manquait beaucoup d’informations. On s’est plutôt mis en tête de récupérer les caractéristiques sur chaque page individuelle de vin, qu’on peut facilement récupérer sur les pages de recherche grâce à des liens href.</p>
+<p>Pour un peu de mise en contexte, initialement on avait commencé par scraper les pages de vente de vins où une trentaine de vins sont affichés…mais on s’est rapidement rendu compte que dans ces pages, il manquait beaucoup d’informations. On s’est plutôt mis en tête de récupérer les caractéristiques sur chaque page individuelle de vin, qu’on peut facilement récupérer sur les pages de recherche grâce à des liens href. Et initialement, on l’avait fait avec <code>Selenium</code> mais ça prenait un temps monstre donc on a changé d’idée.</p>
 <p><em>Note</em> : On aurait pu construire les URL à la main mais c’était beaucoup moins élégant que de le faire comme ça.</p>
 <ul>
 <li>Ensuite on a voulu introduire un User Agent réaliste quand on effectue notre requête get, pour éviter que le site ne finisse par comprendre que c’est un bot. Ca permet simplement d’envoyer des en-têtes que renvoierai un navigateur comme Firefox, Chrome ou Edge.</li>
@@ -794,6 +794,20 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 </div>
 </div>
 </div>
+<aside class="notes">
+<p>On a deux méthodes pour lancer notre application. Je dirais même, comme un vieil adage le dit : <strong>Jamais deux sans trois</strong> ! Sauf que la troisième méthode on va la garder pour plus tard en bonus.</p>
+<p>La différence entre les deux premières méthodes c’est que l’une va tourner en local alors que l’autre est sur le cloud streamlit. Le déploiement sur le cloud est assez simple : on link le repo Github, le pyproject.toml et poetry.lock qui installe les dépendances et c’est parti 🚀.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="un-code-de-deutsche-qualität" class="slide level2 smaller" data-background-image="img\deutsche_qualitat.png" data-background-opacity="0.25">
 <h2>Un code de <em>Deutsche Qualität</em></h2>
@@ -886,7 +900,8 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <h2>🧙‍♂️ Poetry</h2>
 <p><strong>Gestion des dépendances</strong> : <code>poetry</code> simplifie la gestion des dépendances en utilisant un fichier de configuration pyproject.toml. Il permet de spécifier les dépendances directes et les dépendances de développement requises pour le projet.</p>
 <p><strong>Environnement Virtuel</strong> : venv isolé pour le projet, aidant à maintenir un environnement de développement propre et évitant les conflits entre les versions des packages.</p>
-<p><strong>Installation de dépendances</strong> : Facilite l’installation des dépendances définies dans le fichier de configuration en utilisant la commande poetry install.</p>
+<p><strong>Installation de dépendances</strong> : Facilite l’installation des dépendances définies dans le fichier de configuration en utilisant la commande <code>poetry install</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1"></a>py <span class="op">-</span>m poetry install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="modulaire" class="slide level2 smaller">
 <h2>🚢 Modulaire !</h2>
@@ -928,6 +943,89 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 ├───📍pyproject.toml
 ├───📘README.md
 └───🐍streamlit_app.py</code></pre>
+</section>
+<section id="docker-partie-i" class="slide level2 smaller">
+<h2>🐳 Docker, Partie I</h2>
+<p><strong>Pourquoi utiliser Docker ?</strong></p>
+<p><strong>Isolation</strong> : Docker permet d’isoler l’application, ses dépendances et son environnement d’exécution dans un conteneur. Cela signifie que l’application s’exécute avec ses propres ressources et dépendances sans affecter l’environnement hôte.</p>
+<p><strong>Portabilité</strong> : Une fois que l’image Docker est créée, elle peut être exécutée sur n’importe quel système prenant en charge Docker, offrant une portabilité élevée.</p>
+<hr>
+<p><strong>Comment ?</strong> <span class="math inline">\(\Rightarrow\)</span> <code>Dockerfile</code></p>
+<p>Docker assure la reproductibilité en permettant à n’importe qui de construire et d’exécuter le <strong>même conteneur</strong> à partir des spécifications définies dans le <code>Dockerfile</code>.</p>
+<aside class="notes">
+<p>Le <code>Dockerfile</code> spécifie les étapes pour installer les dépendances de l’application (dans ce cas, on va utiliser <code>poetry</code> pour gérer les dépendances) et configurer un environnement minimaliste à l’intérieur du conteneur.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="docker-partie-ii" class="slide level2 smaller">
+<h2>🐳 Docker, Partie II</h2>
+<ul>
+<li><em>Contenu du <code>Dockerfile</code> :</em></li>
+</ul>
+<div class="sourceCode" id="cb12" data-code-line-numbers="|1|2|4|6-8|10-13|15-16|18|20|22|24|"><pre class="sourceCode numberSource Dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">FROM</span> python:3.10-slim-buster</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="kw">COPY</span> pyproject.toml poetry.lock ./</span>
+<span id="cb12-5"><a href="#cb12-5"></a></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="kw">RUN</span> <span class="ex">pip</span> install poetry <span class="dt">\ </span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>    &amp;&amp; poetry config virtualenvs.create false <span class="op">\</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>    &amp;&amp; poetry install --no-dev --no-interaction --no-ansi</span>
+<span id="cb12-9"><a href="#cb12-9"></a></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="kw">COPY</span> streamlit_app.py .</span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="kw">COPY</span> src ./src</span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="kw">COPY</span> data ./data</span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="kw">COPY</span> img ./img</span>
+<span id="cb12-14"><a href="#cb12-14"></a></span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="kw">RUN</span> <span class="ex">addgroup</span> <span class="at">--system</span> app <span class="dt">\</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a>    <span class="kw">&amp;&amp;</span> <span class="ex">adduser</span> <span class="at">--system</span> <span class="at">--group</span> app</span>
+<span id="cb12-17"><a href="#cb12-17"></a></span>
+<span id="cb12-18"><a href="#cb12-18"></a><span class="kw">USER</span> app</span>
+<span id="cb12-19"><a href="#cb12-19"></a></span>
+<span id="cb12-20"><a href="#cb12-20"></a><span class="kw">EXPOSE</span> 8501</span>
+<span id="cb12-21"><a href="#cb12-21"></a></span>
+<span id="cb12-22"><a href="#cb12-22"></a><span class="kw">HEALTHCHECK</span> <span class="kw">CMD</span> <span class="ex">curl</span> <span class="at">--fail</span> http://localhost:8501/_stcore/health</span>
+<span id="cb12-23"><a href="#cb12-23"></a></span>
+<span id="cb12-24"><a href="#cb12-24"></a><span class="kw">ENTRYPOINT</span> [<span class="st">"python"</span>, <span class="st">"-m"</span>, <span class="st">"streamlit"</span>, <span class="st">"run"</span>, <span class="st">"streamlit_app.py"</span>, <span class="st">"--server.port=8501"</span>, <span class="st">"--server.address=0.0.0.0"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>Regardons plus en détail ce que contient ce <code>Dockerfile</code>.</p>
+<p>FROM python:3.10-slim-buster</p>
+<ol type="1">
+<li><strong>FROM python:3.10-slim-buster</strong> <span class="math inline">\(\Rightarrow\)</span> spécifie l’image de base à partir de laquelle notre image Docker sera construite. On utilise l’image Python <em>3.10-slim-buster</em> comme base. Cette image <em>slim-buster</em> est une version réduite plus rapide de l’image complète avec le minimum de dépendances possible.</li>
+<li><strong>WORKDIR /app</strong> <span class="math inline">\(\Rightarrow\)</span> définit le répertoire de travail dans le conteneur. Toutes les instructions suivantes sont exécutées à partir de ce répertoire.</li>
+<li><strong>COPY pyproject.toml poetry.lock ./</strong> <span class="math inline">\(\Rightarrow\)</span> copie les fichiers pyproject.toml et poetry.lock depuis le répertoire local dans le répertoire <em>app</em> du conteneur.</li>
+<li><strong>RUN pip install poetry &amp;&amp; poetry config virtualenvs.create false &amp;&amp; poetry install –no-dev –no-interaction –no-ansi</strong> <span class="math inline">\(\Rightarrow\)</span> Exécute plusieurs commandes en une seule instruction RUN :
+<ul>
+<li>On installe <code>poetry</code> dans le conteneur via pip.</li>
+<li>On configure <code>poetry</code> pour ne pas créer d’environnement virtuel.</li>
+<li>On Installe les dépendances du projet à partir de poetry.lock, en excluant les dépendances de développement (–no-dev), sans interaction (–no-interaction) et sans afficher de couleurs ANSI (–no-ansi). En effet, on ne copie pas nos tests dans le conteneur, ça alourdirait l’image pour rien.</li>
+</ul></li>
+<li><strong>COPY streamlit_app.py</strong> <span class="math inline">\(\Rightarrow\)</span> On copie le fichier <code>streamlit_app.py</code>, le dossier <code>src</code>, <code>data</code> et <code>img</code> depuis le répertoire local dans le répertoire <em>app</em> du conteneur.</li>
+<li><strong>RUN addgroup –system app &amp;&amp; adduser –system –group app</strong> <span class="math inline">\(\Rightarrow\)</span> Crée un groupe système appelé app et un utilisateur système également appelé app.</li>
+<li><strong>USER app</strong> <span class="math inline">\(\Rightarrow\)</span> Définit l’utilisateur qui exécutera les commandes suivantes dans le conteneur comme étant l’utilisateur <strong>app</strong>.</li>
+<li><strong>EXPOSE 8501</strong> <span class="math inline">\(\Rightarrow\)</span> Expose le port 8501. Indique simplement quel port qui doit être publié lors de l’exécution de l’image.</li>
+<li><strong>HEALTHCHECK</strong> <span class="math inline">\(\Rightarrow\)</span> Pour tester si le conteneur fonctionne toujours correctement.</li>
+<li><strong>ENTRYPOINT</strong> <span class="math inline">\(\Rightarrow\)</span> Définit la commande d’entrée à exécuter quand le conteneur basé sur l’image est démarré. Dans notre cas, on fait un streamlit run de notre application sur le port 8501.</li>
+</ol>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="fin" class="slide level2 smaller" data-background-image="img\weird_man.png" data-background-opacity="0.25">
 <h2>Fin</h2>
