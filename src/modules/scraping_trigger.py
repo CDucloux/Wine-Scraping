@@ -6,5 +6,6 @@ avant de les scrapper une à une et des les exporter en JSON :
 """
 import subprocess
 
-subprocess.call(["python", "src.modules.scraping.page_scraper.py"])
-subprocess.call(["python", "src.modules.scraping.wine_scraper.py"])
+subprocess.call(["python", "-m", "src.modules.scraping.page_scraper.py"])
+subprocess.call(["python", "-m", "src.modules.scraping.wine_scraper.py"])
+

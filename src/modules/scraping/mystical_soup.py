@@ -10,11 +10,9 @@ A metamorphosis from text to soup,
 From tangled web to structured code, in truth.
 """
 
-# mypy-backlog : 1 erreur liée à l'import de la dataclass, ignore l'erreur f/now
-
 from bs4 import BeautifulSoup as BS, Tag
 from serde.json import to_json
-from vin_dataclass import Vin  # type: ignore
+from src.modules.scraping.vin_dataclass import Vin  # type: ignore
 from pathlib import Path
 import requests as rq
 

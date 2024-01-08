@@ -1,4 +1,4 @@
-from scraping_functions import *
+from src.modules.scraping.scraping_functions import *
 from pathlib import Path
 
 root = Path(".").resolve()
