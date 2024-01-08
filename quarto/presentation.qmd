@@ -243,6 +243,13 @@ Nous avons utilisé un certains nombre de métriques implémentées dans `sklear
 
 <iframe src="https://giphy.com/embed/T7QRkgGzYdQju" width="480" height="240" frameBorder="0" class="giphy-embed" allowFullScreen style="display:block; margin:auto;"></iframe><p><a href="https://giphy.com/gifs/franceinfo-wtf-citation-T7QRkgGzYdQju"></a></p>
 
+::: {.notes}
+Encore une fois aussi, l'API de `streamlit` est très bien documentée.
+
+On peut arriver à un rendu qui est vraiment convaincant niveau interface utilisateur sans utiliser de CSS ou de javascript !
+
+Ecoute Arnaud, avant de passer au p'tit coup, on va parler de stockage avant !
+:::
 
 ## Choix du stockage, Partie I
 
@@ -259,9 +266,15 @@ def db_connector() -> DuckDBPyConnection:
 - La base de données en mémoire stocke les informations directement dans la mémoire vive plutôt que sur un disque.
 - Réduit le temps nécessaire au stockage et à la consultation des données, et accélère l’exécution des requêtes.
 
+:::{.notes}
+Comme on l'a vu dans la partie **Optimisation** et **Prédiction** du Machine Learning, on a des résultats en CSV. Mais une fois qu'on a 4-5 csv ça commence à devenir encombrant...du coup on a plutôt opté pour une base de données. Et pas n'importe laquelle !
+
+Une base de données *in-memory* est donc idéale pour une application effectuant de l’analyse de données en temps réel comme la notre.
+:::
+
 ## Choix du stockage, Partie II {.smaller}
 
-- 5 tables de résultats de Machine Learning sont obtenues grâce à l'exéuction de `ml_trigger` qui se charge d'éxécuter l'ensemble des scripts d'export. 
+- 5 tables de résultats de Machine Learning sont obtenues grâce à l'exécution de `ml_trigger` qui se charge d'éxécuter l'ensemble des scripts d'export. 
 
 *Voici un schéma du processus d'ingestion des tables :*
 
@@ -326,6 +339,10 @@ La différence entre les deux premières méthodes c'est que l'une va tourner en
 - Modularité
 - Tests des features de l'application 
 - Docker
+
+**Code certifié conforme par l'*Agent Smith$^*$***
+
+$^*$ *L'Agent Smith tient par ailleurs à préciser qu'il n'a reçu aucun pot-de-vin de notre part pour ce diagnostic malgré son enrichissement personnel fulgurant...*
 
 ## Annotations de type {.smaller}
 
@@ -522,6 +539,28 @@ FROM python:3.10-slim-buster
 :::
 
 ## 🏗️ Le conteneur en action ! {.smaller}
+
+Il faut tout d'abord s'assurer d'avoir téléchargé **Docker Desktop** avant toute chose.
+
+Une fois installé, l'image est construite en exécutant la commande suivante dans un terminal :
+
+```powershell
+docker image build . -t "wine_scraping"
+```
+
+Une fois la création de l'image terminée, on peut consulter la taille de celle-ci avec :
+
+```powershell
+docker images
+```
+
+Ensuite, pour lancer le conteneur Docker avec l'utilisateur *app* sur le port initial (8501) de `streamlit`, il suffit de faire :
+
+```powershell
+docker run -u app -p 8501:8501 wine_scraping
+```
+
+🎉 Une fois le conteneur lancé, on le voit apparaitre dans **Docker Desktop**. Pour accéder à l'application, il faut se rendre sur [*http://localhost:8501/*](http://localhost:8501/).
 
 ## Fin {.smaller background-image="img\weird_man.png" background-opacity="0.25"}
 
