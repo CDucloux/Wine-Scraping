@@ -28,7 +28,7 @@ from src.modules.bear_cleaner import (
 )
 import polars as pl
 
-df_brut = pl.read_json(r"tests\test_data.json")[2]
+df_brut = pl.read_json(r"tests\files\test_data.json")[2]
 
 def test__get_avg_temp():
     df = _get_avg_temp(df_brut)

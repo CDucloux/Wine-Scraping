@@ -13,7 +13,7 @@ from src.modules.scraping.mystical_soup import (
 )
 from bs4 import BeautifulSoup as BS
 
-with open(r"tests\page.txt", 'r') as fichier:
+with open(r"tests\files\page.txt", 'r') as fichier:
     REQUETE = fichier.read()
     
 PAGE = _soupifier(REQUETE)
