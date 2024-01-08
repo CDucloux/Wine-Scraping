@@ -713,6 +713,20 @@
 <p>
 <a href="https://giphy.com/gifs/franceinfo-wtf-citation-T7QRkgGzYdQju"></a>
 </p>
+<aside class="notes">
+<p>Encore une fois aussi, l’API de <code>streamlit</code> est très bien documentée.</p>
+<p>On peut arriver à un rendu qui est vraiment convaincant niveau interface utilisateur sans utiliser de CSS ou de javascript !</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="choix-du-stockage-partie-i" class="slide level2">
 <h2>Choix du stockage, Partie I</h2>
@@ -726,6 +740,20 @@
 <li>La base de données en mémoire stocke les informations directement dans la mémoire vive plutôt que sur un disque.</li>
 <li>Réduit le temps nécessaire au stockage et à la consultation des données, et accélère l’exécution des requêtes.</li>
 </ul>
+<aside class="notes">
+<p>Comme on l’a vu dans la partie <strong>Optimisation</strong> et <strong>Prédiction</strong> du Machine Learning, on a des résultats en CSV. Mais une fois qu’on a 4-5 csv ça commence à devenir encombrant…du coup on a plutôt opté pour une base de données. Et pas n’importe laquelle !</p>
+<p>Une base de données <em>in-memory</em> est donc idéale pour une application effectuant de l’analyse de données en temps réel comme la notre.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="choix-du-stockage-partie-ii" class="slide level2 smaller">
 <h2>Choix du stockage, Partie II</h2>
@@ -819,6 +847,8 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <li>Tests des features de l’application</li>
 <li>Docker</li>
 </ul>
+<p><strong>Code certifié conforme par l’<em>Agent Smith<span class="math inline">\(^*\)</span></em></strong></p>
+<p><span class="math inline">\(^*\)</span> <em>L’Agent Smith tient par ailleurs à préciser qu’il n’a reçu aucun pot-de-vin de notre part pour ce diagnostic malgré son enrichissement personnel fulgurant…</em></p>
 </section>
 <section id="annotations-de-type" class="slide level2 smaller">
 <h2>Annotations de type</h2>
@@ -1027,10 +1057,21 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
           display:block!important;
       }</style></aside>
 </section>
+<section id="le-conteneur-en-action" class="slide level2 smaller">
+<h2>🏗️ Le conteneur en action !</h2>
+<p>Il faut tout d’abord s’assurer d’avoir téléchargé <strong>Docker Desktop</strong> avant toute chose.</p>
+<p>Une fois installé, l’image est construite en exécutant la commande suivante dans un terminal :</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1"></a>docker image build <span class="op">.</span> <span class="op">-</span>t <span class="st">"wine_scraping"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Une fois la création de l’image terminée, on peut consulter la taille de celle-ci avec :</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb14-1"><a href="#cb14-1"></a>docker images</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ensuite, pour lancer le conteneur Docker avec l’utilisateur <em>app</em> sur le port initial (8501) de <code>streamlit</code>, il suffit de faire :</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb15-1"><a href="#cb15-1"></a>docker run <span class="op">-</span>u app <span class="op">-</span>p 8501<span class="op">:</span>8501 wine_scraping</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>🎉 Une fois le conteneur lancé, on le voit apparaitre dans <strong>Docker Desktop</strong>. Pour accéder à l’application, il faut se rendre sur <a href="http://localhost:8501/"><em>http://localhost:8501/</em></a>.</p>
+</section>
 <section id="fin" class="slide level2 smaller" data-background-image="img\weird_man.png" data-background-opacity="0.25">
 <h2>Fin</h2>
 <blockquote>
-<p>Bon alors, y’a t’y qu’on l’goûte quand ce vin ?</p>
+<p>−··· −−− −· ·− ·−·· −−− ·−· ··· −−··−− −·−− ·−−−−· ·− − ·−−−−· −·−− −−·− ··− ·−−−−· −−− −· ·−·· ·−−−−· −−· −−− ··− − · −−·− ··− ·− −· −·· −·−· · ···− ·· −· ··−−··</p>
 </blockquote>
 </section>
 <section id="références" class="slide level2">
