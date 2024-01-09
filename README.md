@@ -2,7 +2,9 @@
 
 > *Il y a bien longtemps, dans une campagne lointaine, très lointaine...*
 
-![](img/wine_scraping_logo.png)
+[<img src="img/wine_scraping_logo.png">](https://wine-scraping.streamlit.app/)
+
+**ℹ️ Cliquez sur le logo pour accéder à l'application !**
 
 *Le terroir est en guerre ! Menant une lutte acharnée pour l'information viticole, une bataille épique se déroule entre les données dissimulées et les amateurs assoiffés de connaissances sur le vin. Le chaos règne alors que les sources d'informations viticoles sont assaillies par des obstacles inattendus.*
 

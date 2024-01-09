@@ -1,3 +1,14 @@
+"""
+`streamlit_app`
+==============
+
+Module principal orchestrant tous les composants de notre application streamlit :
+- functions
+- tables 
+- selectors 
+- plots
+"""
+
 import streamlit as st
 import time
 from src.modules.app.st_functions import *
