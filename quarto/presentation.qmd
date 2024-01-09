@@ -89,7 +89,7 @@ Cela étant, on a eu aucun problème jusqu'ici chaque fois qu'on a fait le scrap
 
 ## Scraping, Partie II {.smaller}
 
-1. On va ensuite requêter ces liens **href** avec `extract_all_pages` et récupérer les pages brutes en HTML.
+1. On va ensuite requêter ces liens **href** avec `create_json` et récupérer les pages brutes en HTML.
 2. La fonction `scraping` du module `mystical_soup` va permettre d'extraire toutes les informations intéressantes de la page brute et renvoyer la dataclass `Vin` sérialisable en *JSON*.
 
 <i class="fa-solid fa-wine-bottle"></i> *Exemple* d'un `Vin` et ses caractéristiques sérialisés en *JSON* :
@@ -125,6 +125,12 @@ Cela étant, on a eu aucun problème jusqu'ici chaque fois qu'on a fait le scrap
         "accords_reco": "Gigot d'agneau aux herbes de Provence; Tikka massala; Plateau de fromages."
     }
 ```
+
+::: {.notes}
+
+Une fois que l'on a récupéré tous les URLs des pages des vins, on va scraper chaque page avec le module `mystical_soup`. Toutes les informations qui nous intéresse sont stocké dans un fichier JSON.
+
+:::
 
 ## 🧹 Cleaning {.smaller background-image="img\pandas_vs_polars.png" background-opacity="0.25"}
 
@@ -189,6 +195,14 @@ Ridge,0.979,0.983,0.009,0.002,"{'entrainement__alpha': 0.015625, 'imputation__st
 Support Vector,0.981,0.992,0.008,0.002,"{'entrainement__C': 3.281341424030552, 'imputation__strategy': 'median'}",0.9825436408977556,classification
 ```
 
+::: {.notes}
+Dans un premier temps on choisit les variables qui serviront dans nos modèles et on choisit les modèles que l'on va utiliser. On a décider de se concentrer sur 6 modèles pour ne pas être trop exhaustif (RF, Boosting, Ridge, MLP, KNN, SVM). 
+
+Une fois les modèles et les variables choisis on passe à l'optimisation des paramétres par le biais d'une CV. Pour chaque modèle on a decidé d'optimiser entre 2 et 3 paramètres.
+
+Une fois la CV terminé tous les résultats sont stocké dans un CSV avec les score, ET, et valeur des hyperparamètres.
+:::
+
 ## 🏹 ML : Prédiction {.smaller} 
 
 - Deux types de prédictions :
@@ -206,7 +220,13 @@ CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge
 
 - Pour les 800 vins qui n'ont pas servi dans notre Cross Validation on réalise une prédiction par chacun de nos 6 modèles, le tout stocké dans un fichier CSV !
 
-**Afin de visualiser tous nos résultats une application serait idéale...**
+::: {.notes}
+
+Dès que l'on a les meilleurs hyperparamètres pour chaqu'un des modèles on peut désormais passer à la prédiction sur les 800 vins que l'on a laissé de coter pour tester nos modèles.
+
+Une fois encore on stock tous les résultats dans un CSV, pour chaque vin on a la valeur réel et la prédiction pour chaqu'un des modèles.
+
+:::
 
 ## 🔬 Metrics {.smaller}
 
@@ -229,6 +249,8 @@ Nous avons utilisé un certains nombre de métriques implémentées dans `sklear
 - La $MSE$ mesure la moyenne des carrés des erreurs, c'est-à-dire la différence quadratique moyenne entre la valeur estimée et la valeur réelle.
 - L'erreur résiduelle maximale est une métrique qui capture l'erreur la plus importante entre la valeur prédite et la valeur réelle.
 - Le $R^2$ représente la proportion de variance de la variable à prédire expliquée par les variables indépendantes du modèle. Il fournit une indication de la qualité de l'ajustement.
+
+Afin de visualiser tous nos résultats une application serait idéale...
 :::
 
 ## 💻 Application {.smaller background-image="img\st.png" background-opacity="0.25"}
@@ -412,6 +434,10 @@ def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearch
     ...         return_train_score=True)
     """
 ```
+
+::: {.notes}
+
+:::
 
 ## 🧙‍♂️ Poetry {.smaller}
 
