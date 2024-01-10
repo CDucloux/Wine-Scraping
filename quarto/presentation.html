@@ -416,6 +416,19 @@
 </iframe>
 </div></li>
 </ul>
+<aside class="notes">
+<p><strong>GUILLAUME</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="le-pourquoi-du-comment" class="slide level2" data-background-image="img\bouteille_dieu.png" data-background-opacity="0.5">
 <h2>Le <em>Pourquoi</em> du <em>Comment</em></h2>
@@ -437,6 +450,7 @@
 </div>
 </div>
 <aside class="notes">
+<p><strong>GUILLAUME</strong></p>
 <ul>
 <li>Nous avons commencé à rechercher notre proie dès fin septembre pour faire quelques tests, notamment sur la partie scraping.</li>
 </ul>
@@ -458,6 +472,7 @@
 <p><em>“Pour savoir qu’un verre était de trop, encore faut-il avoir scrapé son vin !”</em> <span class="math inline">\(-\)</span> <strong>Inconnu</strong></p>
 </blockquote>
 <aside class="notes">
+<p><strong>CORENTIN</strong></p>
 <p>Eh non Jean ! On ne parle pas de toi mais bien du scraping de vin. D’ailleurs on voit au tableau ce magnifique proverbe indonéso-inconnu qui énonce que <strong>Pour savoir qu’un verre était de trop, encore faut-il avoir scrapé son vin !</strong></p>
 <p>Ca t’a ouvert les chakras Guillaume ? Ouais, non ? Bon moi non plus, et si on passait à la partie technique plutôt ?</p>
 <style type="text/css">
@@ -492,6 +507,7 @@
 <li><code>export_wine_links</code> permet d’exporter ces liens dans un fichier CSV.</li>
 </ol>
 <aside class="notes">
+<p><strong>CORENTIN</strong></p>
 <p>Pour un peu de mise en contexte, initialement on avait commencé par scraper les pages de vente de vins où une trentaine de vins sont affichés…mais on s’est rapidement rendu compte que dans ces pages, il manquait beaucoup d’informations. On s’est plutôt mis en tête de récupérer les caractéristiques sur chaque page individuelle de vin, qu’on peut facilement récupérer sur les pages de recherche grâce à des liens href. Et initialement, on l’avait fait avec <code>Selenium</code> mais ça prenait un temps monstre donc on a changé d’idée.</p>
 <p><em>Note</em> : On aurait pu construire les URL à la main mais c’était beaucoup moins élégant que de le faire comme ça.</p>
 <ul>
@@ -549,6 +565,7 @@
 <span id="cb2-28"><a href="#cb2-28"></a>        <span class="dt">"accords_reco"</span><span class="fu">:</span> <span class="st">"Gigot d'agneau aux herbes de Provence; Tikka massala; Plateau de fromages."</span></span>
 <span id="cb2-29"><a href="#cb2-29"></a>    <span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
+<p><strong>GUILLAUME</strong></p>
 <p>Une fois que l’on a récupéré tous les URLs des pages des vins, on va scraper chaque page avec le module <code>mystical_soup</code>. Toutes les informations qui nous intéresse sont stocké dans un fichier JSON.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -573,6 +590,7 @@
 </ol>
 
 <img data-src="img\bear_data.png" class="r-stretch quarto-figure-center"><aside class="notes">
+<p><strong>CORENTIN</strong></p>
 <p>On l’a vu avec l’exemple d’un vin sérialisé en json sur la slide précédente, les entrées ne sont pas nettoyées : les valeurs numériques sont stockées sous forme de texte, etc.</p>
 <p><strong>Pourquoi polars ?</strong> <span class="math inline">\(\Rightarrow\)</span> Les expressions polars nous permettent de faire tout un tas d’opérations sans jamais utiliser des lambda functions, l’API est mieux documentée.</p>
 <ul>
@@ -595,6 +613,19 @@
 <blockquote>
 <p><em>“2024 sera un millésime français !”</em> <span class="math inline">\(-\)</span> <strong>Emmanuel Macron</strong></p>
 </blockquote>
+<aside class="notes">
+<p><strong>GUILLAUME</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="machine-learning---procédure" class="slide level2 smaller" data-background-image="img\pipeline.png" data-background-opacity="0.25">
 <h2>Machine Learning - Procédure</h2>
@@ -610,8 +641,11 @@
 </ul></li>
 </ol>
 <aside class="notes">
+<p><strong>CORENTIN</strong></p>
 <p>Mais Guillaume dis-moi, si on peut facilement voir l’intérêt de prédire le prix d’une bouteille de vin, quel est l’intérêt de prédire le type de vin ? Je veux dire, une fois qu’on regarde la bouteille, à la couleur on peut savoir, ça semble un peu bête non ?</p>
+<p><strong>GUILLAUME</strong></p>
 <p>Eh bien Corentin, la réponse était à Noel ! Quand, dans un repas de famille, on nous présente pas moins d’une dizaine de vins et qu’on commence à tous les goûter, il arrive ce moment inéluctable ou on dépasse les 2 grammes par litre, et à ce moment… difficile de distinguer ce qu’on boit. Nos modèles viennent en aide à ce moment là ! Enfin, si l’utilisateur arrive à utiliser son ordinateur…</p>
+<p><strong>CORENTIN</strong></p>
 <hr>
 <p>Le <em>Data Leakage</em> se produit lorsque des informations qui sont indisponibles au moment de la prédiction sont utilisées pendant la construction du modèle. Se traduit par des estimations de performances trop optimistes, et donc de moins bonnes performances quand le modèle est utilisé sur de nouvelles données.</p>
 <ul>
@@ -652,6 +686,7 @@
 <span id="cb3-6"><a href="#cb3-6"></a>Ridge,0.979,0.983,0.009,0.002,"{'entrainement__alpha': 0.015625, 'imputation__strategy': 'mean'}",0.9812967581047382,classification</span>
 <span id="cb3-7"><a href="#cb3-7"></a>Support Vector,0.981,0.992,0.008,0.002,"{'entrainement__C': 3.281341424030552, 'imputation__strategy': 'median'}",0.9825436408977556,classification</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
+<p><strong>GUILLAUME</strong></p>
 <ul>
 <li><p>variables &amp; modèles qui serviront dans nos modèles</p></li>
 <li><p>6 modèles pour ne pas être trop exhaustif (RF, Boosting, Ridge, MLP, KNN, SVM).</p></li>
@@ -691,6 +726,7 @@
 <li>Pour les 800 vins qui n’ont pas servi dans notre Cross Validation on réalise une prédiction par chacun de nos 6 modèles, le tout stocké dans un fichier CSV !</li>
 </ul>
 <aside class="notes">
+<p><strong>GUILLAUME</strong></p>
 <ul>
 <li><p>prédiction sur les 800 vins restants</p></li>
 <li><p>stock tous les résultats dans un CSV, pour chaque vin on a la valeur réel et la prédiction pour chaqu’un des modèles.</p></li>
@@ -728,6 +764,7 @@
 </ul></li>
 </ul>
 <aside class="notes">
+<p><strong>CORENTIN</strong></p>
 <p>Nous avons utilisé un certains nombre de métriques implémentées dans <code>sklearn</code> pour évaluer la qualité de nos modèles :</p>
 <ul>
 <li>La <span class="math inline">\(MAE\)</span> est en fait simplement la somme des erreurs absolues divisée par la taille de l’échantillon.</li>
@@ -769,6 +806,7 @@
 <a href="https://giphy.com/gifs/franceinfo-wtf-citation-T7QRkgGzYdQju"></a>
 </p>
 <aside class="notes">
+<p><strong>GUILLAUME</strong></p>
 <ul>
 <li>Facilité d’utilisation, jeu de lego, bloc que l’on combine</li>
 <li>Parfait pour l’analyse de données, intégration des plotly aisé</li>
@@ -802,6 +840,7 @@
 <li>Réduit le temps nécessaire au stockage et à la consultation des données, et accélère l’exécution des requêtes.</li>
 </ul>
 <aside class="notes">
+<p><strong>CORENTIN</strong></p>
 <p>Comme on l’a vu dans la partie <strong>Optimisation</strong> et <strong>Prédiction</strong> du Machine Learning, on a des résultats en CSV. Mais une fois qu’on a 4-5 csv ça commence à devenir encombrant…du coup on a plutôt opté pour une base de données. Et pas n’importe laquelle !</p>
 <p>Une base de données <em>in-memory</em> est donc idéale pour une application effectuant de l’analyse de données en temps réel comme la notre.</p>
 <style type="text/css">
@@ -844,6 +883,19 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 </div>
 </div>
 </div>
+<aside class="notes">
+<p><strong>CORENTIN</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="démonstration" class="slide level2">
 <h2>🚀 Démonstration</h2>
@@ -884,6 +936,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 </div>
 </div>
 <aside class="notes">
+<p><strong>GUILLAUME</strong></p>
 <p>On a deux méthodes pour lancer notre application. Je dirais même, comme un vieil adage le dit : <strong>Jamais deux sans trois</strong> ! Sauf que la troisième méthode on va la garder pour plus tard en bonus.</p>
 <p>La différence entre les deux premières méthodes c’est que l’une va tourner en local alors que l’autre est sur le cloud streamlit. Le déploiement sur le cloud est assez simple : on link le repo Github, <code>poetry</code> installe les dépendances et c’est parti 🚀.</p>
 <style type="text/css">
@@ -911,6 +964,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <p><strong>Code certifié conforme par l’<em>Agent Smith<span class="math inline">\(^*\)</span></em></strong></p>
 <p><span class="math inline">\(^*\)</span> <em>L’Agent Smith tient par ailleurs à préciser qu’il n’a reçu aucun pot-de-vin de notre part pour ce diagnostic malgré son enrichissement personnel fulgurant…</em></p>
 <aside class="notes">
+<p><strong>CORENTIN</strong></p>
 <ul>
 <li>Tous les modules ont leur tests associés</li>
 </ul>
@@ -947,6 +1001,19 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 </div>
 </div>
 </div>
+<aside class="notes">
+<p><strong>GUILLAUME</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="docstrings" class="slide level2 smaller">
 <h2>Docstrings</h2>
@@ -1002,6 +1069,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <span id="cb9-39"><a href="#cb9-39"></a><span class="co">    ...         return_train_score=True)</span></span>
 <span id="cb9-40"><a href="#cb9-40"></a><span class="co">    """</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
+<p><strong>GUILLAUME</strong></p>
 <ul>
 <li>Un vrai petit tutoriel pour chaque fonction</li>
 <li>Description</li>
@@ -1030,6 +1098,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <p><strong>Installation de dépendances</strong> : Facilite l’installation des dépendances définies dans le fichier de configuration en utilisant la commande <code>poetry install</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1"></a>py <span class="op">-</span>m poetry install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
+<p><strong>CORENTIN</strong></p>
 <p>Eh bien Guillaume, avec <code>poetry</code> on va faire rimer nos dépendances !</p>
 <p>Rapidement, on a décidé d’opter pour <code>poetry</code> car le moment fatidique ou un d’entre nous décide d’installer localemet un package et que l’autre ne l’a pas arrivait un peu trop souvent et ça c’était pas super poétique justement.</p>
 <style type="text/css">
@@ -1086,6 +1155,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 ├───📘README.md
 └───🐍streamlit_app.py</code></pre>
 <aside class="notes">
+<p><strong>GUILLAUME</strong></p>
 <ul>
 <li>Le projet commençant a être bien fourni, nécéssité de modulariser le tout pour apporter un peu de clarté pour le développeur.</li>
 </ul>
@@ -1110,6 +1180,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <p><strong>Comment ?</strong> <span class="math inline">\(\Rightarrow\)</span> <code>Dockerfile</code></p>
 <p>Docker assure la reproductibilité en permettant à n’importe qui de construire et d’exécuter le <strong>même conteneur</strong> à partir des spécifications définies dans le <code>Dockerfile</code>.</p>
 <aside class="notes">
+<p><strong>CORENTIN</strong></p>
 <p>Le <code>Dockerfile</code> spécifie les étapes pour installer les dépendances de l’application (dans ce cas, on va utiliser <code>poetry</code> pour gérer les dépendances) et configurer un environnement minimaliste à l’intérieur du conteneur.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1153,6 +1224,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <span id="cb12-23"><a href="#cb12-23"></a></span>
 <span id="cb12-24"><a href="#cb12-24"></a><span class="kw">ENTRYPOINT</span> [<span class="st">"python"</span>, <span class="st">"-m"</span>, <span class="st">"streamlit"</span>, <span class="st">"run"</span>, <span class="st">"streamlit_app.py"</span>, <span class="st">"--server.port=8501"</span>, <span class="st">"--server.address=0.0.0.0"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
+<p><strong>CORENTIN</strong></p>
 <p>Regardons plus en détail ce que contient ce <code>Dockerfile</code>.</p>
 <p>FROM python:3.10-slim-buster</p>
 <ol type="1">
@@ -1194,6 +1266,19 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <p>Ensuite, pour lancer le conteneur Docker avec l’utilisateur <em>app</em> sur le port initial (8501) de <code>streamlit</code>, il suffit de faire :</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb15-1"><a href="#cb15-1"></a>docker run <span class="op">-</span>u app <span class="op">-</span>p 8501<span class="op">:</span>8501 wine_scraping</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>🎉 Une fois le conteneur lancé, on le voit apparaitre dans <strong>Docker Desktop</strong>. Pour accéder à l’application, il faut se rendre sur <a href="http://localhost:8501/"><em>http://localhost:8501/</em></a>.</p>
+<aside class="notes">
+<p><strong>CORENTIN</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="fin" class="slide level2 smaller" data-background-image="img\weird_man.png" data-background-opacity="0.25">
 <h2>Fin</h2>

@@ -25,6 +25,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <div style="display: flex; justify-content: center; align-items: center; height: 60vh;">
 <iframe width="800" height="340" src="https://www.youtube.com/embed/mZ6xNxpuIOQ" title="Bodh&#39;Aktan - À boire" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
+::: {.notes}
+**GUILLAUME**
+:::
+
+
 ## Le *Pourquoi* du *Comment* {background-image="img\bouteille_dieu.png" background-opacity="0.5"}
 
 - Le 18 janvier approche, une date en apparence anodine mais très importante pour nos deux compères.
@@ -41,6 +46,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 :::
 
 ::: {.notes}
+**GUILLAUME**
+
 - Nous avons commencé à rechercher notre proie dès fin septembre pour faire quelques tests, notamment sur la partie scraping.
 :::
 
@@ -49,6 +56,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 > *“Pour savoir qu'un verre était de trop, encore faut-il avoir scrapé son vin !”* $-$ **Inconnu**
 
 ::: {.notes}
+**CORENTIN**
+
 Eh non Jean ! On ne parle pas de toi mais bien du scraping de vin. D'ailleurs on voit au tableau ce magnifique proverbe indonéso-inconnu qui énonce que **Pour savoir qu'un verre était de trop, encore faut-il avoir scrapé son vin !**
 
 Ca t'a ouvert les chakras Guillaume ? Ouais, non ? Bon moi non plus, et si on passait à la partie technique plutôt ?
@@ -76,6 +85,8 @@ ROSE = "achat-vin-rose"
 5. `export_wine_links` permet d'exporter ces liens dans un fichier CSV.
 
 ::: {.notes}
+**CORENTIN**
+
 Pour un peu de mise en contexte, initialement on avait commencé par scraper les pages de vente de vins où une trentaine de vins sont affichés...mais on s'est rapidement rendu compte que dans ces pages, il manquait beaucoup d'informations. On s'est plutôt mis en tête de récupérer les caractéristiques sur chaque page individuelle de vin, qu'on peut facilement récupérer sur les pages de recherche grâce à des liens href. Et initialement, on l'avait fait avec `Selenium` mais ça prenait un temps monstre donc on a changé d'idée.
 
 *Note* : On aurait pu construire les URL à la main mais c'était beaucoup moins élégant que de le faire comme ça.
@@ -127,6 +138,7 @@ Cela étant, on a eu aucun problème jusqu'ici chaque fois qu'on a fait le scrap
 ```
 
 ::: {.notes}
+**GUILLAUME**
 
 Une fois que l'on a récupéré tous les URLs des pages des vins, on va scraper chaque page avec le module `mystical_soup`. Toutes les informations qui nous intéresse sont stocké dans un fichier JSON.
 
@@ -144,6 +156,8 @@ Mais ce *JSON* **brut** doit être nettoyé et considérablement restructuré !
 ![](img\bear_data.png){fig-align="center"}
 
 ::: {.notes}
+**CORENTIN**
+
 On l'a vu avec l'exemple d'un vin sérialisé en json sur la slide précédente, les entrées ne sont pas nettoyées : les valeurs numériques sont stockées sous forme de texte, etc.
 
 **Pourquoi polars ?** $\Rightarrow$ Les expressions polars nous permettent de faire tout un tas d'opérations sans jamais utiliser des lambda functions, l'API est mieux documentée.
@@ -154,6 +168,10 @@ On l'a vu avec l'exemple d'un vin sérialisé en json sur la slide précédente,
 ## Machine Learning {background-image="img\bouteille_ecole.png" background-opacity="0.25"}
 
 > *“2024 sera un millésime français !”* $-$ **Emmanuel Macron**
+
+::: {.notes}
+**GUILLAUME**
+:::
 
 ## Machine Learning - Procédure {.smaller background-image="img\pipeline.png" background-opacity="0.25"}
 
@@ -166,9 +184,15 @@ On l'a vu avec l'exemple d'un vin sérialisé en json sur la slide précédente,
     - Procédure standardisée pour l'ensemble des modèles.
 
 ::: {.notes}
+**CORENTIN**
+
 Mais Guillaume dis-moi, si on peut facilement voir l'intérêt de prédire le prix d'une bouteille de vin, quel est l'intérêt de prédire le type de vin ? Je veux dire, une fois qu'on regarde la bouteille, à la couleur on peut savoir, ça semble un peu bête non ?
 
+**GUILLAUME**
+
 Eh bien Corentin, la réponse était à Noel ! Quand, dans un repas de famille, on nous présente pas moins d'une dizaine de vins et qu'on commence à tous les goûter, il arrive ce moment inéluctable ou on dépasse les 2 grammes par litre, et à ce moment... difficile de distinguer ce qu'on boit. Nos modèles viennent en aide à ce moment là ! Enfin, si l'utilisateur arrive à utiliser son ordinateur...
+
+**CORENTIN**
 
 ***
 
@@ -199,6 +223,7 @@ Support Vector,0.981,0.992,0.008,0.002,"{'entrainement__C': 3.281341424030552, '
 ```
 
 ::: {.notes}
+**GUILLAUME**
 
 - variables & modèles qui serviront dans nos modèles 
 - 6 modèles pour ne pas être trop exhaustif (RF, Boosting, Ridge, MLP, KNN, SVM). 
@@ -229,6 +254,7 @@ CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge
 - Pour les 800 vins qui n'ont pas servi dans notre Cross Validation on réalise une prédiction par chacun de nos 6 modèles, le tout stocké dans un fichier CSV !
 
 ::: {.notes}
+**GUILLAUME**
 
 - prédiction sur les 800 vins restants
 
@@ -254,6 +280,8 @@ CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge
     - $F_1$ Score = $2 \times \frac{\text{precision } \times \text{ recall}}{\text{precision + recall}}$
 
 ::: {.notes}
+**CORENTIN**
+
 Nous avons utilisé un certains nombre de métriques implémentées dans `sklearn` pour évaluer la qualité de nos modèles :
 
 - La $MAE$ est en fait simplement la somme des erreurs absolues divisée par la taille de l'échantillon. 
@@ -277,6 +305,7 @@ Afin de visualiser tous nos résultats une application serait idéale...
 <iframe src="https://giphy.com/embed/T7QRkgGzYdQju" width="480" height="240" frameBorder="0" class="giphy-embed" allowFullScreen style="display:block; margin:auto;"></iframe><p><a href="https://giphy.com/gifs/franceinfo-wtf-citation-T7QRkgGzYdQju"></a></p>
 
 ::: {.notes}
+**GUILLAUME**
 
 - Facilité d'utilisation, jeu de lego, bloc que l'on combine
 - Parfait pour l'analyse de données, intégration des plotly aisé
@@ -305,6 +334,8 @@ def db_connector() -> DuckDBPyConnection:
 - Réduit le temps nécessaire au stockage et à la consultation des données, et accélère l’exécution des requêtes.
 
 :::{.notes}
+**CORENTIN**
+
 Comme on l'a vu dans la partie **Optimisation** et **Prédiction** du Machine Learning, on a des résultats en CSV. Mais une fois qu'on a 4-5 csv ça commence à devenir encombrant...du coup on a plutôt opté pour une base de données. Et pas n'importe laquelle !
 
 Une base de données *in-memory* est donc idéale pour une application effectuant de l’analyse de données en temps réel comme la notre.
@@ -331,6 +362,10 @@ style D stroke:#adbac7,stroke-width:3px, fill:white;
 style E stroke:#adbac7,stroke-width:3px, fill:white;
 style F stroke:#fff100,stroke-width:3px, fill:white;
 ```
+
+:::{.notes}
+**CORENTIN**
+:::
 
 ## 🚀 Démonstration
 
@@ -363,6 +398,8 @@ python -m streamlit run "streamlit_app.py"
 :::
 
 :::{.notes}
+**GUILLAUME**
+
 On a deux méthodes pour lancer notre application. Je dirais même, comme un vieil adage le dit : **Jamais deux sans trois** ! Sauf que la troisième méthode on va la garder pour plus tard en bonus. 
 
 La différence entre les deux premières méthodes c'est que l'une va tourner en local alors que l'autre est sur le cloud streamlit. Le déploiement sur le cloud est assez simple : on link le repo Github, `poetry`  installe les dépendances et c'est parti 🚀.
@@ -383,6 +420,8 @@ La différence entre les deux premières méthodes c'est que l'une va tourner en
 $^*$ *L'Agent Smith tient par ailleurs à préciser qu'il n'a reçu aucun pot-de-vin de notre part pour ce diagnostic malgré son enrichissement personnel fulgurant...*
 
 :::{.notes}
+**CORENTIN**
+
 - Tous les modules ont leur tests associés
 :::
 
@@ -400,6 +439,10 @@ def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearch
 
 `mypy` va nous permettre d'effectuer ce contrôle *(static type checking)*, c'est à dire de vérifier si les valeurs assignées aux variables, les arguments passés aux fonctions et les valeurs de retour correspondent aux types attendus.
 
+:::
+
+:::{.notes}
+**GUILLAUME** 
 :::
 
 ## Docstrings {.smaller}
@@ -456,6 +499,8 @@ def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearch
 ```
 
 ::: {.notes}
+**GUILLAUME**
+
 - Un vrai petit tutoriel pour chaque fonction
 - Description 
 - Paramètres
@@ -479,6 +524,8 @@ py -m poetry install
 ```
 
 ::: {.notes}
+**CORENTIN**
+
 Eh bien Guillaume, avec `poetry` on va faire rimer nos dépendances !
 
 Rapidement, on a décidé d'opter pour `poetry` car le moment fatidique ou un d'entre nous décide d'installer localemet un package et que l'autre ne l'a pas arrivait un peu trop souvent et ça c'était pas super poétique justement.
@@ -531,6 +578,8 @@ Séparation des composants du projet :
 ```
 
 ::: {.notes}
+**GUILLAUME**
+
 - Le projet commençant a être bien fourni, nécéssité de modulariser le tout pour apporter un peu de clarté pour le développeur.
 :::
 
@@ -549,6 +598,8 @@ Séparation des composants du projet :
 Docker assure la reproductibilité en permettant à n'importe qui de construire et d'exécuter le **même conteneur** à partir des spécifications définies dans le `Dockerfile`.
 
 :::{.notes}
+**CORENTIN**
+
 Le `Dockerfile` spécifie les étapes pour installer les dépendances de l'application (dans ce cas, on va utiliser `poetry` pour gérer les dépendances) et configurer un environnement minimaliste à l'intérieur du conteneur.
 :::
 
@@ -584,6 +635,8 @@ ENTRYPOINT ["python", "-m", "streamlit", "run", "streamlit_app.py", "--server.po
 ```
 
 :::{.notes}
+**CORENTIN**
+
 Regardons plus en détail ce que contient ce `Dockerfile`. 
 
 FROM python:3.10-slim-buster
@@ -626,6 +679,10 @@ docker run -u app -p 8501:8501 wine_scraping
 ```
 
 🎉 Une fois le conteneur lancé, on le voit apparaitre dans **Docker Desktop**. Pour accéder à l'application, il faut se rendre sur [*http://localhost:8501/*](http://localhost:8501/).
+
+:::{.notes}
+**CORENTIN**
+:::
 
 ## Fin {.smaller background-image="img\weird_man.png" background-opacity="0.25"}
 
