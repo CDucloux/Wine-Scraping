@@ -203,12 +203,12 @@ Support Vector,0.981,0.992,0.008,0.002,"{'entrainement__C': 3.281341424030552, '
 - variables & modèles qui serviront dans nos modèles 
 - 6 modèles pour ne pas être trop exhaustif (RF, Boosting, Ridge, MLP, KNN, SVM). 
 
-- transforme une colonne catégorique en plusieurs colonnes binaire
+- transforme une colonne catégorielle en plusieurs colonnes binaires
 
-- optimisation des paramétres  et strategie d'imputation par CV
+- optimisation des paramètres  et strategie d'imputation par CV
 - Pour chaque modèle on a decidé d'optimiser entre 2 et 3 hyperparamètre.
 
-- résultats sont stocké dans un CSV avec les score, ET, et valeur des hyperparamètres.
+- résultats stockés dans un CSV avec les score, et valeur des hyperparamètres.
 :::
 
 ## 🏹 ML : Prédiction {.smaller} 
@@ -365,7 +365,7 @@ python -m streamlit run "streamlit_app.py"
 :::{.notes}
 On a deux méthodes pour lancer notre application. Je dirais même, comme un vieil adage le dit : **Jamais deux sans trois** ! Sauf que la troisième méthode on va la garder pour plus tard en bonus. 
 
-La différence entre les deux premières méthodes c'est que l'une va tourner en local alors que l'autre est sur le cloud streamlit. Le déploiement sur le cloud est assez simple : on link le repo Github, le pyproject.toml et poetry.lock qui installe les dépendances et c'est parti 🚀.
+La différence entre les deux premières méthodes c'est que l'une va tourner en local alors que l'autre est sur le cloud streamlit. Le déploiement sur le cloud est assez simple : on link le repo Github, `poetry`  installe les dépendances et c'est parti 🚀.
 :::
 
 
@@ -463,7 +463,7 @@ def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearch
 - Return
 - Exemple d'utilisation
 
-Mais bon c'est bien beau ces lignes de description, pourrais-tu être un peut plus poétique ?
+Mais bon c'est bien beau ces lignes de description, pourrais-tu être un peu plus poétique ?
 :::
 
 ## 🧙‍♂️ Poetry {.smaller}
@@ -477,6 +477,13 @@ Mais bon c'est bien beau ces lignes de description, pourrais-tu être un peut pl
 ```powershell
 py -m poetry install
 ```
+
+::: {.notes}
+Eh bien Guillaume, avec `poetry` on va faire rimer nos dépendances !
+
+Rapidement, on a décidé d'opter pour `poetry` car le moment fatidique ou un d'entre nous décide d'installer localemet un package et que l'autre ne l'a pas arrivait un peu trop souvent et ça c'était pas super poétique justement.
+:::
+
 
 ## 🚢 Modulaire !{.smaller}
 
@@ -516,6 +523,7 @@ Séparation des composants du projet :
 │       ├───🐍scraping_trigger.py
 │       ├───🐍bear_cleaner.py
 │       └───🐍utils.py
+├───🐳Dockerfile
 ├───🧙‍♂️poetry.lock
 ├───📍pyproject.toml
 ├───📘README.md
@@ -523,7 +531,7 @@ Séparation des composants du projet :
 ```
 
 ::: {.notes}
-- Projet commençant a etre bien fournis, nécéssité de modularisé le tout pour apporter un peu de clareté pour le développeur
+- Le projet commençant a être bien fourni, nécéssité de modulariser le tout pour apporter un peu de clarté pour le développeur.
 :::
 
 ## 🐳 Docker, Partie I {.smaller}
@@ -588,7 +596,7 @@ FROM python:3.10-slim-buster
     - On configure `poetry` pour ne pas créer d'environnement virtuel.
     - On Installe les dépendances du projet à partir de poetry.lock, en excluant les dépendances de développement (--no-dev), sans interaction (--no-interaction) et sans afficher de couleurs ANSI (--no-ansi). En effet, on ne copie pas nos tests dans le conteneur, ça alourdirait l'image pour rien.
 5. **COPY streamlit_app.py** $\Rightarrow$ On copie le fichier `streamlit_app.py`, le dossier `src`, `data` et `img` depuis le répertoire local dans le répertoire *app* du conteneur.
-6. **RUN addgroup --system app && adduser --system --group app** $\Rightarrow$ Crée un groupe système appelé app et un utilisateur système également appelé app.
+6. **RUN addgroup --system app && adduser --system --group app** $\Rightarrow$ Crée un groupe système appelé app et un utilisateur système également appelé app - **On veut ABSOLUMENT éviter d'utiliser l'utilisateur root donc c'est pas pour ça qu'on configure un utilisateur**
 7. **USER app** $\Rightarrow$ Définit l'utilisateur qui exécutera les commandes suivantes dans le conteneur comme étant l'utilisateur **app**.
 8. **EXPOSE 8501** $\Rightarrow$ Expose le port 8501. Indique simplement quel port qui doit être publié lors de l'exécution de l'image.
 9. **HEALTHCHECK** $\Rightarrow$ Pour tester si le conteneur fonctionne toujours correctement.
@@ -621,7 +629,7 @@ docker run -u app -p 8501:8501 wine_scraping
 
 ## Fin {.smaller background-image="img\weird_man.png" background-opacity="0.25"}
 
-> On ne sait pas pourquoi on a fait tout ça, car nous voulions simplement trouver une bouteille pour fêter notre anniversaire, et on se retrouve avec une application d'analyse de données qui ne nous aide en aucun cas à trouver notre breuvage... 😵
+> On ne sait pas pourquoi on a fait tout ça, car nous voulions simplement trouver une bouteille pour fêter notre anniversaire, et on se retrouve avec une application d'analyse de données qui ne nous aide en aucun cas à trouver notre breuvage...😵
 
 ## Références
 
