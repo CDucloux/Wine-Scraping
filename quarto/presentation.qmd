@@ -173,12 +173,15 @@ Eh bien Corentin, la réponse était à Noel ! Quand, dans un repas de famille, 
 ***
 
 Le *Data Leakage* se produit lorsque des informations qui sont indisponibles au moment de la prédiction sont utilisées pendant la construction du modèle. Se traduit par des estimations de performances trop optimistes, et donc de moins bonnes performances quand le modèle est utilisé sur de nouvelles données.
+
+- 80%/20% train/test
 :::
 
 ## ➶ ML : Optimisation {.smaller}
 
 1. Choix des **21 variables explicatives**
-2. Optimisation des hyperparamètres par Cross-Validation
+2. Preprocessing : `OneHotEncoder()`, Imputation NA, `MinMaxScaler()`
+3. Optimisation des hyperparamètres par Cross-Validation
 
 - Avec `optimisation_script.py` on optimise les hyperparamètres des modèles et on récupère sous forme de CSV :
     - Les scores de test et d'entrainement
@@ -196,11 +199,16 @@ Support Vector,0.981,0.992,0.008,0.002,"{'entrainement__C': 3.281341424030552, '
 ```
 
 ::: {.notes}
-Dans un premier temps on choisit les variables qui serviront dans nos modèles et on choisit les modèles que l'on va utiliser. On a décider de se concentrer sur 6 modèles pour ne pas être trop exhaustif (RF, Boosting, Ridge, MLP, KNN, SVM). 
 
-Une fois les modèles et les variables choisis on passe à l'optimisation des paramétres par le biais d'une CV. Pour chaque modèle on a decidé d'optimiser entre 2 et 3 paramètres.
+- variables & modèles qui serviront dans nos modèles 
+- 6 modèles pour ne pas être trop exhaustif (RF, Boosting, Ridge, MLP, KNN, SVM). 
 
-Une fois la CV terminé tous les résultats sont stocké dans un CSV avec les score, ET, et valeur des hyperparamètres.
+- transforme une colonne catégorique en plusieurs colonnes binaire
+
+- optimisation des paramétres  et strategie d'imputation par CV
+- Pour chaque modèle on a decidé d'optimiser entre 2 et 3 hyperparamètre.
+
+- résultats sont stocké dans un CSV avec les score, ET, et valeur des hyperparamètres.
 :::
 
 ## 🏹 ML : Prédiction {.smaller} 
@@ -222,9 +230,12 @@ CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge
 
 ::: {.notes}
 
-Dès que l'on a les meilleurs hyperparamètres pour chaqu'un des modèles on peut désormais passer à la prédiction sur les 800 vins que l'on a laissé de coter pour tester nos modèles.
+- prédiction sur les 800 vins restants
 
-Une fois encore on stock tous les résultats dans un CSV, pour chaque vin on a la valeur réel et la prédiction pour chaqu'un des modèles.
+- stock tous les résultats dans un CSV, pour chaque vin on a la valeur réel et la prédiction pour chaqu'un des modèles.
+- 1 fichier pour la régression et 1 pour classification
+
+- Evaluation des modèles avec des métriques
 
 :::
 
@@ -266,6 +277,11 @@ Afin de visualiser tous nos résultats une application serait idéale...
 <iframe src="https://giphy.com/embed/T7QRkgGzYdQju" width="480" height="240" frameBorder="0" class="giphy-embed" allowFullScreen style="display:block; margin:auto;"></iframe><p><a href="https://giphy.com/gifs/franceinfo-wtf-citation-T7QRkgGzYdQju"></a></p>
 
 ::: {.notes}
+
+- Facilité d'utilisation, jeu de lego, bloc que l'on combine
+- Parfait pour l'analyse de données, intégration des plotly aisé
+- l'utilisateur peut intéragir facilement avec les élements de l'app
+
 Encore une fois aussi, l'API de `streamlit` est très bien documentée.
 
 On peut arriver à un rendu qui est vraiment convaincant niveau interface utilisateur sans utiliser de CSS ou de javascript !
@@ -366,6 +382,10 @@ La différence entre les deux premières méthodes c'est que l'une va tourner en
 
 $^*$ *L'Agent Smith tient par ailleurs à préciser qu'il n'a reçu aucun pot-de-vin de notre part pour ce diagnostic malgré son enrichissement personnel fulgurant...*
 
+:::{.notes}
+- Tous les modules ont leur tests associés
+:::
+
 ## Annotations de type {.smaller}
 
 ```python
@@ -436,7 +456,14 @@ def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearch
 ```
 
 ::: {.notes}
+- Un vrai petit tutoriel pour chaque fonction
+- Description 
+- Paramètres
+- Raises en cas de potentiel erreur
+- Return
+- Exemple d'utilisation
 
+Mais bon c'est bien beau ces lignes de description, pourrais-tu être un peut plus poétique ?
 :::
 
 ## 🧙‍♂️ Poetry {.smaller}
@@ -494,6 +521,10 @@ Séparation des composants du projet :
 ├───📘README.md
 └───🐍streamlit_app.py
 ```
+
+::: {.notes}
+- Projet commençant a etre bien fournis, nécéssité de modularisé le tout pour apporter un peu de clareté pour le développeur
+:::
 
 ## 🐳 Docker, Partie I {.smaller}
 
@@ -590,7 +621,7 @@ docker run -u app -p 8501:8501 wine_scraping
 
 ## Fin {.smaller background-image="img\weird_man.png" background-opacity="0.25"}
 
-> −··· −−− −·  ·− ·−·· −−− ·−· ··· −−··−−  −·−− ·−−−−· ·−  − ·−−−−· −·−−  −−·− ··− ·−−−−· −−− −·  ·−·· ·−−−−· −−· −−− ··− − ·  −−·− ··− ·− −· −··  −·−· ·  ···− ·· −·  ··−−·· 
+> On ne sait pas pourquoi on a fait tout ça, car nous voulions simplement trouver une bouteille pour fêter notre anniversaire, et on se retrouve avec une application d'analyse de données qui ne nous aide en aucun cas à trouver notre breuvage... 😵
 
 ## Références
 

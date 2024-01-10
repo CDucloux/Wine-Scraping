@@ -604,6 +604,9 @@
 <p>Eh bien Corentin, la réponse était à Noel ! Quand, dans un repas de famille, on nous présente pas moins d’une dizaine de vins et qu’on commence à tous les goûter, il arrive ce moment inéluctable ou on dépasse les 2 grammes par litre, et à ce moment… difficile de distinguer ce qu’on boit. Nos modèles viennent en aide à ce moment là ! Enfin, si l’utilisateur arrive à utiliser son ordinateur…</p>
 <hr>
 <p>Le <em>Data Leakage</em> se produit lorsque des informations qui sont indisponibles au moment de la prédiction sont utilisées pendant la construction du modèle. Se traduit par des estimations de performances trop optimistes, et donc de moins bonnes performances quand le modèle est utilisé sur de nouvelles données.</p>
+<ul>
+<li>80%/20% train/test</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -620,6 +623,7 @@
 <h2>➶ ML : Optimisation</h2>
 <ol type="1">
 <li>Choix des <strong>21 variables explicatives</strong></li>
+<li>Preprocessing :<code>OneHotEncoder()</code>, Imputation NA, <code>MinMaxScaler()</code></li>
 <li>Optimisation des hyperparamètres par Cross-Validation</li>
 </ol>
 <ul>
@@ -638,9 +642,14 @@
 <span id="cb3-6"><a href="#cb3-6"></a>Ridge,0.979,0.983,0.009,0.002,"{'entrainement__alpha': 0.015625, 'imputation__strategy': 'mean'}",0.9812967581047382,classification</span>
 <span id="cb3-7"><a href="#cb3-7"></a>Support Vector,0.981,0.992,0.008,0.002,"{'entrainement__C': 3.281341424030552, 'imputation__strategy': 'median'}",0.9825436408977556,classification</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
-<p>Dans un premier temps on choisit les variables qui serviront dans nos modèles et on choisit les modèles que l’on va utiliser. On a décider de se concentrer sur 6 modèles pour ne pas être trop exhaustif (RF, Boosting, Ridge, MLP, KNN, SVM).</p>
-<p>Une fois les modèles et les variables choisis on passe à l’optimisation des paramétres par le biais d’une CV. Pour chaque modèle on a decidé d’optimiser entre 2 et 3 paramètres.</p>
-<p>Une fois la CV terminé tous les résultats sont stocké dans un CSV avec les score, ET, et valeur des hyperparamètres.</p>
+<ul>
+<li><p>variables &amp; modèles qui serviront dans nos modèles</p></li>
+<li><p>6 modèles pour ne pas être trop exhaustif (RF, Boosting, Ridge, MLP, KNN, SVM).</p></li>
+<li><p>transforme une colonne catégorique en plusieurs colonnes binaire</p></li>
+<li><p>optimisation des paramétres et strategie d’imputation par CV</p></li>
+<li><p>Pour chaque modèle on a decidé d’optimiser entre 2 et 3 hyperparamètre.</p></li>
+<li><p>résultats sont stocké dans un CSV avec les score, ET, et valeur des hyperparamètres.</p></li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -672,8 +681,12 @@
 <li>Pour les 800 vins qui n’ont pas servi dans notre Cross Validation on réalise une prédiction par chacun de nos 6 modèles, le tout stocké dans un fichier CSV !</li>
 </ul>
 <aside class="notes">
-<p>Dès que l’on a les meilleurs hyperparamètres pour chaqu’un des modèles on peut désormais passer à la prédiction sur les 800 vins que l’on a laissé de coter pour tester nos modèles.</p>
-<p>Une fois encore on stock tous les résultats dans un CSV, pour chaque vin on a la valeur réel et la prédiction pour chaqu’un des modèles.</p>
+<ul>
+<li><p>prédiction sur les 800 vins restants</p></li>
+<li><p>stock tous les résultats dans un CSV, pour chaque vin on a la valeur réel et la prédiction pour chaqu’un des modèles.</p></li>
+<li><p>1 fichier pour la régression et 1 pour classification</p></li>
+<li><p>Evaluation des modèles avec des métriques</p></li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -746,6 +759,11 @@
 <a href="https://giphy.com/gifs/franceinfo-wtf-citation-T7QRkgGzYdQju"></a>
 </p>
 <aside class="notes">
+<ul>
+<li>Facilité d’utilisation, jeu de lego, bloc que l’on combine</li>
+<li>Parfait pour l’analyse de données, intégration des plotly aisé</li>
+<li>l’utilisateur peut intéragir facilement avec les élements de l’app</li>
+</ul>
 <p>Encore une fois aussi, l’API de <code>streamlit</code> est très bien documentée.</p>
 <p>On peut arriver à un rendu qui est vraiment convaincant niveau interface utilisateur sans utiliser de CSS ou de javascript !</p>
 <p>Ecoute Arnaud, avant de passer au p’tit coup, on va parler de stockage avant !</p>
@@ -885,6 +903,21 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 </ul>
 <p><strong>Code certifié conforme par l’<em>Agent Smith<span class="math inline">\(^*\)</span></em></strong></p>
 <p><span class="math inline">\(^*\)</span> <em>L’Agent Smith tient par ailleurs à préciser qu’il n’a reçu aucun pot-de-vin de notre part pour ce diagnostic malgré son enrichissement personnel fulgurant…</em></p>
+<aside class="notes">
+<ul>
+<li>Tous les modules ont leur tests associés</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="annotations-de-type" class="slide level2 smaller">
 <h2>Annotations de type</h2>
@@ -961,6 +994,27 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <span id="cb9-38"><a href="#cb9-38"></a><span class="co">    ...                                              'most_frequent']},</span></span>
 <span id="cb9-39"><a href="#cb9-39"></a><span class="co">    ...         return_train_score=True)</span></span>
 <span id="cb9-40"><a href="#cb9-40"></a><span class="co">    """</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<ul>
+<li>Un vrai petit tutoriel pour chaque fonction</li>
+<li>Descption</li>
+<li>Paramètres</li>
+<li>Raises en cas de potentiel erreur</li>
+<li>Return</li>
+<li>Exemple d’utilisation</li>
+</ul>
+<p>Mais bon c’est bien beau ces lignes de descption, pourrais-tu être un peut plus poétique ?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="poetry" class="slide level2 smaller">
 <h2>🧙‍♂️ Poetry</h2>
@@ -1009,6 +1063,21 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 ├───📍pyproject.toml
 ├───📘README.md
 └───🐍streamlit_app.py</code></pre>
+<aside class="notes">
+<ul>
+<li>Projet commençant a etre bien fournis, nécéssité de modularisé le tout pour apporter un peu de clareté pour le développeur</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="docker-partie-i" class="slide level2 smaller">
 <h2>🐳 Docker, Partie I</h2>
@@ -1107,7 +1176,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 <section id="fin" class="slide level2 smaller" data-background-image="img\weird_man.png" data-background-opacity="0.25">
 <h2>Fin</h2>
 <blockquote>
-<p>−··· −−− −· ·− ·−·· −−− ·−· ··· −−··−− −·−− ·−−−−· ·− − ·−−−−· −·−− −−·− ··− ·−−−−· −−− −· ·−·· ·−−−−· −−· −−− ··− − · −−·− ··− ·− −· −·· −·−· · ···− ·· −· ··−−··</p>
+<p>On ne sait pas pourquoi on a fait tout ça, car nous voulions simplement trouver une bouteille pour fêter notre anniversaire, et on se retrouve avec une application d’analyse de données qui ne nous aide en aucun cas à trouver notre breuvage… 😵</p>
 </blockquote>
 </section>
 <section id="références" class="slide level2">
