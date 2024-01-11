@@ -10,6 +10,9 @@ format:
         navigation-mode: linear
         footer: "**Machine Learning**"
         logo: https://corentinducloux.fr/dossier_img/mecen_transparent.png
+        include-in-header: 
+            - text: | 
+                <link href='https://fonts.googleapis.com/css?family=Fira Code' rel='stylesheet'>
 ---
 
 ## Le *Pourquoi* du *Comment* {background-image="img\bouteille_dieu.png" background-opacity="0.5"}
