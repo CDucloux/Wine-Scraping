@@ -326,7 +326,7 @@ Comme on l'a vu dans la partie **Optimisation** et **Prédiction** du Machine Le
 Une base de données *in-memory* est donc idéale pour une application effectuant de l’analyse de données en temps réel comme la notre.
 :::
 
-## Choix du stockage, Partie II {.smaller}
+## Choix du stockage, Partie II {.smaller background-image="img\homme_en_couple.jpeg" background-opacity="0.25"}
 
 - 5 tables de résultats de Machine Learning sont obtenues grâce à l'exécution de `ml_trigger` qui se charge d'éxécuter l'ensemble des scripts d'export. 
 
@@ -352,7 +352,7 @@ style F stroke:#fff100,stroke-width:3px, fill:white;
 **CORENTIN**
 :::
 
-## 🚀 Démonstration
+## 🚀 Démonstration {background-image="img\fusee.jpeg" background-opacity="0.25"}
 
 **Lancement de l'application, 2 Méthodes.** 
 
@@ -669,7 +669,7 @@ docker run -u app -p 8501:8501 wine_scraping
 **CORENTIN**
 :::
 
-## Fin {.smaller background-image="img\weird_man.png" background-opacity="0.25"}
+## Fin {.smaller background-image="img\findumonde.jpeg" background-opacity="0.25"}
 
 > On ne sait pas pourquoi on a fait tout ça, car nous voulions simplement trouver une bouteille pour fêter notre anniversaire, et on se retrouve avec une application d'analyse de données qui ne nous aide en aucun cas à trouver notre breuvage...😵
 
