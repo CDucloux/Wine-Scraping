@@ -641,7 +641,7 @@ FROM python:3.10-slim-buster
 10. **ENTRYPOINT** $\Rightarrow$ Définit la commande d'entrée à exécuter quand le conteneur basé sur l'image est démarré. Dans notre cas, on fait un streamlit run de notre application sur le port 8501.
 :::
 
-## 🏗️ Le conteneur en action ! {.smaller}
+## 🏗️ Le conteneur en action ! {.smaller background-image="img\img_docker.webp" background-opacity="0.35"}
 
 Il faut tout d'abord s'assurer d'avoir téléchargé **Docker Desktop** avant toute chose.
 
