@@ -1,5 +1,12 @@
 # 🍷 Wine-Scraping
 
+![RepoSize](https://img.shields.io/github/repo-size/CDucloux/Wine-Scraping)
+![CodeSize](https://img.shields.io/github/languages/code-size/CDucloux/Wine-Scraping)
+![Language](https://img.shields.io/github/languages/top/CDucloux/Wine-Scraping)
+![Release](https://img.shields.io/github/downloads/CDucloux/Wine-Scraping/total)
+![License](https://img.shields.io/github/license/CDucloux/Wine-Scraping)
+![](https://img.shields.io/github/last-commit/CDucloux/Wine-Scraping)
+
 > *Il y a bien longtemps, dans une campagne lointaine, très lointaine...*
 
 [<img src="img/wine_scraping_logo.png">](https://wine-scraping.streamlit.app/)
