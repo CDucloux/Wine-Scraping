@@ -250,7 +250,7 @@ CHÂTEAUNEUF DU PAPE - ALCHIMIE 2020 - DOMAINE DES 3 CELLIER,Vin Rouge,Vin Rouge
 
 :::
 
-## 🔬 Metrics {.smaller}
+## 🔬 Metrics {.smaller background-image="img\metrics.jpeg" background-opacity="0.20"}
 
 - **Regression**:
     - Erreur moyenne absolue : MAE($y$,$\hat{y}$) = $\frac{1}{n}\sum|y_i - \hat{y_i}|$
