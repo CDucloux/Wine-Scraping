@@ -1,7 +1,11 @@
 ---
 title: "🍷 À boire 🍻"
-subtitle: "*Le breuvage contre-attaque*"
+subtitle: "*Wine Scraping : Le breuvage contre-attaque*"
 author: "`Guillaume DEVANT` & `Corentin DUCLOUX`"
+title-slide-attributes:
+    data-background-image: "img/background_wine.jpg"
+    data-background-opacity: "0.5"
+    data-notes: "Ce projet de Machine Learning est l'aboutissement de plus de 3 mois de travail sur un sujet éminemment important à nos yeux : le vin. Il y a de cela plus de 2 millénaires, **Aristote** éclairait déjà l'antiquité avec sa philosophie en énonçant : **L’art et le vin sont les joies supérieures des hommes libres.** Une citation qui, il faut le dire, a résonné en nous. Mais pourquoi en sommes-nous arrivé là *Guillaume* ?"
 format: 
     revealjs:
         theme: [serif, custom.scss]
@@ -398,8 +402,10 @@ La différence entre les deux premières méthodes c'est que l'une va tourner en
 - Docstrings explicites et soignées
 - Gestion des dépendances avec Poetry
 - Modularité
-- Tests des features de l'application 
 - Docker
+- Tests des features de l'application 
+- Git 
+- Black
 
 **Code certifié conforme par l'*Agent Smith$^*$***
 
@@ -408,7 +414,7 @@ $^*$ *L'Agent Smith tient par ailleurs à préciser qu'il n'a reçu aucun pot-de
 :::{.notes}
 **CORENTIN**
 
-- Tous les modules ont leur tests associés
+- On a eu une démonstration de ce que notre application était capable de faire, mais on a pas vraiment eu le temps de regarder en détail comment nous avions conçu ça. Et pourtant, l'agent Smith nous a confirmé que notre code était de Deutsche Qualitat !
 :::
 
 ## Annotations de type {.smaller}
@@ -676,4 +682,5 @@ docker run -u app -p 8501:8501 wine_scraping
 
 ## Références
 
-- Images : **DALL-E**
+- Images : [**DALL-E**](https://openai.com/dall-e-2)
+- Guide Utilisateur : [`scickit-learn`](https://scikit-learn.org/stable/user_guide.html)
