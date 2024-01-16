@@ -404,8 +404,9 @@ La différence entre les deux premières méthodes c'est que l'une va tourner en
 - Modularité
 - Docker
 - Tests des features de l'application 
-- Git 
-- Black
+- Git pour versionner notre projet
+- Black pour formater notre code
+- Un beau *README*
 
 **Code certifié conforme par l'*Agent Smith$^*$***
 
@@ -680,7 +681,11 @@ docker run -u app -p 8501:8501 wine_scraping
 
 > On ne sait pas pourquoi on a fait tout ça, car nous voulions simplement trouver une bouteille pour fêter notre anniversaire, et on se retrouve avec une application d'analyse de données qui ne nous aide en aucun cas à trouver notre breuvage...😵
 
+::: {.notes}
+Je dirais même pour compléter cette conclusion que la création de cette application : **C'est un petit pas pour l'homme mais un grand pas pour l'humanité.**
+:::
+
 ## Références
 
 - Images : [**DALL-E**](https://openai.com/dall-e-2)
-- Guide Utilisateur : [`scickit-learn`](https://scikit-learn.org/stable/user_guide.html)
+- Guide Utilisateur : [`scikit-learn`](https://scikit-learn.org/stable/user_guide.html)
