@@ -49,7 +49,7 @@ def main():
                 filter_fav,
                 user_input,
             )
-            st.markdown(f">**{len(main_df)}** :red[vins] trouvés !")
+            st.markdown(f">**{len(main_df) + 1}** :red[vins] trouvés !")
 
     # Metrics vins
     col1, col2, col3 = st.columns(3)

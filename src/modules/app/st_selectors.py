@@ -130,6 +130,9 @@ def sidebar_input_wine() -> str:
     >>> sidebar_input_wine()
     ... ''"""
     user_input = st.text_input("Recherche par nom de vin :").upper()
+    regex = ["*", "[", "+D", "{"]
+    if user_input in regex:
+        user_input = ""
     return user_input
 
 

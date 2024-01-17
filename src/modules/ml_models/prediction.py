@@ -103,7 +103,7 @@ def init(
     X = df.drop(columns=[EXPLIQUEE])
     y = df[EXPLIQUEE]
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=69
+        X, y, test_size=0.2, random_state=69 # /!\ Ne surtout pas enlever la graine
     )
     return X_train, X_test, y_train, y_test, df
 
