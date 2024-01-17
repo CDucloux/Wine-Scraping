@@ -6,6 +6,7 @@
 import streamlit as st
 import ast
 import polars as pl
+import pandas as pd
 from streamlit.delta_generator import DeltaGenerator
 from duckdb import DuckDBPyConnection
 from src.modules.app.st_plots import *
@@ -347,3 +348,58 @@ def write_parameter(conn: DuckDBPyConnection, table_name: str, selected_model: s
     elif selected_model == "Support Vector":
         params_tbl = parametres(df, 5)
     return params_tbl
+
+def best_model(type:str) -> DeltaGenerator :
+    """`best_model`: Petit algorithme pour selectionner le meilleur modèle.
+    Système de bonus/malus donné à chaque modèle en fonction des metrics.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        type (str): #Regression ou Classification
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------"""
+    models = ["random_forest", "boosting", "ridge", "knn", "mlp", "support_vector"]
+    models_name = ["Random Forest", "Boosting", "Ridge", "K Neighbors",
+                   "Réseaux de neurones", "Support Vector"]
+    df_vide = {
+            "models" : models,
+            "models_name": models_name,
+            "score" : len(models)*[0]
+        }
+    df_score = pd.DataFrame(df_vide)
+    
+    if type == "Regression":
+        df = pl.read_csv(r".\data\tables\pred_regression.csv")
+        mae = [mean_absolute_error(df.select("unit_price"), df.select(model)) for model in models]
+        mse = [mean_squared_error(df.select("unit_price"), df.select(model)) for model in models]
+        r2 = [r2_score(df.select("unit_price"), df.select(model)) for model in models]
+        me = [max_error(df.select("unit_price"), df.select(model)) for model in models]
+        
+        df_score.at[mae.index(min(mae)),"score"] += 2
+        df_score.at[mse.index(min(mse)),"score"] += 1
+        df_score.at[r2.index(min(r2)),"score"] += 1
+        df_score.at[me.index(min(me)),"score"] += 1
+        df_score.at[me.index(max(me)),"score"] -= 1
+        
+    elif type == "Classification":
+        df = pl.read_csv(r".\data\tables\pred_classification.csv")
+        acs = [accuracy_score(df.select("type"), df.select(model)) for model in models]
+        prs = [precision_score(df.select("type"), df.select(model), average="weighted") for model in models]
+        res = [recall_score(df.select("type"), df.select(model), average="weighted") for model in models]
+        mac = [matthews_corrcoef(df.select("type"), df.select(model)) for model in models]
+        
+        df_score.at[acs.index(max(acs)),"score"] += 2
+        df_score.at[prs.index(max(prs)),"score"] += 1
+        df_score.at[res.index(max(res)),"score"] += 1
+        df_score.at[mac.index(max(mac)),"score"] += 1
+        
+    best_model = df_score.at[df_score["score"].idxmax(), "models_name"]
+    return st.markdown(f"Modèle recommandé : **{best_model}**")
