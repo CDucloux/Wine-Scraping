@@ -156,7 +156,7 @@ def write_table_ml(conn, table_name: str) -> DeltaGenerator:
         column_config={
             "Modèle": "Modèle 🧰",
             "Score Entrainement": st.column_config.ProgressColumn(
-                "Score Train 🏋🏻‍♂️",
+                "Score Train CV 🏋🏻‍♂️",
                 min_value=-1,
                 max_value=1,
                 format="%.2f",
@@ -164,7 +164,7 @@ def write_table_ml(conn, table_name: str) -> DeltaGenerator:
             ),
             "Ecart-Type Train": "SD Train",
             "Score Test": st.column_config.ProgressColumn(
-                "Score Test 👨🏻‍🔬",
+                "Score Test CV 👨🏻‍🔬",
                 min_value=-1,
                 max_value=1,
                 format="%.2f",

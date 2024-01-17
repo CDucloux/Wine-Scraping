@@ -14,7 +14,6 @@ from sklearn.svm import SVR, SVC  # type: ignore
 from sklearn.impute import SimpleImputer  # type: ignore
 from sklearn.pipeline import Pipeline  # type: ignore
 from sklearn.preprocessing import MinMaxScaler  # type: ignore
-
 from src.modules.ml_models.models import *
 
 from sklearn.model_selection import train_test_split  # type: ignore
@@ -292,7 +291,7 @@ def boosting(variable: str, choix: str) -> Pipeline:
     return model
 
 
-def ridge(variable, choix) -> Pipeline:
+def ridge(variable: str, choix: str) -> Pipeline:
     """`ridge`: permet de préparer le pipeline du modèle Ridge en récupérant les paramètres optimaux avec `_recup_param`
 
     ---------
@@ -352,7 +351,7 @@ def ridge(variable, choix) -> Pipeline:
     return model
 
 
-def mlp(variable, choix) -> Pipeline:
+def mlp(variable: str, choix: str) -> Pipeline:
     """`mlp`: permet de préparer le pipeline du modèle Réseaux de neurones en récupérant les paramètres optimaux avec `_recup_param`
 
     ---------
@@ -426,7 +425,7 @@ def mlp(variable, choix) -> Pipeline:
     return model
 
 
-def knn(variable, choix) -> Pipeline:
+def knn(variable: str, choix: str) -> Pipeline:
     """`knn`: permet de préparer le pipeline du modèle K Neighbors en récupérant les paramètres optimaux avec `_recup_param`
 
     ---------
@@ -492,7 +491,7 @@ def knn(variable, choix) -> Pipeline:
     return model
 
 
-def support_vector(variable, choix) -> Pipeline:
+def support_vector(variable: str, choix: str) -> Pipeline:
     """`support_vector`: permet de préparer le pipeline du modèle Support Vector en récupérant les paramètres optimaux avec `_recup_param`
 
     ---------
