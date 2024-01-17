@@ -349,7 +349,7 @@ def write_parameter(conn: DuckDBPyConnection, table_name: str, selected_model: s
         params_tbl = parametres(df, 5)
     return params_tbl
 
-def best_model(type:str) -> DeltaGenerator :
+def best_model(type:str, conn: DuckDBPyConnection) -> DeltaGenerator :
     """`best_model`: Petit algorithme pour selectionner le meilleur modèle.
     Système de bonus/malus donné à chaque modèle en fonction des metrics.
 
@@ -358,7 +358,7 @@ def best_model(type:str) -> DeltaGenerator :
     --------- ::
 
         type (str): #Regression ou Classification
-
+        conn (DuckDBPyConnection):
     `Returns`
     --------- ::
 
@@ -377,7 +377,7 @@ def best_model(type:str) -> DeltaGenerator :
     df_score = pd.DataFrame(df_vide)
     
     if type == "Regression":
-        df = pl.read_csv(r".\data\tables\pred_regression.csv")
+        df = conn.execute(f"SELECT * FROM pred_regression").pl()
         mae = [mean_absolute_error(df.select("unit_price"), df.select(model)) for model in models]
         mse = [mean_squared_error(df.select("unit_price"), df.select(model)) for model in models]
         r2 = [r2_score(df.select("unit_price"), df.select(model)) for model in models]
@@ -390,7 +390,7 @@ def best_model(type:str) -> DeltaGenerator :
         df_score.at[me.index(max(me)),"score"] -= 1
         
     elif type == "Classification":
-        df = pl.read_csv(r".\data\tables\pred_classification.csv")
+        df = conn.execute(f"SELECT * FROM pred_classification").pl()
         acs = [accuracy_score(df.select("type"), df.select(model)) for model in models]
         prs = [precision_score(df.select("type"), df.select(model), average="weighted") for model in models]
         res = [recall_score(df.select("type"), df.select(model), average="weighted") for model in models]

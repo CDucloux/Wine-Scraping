@@ -181,7 +181,7 @@ def main():
             choix_type = st.selectbox("Type :", ("Regression", "Classification"))
             model_choice = model_selector()
             model = model_mapper(model_choice)
-            best_model(choix_type)
+            best_model(choix_type, conn)
         col1, col2 = st.columns([2, 2])
         with col1:
             if choix_type == "Regression":
