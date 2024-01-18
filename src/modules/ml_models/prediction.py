@@ -18,6 +18,7 @@ from src.modules.ml_models.models import *
 
 from sklearn.model_selection import train_test_split  # type: ignore
 from sklearn.metrics import mean_absolute_error, accuracy_score  # type: ignore
+from sklearn.linear_model import LinearRegression, LogisticRegression
 
 import ast
 import polars as pl
@@ -45,6 +46,8 @@ def init(
     - La target d'entrainement
     - La target de test
     - Le DataFrame initial
+    
+    La graine du split train/test étant fixé, on peut utiliser init plusieurs fois.
 
     ---------
     `Parameters`
@@ -545,6 +548,22 @@ def support_vector(variable: str, choix: str) -> Pipeline:
                     SVC(C=_recup_param(choix, variable)["entrainement__C"]),
                 ),
             ]
+        )
+    return model
+
+def basique(variable: str) -> Pipeline:
+    if variable == "unit_price" :
+        model = Pipeline(
+        [
+            ("imputation", SimpleImputer(strategy='mean')),
+            ("model", LinearRegression()),
+        ])
+    elif variable == "type" :
+        model  = Pipeline(
+        [
+            ("imputation", SimpleImputer(strategy='mean')),
+            ("model", LogisticRegression(multi_class = "ovr")),
+        ]
         )
     return model
 

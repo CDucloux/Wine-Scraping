@@ -268,7 +268,7 @@ def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
         df = conn.execute(f"SELECT * FROM pred_classification").pl()
         predicted = "type"
 
-    models = ["random_forest", "boosting", "ridge", "knn", "mlp", "support_vector"]
+    models = ["random_forest", "boosting", "ridge", "knn", "mlp", "support_vector", "basique"]
     name = [model_mapper_reverse(model) for model in models]
     metrics_table = {"Modèle 🧰": name}
 
@@ -309,7 +309,25 @@ def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
             classification_report(y_true, df.select(model)) for model in models
         ]
     table = pl.DataFrame(metrics_table)
-    return st.dataframe(table, hide_index=True)
+    if type == "regression":
+        table = table.with_columns(pl.when(table["Mean Squared Error ❗❗"] > 100000)
+                                        .then(None)
+                                        .otherwise(table["Mean Squared Error ❗❗"])
+                                        .alias("Mean Squared Error ❗❗"),
+                                    pl.when(table["R2 Score 🔀"] < - 100)
+                                        .then(None)
+                                        .otherwise(table["R2 Score 🔀"])
+                                        .alias("R2 Score 🔀"),
+                                    pl.when(table["Modèle 🧰"] == "Modèle de base")
+                                        .then(pl.lit("Régression Linéaire"))
+                                        .otherwise(table["Modèle 🧰"])
+                                        .alias("Modèle 🧰"))
+    table = table.with_columns(pl.when(table["Modèle 🧰"] == "Modèle de base")
+                                        .then(pl.lit("Régression Logistique"))
+                                        .otherwise(table["Modèle 🧰"])
+                                        .alias("Modèle 🧰"))
+    return st.dataframe(table, 
+                        hide_index=True)
 
 
 def write_parameter(conn: DuckDBPyConnection, table_name: str, selected_model: str):

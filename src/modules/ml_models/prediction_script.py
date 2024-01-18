@@ -19,8 +19,9 @@ for EXPLIQUEE in ("type", "unit_price"):
     model_knn = knn(EXPLIQUEE, "K Neighbors")
     model_mlp = mlp(EXPLIQUEE, "Réseaux de neurones")
     model_sv = support_vector(EXPLIQUEE, "Support Vector")
+    model_basique = basique(EXPLIQUEE)
 
-    models = [model_rf, model_boost, model_ridge, model_knn, model_mlp, model_sv]
+    models = [model_rf, model_boost, model_ridge, model_knn, model_mlp, model_sv, model_basique]
 
     for model in models:
         model.fit(X_train, y_train)
@@ -31,6 +32,7 @@ for EXPLIQUEE in ("type", "unit_price"):
     preds_knn = model_knn.predict(X_test).astype(str)
     preds_mlp = model_mlp.predict(X_test).astype(str)
     preds_sv = model_sv.predict(X_test).astype(str)
+    preds_basique = model_basique.predict(X_test).astype(str)
 
     data = {
         "name": X_test_n["name"],
@@ -41,6 +43,7 @@ for EXPLIQUEE in ("type", "unit_price"):
         "knn": preds_knn,
         "mlp": preds_mlp,
         "support_vector": preds_sv,
+        "basique" : preds_basique
     }
 
     df = pl.DataFrame(data)

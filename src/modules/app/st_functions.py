@@ -417,6 +417,7 @@ def model_mapper_reverse(model_name: str) -> str:
         "mlp": "Réseaux de neurones",
         "knn": "K Neighbors",
         "support_vector": "Support Vector",
+        "basique" : "Modèle de base"
     }
     return model_names_mapping.get(model_name, "Le modèle n'existe pas")
 
