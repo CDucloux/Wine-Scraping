@@ -62,3 +62,27 @@ def test_price_slider_data():
         "MAGNUM - HOMMAGE A JACQUES PERRIN 2020 - CHATEAU DE BEAUCASTEL",
         "CHÂTEAU MOUTON ROTHSCHILD 2001 - 1ER CRU CLASSÉ",
     ]
+
+
+def test_correlations():
+    """L'utilisateur sélectionne l'onglet statistiques descriptives et regarde la matrice des corrélations."""
+    app = AppTest.from_file("streamlit_app.py").run(timeout=15)
+    app.tabs[1].selectbox[0].set_value("Matrice de corrélation").run(timeout=15)
+    assert (
+        app.tabs[1].success.values[0]
+        == "➕ La corrélation maximale est de 0.52 entre la date de conservation et le prix."
+    )
+    assert (
+        app.tabs[1].error.values[0]
+        == "➖ La corrélation minimale est de -0.38 entre le millésime et le prix."
+    )
+
+
+def test_cepages():
+    """L'utilisateur sélectionne l'onget statistiques descriptives et regarde les cépages majoritaires."""
+    app = AppTest.from_file("streamlit_app.py").run(timeout=15)
+    app.tabs[1].selectbox[0].set_value("Cépage majoritaire").run(timeout=15)
+    assert (
+        app.tabs[1].warning.values[0]
+        == "🚨 Seuls les cépages ayant une fréquence supérieure à dix sont affichés !"
+    )

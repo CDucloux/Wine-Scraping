@@ -123,6 +123,9 @@ def main():
     with tab5:
         ## Machine Learning Tab
         info()
+        st.markdown(
+            "Pas vraiment adepte des concepts de *Machine Learning* ? **Pas de problème !** :link: [Cliquer ici pour prédire un vin](#a29a3caa)"
+        )
         st.subheader("Exploration")
         choice = st.selectbox(
             "Choix des modèles de Machine Learning",
@@ -135,9 +138,16 @@ def main():
             write_table_ml(conn, table_name="ml_regression")
         elif choice == "Classification - Prédiction type de vin":
             write_table_ml(conn, "ml_classification")
-        st.info("Les résultats proviennent de la Cross-Validation.", icon = "ℹ️")
+        st.markdown(
+            """
+        > Les scores de *Train CV* et *Test CV* affichés ici sont les résultats des meilleurs modèles issus d'une recherche par grille exhaustive à l'aide d'une **Validation Croisée**.
+        """
+        )
         st.divider()
         st.subheader("Investigation")
+        st.markdown(
+            "$\\Rightarrow$ Permet d'explorer les hyperparamètres optimisés et d'évaluer la qualité des modèles sur les données de Test avec différentes métriques !"
+        )
         col1, col2 = st.columns([1, 2])
         with col1:
             selected_model = st.radio(
@@ -206,6 +216,20 @@ def main():
                 )
         if choix_type == "Regression":
             popover_prediction(pred, truth)
+            with st.expander(
+                "**Explications complémentaires sur les seuils de prix ⤵**"
+            ):
+                st.latex(
+                    """
+                    \\begin{cases}
+                    price_{predicted} \\in [0.8\\cdot price_{true} \\hspace{0.1em}; 1.2\\cdot price_{true}] \\Rightarrow ✅ \\newline 
+                    price_{predicted} \\notin [0.8\\cdot price_{true} \\hspace{0.1em}; 1.2\\cdot price_{true}] \\Rightarrow ❌
+                    \\end{cases}
+                    """
+                )
+                st.markdown(
+                    "Autrement dit, quand le **prix prédit** est compris entre 80 et 120% du **prix réel**, alors la différence est considérée comme *acceptable*."
+                )
         st.divider()
 
     with tab6:

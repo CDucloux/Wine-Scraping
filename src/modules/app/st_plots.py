@@ -334,7 +334,7 @@ def display_bar(df: pl.DataFrame) -> DeltaGenerator:
     >>> df = load_df()
     >>> display_bar(df)
     ... DeltaGenerator()"""
-    cepage_counts = df.groupby("cepage").count()
+    cepage_counts = df.group_by("cepage").count()
     cepage_filtre = cepage_counts.filter(cepage_counts["count"] >= 10)
     df_filtre = df.join(cepage_filtre, on="cepage")
     fig_bar = px.bar(
