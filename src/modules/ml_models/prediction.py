@@ -46,8 +46,8 @@ def init(
     - La target d'entrainement
     - La target de test
     - Le DataFrame initial
-    
-    La graine du split train/test étant fixé, on peut utiliser init plusieurs fois.
+
+    La graine du split train/test étant fixée, on peut utiliser `init` plusieurs fois.
 
     ---------
     `Parameters`
@@ -106,7 +106,7 @@ def init(
     X = df.drop(columns=[EXPLIQUEE])
     y = df[EXPLIQUEE]
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=69 # /!\ Ne surtout pas enlever la graine
+        X, y, test_size=0.2, random_state=69  # /!\ Ne surtout pas enlever la graine
     )
     return X_train, X_test, y_train, y_test, df
 
@@ -551,19 +551,21 @@ def support_vector(variable: str, choix: str) -> Pipeline:
         )
     return model
 
+
 def basique(variable: str) -> Pipeline:
-    if variable == "unit_price" :
+    if variable == "unit_price":
         model = Pipeline(
-        [
-            ("imputation", SimpleImputer(strategy='mean')),
-            ("model", LinearRegression()),
-        ])
-    elif variable == "type" :
-        model  = Pipeline(
-        [
-            ("imputation", SimpleImputer(strategy='mean')),
-            ("model", LogisticRegression(multi_class = "ovr")),
-        ]
+            [
+                ("imputation", SimpleImputer(strategy="mean")),
+                ("model", LinearRegression()),
+            ]
+        )
+    elif variable == "type":
+        model = Pipeline(
+            [
+                ("imputation", SimpleImputer(strategy="mean")),
+                ("model", LogisticRegression(multi_class="ovr")),
+            ]
         )
     return model
 
@@ -597,7 +599,7 @@ def performance(target: str) -> list:
     >>>
     """
     erreur_test = list()
-    
+
     X_train_n, X_test_n, y_train, y_test, _ = init(target)
     X_train = X_train_n.drop(columns=["name"])
     X_test = X_test_n.drop(columns=["name"])
@@ -625,15 +627,15 @@ def performance(target: str) -> list:
     return erreur_test
 
 
-def stockage_result_csv(model, mode: str) -> None:
-    """`stockage_result_csv`: créer un CSV avec les scores, écarts-types et performances des modèles
+def stockage_result_csv(model: Pipeline, mode: str) -> None:
+    """`stockage_result_csv`: crée un CSV avec les scores, écarts-types et performances des modèles.
 
     ---------
     `Parameters`
     --------- ::
 
-        model: #modèles entrainés (par exemple avec `train_model`)
-        mode (str): #Type de prédication : régression ou classification
+        model (Pipeline): # Modèles entrainés (par exemple avec `train_model`)
+        mode (str): # Type de prédication : régression ou classification
 
     `Returns`
     --------- ::

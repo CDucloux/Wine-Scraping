@@ -4,8 +4,6 @@
 ce module comporte l'ensemble des fonctions de scraping nécessaires pour extraire les vins de nos terroirs.
 """
 
-# mypy-backlog : 4 erreurs
-
 from yarl import URL
 from requests_html import HTMLSession  # type: ignore
 from bs4 import BeautifulSoup

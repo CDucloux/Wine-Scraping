@@ -263,7 +263,7 @@ def model_boost(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSea
 
     `Example(s)`
     ---------
-    
+
     >>> model_boost(x_train=X_train, y_train=y_train, mode = "classification")
     ... Entrainement du modèle : Boosting
     ... GridSearchCV(estimator=Pipeline(steps=[('imputation', SimpleImputer()),
@@ -580,8 +580,10 @@ def train_model(
 
 
 def score_test(model: GridSearchCV) -> np.float64:
-    """`score_test`: Retourne le score de test du meilleur modèle.
-    Note : le meilleur modèle est celui ayant le score de test minimal
+    """`score_test`: Retourne le score de test CV du meilleur modèle.
+
+    - Note : le meilleur modèle est celui ayant le score de test de CV minimal
+
     ---------
     `Parameters`
     --------- ::
@@ -603,9 +605,10 @@ def score_test(model: GridSearchCV) -> np.float64:
 
 
 def score_entrainement(model: GridSearchCV) -> np.float64:
-    """`score_entrainement`: Retourne le score d'entrainement du meilleur modèle.
-    Note : le meilleur modèle est celui ayant le score de test minimal
-    
+    """`score_entrainement`: Retourne le score d'entrainement de CV du meilleur modèle.
+
+    - Note : le meilleur modèle est celui ayant le score de test de CV minimal
+
     ---------
     `Parameters`
     --------- ::
@@ -627,9 +630,10 @@ def score_entrainement(model: GridSearchCV) -> np.float64:
 
 
 def ecart_type_test(model: GridSearchCV) -> np.float64:
-    """`ecart_type_test`: Retourne l'ecart-type de test du meilleur modèle.
-    Note : le meilleur modèle est celui ayant le score de test minimal
-    
+    """`ecart_type_test`: Retourne l'ecart-type de test de CV du meilleur modèle.
+
+    - Note : le meilleur modèle est celui ayant le score de test de CV minimal
+
     ---------
     `Parameters`
     --------- ::
@@ -651,9 +655,10 @@ def ecart_type_test(model: GridSearchCV) -> np.float64:
 
 
 def ecart_type_train(model: GridSearchCV) -> np.float64:
-    """`ecart_type_train`: Retourne l'ecart-type d'entrainement du meilleur modèle.
-    Note : le meilleur modèle est celui ayant le score de test minimal
-    
+    """`ecart_type_train`: Retourne l'ecart-type d'entrainement de CV du meilleur modèle.
+
+    - Note : le meilleur modèle est celui ayant le score de test de CV minimal
+
     ---------
     `Parameters`
     --------- ::
@@ -675,9 +680,10 @@ def ecart_type_train(model: GridSearchCV) -> np.float64:
 
 
 def parametre(model: GridSearchCV) -> str:
-    """`parametre`: Retourne les paramètres du meilleur modèle.
-    Note : le meilleur modèle est celui ayant le score de test minimal
-    
+    """`parametre`: Retourne les hyperparamètres du meilleur modèle.
+
+    - Note : le meilleur modèle est celui ayant le score de test de CV minimal
+
     ---------
     `Parameters`
     --------- ::
@@ -693,6 +699,7 @@ def parametre(model: GridSearchCV) -> str:
     ---------
 
     >>> parametre(model["model_rf"])
-    ... '{'entrainement__max_depth': 9, 'entrainement__n_estimators': 30, 'imputation__strategy': 'median'}'"""
+    ... '{'entrainement__max_depth': 9, 'entrainement__n_estimators': 30, 'imputation__strategy': 'median'}'
+    """
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return str(model.cv_results_["params"][indice_meilleur])
