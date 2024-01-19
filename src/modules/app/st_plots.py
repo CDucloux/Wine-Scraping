@@ -38,7 +38,7 @@ def warn(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | None:
     ---------
     >>> df = load_df()
     >>> warn(df, "")
-    ... DeltaGenerator() 
+    ... DeltaGenerator()
     ---------
     >>> df = load_df()
     >>> warn(df, "Vin Rouge")
@@ -147,7 +147,7 @@ def create_aggregate_df(df: pl.DataFrame) -> pl.DataFrame:
 
 def create_map(df: pl.DataFrame) -> DeltaGenerator:
     """`create_map`: Crée la carte de provenance des vins.
-    
+
     ---------
     `Parameters`
     --------- ::
@@ -182,12 +182,12 @@ def create_map(df: pl.DataFrame) -> DeltaGenerator:
 
 def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
     """`create_bar`: Crée un diagramme en barres du nombre de vins commercialisés par pays.
-    
+
     ---------
     `Parameters`
     --------- ::
 
-        df (pl.DataFrame): # DataFrame mutable
+        grouped_df (pl.DataFrame): # DataFrame groupé par pays
 
     `Returns`
     --------- ::
@@ -197,7 +197,8 @@ def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
     `Example(s)`
     ---------
     >>> df = load_df()
-    >>> create_bar(df)
+    >>> grouped_df = create_aggregate_df(df)
+    >>> create_bar(grouped_df)
     ... DeltaGenerator()"""
     bar = px.bar(
         grouped_df,
@@ -219,6 +220,8 @@ def display_corr(
 ) -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
     """`display_corr`: Retourne une matrice de corrélation avec corrélation minimale et maximale.
 
+    - Autrement dit cela retourne un tuple de 3 éléments `DeltaGenerator`.
+
     ---------
     `Parameters`
     --------- ::
@@ -229,7 +232,6 @@ def display_corr(
     --------- ::
 
         tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]
-        Il y a 3 éléments DeltaGenerator car il y a 3 outputs
 
     `Example(s)`
     ---------
@@ -278,7 +280,7 @@ def display_corr(
 
 def display_density(df: pl.DataFrame) -> DeltaGenerator:
     """`display_density`: Retourne l'histogramme de densité des prix.
-    
+
     ---------
     `Parameters`
     --------- ::
@@ -315,12 +317,12 @@ def display_density(df: pl.DataFrame) -> DeltaGenerator:
 
 def display_bar(df: pl.DataFrame) -> DeltaGenerator:
     """`display_bar`: Retourne un barplot des cepages.
-    
+
     ---------
     `Parameters`
     --------- ::
 
-        df (pl.DataFrame): # DataFrame mutable
+        df (pl.DataFrame): # DataFrame
 
     `Returns`
     --------- ::
@@ -331,7 +333,7 @@ def display_bar(df: pl.DataFrame) -> DeltaGenerator:
     ---------
     >>> df = load_df()
     >>> display_bar(df)
-    ... DeltaGenerator() """
+    ... DeltaGenerator()"""
     cepage_counts = df.groupby("cepage").count()
     cepage_filtre = cepage_counts.filter(cepage_counts["count"] >= 10)
     df_filtre = df.join(cepage_filtre, on="cepage")
@@ -351,7 +353,7 @@ def display_bar(df: pl.DataFrame) -> DeltaGenerator:
 
 def display_wine_img(df: pl.DataFrame, wine_name: str) -> DeltaGenerator:
     """`display_wine_img`: Permet d'afficher l'image d'un vin prédit à partir de son nom.
-    
+
     ---------
     `Parameters`
     --------- ::
@@ -368,7 +370,7 @@ def display_wine_img(df: pl.DataFrame, wine_name: str) -> DeltaGenerator:
     ---------
     >>> df = load_df()
     >>> display_wine_img(df)
-    ... DeltaGenerator() """
+    ... DeltaGenerator()"""
     link = (
         df.select("name", "picture")
         .filter(pl.col("name") == wine_name)
@@ -380,13 +382,13 @@ def display_wine_img(df: pl.DataFrame, wine_name: str) -> DeltaGenerator:
 
 def display_confusion_matrix(conn: DuckDBPyConnection, model: str) -> DeltaGenerator:
     """`display_confusion_matrix`: Crée la matrice de confusion.
-    
+
     ---------
     `Parameters`
     --------- ::
 
-        conn (DuckDBPyConnection):
-        model (str): #Modèle choisit
+        conn (DuckDBPyConnection): # Connecteur In Memory Database
+        model (str): # Modèle choisi par l'utilisateur
 
     `Returns`
     --------- ::
@@ -429,7 +431,7 @@ def display_confusion_matrix(conn: DuckDBPyConnection, model: str) -> DeltaGener
 
 
 def display_importance(
-    conn: DuckDBPyConnection, choice: str, selected_model: str, n: int
+    conn: DuckDBPyConnection, choice: str, selected_model: str, n_variables: int
 ) -> DeltaGenerator | None:
     """`display_importance`: Retourne un graphique montrant les 15 variables les plus importantes.
 
@@ -439,8 +441,10 @@ def display_importance(
     `Parameters`
     --------- ::
 
-        choice (str):
-        selected_model (str):
+        conn (DuckDBPyConnection): # Connecteur In Memory Database
+        choice (str): # Regression ou Classification
+        selected_model (str): # Le modèle de Machine Learning sélectionné par l'utilisateur
+        n_variables (int): # Le nombre de variables que l'utilisateur a sélectionné
 
     `Returns`
     --------- ::
@@ -463,7 +467,7 @@ def display_importance(
     df = conn.execute(f"SELECT * FROM var_importance").pl()
 
     df_imp_model = df.filter(pl.col("id") == f"{target} {selected_model}")
-    df_imp_tail = df_imp_model.tail(n)
+    df_imp_tail = df_imp_model.tail(n_variables)
 
     fig = go.Figure()
     fig.add_trace(
@@ -475,7 +479,7 @@ def display_importance(
         )
     )
     fig.update_layout(
-        title=f"Importance relative des {n} variables les plus décisives",
+        title=f"Importance relative des {n_variables} variables les plus décisives",
         xaxis_title="Importance",
         yaxis_title="Variables",
         yaxis=dict(tickfont=dict(size=8)),

@@ -33,7 +33,7 @@ def write_table(df: pl.DataFrame) -> DeltaGenerator:
     --------- ::
 
         df (pl.DataFrame): # DataFrame mutable
-        
+
     `Returns`
     --------- ::
 
@@ -124,15 +124,16 @@ def write_table(df: pl.DataFrame) -> DeltaGenerator:
     )
 
 
-def write_table_ml(conn, table_name: str) -> DeltaGenerator:
+def write_table_ml(conn: DuckDBPyConnection, table_name: str) -> DeltaGenerator:
     """`write_table_ml`: Retourne un tableau avec les résultats des modèles.
 
     ---------
     `Parameters`
     --------- ::
-        conn
-        table_name (str):
-        
+
+        conn (DuckDBPyConnection): # Connecteur In Memory Database
+        table_name (str): # Nom de la table à sélectionner
+
     `Returns`
     --------- ::
 
@@ -183,8 +184,8 @@ def param_mapper(key: str) -> str:
     `Parameters`
     --------- ::
 
-        key (str):
-        
+        key (str): # Nom initial des paramètres.
+
     `Returns`
     --------- ::
 
@@ -198,7 +199,7 @@ def param_mapper(key: str) -> str:
     ---------
     >>> df = load_df()
     >>> param_mapper("")
-    ... 'Le paramètre n'existe pas' """
+    ... 'Le paramètre n'existe pas'"""
     param_mapping = {
         "entrainement__alpha": "Alpha",
         "imputation__strategy": "Stratégie d'imputation",
@@ -214,16 +215,16 @@ def param_mapper(key: str) -> str:
     return param_mapping.get(key, "Le paramètre n'existe pas")
 
 
-def parametres(df: pl.DataFrame, place_model: int) -> DeltaGenerator:
-    """`parametres`: Construction du tableau des paramètres.
+def parametres(df_params: pl.DataFrame, place_model: int) -> DeltaGenerator:
+    """`parametres`: Construction du tableau des hyperparamètres optimaux pour chaque modèle.
 
     ---------
     `Parameters`
     --------- ::
 
-        df (pl.DataFrame):
-        place_model (int):
-        
+        df_params (pl.DataFrame): # Le DataFrame issu des tables ml_regression et ml_classification
+        place_model (int): # Place le modèle à un index particulier
+
     `Returns`
     --------- ::
 
@@ -231,7 +232,9 @@ def parametres(df: pl.DataFrame, place_model: int) -> DeltaGenerator:
 
     `Example(s)`
     ---------"""
-    parametres = ast.literal_eval(df.select("Paramètres").to_series()[place_model])
+    parametres = ast.literal_eval(
+        df_params.select("Paramètres").to_series()[place_model]
+    )
     param = list()
     value = list()
     for key in list(parametres.keys()):
@@ -242,15 +245,15 @@ def parametres(df: pl.DataFrame, place_model: int) -> DeltaGenerator:
 
 
 def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
-    """`write_metrics`: Metrics principales.
+    """`write_metrics`: Metrics principales de Machine Learning.
 
     ---------
     `Parameters`
     --------- ::
 
-        conn (DuckDBPyConnection):
-        type (str):
-        
+        conn (DuckDBPyConnection): # Connecteur In Memory Database
+        type (str): # Regression | Classification
+
     `Returns`
     --------- ::
 
@@ -268,7 +271,15 @@ def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
         df = conn.execute(f"SELECT * FROM pred_classification").pl()
         predicted = "type"
 
-    models = ["random_forest", "boosting", "ridge", "knn", "mlp", "support_vector", "basique"]
+    models = [
+        "random_forest",
+        "boosting",
+        "ridge",
+        "knn",
+        "mlp",
+        "support_vector",
+        "basique",
+    ]
     name = [model_mapper_reverse(model) for model in models]
     metrics_table = {"Modèle 🧰": name}
 
@@ -310,37 +321,42 @@ def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
         ]
     table = pl.DataFrame(metrics_table)
     if type == "regression":
-        table = table.with_columns(pl.when(table["Mean Squared Error ❗❗"] > 100000)
-                                        .then(None)
-                                        .otherwise(table["Mean Squared Error ❗❗"])
-                                        .alias("Mean Squared Error ❗❗"),
-                                    pl.when(table["R2 Score 🔀"] < - 100)
-                                        .then(None)
-                                        .otherwise(table["R2 Score 🔀"])
-                                        .alias("R2 Score 🔀"),
-                                    pl.when(table["Modèle 🧰"] == "Modèle de base")
-                                        .then(pl.lit("Régression Linéaire"))
-                                        .otherwise(table["Modèle 🧰"])
-                                        .alias("Modèle 🧰"))
-    table = table.with_columns(pl.when(table["Modèle 🧰"] == "Modèle de base")
-                                        .then(pl.lit("Régression Logistique"))
-                                        .otherwise(table["Modèle 🧰"])
-                                        .alias("Modèle 🧰"))
-    return st.dataframe(table, 
-                        hide_index=True)
+        table = table.with_columns(
+            pl.when(table["Mean Squared Error ❗❗"] > 100000)
+            .then(None)
+            .otherwise(table["Mean Squared Error ❗❗"])
+            .alias("Mean Squared Error ❗❗"),
+            pl.when(table["R2 Score 🔀"] < 100)
+            .then(None)
+            .otherwise(table["R2 Score 🔀"])
+            .alias("R2 Score 🔀"),
+            pl.when(table["Modèle 🧰"] == "Modèle de base")
+            .then(pl.lit("Régression Linéaire"))
+            .otherwise(table["Modèle 🧰"])
+            .alias(
+                "Modèle 🧰",
+            ),
+        )
+    table = table.with_columns(
+        pl.when(table["Modèle 🧰"] == "Modèle de base")
+        .then(pl.lit("Régression Logistique"))
+        .otherwise(table["Modèle 🧰"])
+        .alias("Modèle 🧰")
+    )
+    return st.dataframe(table, hide_index=True)
 
 
 def write_parameter(conn: DuckDBPyConnection, table_name: str, selected_model: str):
-    """`write_parameter`: Retourne un tableau avec les paramètres d'un modèle
+    """`write_parameter`: Retourne un tableau avec les paramètres d'un modèle.
 
     ---------
     `Parameters`
     --------- ::
 
-        conn (DuckDBPyConnection):
-        table_name (str):
-        selected_model (str):
-        
+        conn (DuckDBPyConnection): # Connecteur In Memory Database
+        table_name (str): # Nom de la table à sélectionner
+        selected_model (str): # Nom du modèle sélectionné par l'utilisateur
+
     `Returns`
     --------- ::
 
@@ -351,32 +367,35 @@ def write_parameter(conn: DuckDBPyConnection, table_name: str, selected_model: s
     >>> conn = db_connector()
     >>> write_parameter(conn, "ml_regression", "Boosting")
     ... DeltaGenerator()"""
-    df = conn.execute(f"SELECT * FROM {table_name}").pl()
+    df_params = conn.execute(f"SELECT * FROM {table_name}").pl()
 
     if selected_model == "Random Forest":
-        params_tbl = parametres(df, 0)
+        params_tbl = parametres(df_params, 0)
     elif selected_model == "K Neighbors":
-        params_tbl = parametres(df, 1)
+        params_tbl = parametres(df_params, 1)
     elif selected_model == "Réseaux de neurones":
-        params_tbl = parametres(df, 2)
+        params_tbl = parametres(df_params, 2)
     elif selected_model == "Boosting":
-        params_tbl = parametres(df, 3)
+        params_tbl = parametres(df_params, 3)
     elif selected_model == "Ridge":
-        params_tbl = parametres(df, 4)
+        params_tbl = parametres(df_params, 4)
     elif selected_model == "Support Vector":
-        params_tbl = parametres(df, 5)
+        params_tbl = parametres(df_params, 5)
     return params_tbl
 
-def best_model(type:str, conn: DuckDBPyConnection) -> DeltaGenerator :
-    """`best_model`: Petit algorithme pour selectionner le meilleur modèle.
-    Système de bonus/malus donné à chaque modèle en fonction des metrics.
+
+def best_model(type: str, conn: DuckDBPyConnection) -> DeltaGenerator:
+    """`best_model`: Fonction pour conseiller le meilleur modèle.
+
+    - Système de bonus/malus attribué a chaque modèle en fonction de plusieurs metrics évaluées.
 
     ---------
     `Parameters`
     --------- ::
 
-        type (str): #Regression ou Classification
-        conn (DuckDBPyConnection):
+        type (str): # Regression ou Classification
+        conn (DuckDBPyConnection): # Connecteur In Memory Database
+
     `Returns`
     --------- ::
 
@@ -385,39 +404,55 @@ def best_model(type:str, conn: DuckDBPyConnection) -> DeltaGenerator :
     `Example(s)`
     ---------"""
     models = ["random_forest", "boosting", "ridge", "knn", "mlp", "support_vector"]
-    models_name = ["Random Forest", "Boosting", "Ridge", "K Neighbors",
-                   "Réseaux de neurones", "Support Vector"]
-    df_vide = {
-            "models" : models,
-            "models_name": models_name,
-            "score" : len(models)*[0]
-        }
+    models_name = [
+        "Random Forest",
+        "Boosting",
+        "Ridge",
+        "K Neighbors",
+        "Réseaux de neurones",
+        "Support Vector",
+    ]
+    df_vide = {"models": models, "models_name": models_name, "score": len(models) * [0]}
     df_score = pd.DataFrame(df_vide)
-    
+
     if type == "Regression":
         df = conn.execute(f"SELECT * FROM pred_regression").pl()
-        mae = [mean_absolute_error(df.select("unit_price"), df.select(model)) for model in models]
-        mse = [mean_squared_error(df.select("unit_price"), df.select(model)) for model in models]
+        mae = [
+            mean_absolute_error(df.select("unit_price"), df.select(model))
+            for model in models
+        ]
+        mse = [
+            mean_squared_error(df.select("unit_price"), df.select(model))
+            for model in models
+        ]
         r2 = [r2_score(df.select("unit_price"), df.select(model)) for model in models]
         me = [max_error(df.select("unit_price"), df.select(model)) for model in models]
-        
-        df_score.at[mae.index(min(mae)),"score"] += 2
-        df_score.at[mse.index(min(mse)),"score"] += 1
-        df_score.at[r2.index(min(r2)),"score"] += 1
-        df_score.at[me.index(min(me)),"score"] += 1
-        df_score.at[me.index(max(me)),"score"] -= 1
-        
+
+        df_score.at[mae.index(min(mae)), "score"] += 2
+        df_score.at[mse.index(min(mse)), "score"] += 1
+        df_score.at[r2.index(min(r2)), "score"] += 1
+        df_score.at[me.index(min(me)), "score"] += 1
+        df_score.at[me.index(max(me)), "score"] -= 1
+
     elif type == "Classification":
         df = conn.execute(f"SELECT * FROM pred_classification").pl()
         acs = [accuracy_score(df.select("type"), df.select(model)) for model in models]
-        prs = [precision_score(df.select("type"), df.select(model), average="weighted") for model in models]
-        res = [recall_score(df.select("type"), df.select(model), average="weighted") for model in models]
-        mac = [matthews_corrcoef(df.select("type"), df.select(model)) for model in models]
-        
-        df_score.at[acs.index(max(acs)),"score"] += 2
-        df_score.at[prs.index(max(prs)),"score"] += 1
-        df_score.at[res.index(max(res)),"score"] += 1
-        df_score.at[mac.index(max(mac)),"score"] += 1
-        
+        prs = [
+            precision_score(df.select("type"), df.select(model), average="weighted")
+            for model in models
+        ]
+        res = [
+            recall_score(df.select("type"), df.select(model), average="weighted")
+            for model in models
+        ]
+        mac = [
+            matthews_corrcoef(df.select("type"), df.select(model)) for model in models
+        ]
+
+        df_score.at[acs.index(max(acs)), "score"] += 2
+        df_score.at[prs.index(max(prs)), "score"] += 1
+        df_score.at[res.index(max(res)), "score"] += 1
+        df_score.at[mac.index(max(mac)), "score"] += 1
+
     best_model = df_score.at[df_score["score"].idxmax(), "models_name"]
     return st.markdown(f"Modèle recommandé : **{best_model}**")

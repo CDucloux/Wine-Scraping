@@ -120,6 +120,8 @@ def sidebar_checkbox_fav() -> set[int]:
 def sidebar_input_wine() -> str:
     """`sidebar_input_wine`: Un user input permettant de rechercher un nom de vin.
 
+    - L'utilisation de regex dans l'input est interdite car risque d'envoyer une erreur.
+
     `Returns`
     --------- ::
 

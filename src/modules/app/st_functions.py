@@ -31,13 +31,13 @@ def db_connector() -> DuckDBPyConnection:
 
 
 def load_tables(connection: DuckDBPyConnection) -> None:
-    """`load_tables`: Charge l'ensemble des tables en csv dans la base de données In-memory.
+    """`load_tables`: Charge l'ensemble des 5 tables en csv dans la base de données In-memory.
 
     ---------
     `Parameters`
     --------- ::
 
-    connection (DuckDBPyConnection):
+    connection (DuckDBPyConnection): # Connecteur In Memory Database
 
     `Example(s)`
     ---------
@@ -185,7 +185,7 @@ def page_config() -> None:
 
 
 def remove_white_space() -> DeltaGenerator:
-    """`remove_white_space`: Utilise du CSS pour retirer de l'espace non-utilisé
+    """`remove_white_space`: Utilise du CSS pour retirer de l'espace non-utilisé.
 
     `Returns`
     --------- ::
@@ -290,7 +290,7 @@ def write_price(df: pl.DataFrame, selected_wines: list[str]) -> None:
     --------- ::
 
         df (pl.DataFrame): # DataFrame statique
-        selected_wines (list[str]):
+        selected_wines (list[str]): # liste des vins sélectionnés par l'utilisateur
 
     `Returns`
     --------- ::
@@ -369,7 +369,7 @@ def model_mapper(model_name: str) -> str:
     `Parameters`
     --------- ::
 
-        model_name (str)
+        model_name (str): # Modèle sélectionné dans l'app
 
     `Returns`
     --------- ::
@@ -398,7 +398,7 @@ def model_mapper_reverse(model_name: str) -> str:
     `Parameters`
     --------- ::
 
-        model_name (str)
+        model_name (str): # Nom d'un modèle dans la DB
 
     `Returns`
     --------- ::
@@ -417,7 +417,7 @@ def model_mapper_reverse(model_name: str) -> str:
         "mlp": "Réseaux de neurones",
         "knn": "K Neighbors",
         "support_vector": "Support Vector",
-        "basique" : "Modèle de base"
+        "basique": "Modèle de base",
     }
     return model_names_mapping.get(model_name, "Le modèle n'existe pas")
 
@@ -439,8 +439,8 @@ def format_prediction(prediction: float | str, truth: float | str) -> str:
     `Parameters`
     --------- ::
 
-        prediction (float | str)
-        truth (float | str)
+        prediction (float | str): # La prédiction du prix ou du type
+        truth (float | str): # Le prix réel ou le type réel
 
     `Returns`
     --------- ::
@@ -478,8 +478,8 @@ def popover_prediction(
     `Parameters`
     --------- ::
 
-        prediction (float)
-        truth (float)
+        prediction (float): # La prédiction du prix
+        truth (float): # Le prix réel
 
     `Returns`
     --------- ::
@@ -519,7 +519,7 @@ def get_names(conn: DuckDBPyConnection) -> list[str]:
     `Parameters`
     --------- ::
 
-        conn (DuckDBPyConnection)
+        conn (DuckDBPyConnection): # Connecteur In Memory Database
 
     `Returns`
     --------- ::
@@ -552,10 +552,10 @@ def get_value(
     `Parameters`
     --------- ::
 
-        conn (DuckDBPyConnection)
-        column (str)
-        table_name (str)
-        wine_name (str)
+        conn (DuckDBPyConnection): # Connecteur In Memory Database
+        column (str): # Colonne de la table à sélectionner
+        table_name (str): # Nom de la table dans la DB
+        wine_name (str): # Nom exact du vin sélectionné par l'utilisateur
 
     `Returns`
     --------- ::

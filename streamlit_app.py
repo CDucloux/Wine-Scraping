@@ -49,7 +49,7 @@ def main():
                 filter_fav,
                 user_input,
             )
-            st.markdown(f">**{len(main_df) + 1}** :red[vins] trouvés !")
+            st.markdown(f">**{len(main_df)}** :red[vins] trouvés !")
 
     # Metrics vins
     col1, col2, col3 = st.columns(3)
@@ -163,8 +163,8 @@ def main():
                 type = "classification"
         write_metrics(conn, type)
         with st.expander("**Importance des variables**"):
-            n = n_variable_selector()
-            display_importance(conn, choice, selected_model, n)
+            n_vars = n_variable_selector()
+            display_importance(conn, choice, selected_model, n_vars)
             st.write(
                 "*Note* : L'importance des variables n'est disponible que dans les modèles de **Boosting** et de **Random Forest**."
             )
