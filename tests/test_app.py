@@ -128,6 +128,22 @@ def test_score_train_CV_reg():
     ]
 
 
+def test_score_train_CV_classif():
+    """L'utilisateur sélectionne l'onglet Machine Learning et le type classification du type de vin."""
+    app = AppTest.from_file("streamlit_app.py").run(timeout=15)
+    app.tabs[4].selectbox[0].set_value("Classification - Prédiction type de vin").run(
+        timeout=15
+    )
+    assert app.tabs[4].dataframe.values[0]["Score Entrainement"].tolist() == [
+        0.941,
+        0.965,
+        0.997,
+        1.0,
+        0.983,
+        0.992,
+    ]
+
+
 def test_score_test_CV_reg():
     """L'utilisateur sélectionne l'onglet Machine Learning et le type prédiction du prix."""
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
@@ -141,4 +157,20 @@ def test_score_test_CV_reg():
         0.427,
         0.368,
         0.38,
+    ]
+
+
+def test_score_test_CV_classif():
+    """L'utilisateur sélectionne l'onglet Machine Learning et le type classification du type de vin."""
+    app = AppTest.from_file("streamlit_app.py").run(timeout=15)
+    app.tabs[4].selectbox[0].set_value("Classification - Prédiction type de vin").run(
+        timeout=15
+    )
+    assert app.tabs[4].dataframe.values[0]["Score Test"].tolist() == [
+        0.934,
+        0.954,
+        0.976,
+        0.975,
+        0.979,
+        0.981,
     ]

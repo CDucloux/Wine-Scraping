@@ -3,7 +3,7 @@
 ![RepoSize](https://img.shields.io/github/repo-size/CDucloux/Wine-Scraping)
 ![CodeSize](https://img.shields.io/github/languages/code-size/CDucloux/Wine-Scraping)
 ![Language](https://img.shields.io/github/languages/top/CDucloux/Wine-Scraping)
-![Release](https://img.shields.io/github/downloads/CDucloux/Wine-Scraping/total)
+![CodeCoverage](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FCDucloux%2FWine-Scraping%2Fmaster%2Fcoverage.json&query=%24.totals.percent_covered_display&suffix=%25&label=coverage)
 ![License](https://img.shields.io/github/license/CDucloux/Wine-Scraping)
 ![](https://img.shields.io/github/last-commit/CDucloux/Wine-Scraping)
 
