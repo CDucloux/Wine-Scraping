@@ -553,6 +553,24 @@ def support_vector(variable: str, choix: str) -> Pipeline:
 
 
 def basique(variable: str) -> Pipeline:
+    """`basique`: Pipeline des modèles simples. 
+    Permet de comparer avec les modèles de ML.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        variable (str): # variable à prédire : type ou unit_price
+
+    `Returns`
+    --------- ::
+
+        Pipeline : 
+
+    `Example(s)`
+    ---------
+
+    """
     if variable == "unit_price":
         model = Pipeline(
             [

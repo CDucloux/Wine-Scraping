@@ -135,6 +135,7 @@ def main():
             write_table_ml(conn, table_name="ml_regression")
         elif choice == "Classification - Prédiction type de vin":
             write_table_ml(conn, "ml_classification")
+        st.info("Les résultats proviennent de la Cross-Validation.", icon = "ℹ️")
         st.divider()
         st.subheader("Investigation")
         col1, col2 = st.columns([1, 2])
@@ -179,9 +180,10 @@ def main():
             display_wine_img(df, wine_name)
         with col2:
             choix_type = st.selectbox("Type :", ("Regression", "Classification"))
-            model_choice = model_selector()
+            best = best_model(choix_type, conn)
+            model_choice = model_selector(best)
             model = model_mapper(model_choice)
-            best_model(choix_type, conn)
+            st.markdown(f"Modèle recommandé : **{best}**")
         col1, col2 = st.columns([2, 2])
         with col1:
             if choix_type == "Regression":

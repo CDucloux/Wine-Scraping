@@ -326,7 +326,7 @@ def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
             .then(None)
             .otherwise(table["Mean Squared Error ❗❗"])
             .alias("Mean Squared Error ❗❗"),
-            pl.when(table["R2 Score 🔀"] < 100)
+            pl.when(table["R2 Score 🔀"] < -100)
             .then(None)
             .otherwise(table["R2 Score 🔀"])
             .alias("R2 Score 🔀"),
@@ -383,11 +383,34 @@ def write_parameter(conn: DuckDBPyConnection, table_name: str, selected_model: s
         params_tbl = parametres(df_params, 5)
     return params_tbl
 
+def index_best_model_cv(df_cv: pl.DataFrame, df_score : pd.DataFrame) -> int:
+    """`index_best_model_cv`: Fonction pour trouver le meilleur modèle selon les score de tests de la CV.
 
-def best_model(type: str, conn: DuckDBPyConnection) -> DeltaGenerator:
+    ---------
+    `Parameters`
+    --------- ::
+
+        df_cv (pl.DataFrame): # Dataframe des résultats CV
+        df_score (pd.DataFrame): # Dataframe résumant les scores
+
+    `Returns`
+    --------- ::
+
+        int : # Index du meilleur modèle 
+
+    `Example(s)`
+    ---------"""
+    best_cv = df_cv["Score Test"].to_list().index(max(df_cv["Score Test"].to_list()))
+    best_name = df_cv["Modèle"][best_cv]
+    index = df_score["models_name"].to_list().index(best_name)
+    return index
+
+
+def best_model(type: str, conn: DuckDBPyConnection) -> str:
     """`best_model`: Fonction pour conseiller le meilleur modèle.
 
     - Système de bonus/malus attribué a chaque modèle en fonction de plusieurs metrics évaluées.
+    - Le modèle ayant le Score Test sur la Cross-Validation gagne également des points.
 
     ---------
     `Parameters`
@@ -428,11 +451,15 @@ def best_model(type: str, conn: DuckDBPyConnection) -> DeltaGenerator:
         r2 = [r2_score(df.select("unit_price"), df.select(model)) for model in models]
         me = [max_error(df.select("unit_price"), df.select(model)) for model in models]
 
-        df_score.at[mae.index(min(mae)), "score"] += 2
+        df_score.at[mae.index(min(mae)), "score"] += 1
         df_score.at[mse.index(min(mse)), "score"] += 1
-        df_score.at[r2.index(min(r2)), "score"] += 1
+        df_score.at[r2.index(max(r2)), "score"] += 1
         df_score.at[me.index(min(me)), "score"] += 1
         df_score.at[me.index(max(me)), "score"] -= 1
+
+        df2 = conn.execute(f"SELECT * FROM ml_regression").pl()
+        index = index_best_model_cv(df2, df_score)
+        df_score.at[index, "score"] += 2
 
     elif type == "Classification":
         df = conn.execute(f"SELECT * FROM pred_classification").pl()
@@ -449,10 +476,14 @@ def best_model(type: str, conn: DuckDBPyConnection) -> DeltaGenerator:
             matthews_corrcoef(df.select("type"), df.select(model)) for model in models
         ]
 
-        df_score.at[acs.index(max(acs)), "score"] += 2
+        df_score.at[acs.index(max(acs)), "score"] += 1
         df_score.at[prs.index(max(prs)), "score"] += 1
         df_score.at[res.index(max(res)), "score"] += 1
         df_score.at[mac.index(max(mac)), "score"] += 1
 
-    best_model = df_score.at[df_score["score"].idxmax(), "models_name"]
-    return st.markdown(f"Modèle recommandé : **{best_model}**")
+        df2 = conn.execute(f"SELECT * FROM ml_classification").pl()
+        index = index_best_model_cv(df2, df_score)
+        df_score.at[index, "score"] += 2
+
+    best = df_score.at[df_score["score"].idxmax(), "models_name"]
+    return best

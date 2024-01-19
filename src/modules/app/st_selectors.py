@@ -228,7 +228,7 @@ def model_radio_selector() -> str | None:
     )
 
 
-def model_selector() -> str | None:
+def model_selector(default:str) -> str | None:
     """`model_selector`: Permet de sélectionner un modèle de Machine learning avec une liste déroulante.
 
     `Returns`
@@ -251,6 +251,7 @@ def model_selector() -> str | None:
     return st.selectbox(
         "Modèle :",
         (models),
+        index=models.index(default)
     )
 
 
