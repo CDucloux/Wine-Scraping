@@ -11,12 +11,56 @@ Module principal orchestrant tous les composants de notre application streamlit 
 
 import streamlit as st
 import time
-from src.modules.app.st_functions import *
-from src.modules.app.st_tables import *
-from src.modules.app.st_selectors import *
-from src.modules.app.st_plots import *
-from src.modules.utils import *
-
+from src.modules.app.st_functions import (
+    popover_prediction,
+    page_config,
+    remove_white_space,
+    custom_radio_css,
+    load_df,
+    db_connector,
+    load_tables,
+    load_main_df,
+    main_wine_metric,
+    write_price,
+    info,
+    model_mapper,
+    get_names,
+    get_value,
+    format_prediction,
+    authors
+)
+from src.modules.app.st_tables import (
+    write_table,
+    best_model,
+    write_table_ml,
+    write_metrics,
+    write_parameter
+)
+from src.modules.app.st_selectors import (
+    sidebar_checkbox_bio,
+    scale_selector,
+    sidebar_checkbox_fav,
+    sidebar_checkbox_new,
+    sidebar_input_wine,
+    sidebar_prices_slider,
+    sidebar_wine_selector,
+    color_selector,
+    n_variable_selector,
+    model_selector
+)
+from src.modules.app.st_plots import (
+    display_bar,
+    display_confusion_matrix,
+    display_corr,
+    display_density,
+    display_importance,
+    display_scatter,
+    display_wine_img,
+    warn,
+    create_aggregate_df,
+    create_map,
+    create_bar
+)
 
 def main():
     page_config()

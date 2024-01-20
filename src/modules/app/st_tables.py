@@ -9,8 +9,7 @@ import polars as pl
 import pandas as pd
 from streamlit.delta_generator import DeltaGenerator
 from duckdb import DuckDBPyConnection
-from src.modules.app.st_plots import *
-from src.modules.app.st_functions import *
+from src.modules.app.st_functions import model_mapper_reverse
 from sklearn.metrics import (  # type: ignore
     r2_score,
     max_error,
@@ -178,7 +177,8 @@ def write_table_ml(conn: DuckDBPyConnection, table_name: str) -> DeltaGenerator:
 
 
 def param_mapper(key: str) -> str:
-    """`param_mapper`: Mappe les noms des paramètres optimisés vers des noms plus lisibles.
+    """`param_mapper`: Mappe les noms des paramètres 
+    optimisés vers des noms plus lisibles.
 
     ---------
     `Parameters`
@@ -216,14 +216,17 @@ def param_mapper(key: str) -> str:
 
 
 def parametres(df_params: pl.DataFrame, place_model: int) -> DeltaGenerator:
-    """`parametres`: Construction du tableau des hyperparamètres optimaux pour chaque modèle.
+    """`parametres`: Construction du tableau des hyperparamètres 
+    optimaux pour chaque modèle.
 
     ---------
     `Parameters`
     --------- ::
 
-        df_params (pl.DataFrame): # Le DataFrame issu des tables ml_regression et ml_classification
-        place_model (int): # Place le modèle à un index particulier
+        df_params (pl.DataFrame): 
+        # Le DataFrame issu des tables ml_regression et ml_classification
+        place_model (int): 
+        # Place le modèle à un index particulier
 
     `Returns`
     --------- ::
@@ -265,10 +268,10 @@ def write_metrics(conn: DuckDBPyConnection, type: str) -> DeltaGenerator:
     >>> write_metrics(conn, "regression")
     ... DeltaGenerator()"""
     if type == "regression":
-        df = conn.execute(f"SELECT * FROM pred_regression").pl()
+        df = conn.execute("SELECT * FROM pred_regression").pl()
         predicted = "unit_price"
     elif type == "classification":
-        df = conn.execute(f"SELECT * FROM pred_classification").pl()
+        df = conn.execute("SELECT * FROM pred_classification").pl()
         predicted = "type"
 
     models = [
@@ -384,7 +387,8 @@ def write_parameter(conn: DuckDBPyConnection, table_name: str, selected_model: s
     return params_tbl
 
 def index_best_model_cv(df_cv: pl.DataFrame, df_score : pd.DataFrame) -> int:
-    """`index_best_model_cv`: Fonction pour trouver le meilleur modèle selon les score de tests de la CV.
+    """`index_best_model_cv`: Fonction pour trouver le meilleur 
+    modèle selon les score de tests de la CV.
 
     ---------
     `Parameters`
@@ -409,8 +413,10 @@ def index_best_model_cv(df_cv: pl.DataFrame, df_score : pd.DataFrame) -> int:
 def best_model(type: str, conn: DuckDBPyConnection) -> str:
     """`best_model`: Fonction pour conseiller le meilleur modèle.
 
-    - Système de bonus/malus attribué a chaque modèle en fonction de plusieurs metrics évaluées.
-    - Le modèle ayant le Score Test sur la Cross-Validation gagne également des points.
+    - Système de bonus/malus attribué a chaque modèle en fonction
+    de plusieurs metrics évaluées.
+    - Le modèle ayant le Score Test sur la Cross-Validation gagne
+    également des points.
 
     ---------
     `Parameters`
@@ -439,7 +445,7 @@ def best_model(type: str, conn: DuckDBPyConnection) -> str:
     df_score = pd.DataFrame(df_vide)
 
     if type == "Regression":
-        df = conn.execute(f"SELECT * FROM pred_regression").pl()
+        df = conn.execute("SELECT * FROM pred_regression").pl()
         mae = [
             mean_absolute_error(df.select("unit_price"), df.select(model))
             for model in models
@@ -457,12 +463,12 @@ def best_model(type: str, conn: DuckDBPyConnection) -> str:
         df_score.at[me.index(min(me)), "score"] += 1
         df_score.at[me.index(max(me)), "score"] -= 1
 
-        df2 = conn.execute(f"SELECT * FROM ml_regression").pl()
+        df2 = conn.execute("SELECT * FROM ml_regression").pl()
         index = index_best_model_cv(df2, df_score)
         df_score.at[index, "score"] += 2
 
     elif type == "Classification":
-        df = conn.execute(f"SELECT * FROM pred_classification").pl()
+        df = conn.execute("SELECT * FROM pred_classification").pl()
         acs = [accuracy_score(df.select("type"), df.select(model)) for model in models]
         prs = [
             precision_score(df.select("type"), df.select(model), average="weighted")
@@ -481,7 +487,7 @@ def best_model(type: str, conn: DuckDBPyConnection) -> str:
         df_score.at[res.index(max(res)), "score"] += 1
         df_score.at[mac.index(max(mac)), "score"] += 1
 
-        df2 = conn.execute(f"SELECT * FROM ml_classification").pl()
+        df2 = conn.execute("SELECT * FROM ml_classification").pl()
         index = index_best_model_cv(df2, df_score)
         df_score.at[index, "score"] += 2
 

@@ -36,8 +36,8 @@ def test_create_session():
 
 
 def test_random_true_false():
-    assert random_true_false(prob_false=1) == False
-    assert random_true_false(prob_false=0) == True
+    assert random_true_false(prob_false=1) is False
+    assert random_true_false(prob_false=0) is True
 
 
 def test_update_session():
@@ -53,7 +53,7 @@ def test_export_wine_links():
     root = Path(".").resolve()
     data_folder = root / "tests/files"
     export_wine_links(data_folder, ["lien.com", "unautre.com"])
-    assert (data_folder / "wine_links.csv").is_file() == True
+    assert (data_folder / "wine_links.csv").is_file() is True
 
 
 def test_extract_all_pages():

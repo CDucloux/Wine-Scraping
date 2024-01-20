@@ -14,7 +14,15 @@ from sklearn.svm import SVR, SVC  # type: ignore
 from sklearn.impute import SimpleImputer  # type: ignore
 from sklearn.pipeline import Pipeline  # type: ignore
 from sklearn.preprocessing import MinMaxScaler  # type: ignore
-from src.modules.ml_models.models import *
+from src.modules.ml_models.models import (
+    score_entrainement,
+    score_test,
+    ecart_type_test,
+    ecart_type_train,
+    parametre,
+    data_model,
+    prep_str
+)
 
 from sklearn.model_selection import train_test_split  # type: ignore
 from sklearn.metrics import mean_absolute_error, accuracy_score  # type: ignore
@@ -24,6 +32,7 @@ import ast
 import polars as pl
 import warnings
 from enum import Enum
+import pandas as pd
 
 warnings.filterwarnings("ignore")
 
@@ -429,7 +438,8 @@ def mlp(variable: str, choix: str) -> Pipeline:
 
 
 def knn(variable: str, choix: str) -> Pipeline:
-    """`knn`: permet de préparer le pipeline du modèle K Neighbors en récupérant les paramètres optimaux avec `_recup_param`
+    """`knn`: permet de préparer le pipeline du modèle K Neighbors en 
+    récupérant les paramètres optimaux avec `_recup_param`
 
     ---------
     `Parameters`
@@ -495,7 +505,8 @@ def knn(variable: str, choix: str) -> Pipeline:
 
 
 def support_vector(variable: str, choix: str) -> Pipeline:
-    """`support_vector`: permet de préparer le pipeline du modèle Support Vector en récupérant les paramètres optimaux avec `_recup_param`
+    """`support_vector`: permet de préparer le pipeline du modèle Support Vector
+    en récupérant les paramètres optimaux avec `_recup_param`
 
     ---------
     `Parameters`
@@ -553,8 +564,7 @@ def support_vector(variable: str, choix: str) -> Pipeline:
 
 
 def basique(variable: str) -> Pipeline:
-    """`basique`: Pipeline des modèles simples. 
-    Permet de comparer avec les modèles de ML.
+    """`basique`: Pipeline des modèles simples. Permet de comparer avec les modèles de ML.
 
     ---------
     `Parameters`

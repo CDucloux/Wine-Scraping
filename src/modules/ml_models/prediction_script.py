@@ -1,6 +1,15 @@
 """Script pour réaliser les prédictions avec tous les modèles"""
-from src.modules.ml_models.models import *
-from src.modules.ml_models.prediction import *
+from src.modules.ml_models.prediction import (
+    init,
+    random_forest,
+    basique,
+    boosting,
+    ridge,
+    knn,
+    mlp,
+    support_vector
+)
+import polars as pl
 
 for EXPLIQUEE in ("type", "unit_price"):
     if EXPLIQUEE == "type":

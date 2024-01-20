@@ -32,7 +32,8 @@ def _soupifier(page: str) -> BS:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> _soupifier(page.text)
     ... <!DOCTYPE HTML> {CONTENU DE LA PAGE} </html>"""
     soup = BS(page, "html.parser")
@@ -55,7 +56,8 @@ def _scrap_name(soup: BS) -> str | None:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> soupe = _soupifier(page.text)
     >>> _scrap_name(soupe)
     ... 'CHINON LES PICASSES 2017 - DOMAINE OLGA RAFFAULT'"""
@@ -83,7 +85,8 @@ def _scrap_capacity(soup: BS) -> str | None:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> soupe = _soupifier(page.text)
     >>> _scrap_capacity(soupe)
     ... '0,75 L'"""
@@ -105,7 +108,8 @@ def _scrap_capacity(soup: BS) -> str | None:
 
 
 def _scrap_price(soup: BS) -> str | None:
-    """`_scrap_price`: Récupère le prix de la bouteille à l'unité et les promos si il y en a.
+    """`_scrap_price`: Récupère le prix de la bouteille à l'unité
+    et les promos si il y en a.
 
     ---------
     `Parameters`
@@ -120,7 +124,8 @@ def _scrap_price(soup: BS) -> str | None:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> soupe = _soupifier(page.text)
     >>> _scrap_price(soupe)
     ... '15,00 €'"""
@@ -148,7 +153,8 @@ def _scrap_price_bundle(soup: BS) -> str | None:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> soupe = _soupifier(page.text)
     >>> _scrap_price(soupe)
     ... null"""
@@ -185,7 +191,8 @@ def _scrap_characteristics(soup: BS) -> str | None:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> soupe = _soupifier(page.text)
     >>> _scrap_characteristics(soupe)
     ... 'Vin Rouge / Loire / Chinon AOC / 12,5 % vol / 100% Cabernet-franc'"""
@@ -213,7 +220,8 @@ def _scrap_notes(soup: BS) -> str | None:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> soupe = _soupifier(page.text)
     >>> _scrap_notes(soupe)
     ... null"""
@@ -227,7 +235,8 @@ def _scrap_notes(soup: BS) -> str | None:
 
 
 def _scrap_keywords(soup: BS) -> list[str]:
-    """`_scrap_keywords`: Recupère les mots importants mis en avant sur la page du produit.
+    """`_scrap_keywords`: Recupère les mots importants 
+    mis en avant sur la page du produit.
     
     ---------
     `Parameters`
@@ -242,7 +251,8 @@ def _scrap_keywords(soup: BS) -> list[str]:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> soupe = _soupifier(page.text)
     >>> _scrap_keywords(soupe)
     ... [
@@ -257,7 +267,8 @@ def _scrap_keywords(soup: BS) -> list[str]:
 
 
 def _scrap_other(soup: BS) -> str | None:
-    """`_scrap_other`: Récupère d'autres attributs : bio, nouveauté, vigneron indépendant, etc.
+    """`_scrap_other`: Récupère d'autres attributs : 
+    bio, nouveauté, vigneron indépendant, etc.
     
     ---------
     `Parameters`
@@ -272,7 +283,8 @@ def _scrap_other(soup: BS) -> str | None:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> soupe = _soupifier(page.text)
     >>> _scrap_other(soupe)
     ... 'Bio'"""
@@ -303,7 +315,8 @@ def _scrap_img(soup: BS) -> str | list[str] | None:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> soupe = _soupifier(page.text)
     >>> _scrap_img(soupe)
     ... 'https://www.vinatis.com/75407-detail_default/chinon-les-picasses-2017-domaine-olga-raffault.png'"""
@@ -317,7 +330,8 @@ def _scrap_img(soup: BS) -> str | list[str] | None:
 
 
 def _scrap_details(soup: BS) -> dict[str, str]:
-    """`_scrap_details`: Crée un dictionnaire clé-valeur pour extraire des caractéristiques complémentaires.
+    """`_scrap_details`: Crée un dictionnaire clé-valeur 
+    pour extraire des caractéristiques complémentaires.
     
     ---------
     `Parameters`
@@ -332,7 +346,8 @@ def _scrap_details(soup: BS) -> dict[str, str]:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> soupe = _soupifier(page.text)
     >>> _scrap_details(soupe)
     ... {'Millésime': '2017',
@@ -360,7 +375,8 @@ def _scrap_details(soup: BS) -> dict[str, str]:
 
 
 def _get_value(dict_details: dict, key: str) -> str | None:
-    """`_get_value`: Récupère dans le dictionnaire de détails la valeur associée à une clé existante.
+    """`_get_value`: Récupère dans le dictionnaire de détails
+    la valeur associée à une clé existante.
     
     ---------
     `Parameters`
@@ -376,7 +392,8 @@ def _get_value(dict_details: dict, key: str) -> str | None:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> soupe = _soupifier(page.text)
     >>> dictionnaire = _scrap_details(soupe)
     >>> _get_value(dictionnaire, "Cépage")
@@ -405,7 +422,8 @@ def scraping(page: str) -> Vin:
 
     `Example(s)`
     --------- ::
-    >>> page = requests.get('https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
+    >>> page = requests.get(
+        'https://www.vinatis.com/58600-chinon-les-picasses-2017-domaine-olga-raffault')
     >>> scraping(page)
     ... {
     ... "name": "CHINON LES PICASSES 2017 - DOMAINE OLGA RAFFAULT",
@@ -434,7 +452,7 @@ def scraping(page: str) -> Vin:
     ... "conservation_1": "2030",
     ... "conservation_2": "A boire et à garder",
     ... "accords_vins": "Charcuterie, Viande rouge, Viande blanche, Barbecue",
-    ... "accords_reco": "Viandes goûteuses telles l’agneau ou le bœuf cuisiné. Parfait avec les petits gibiers."}"""
+    ... "accords_reco": "Viandes goûteuses telles l’agneau ou le bœuf cuisiné."}"""
     soup = _soupifier(page)
     dict_details = _scrap_details(soup)
 
@@ -468,7 +486,8 @@ def scraping(page: str) -> Vin:
 
 
 def create_json(all_pages: list[str]) -> None:
-    """`create_json`: Crée un fichier semi-structuré JSON à partir d'une liste contenant les liens des vins à scraper.
+    """`create_json`: Crée un fichier semi-structuré JSON
+    à partir d'une liste contenant les liens des vins à scraper.
     
     ---------
     `Parameters`

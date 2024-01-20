@@ -1,6 +1,9 @@
 """Script pour optimiser les paramètres des modèles."""
-from src.modules.ml_models.models import *
-from src.modules.ml_models.prediction import *
+from src.modules.ml_models.models import train_model
+from src.modules.ml_models.prediction import (
+    init,
+    stockage_result_csv
+)
 
 for EXPLIQUEE in ("type", "unit_price"):
     X_train_n, X_test_n, y_train, y_test, _ = init(EXPLIQUEE)

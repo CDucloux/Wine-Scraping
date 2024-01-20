@@ -98,7 +98,8 @@ def sidebar_checkbox_new() -> set[int]:
 
 
 def sidebar_checkbox_fav() -> set[int]:
-    """`sidebar_checkbox_fav`: Une case à cocher pour n'inclure que les coups de coeur client.
+    """`sidebar_checkbox_fav`: Une case à cocher pour n'inclure 
+    que les coups de coeur client.
 
     `Returns`
     --------- ::
@@ -157,7 +158,8 @@ def scale_selector() -> str | None:
 
 
 def color_selector(selected_wines: list[str]) -> list[str]:
-    """`color_selector`: Permet de choisir une couleur selon le vin sélectionné pour le scatter plot des vins.
+    """`color_selector`: Permet de choisir une couleur selon le vin 
+    sélectionné pour le scatter plot des vins.
 
     ---------
     `Parameters`
@@ -204,7 +206,8 @@ def color_selector(selected_wines: list[str]) -> list[str]:
 
 
 def model_radio_selector() -> str | None:
-    """`model_radio_selector`: Permet de sélectionner un modèle de Machine Learning avec des radio buttons.
+    """`model_radio_selector`: Permet de sélectionner un modèle 
+    de Machine Learning avec des radio buttons.
 
     `Returns`
     --------- ::
@@ -229,7 +232,8 @@ def model_radio_selector() -> str | None:
 
 
 def model_selector(default: str) -> str | None:
-    """`model_selector`: Permet de sélectionner un modèle de Machine learning avec une liste déroulante.
+    """`model_selector`: Permet de sélectionner un modèle 
+    de Machine learning avec une liste déroulante.
 
     `Returns`
     --------- ::
@@ -252,7 +256,8 @@ def model_selector(default: str) -> str | None:
 
 
 def n_variable_selector() -> int | float:
-    """`n_variable_selector`: Permet à l'utilisateur de sélectionner le nombre des n variables à afficher dans le plot de l'importance des variables.
+    """`n_variable_selector`: Permet à l'utilisateur de sélectionner le 
+    nombre des n variables à afficher dans le plot de l'importance des variables.
 
     - Valeur par défaut : 10
     - Valeur minimal : 2

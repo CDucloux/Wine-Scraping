@@ -1,7 +1,8 @@
 """
 `scraping_functions` : à vos verres 🍷 !
 
-ce module comporte l'ensemble des fonctions de scraping nécessaires pour extraire les vins de nos terroirs.
+Ce module comporte l'ensemble des fonctions de scraping
+nécessaires pour extraire les vins de nos terroirs.
 """
 
 from yarl import URL
@@ -12,7 +13,9 @@ from fp.fp import FreeProxy  # type: ignore
 from http.client import RemoteDisconnected
 from typing import Callable
 from pathlib import Path
-import re, time, random
+import re
+import time
+import random
 from rich import print as rprint
 
 URL_INIT = URL.build(scheme="https", host="vinatis.com")
@@ -149,9 +152,11 @@ def random_true_false(prob_false=0.85):
 
 
 def create_session() -> HTMLSession:
-    """`create_session`: Crée une session HTML avec un proxy et un user-agent spécifique aléatoire.
+    """`create_session`: Crée une session HTML avec un proxy
+    et un user-agent spécifique aléatoire.
 
-    - Fait croire au navigateur qu'un utilisateur envoie une requête, et non un robot.
+    - Fait croire au navigateur qu'un utilisateur envoie une
+    requête, et non un robot.
     - Cache l'adresse IP du client grâce à un proxy.
 
     `Returns`
@@ -179,7 +184,8 @@ def create_session() -> HTMLSession:
 def update_session(session: HTMLSession) -> HTMLSession:
     """`update_session`:
 
-    - Met à jour la session dans 15% des cas avec un nouveau proxy et un User-Agent aléatoire.
+    - Met à jour la session dans 15% des cas avec un nouveau
+    proxy et un User-Agent aléatoire.
 
     ---------
     `Parameters`
@@ -199,7 +205,7 @@ def update_session(session: HTMLSession) -> HTMLSession:
     ... #TODO"""
     update = random_true_false()
     print(f"Session updated = {update}")
-    if update == True:
+    if update is True:
         session = create_session()
     else:
         session = session
@@ -276,7 +282,8 @@ def _catch_url(
 
 
 def _href_finder(page: str, URL_INIT=URL_INIT) -> list[str]:
-    """`_href_finder`: Trouve tous les hrefs valides dans une page de recherche de vins."""
+    """`_href_finder`: Trouve tous les hrefs valides dans une
+    page de recherche de vins."""
     soup = BeautifulSoup(page, "html.parser")
     a_tags = soup.select("a.display-block")
     hrefs = [a.get("href") for a in a_tags]
@@ -290,8 +297,10 @@ def _href_finder(page: str, URL_INIT=URL_INIT) -> list[str]:
 def create_all_wine_urls(session: HTMLSession, url_browse_list: list[URL]) -> list[str]:
     """`create_all_wine_urls`:
 
-    - Grâce à la liste d'URL des pages de recherche, cette fonction va chercher les href et les complète.
-    - Elle retire aussi les doublons potentiels grâce à la transformation `list -> set -> list`
+    - Grâce à la liste d'URL des pages de recherche, 
+    cette fonction va chercher les href et les complète.
+    - Elle retire aussi les doublons potentiels grâce à 
+    la transformation `list -> set -> list`
 
     ---------
     `Parameters`

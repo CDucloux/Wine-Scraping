@@ -15,8 +15,9 @@ from duckdb import DuckDBPyConnection
 
 
 def warn(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | None:
-    """`warn`: Renvoie des messages d'avertissements spécifiques quand le dataframe modifié
-    à cause de la sidebar ne renvoie pas de données.
+    """`warn`: Renvoie des messages d'avertissements spécifiques 
+    quand le dataframe modifié à cause de la sidebar ne renvoie 
+    pas de données.
 
     ---------
     `Parameters`
@@ -103,7 +104,8 @@ def display_scatter(
 
 
 def create_aggregate_df(df: pl.DataFrame) -> pl.DataFrame:
-    """`create_aggregate_df`: Crée un Dataframe groupé par pays et code ISO avec le nombre de vins.
+    """`create_aggregate_df`: Crée un Dataframe groupé par pays 
+    et code ISO avec le nombre de vins.
 
     ---------
     `Parameters`
@@ -181,7 +183,8 @@ def create_map(df: pl.DataFrame) -> DeltaGenerator:
 
 
 def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
-    """`create_bar`: Crée un diagramme en barres du nombre de vins commercialisés par pays.
+    """`create_bar`: Crée un diagramme en barres du nombre de vins 
+    commercialisés par pays.
 
     ---------
     `Parameters`
@@ -218,7 +221,8 @@ def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
 def display_corr(
     df: pl.DataFrame,
 ) -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
-    """`display_corr`: Retourne une matrice de corrélation avec corrélation minimale et maximale.
+    """`display_corr`: Retourne une matrice de corrélation avec 
+    corrélation minimale et maximale.
 
     - Autrement dit cela retourne un tuple de 3 éléments `DeltaGenerator`.
 
@@ -400,7 +404,7 @@ def display_confusion_matrix(conn: DuckDBPyConnection, model: str) -> DeltaGener
     >>> df = load_df()
     >>> display_confusion_matrix(df)
     ... DeltaGenerator()"""
-    df = conn.execute(f"SELECT * FROM pred_classification").pl()
+    df = conn.execute("SELECT * FROM pred_classification").pl()
     y_true = df.select(pl.col("type"))
     y_pred = df.select(pl.col(model))
     conf_matrix = confusion_matrix(y_true, y_pred)
@@ -433,7 +437,8 @@ def display_confusion_matrix(conn: DuckDBPyConnection, model: str) -> DeltaGener
 def display_importance(
     conn: DuckDBPyConnection, choice: str, selected_model: str, n_variables: int
 ) -> DeltaGenerator | None:
-    """`display_importance`: Retourne un graphique montrant les 15 variables les plus importantes.
+    """`display_importance`: Retourne un graphique montrant 
+    les 15 variables les plus importantes.
 
     - /❗\ Uniquement disponible pour les modèles à base d'arbres.
 
@@ -456,7 +461,7 @@ def display_importance(
     >>> df = load_df()
     >>> display_importance(df)
     ... DeltaGenerator()"""
-    if not selected_model in ("Random Forest", "Boosting"):
+    if selected_model not in ("Random Forest", "Boosting"):
         return None
 
     if choice == "Régression - Prédiction du prix":
@@ -464,7 +469,7 @@ def display_importance(
     else:
         target = "type"
 
-    df = conn.execute(f"SELECT * FROM var_importance").pl()
+    df = conn.execute("SELECT * FROM var_importance").pl()
 
     df_imp_model = df.filter(pl.col("id") == f"{target} {selected_model}")
     df_imp_tail = df_imp_model.tail(n_variables)

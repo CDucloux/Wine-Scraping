@@ -1,4 +1,3 @@
-import numpy as np
 from streamlit.testing.v1 import AppTest
 
 
@@ -34,7 +33,8 @@ def test_multiselect_none():
 
 
 def test_multiselect_none_warning():
-    """L'utilisateur ne sélectionne aucun vin dans la sidebar, résultant en un message d'avertissement."""
+    """L'utilisateur ne sélectionne aucun vin 
+    dans la sidebar, résultant en un message d'avertissement."""
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
     app.sidebar.multiselect(key="wine_selector").set_value([]).run(timeout=15)
     assert (
@@ -44,7 +44,8 @@ def test_multiselect_none_warning():
 
 
 def test_multiselect_vin_blanc_nombre():
-    """L'utilisateur ne sélectionne que les vins blancs dans la sidebar. 1311 vins en résultent."""
+    """L'utilisateur ne sélectionne que les vins
+    blancs dans la sidebar. 1311 vins en résultent."""
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
     app.sidebar.multiselect(key="wine_selector").set_value(["Vin Blanc"]).run(
         timeout=15
@@ -90,7 +91,8 @@ def test_price_slider_data():
 
 
 def test_correlations():
-    """L'utilisateur sélectionne l'onglet statistiques descriptives et regarde la matrice des corrélations."""
+    """L'utilisateur sélectionne l'onglet statistiques 
+    descriptives et regarde la matrice des corrélations."""
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
     app.tabs[1].selectbox[0].set_value("Matrice de corrélation").run(timeout=15)
     assert (
@@ -104,7 +106,8 @@ def test_correlations():
 
 
 def test_cepages():
-    """L'utilisateur sélectionne l'onglet statistiques descriptives et regarde les cépages majoritaires."""
+    """L'utilisateur sélectionne l'onglet statistiques 
+    descriptives et regarde les cépages majoritaires."""
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
     app.tabs[1].selectbox[0].set_value("Cépage majoritaire").run(timeout=15)
     assert (
@@ -134,7 +137,8 @@ def test_score_train_CV_reg():
 
 def test_score_train_CV_classif():
     """
-    L'utilisateur sélectionne l'onglet Machine Learning et le type classification du type de vin.
+    L'utilisateur sélectionne l'onglet Machine Learning
+    et le type classification du type de vin.
     Il consulte ensuite les scores d'entrainement de la Cross Validation.
     """
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
@@ -172,7 +176,8 @@ def test_score_test_CV_reg():
 
 def test_score_test_CV_classif():
     """
-    L'utilisateur sélectionne l'onglet Machine Learning et le type classification du type de vin.
+    L'utilisateur sélectionne l'onglet Machine Learning
+    et le type classification du type de vin.
     Il consulte ensuite les scores de test de la Cross Validation.
     """
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
@@ -192,7 +197,8 @@ def test_score_test_CV_classif():
 def test_hyperparams_reg():
     """
     L'utilisateur sélectionne l'onglet Machine Learning,
-    le type prédiction du prix et consulte les hyperparamètres optimaux du modèle Random Forest.
+    le type prédiction du prix et consulte les hyperparamètres 
+    optimaux du modèle Random Forest.
     """
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
     app.tabs[4].selectbox[0].set_value("Régression - Prédiction du prix").run(

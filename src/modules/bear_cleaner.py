@@ -8,7 +8,8 @@ import polars as pl
 
 
 def _get_avg_temp(df: pl.DataFrame) -> pl.DataFrame:
-    """Obtient la température moyenne du vin à partir d'une valeur au format <10-12°C>."""
+    """Obtient la température moyenne du vin à partir
+    d'une valeur au format <10-12°C>."""
     df = (
         df.with_columns(
             pl.col("temperature")
@@ -87,7 +88,8 @@ def _get_unit_and_offer_price(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def _get_keywords(df: pl.DataFrame) -> pl.DataFrame:
-    """Obtient les mots-clés associés au vin et conserve la colonne initiale de keywords."""
+    """Obtient les mots-clés associés au vin et conserve
+    la colonne initiale de keywords."""
     df = (
         df.with_columns(pl.col("keywords").alias("keywords_2"))
         .with_columns(

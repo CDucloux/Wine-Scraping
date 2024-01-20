@@ -34,7 +34,8 @@ warnings.filterwarnings("ignore")
 
 
 def data_model(path: str, target: str) -> pl.DataFrame:
-    """`data_model`: Importe le JSON, le transforme en dataframe, le nettoie et le prépare pour le ML.
+    """`data_model`: Importe le JSON, le transforme en 
+    dataframe, le nettoie et le prépare pour le ML.
 
     ---------
     `Parameters`
@@ -60,8 +61,10 @@ def data_model(path: str, target: str) -> pl.DataFrame:
 
 
 def prep_str(df: pl.DataFrame, categorical_cols: list) -> pd.DataFrame:
-    """`prep_str`: Transforme les variables qualitatives en colonnes binaires grâce au `OneHotEncoder()`.
-    Renvoie un DataFrame avec un nombre important de variables numériques binaires.
+    """`prep_str`: Transforme les variables qualitatives 
+    en colonnes binaires grâce au `OneHotEncoder()`.
+    Renvoie un DataFrame avec un nombre important de 
+    variables numériques binaires.
 
     ---------
     `Parameters`
@@ -93,8 +96,9 @@ def prep_str(df: pl.DataFrame, categorical_cols: list) -> pd.DataFrame:
 
 @model_name
 def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
-    """`model_rf`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
-    en utilisant une Random Forest. Les paramètres optimisés sont :
+    """`model_rf`: Effectue une recherche exhaustive (Cross-Validation)
+    des meilleurs paramètres en utilisant une Random Forest. 
+    Les paramètres optimisés sont :
 
     - n_estimators
     - max_depth
@@ -167,8 +171,9 @@ def model_rf(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearch
 
 @model_name
 def model_knn(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
-    """`model_knn`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
-    en utilisant un KNN. Les paramètres optimisés sont :
+    """`model_knn`: Effectue une recherche exhaustive (Cross-Validation)
+    des meilleurs paramètres en utilisant un KNN. 
+    Les paramètres optimisés sont :
 
     - n_neighbors
 
@@ -237,8 +242,9 @@ def model_knn(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearc
 
 @model_name
 def model_boost(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
-    """`model_boost`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
-    en utilisant un Gradient Boosting. Les paramètres optimisés sont :
+    """`model_boost`: Effectue une recherche exhaustive (Cross-Validation)
+    des meilleurs paramètres en utilisant un Gradient Boosting. 
+    Les paramètres optimisés sont :
 
     - learning_rate
     - n_estimators
@@ -312,8 +318,9 @@ def model_boost(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSea
 
 @model_name
 def model_mlp(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
-    """`model_mlp`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
-    en utilisant un Gradient Boosting. Les paramètres optimisés sont :
+    """`model_mlp`: Effectue une recherche exhaustive (Cross-Validation) 
+    des meilleurs paramètres en utilisant un Gradient Boosting. 
+    Les paramètres optimisés sont :
 
     - hidden_layer_sizes
     - max_iter
@@ -387,12 +394,14 @@ def model_mlp(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearc
 
 @model_name
 def model_ridge(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
-    """`model_ridge`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
-    en utilisant un modèle Ridge. Les paramètres optimisés sont :
+    """`model_ridge`: Effectue une recherche exhaustive (Cross-Validation) 
+    des meilleurs paramètres en utilisant un modèle Ridge.
+    Les paramètres optimisés sont :
 
     - alpha
 
-    Note : Ridge ajoute une pénalité à la régression linéaire standard en modifiant la fonction d'objectif.
+    Note : Ridge ajoute une pénalité à la régression linéaire standard en 
+    modifiant la fonction d'objectif.
 
     ---------
     `Parameters`
@@ -460,8 +469,9 @@ def model_ridge(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSea
 
 @model_name
 def model_svm(x_train: pd.DataFrame, y_train: pd.Series, mode: str) -> GridSearchCV:
-    """`model_svm`: Effectue une recherche exhaustive (Cross-Validation) des meilleurs paramètres
-    en utilisant un SVM. Les paramètres optimisés sont :
+    """`model_svm`: Effectue une recherche exhaustive (Cross-Validation)
+    des meilleurs paramètres en utilisant un SVM. 
+    Les paramètres optimisés sont :
 
     - C
     - epsilon
@@ -535,7 +545,8 @@ def train_model(
     x_train: pd.DataFrame, y_train: pd.Series, mode: str
 ) -> dict[str, GridSearchCV]:
     """`train_model`: Fonction entrainant tous les modèles.
-    Renvoie un dictionnaire permettant d'accéder à chaque modèle et ses hyperparamètres.
+    Renvoie un dictionnaire permettant d'accéder à chaque 
+    modèle et ses hyperparamètres.
 
     ---------
     `Parameters`
@@ -605,7 +616,8 @@ def score_test(model: GridSearchCV) -> np.float64:
 
 
 def score_entrainement(model: GridSearchCV) -> np.float64:
-    """`score_entrainement`: Retourne le score d'entrainement de CV du meilleur modèle.
+    """`score_entrainement`: Retourne le score d'entrainement 
+    de CV du meilleur modèle.
 
     - Note : le meilleur modèle est celui ayant le score de test de CV minimal
 
@@ -655,7 +667,8 @@ def ecart_type_test(model: GridSearchCV) -> np.float64:
 
 
 def ecart_type_train(model: GridSearchCV) -> np.float64:
-    """`ecart_type_train`: Retourne l'ecart-type d'entrainement de CV du meilleur modèle.
+    """`ecart_type_train`: Retourne l'ecart-type d'entrainement 
+    de CV du meilleur modèle.
 
     - Note : le meilleur modèle est celui ayant le score de test de CV minimal
 
@@ -699,7 +712,9 @@ def parametre(model: GridSearchCV) -> str:
     ---------
 
     >>> parametre(model["model_rf"])
-    ... '{'entrainement__max_depth': 9, 'entrainement__n_estimators': 30, 'imputation__strategy': 'median'}'
+    ... '{'entrainement__max_depth': 9,
+    ... 'entrainement__n_estimators': 30,
+    ... 'imputation__strategy': 'median'}'
     """
     indice_meilleur = model.cv_results_["rank_test_score"].argmin()
     return str(model.cv_results_["params"][indice_meilleur])

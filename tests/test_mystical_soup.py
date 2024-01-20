@@ -50,4 +50,4 @@ def test__scrap_img():
     assert _scrap_img(PAGE) == "https://www.vinatis.com/78830-detail_default/les-darons-2022-by-jeff-carrel.png"
 
 def test__scrap_price_bundle():
-    assert _scrap_price_bundle(PAGE) == None
+    assert _scrap_price_bundle(PAGE) is None
