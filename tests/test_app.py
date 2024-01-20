@@ -1,3 +1,4 @@
+import numpy as np
 from streamlit.testing.v1 import AppTest
 
 
@@ -113,7 +114,10 @@ def test_cepages():
 
 
 def test_score_train_CV_reg():
-    """L'utilisateur sélectionne l'onglet Machine Learning et le type prédiction du prix."""
+    """
+    L'utilisateur sélectionne l'onglet Machine Learning et le type prédiction du prix.
+    Il consulte ensuite les scores d'entrainement de la Cross Validation.
+    """
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
     app.tabs[4].selectbox[0].set_value("Régression - Prédiction du prix").run(
         timeout=15
@@ -129,7 +133,10 @@ def test_score_train_CV_reg():
 
 
 def test_score_train_CV_classif():
-    """L'utilisateur sélectionne l'onglet Machine Learning et le type classification du type de vin."""
+    """
+    L'utilisateur sélectionne l'onglet Machine Learning et le type classification du type de vin.
+    Il consulte ensuite les scores d'entrainement de la Cross Validation.
+    """
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
     app.tabs[4].selectbox[0].set_value("Classification - Prédiction type de vin").run(
         timeout=15
@@ -145,7 +152,10 @@ def test_score_train_CV_classif():
 
 
 def test_score_test_CV_reg():
-    """L'utilisateur sélectionne l'onglet Machine Learning et le type prédiction du prix."""
+    """
+    L'utilisateur sélectionne l'onglet Machine Learning et le type prédiction du prix.
+    Il consulte ensuite les scores de test de la Cross Validation.
+    """
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
     app.tabs[4].selectbox[0].set_value("Régression - Prédiction du prix").run(
         timeout=15
@@ -161,7 +171,10 @@ def test_score_test_CV_reg():
 
 
 def test_score_test_CV_classif():
-    """L'utilisateur sélectionne l'onglet Machine Learning et le type classification du type de vin."""
+    """
+    L'utilisateur sélectionne l'onglet Machine Learning et le type classification du type de vin.
+    Il consulte ensuite les scores de test de la Cross Validation.
+    """
     app = AppTest.from_file("streamlit_app.py").run(timeout=15)
     app.tabs[4].selectbox[0].set_value("Classification - Prédiction type de vin").run(
         timeout=15
@@ -174,3 +187,131 @@ def test_score_test_CV_classif():
         0.979,
         0.981,
     ]
+
+
+def test_hyperparams_reg():
+    """
+    L'utilisateur sélectionne l'onglet Machine Learning,
+    le type prédiction du prix et consulte les hyperparamètres optimaux du modèle Random Forest.
+    """
+    app = AppTest.from_file("streamlit_app.py").run(timeout=15)
+    app.tabs[4].selectbox[0].set_value("Régression - Prédiction du prix").run(
+        timeout=15
+    )
+    app.tabs[4].radio[0].set_value("Random Forest").run(timeout=15)
+    assert app.tabs[4].dataframe.values[1]["Paramètres ⚒️"].tolist() == [
+        "Profondeur Maximale",
+        "N estimators",
+        "Stratégie d'imputation",
+    ]
+    assert app.tabs[4].dataframe.values[1]["Valeur optimale ⭐"].tolist() == [
+        "9",
+        "40",
+        "mean",
+    ]
+
+
+def test_hyperparams_classif():
+    """
+    L'utilisateur sélectionne l'onglet Machine Learning,
+    le type prédiction de classification du type de vin,
+    et consulte les hyperparamètres optimaux du modèle MLP.
+    """
+    app = AppTest.from_file("streamlit_app.py").run(timeout=15)
+    app.tabs[4].selectbox[0].set_value("Classification - Prédiction type de vin").run(
+        timeout=15
+    )
+    app.tabs[4].radio[0].set_value("Réseaux de neurones").run(timeout=15)
+    assert app.tabs[4].dataframe.values[1]["Paramètres ⚒️"].tolist() == [
+        "Hidden Layer Size",
+        "Itération maximale",
+        "Solveur",
+        "Stratégie d'imputation",
+    ]
+    assert app.tabs[4].dataframe.values[1]["Valeur optimale ⭐"].tolist() == [
+        "(100,)",
+        "1000",
+        "adam",
+        "median",
+    ]
+
+
+def test_ml_metrics_reg():
+    """
+    L'utilisateur sélectionne l'onglet Machine Learning,
+    le type prédiction de prédiction du prix,
+    et consulte quelques métriques des modèles sur l'ensemble de test.
+    """
+    app = AppTest.from_file("streamlit_app.py").run(timeout=15)
+    app.tabs[4].selectbox[0].set_value("Régression - Prédiction du prix").run(
+        timeout=15
+    )
+    assert app.tabs[4].dataframe.values[2]["Mean Absolute Error ❗"].tolist() == [
+        23.1,
+        23.5,
+        29.2,
+        25.8,
+        29.6,
+        21.5,
+        2340618513.1,
+    ]
+
+
+def test_ml_metrics_classif():
+    """
+    L'utilisateur sélectionne l'onglet Machine Learning,
+    le type prédiction de classification du type de vin,
+    et consulte quelques métriques des modèles sur l'ensemble de test.
+    """
+    app = AppTest.from_file("streamlit_app.py").run(timeout=15)
+    app.tabs[4].selectbox[0].set_value("Classification - Prédiction type de vin").run(
+        timeout=15
+    )
+    assert app.tabs[4].dataframe.values[2]["Accuracy Score 🏹"].tolist() == [
+        0.936,
+        0.98,
+        0.981,
+        0.958,
+        0.984,
+        0.983,
+        0.938,
+    ]
+    assert app.tabs[4].dataframe.values[2]["F1-Score 🛠️"].tolist() == [
+        0.926,
+        0.98,
+        0.981,
+        0.957,
+        0.984,
+        0.983,
+        0.933,
+    ]
+
+
+def truth_vin_tempranillo_reg_svm():
+    """
+    L'utilisateur sélectionne l'onglet Machine Learning,
+    le type prédiction de prix,
+    utilise un modèle SVM et consulte le prix réel d'un vin.
+    """
+    app = AppTest.from_file("streamlit_app.py").run(timeout=15)
+    app.tabs[4].selectbox[1].set_value("TEMPRANILLO 2021- VEGA DEMARA").run(timeout=15)
+    app.tabs[4].selectbox[2].set_value("Regression").run(timeout=15)
+    app.tabs[4].selectbox[3].set_value("Support Vector").run(timeout=15)
+    assert app.tabs[4].metric[0].value == "5,9 €"
+
+
+def pred_vin_tempranillo_reg_svm():
+    """
+    L'utilisateur sélectionne l'onglet Machine Learning,
+    le type prédiction de prix,
+    utilise un modèle SVM et consulte le prix prédit d'un vin.
+    """
+    app = AppTest.from_file("streamlit_app.py").run(timeout=15)
+    app.tabs[4].selectbox[1].set_value("TEMPRANILLO 2021- VEGA DEMARA").run(timeout=15)
+    app.tabs[4].selectbox[2].set_value("Regression").run(timeout=15)
+    app.tabs[4].selectbox[3].set_value("Support Vector").run(timeout=15)
+    assert app.tabs[4].metric[1].value == "✅ 5,94 €"
+    assert (
+        app.tabs[4].error[0].value
+        == "✔ Le prix prédit est 0,04 € **supérieur** au prix réel, soit une différence acceptable !"
+    )
