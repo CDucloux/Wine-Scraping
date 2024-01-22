@@ -31,7 +31,7 @@ def db_connector() -> DuckDBPyConnection:
 
 
 def load_tables(connection: DuckDBPyConnection) -> None:
-    """`load_tables`: Charge l'ensemble des 5 tables en csv dans la base de 
+    """`load_tables`: Charge l'ensemble des 5 tables en csv dans la base de
     données In-memory.
 
     ---------
@@ -98,7 +98,7 @@ def load_tables(connection: DuckDBPyConnection) -> None:
 
 @st.cache_data
 def load_df() -> pl.DataFrame:
-    """`load_df`: Charge notre DataFrame clean statique utilisé dans 
+    """`load_df`: Charge notre DataFrame clean statique utilisé dans
     la page de Statistiques Descriptives.
 
     `Returns`
@@ -129,7 +129,7 @@ def load_main_df(
     filter_fav: set[int],
     user_input: str,
 ) -> pl.DataFrame:
-    """`load_main_df`: Charge notre DataFrame clean, 
+    """`load_main_df`: Charge notre DataFrame clean,
     mais mutable avec possibilité de filtre.
 
     - Utilisé dans la page 1, 3 et 4 de Data Overview, Charts et Provenance
@@ -193,14 +193,14 @@ def remove_white_space() -> DeltaGenerator:
     return st.markdown(
         """
         <style>
-                .block-container {
+                .st-emotion-cache-1y4p8pa {
                     padding-top: 1rem;
                     padding-bottom: 0rem;
-                    padding-left: 0rem;
-                    padding-right: 0rem;
+                    padding-left: 1.25rem;
+                    padding-right: 1.25rem;
                 }
                 .st-emotion-cache-16txtl3{
-                    padding-top: 0.5rem;
+                    padding-top: 1.5rem;
                     padding-right: 1rem;
                     padding-bottom: 1rem;
                     padding-left: 1rem;
@@ -225,7 +225,7 @@ def custom_radio_css() -> None:
 
 
 def main_wine_metric(df: pl.DataFrame, wine_type: str) -> DeltaGenerator:
-    """`main_wine_metric`: Permet d'obtenir une métrique du nombre de vins 
+    """`main_wine_metric`: Permet d'obtenir une métrique du nombre de vins
     et du nombre de nouveautés associées selon le type de vin.
 
     ---------
@@ -278,7 +278,7 @@ def main_wine_metric(df: pl.DataFrame, wine_type: str) -> DeltaGenerator:
 
 
 def write_price(df: pl.DataFrame, selected_wines: list[str]) -> None:
-    """`write_price`: Retourne le prix moyen d'un vin de la sélection 
+    """`write_price`: Retourne le prix moyen d'un vin de la sélection
     ou indique l'impossibilité de le calculer.
 
     ---------
@@ -388,7 +388,7 @@ def model_mapper(model_name: str) -> str:
 
 
 def model_mapper_reverse(model_name: str) -> str:
-    """`model_mapper_reverse`: Mappe les noms de modèles 
+    """`model_mapper_reverse`: Mappe les noms de modèles
     de la base de données à ceux "réels".
 
     ---------
@@ -420,10 +420,10 @@ def model_mapper_reverse(model_name: str) -> str:
 
 
 class threshold_price(Enum):
-    """Enumération modélisant les seuils d'acceptabilité des 
+    """Enumération modélisant les seuils d'acceptabilité des
     prédictions de prix.
 
-    - La prédiction doit être comprise entre 80 et 120% du prix pour être 
+    - La prédiction doit être comprise entre 80 et 120% du prix pour être
     considérée comme acceptable.
     """
 
@@ -432,7 +432,7 @@ class threshold_price(Enum):
 
 
 def format_prediction(prediction: float | str, truth: float | str) -> str:
-    """`format_prediction`: Formate le résultat brut de la prédiction 
+    """`format_prediction`: Formate le résultat brut de la prédiction
     dans l'application (soit le prix, soit le type de vin).
 
     ---------
@@ -472,7 +472,7 @@ def format_prediction(prediction: float | str, truth: float | str) -> str:
 def popover_prediction(
     prediction: float, truth: float
 ) -> tuple[DeltaGenerator, DeltaGenerator]:
-    """`popover_prediction`: Renvoie un message d'avertissement selon 
+    """`popover_prediction`: Renvoie un message d'avertissement selon
     que le prix prédit soit supérieur ou inférieur au prix réel.
 
     ---------
@@ -541,7 +541,7 @@ def get_names(conn: DuckDBPyConnection) -> list[str]:
 def get_value(
     conn: DuckDBPyConnection, column: str, table_name: str, wine_name: str
 ) -> float | str:
-    """`get_value`: Récupère la colonne d'une table filtrée 
+    """`get_value`: Récupère la colonne d'une table filtrée
     selon le nom d'un vin, c'est à dire une valeur.
 
     La colonne peut être :

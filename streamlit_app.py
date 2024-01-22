@@ -27,14 +27,14 @@ from src.modules.app.st_functions import (
     get_names,
     get_value,
     format_prediction,
-    authors
+    authors,
 )
 from src.modules.app.st_tables import (
     write_table,
     best_model,
     write_table_ml,
     write_metrics,
-    write_parameter
+    write_parameter,
 )
 from src.modules.app.st_selectors import (
     sidebar_checkbox_bio,
@@ -46,7 +46,7 @@ from src.modules.app.st_selectors import (
     sidebar_wine_selector,
     color_selector,
     n_variable_selector,
-    model_selector
+    model_selector,
 )
 from src.modules.app.st_plots import (
     display_bar,
@@ -59,8 +59,9 @@ from src.modules.app.st_plots import (
     warn,
     create_aggregate_df,
     create_map,
-    create_bar
+    create_bar,
 )
+
 
 def main():
     page_config()
@@ -107,7 +108,7 @@ def main():
         with st.container(border=True):
             main_wine_metric(df, "Vin Rosé")
     st.write(
-        f"**{len(df)}** vins récupérés grâce à un *crawler* sur https://www.vinatis.com/, explorons-les ! "
+        f"**{len(df)}** vins récupérés grâce à un *crawler* sur un site français de revente de vins, explorons-les ! "
     )
 
     tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(

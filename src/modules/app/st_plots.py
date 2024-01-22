@@ -15,8 +15,8 @@ from duckdb import DuckDBPyConnection
 
 
 def warn(df: pl.DataFrame, selected_wines: list[str]) -> DeltaGenerator | None:
-    """`warn`: Renvoie des messages d'avertissements spécifiques 
-    quand le dataframe modifié à cause de la sidebar ne renvoie 
+    """`warn`: Renvoie des messages d'avertissements spécifiques
+    quand le dataframe modifié à cause de la sidebar ne renvoie
     pas de données.
 
     ---------
@@ -100,11 +100,11 @@ def display_scatter(
     )
     scatter.update_xaxes(title_text="Temps de conservation (en années)")
     scatter.update_yaxes(title_text=title_y, ticksuffix=" €", showgrid=True)
-    return st.plotly_chart(scatter)
+    return st.plotly_chart(scatter, use_container_width=True)
 
 
 def create_aggregate_df(df: pl.DataFrame) -> pl.DataFrame:
-    """`create_aggregate_df`: Crée un Dataframe groupé par pays 
+    """`create_aggregate_df`: Crée un Dataframe groupé par pays
     et code ISO avec le nombre de vins.
 
     ---------
@@ -179,11 +179,11 @@ def create_map(df: pl.DataFrame) -> DeltaGenerator:
         showlegend=False,
         margin=dict(l=20, r=20, t=20, b=0),
     )
-    return st.plotly_chart(map)
+    return st.plotly_chart(map, use_container_width=True)
 
 
 def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
-    """`create_bar`: Crée un diagramme en barres du nombre de vins 
+    """`create_bar`: Crée un diagramme en barres du nombre de vins
     commercialisés par pays.
 
     ---------
@@ -215,13 +215,13 @@ def create_bar(grouped_df: pl.DataFrame) -> DeltaGenerator:
     bar.update_layout(margin=dict(l=20, r=20, t=25, b=0))
     bar.update_yaxes(visible=False)
     bar.update_xaxes(title="Pays")
-    return st.plotly_chart(bar)
+    return st.plotly_chart(bar, use_container_width=True)
 
 
 def display_corr(
     df: pl.DataFrame,
 ) -> tuple[DeltaGenerator, DeltaGenerator, DeltaGenerator]:
-    """`display_corr`: Retourne une matrice de corrélation avec 
+    """`display_corr`: Retourne une matrice de corrélation avec
     corrélation minimale et maximale.
 
     - Autrement dit cela retourne un tuple de 3 éléments `DeltaGenerator`.
@@ -276,7 +276,7 @@ def display_corr(
     )
     cor_max_txt = f"➕ La corrélation maximale est de {cor_max} entre la date de conservation et le prix."
     return (
-        st.plotly_chart(fig_corr),
+        st.plotly_chart(fig_corr, use_container_width=True),
         st.success(cor_max_txt),
         st.error(cor_min_txt),
     )
@@ -316,7 +316,7 @@ def display_density(df: pl.DataFrame) -> DeltaGenerator:
     )
     fig_tv.update_xaxes(title_text="Prix unitaire", ticksuffix=" €")
     fig_tv.update_yaxes(title_text="", showgrid=True)
-    return st.plotly_chart(fig_tv)
+    return st.plotly_chart(fig_tv, use_container_width=True)
 
 
 def display_bar(df: pl.DataFrame) -> DeltaGenerator:
@@ -352,7 +352,7 @@ def display_bar(df: pl.DataFrame) -> DeltaGenerator:
         },
     )
     fig_bar.update_yaxes(title_text="")
-    return st.plotly_chart(fig_bar)
+    return st.plotly_chart(fig_bar, use_container_width=True)
 
 
 def display_wine_img(df: pl.DataFrame, wine_name: str) -> DeltaGenerator:
@@ -418,7 +418,7 @@ def display_confusion_matrix(conn: DuckDBPyConnection, model: str) -> DeltaGener
         color_continuous_scale="amp",
     )
 
-    cm_fig.update_layout(title="Matrice de Confusion")
+    cm_fig.update_layout(title="Matrice de Confusion", autosize=True)
 
     for true_label, _ in enumerate(labels):
         for pred_label, _ in enumerate(labels):
@@ -431,13 +431,13 @@ def display_confusion_matrix(conn: DuckDBPyConnection, model: str) -> DeltaGener
                 font=dict(color="black", size=12),
             )
 
-    return st.plotly_chart(cm_fig)
+    return st.plotly_chart(cm_fig, use_container_width=True)
 
 
 def display_importance(
     conn: DuckDBPyConnection, choice: str, selected_model: str, n_variables: int
 ) -> DeltaGenerator | None:
-    """`display_importance`: Retourne un graphique montrant 
+    """`display_importance`: Retourne un graphique montrant
     les 15 variables les plus importantes.
 
     - /❗\ Uniquement disponible pour les modèles à base d'arbres.
@@ -490,4 +490,4 @@ def display_importance(
         yaxis=dict(tickfont=dict(size=8)),
     )
 
-    return st.plotly_chart(fig)
+    return st.plotly_chart(fig, use_container_width=True)
